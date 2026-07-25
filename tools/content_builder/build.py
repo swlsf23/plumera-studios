@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+import argparse
 import shutil
 import sys
+from html import escape
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -11,11 +13,13 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 from tools.content_builder.chrome import chrome_for, language_menu
 from tools.content_builder.parse import (
     SITE_ORIGIN,
+    VOTW_INDEX_STEM,
     discover_core_pages,
     discover_votw_pages,
     is_draft,
     parse_core_page,
     parse_votw_page,
+    votw_links,
 )
 from tools.content_builder.sidebar import SOCIAL_LINKS, related_for
 from tools.content_builder.sitemaps import write_sitemaps
@@ -92,7 +96,19 @@ def _write_redirect(path: Path, target: str) -> None:
     )
 
 
-def build(dist: Path = DIST) -> int:
+def _votw_list_html(locale: str, include_drafts: bool) -> str:
+    """Link list appended to a series index, built from the files on disk."""
+    links = votw_links(CONTENT, locale, include_drafts=include_drafts)
+    if not links:
+        return ""
+    items = "\n".join(
+        f'  <li><a href="{escape(link["href"])}">{escape(link["title"])}</a></li>'
+        for link in links
+    )
+    return f'\n<ul class="votw-list">\n{items}\n</ul>\n'
+
+
+def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
     env = _env()
     template = env.get_template("content_page.html")
     _copy_public(dist)
@@ -112,14 +128,20 @@ def build(dist: Path = DIST) -> int:
 
     for path, locale in discover_votw_pages(CONTENT):
         if is_draft(path):
-            print(f"skip draft: {path.relative_to(CONTENT)}", file=sys.stderr)
-            continue
+            if not include_drafts:
+                print(f"skip draft: {path.relative_to(CONTENT)}", file=sys.stderr)
+                continue
+            print(f"emit draft: {path.relative_to(CONTENT)}", file=sys.stderr)
         page = parse_votw_page(path, locale)
-        html = _render_page(template, page)
-        # /en/votw/slug/ → en/votw/slug/index.html
-        slug = page.canonical_path.rstrip("/").split("/")[-1]
-        out = dist / locale / "votw" / slug / "index.html"
-        _write(out, html)
+        if path.stem == VOTW_INDEX_STEM:
+            # /en/votw/ → en/votw/index.html, with the article list appended
+            page.body_html += _votw_list_html(locale, include_drafts)
+            out = dist / locale / "votw" / "index.html"
+        else:
+            # /en/votw/slug/ → en/votw/slug/index.html
+            slug = page.canonical_path.rstrip("/").split("/")[-1]
+            out = dist / locale / "votw" / slug / "index.html"
+        _write(out, _render_page(template, page))
         emitted += 1
 
     sitemaps = write_sitemaps(dist)
@@ -129,7 +151,14 @@ def build(dist: Path = DIST) -> int:
 
 
 def main() -> int:
-    return build()
+    parser = argparse.ArgumentParser(prog="python -m tools.content_builder")
+    parser.add_argument(
+        "--drafts",
+        action="store_true",
+        help="also emit pages marked draft: true (local builds only)",
+    )
+    args = parser.parse_args()
+    return build(include_drafts=args.drafts)
 
 
 if __name__ == "__main__":

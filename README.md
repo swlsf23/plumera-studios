@@ -19,10 +19,16 @@ source .venv/bin/activate
 pip install -e .
 
 npm run build:site    # → dist/  (same artifact as production)
-npm run preview:site  # python -m http.server on dist/
+npm run serve:site    # http://localhost:4173 — serves dist/
 ```
 
-Or `npm run dev` (= build + preview) at [http://localhost:4173](http://localhost:4173).
+Pages with `draft: true` are left out. To build them locally for review:
+
+```bash
+python3 -m tools.content_builder --drafts
+```
+
+Or `npm run dev` (= build + serve) at [http://localhost:4173](http://localhost:4173).
 
 Useful URLs (same paths in prod — directory indexes, trailing slashes):
 

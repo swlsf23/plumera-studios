@@ -52,7 +52,7 @@ content/
 ## Build / deploy
 
 - Build: `npm run build:site` or `python -m tools.content_builder` (after `.venv` + `pip install -e .`) → `dist/`.
-- Local: serve `dist/` with a plain static server (`npm run preview:site` = `python -m http.server --directory dist`).
+- Local: serve `dist/` with a plain static server (`npm run serve:site` = `http://localhost:4173`).
 - Deploy: upload/sync `dist/` as-is.
 - Sitemaps: root index pointing to per-locale sitemaps, generated from files that exist in `dist/`.
 

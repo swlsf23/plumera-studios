@@ -16,7 +16,7 @@ from tools.content_builder.chrome import chrome_for, format_date
 
 SITE_ORIGIN = "https://plumerastudios.com"
 CORE_SKIP = {"index.md"}  # landings are copied HTML; MD is reference-only
-VOTW_SKIP = {"index.md"}  # series intros — not emitted as verb articles (yet)
+VOTW_INDEX_STEM = "index"  # series index; emitted at /{locale}/votw/
 # Top-level content/ dirs that are not UI locales
 CONTENT_NON_LOCALES = frozenset({"templates"})
 
@@ -191,12 +191,15 @@ def parse_votw_page(path: Path, locale: str) -> Page:
     meta_line = " · ".join(meta_parts)
 
     heading_html = heading.replace(" — ", "<br>") if " — " in heading else heading
+    canonical_path = (
+        f"/{locale}/votw/" if stem == VOTW_INDEX_STEM else f"/{locale}/votw/{slug}/"
+    )
 
     return Page(
         locale=locale,
         title=f"{title} — Plumera Studios",
         description=description,
-        canonical_path=f"/{locale}/votw/{slug}/",
+        canonical_path=canonical_path,
         eyebrow=category,
         heading_html=heading_html,
         dek=dek,
@@ -243,7 +246,7 @@ def is_draft(path: Path) -> bool:
 
 
 def discover_votw_pages(content_root: Path) -> list[tuple[Path, str]]:
-    """Find content/{locale}/learn/votw/*.md (except series index.md)."""
+    """Find content/{locale}/learn/votw/*.md, series index.md included."""
     pages: list[tuple[Path, str]] = []
     for locale_dir in _locale_dirs(content_root):
         votw = locale_dir / "learn" / "votw"
@@ -251,7 +254,29 @@ def discover_votw_pages(content_root: Path) -> list[tuple[Path, str]]:
             continue
         locale = locale_dir.name
         for path in sorted(votw.glob("*.md")):
-            if path.name in VOTW_SKIP:
-                continue
             pages.append((path, locale))
     return pages
+
+
+def votw_links(
+    content_root: Path, locale: str, *, include_drafts: bool = False
+) -> list[dict[str, str]]:
+    """Article links for a locale's VOTW series index, in filename order."""
+    links: list[dict[str, str]] = []
+    votw = content_root / locale / "learn" / "votw"
+    if not votw.is_dir():
+        return links
+    for path in sorted(votw.glob("*.md")):
+        if path.stem == VOTW_INDEX_STEM:
+            continue
+        meta = frontmatter.load(path).metadata
+        if meta.get("draft") and not include_drafts:
+            continue
+        slug = str(meta.get("slug") or path.stem)
+        links.append(
+            {
+                "title": str(meta.get("title") or path.stem),
+                "href": f"/{locale}/votw/{slug}/",
+            }
+        )
+    return links
