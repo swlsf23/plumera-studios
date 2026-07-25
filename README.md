@@ -29,7 +29,7 @@ Useful URLs (same paths in prod — directory indexes, trailing slashes):
 - [http://localhost:4173/en/](http://localhost:4173/en/)
 - [http://localhost:4173/en/updates/](http://localhost:4173/en/updates/)
 - [http://localhost:4173/en/privacy/](http://localhost:4173/en/privacy/)
-- [http://localhost:4173/en/votd/thoughtful-content/](http://localhost:4173/en/votd/thoughtful-content/)
+- [http://localhost:4173/en/votw/thoughtful-content/](http://localhost:4173/en/votw/thoughtful-content/)
 
 View Source on content URLs: title, description, and canonical are in the HTML file.
 

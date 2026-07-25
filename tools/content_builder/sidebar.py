@@ -2,21 +2,21 @@
 
 from __future__ import annotations
 
-RELATED_VOTD = [
+RELATED_VOTW = [
     {
         "title": "Building trust through quality content",
         "meta": "May 5, 2024 · 6 min read",
-        "href": "/{locale}/votd/thoughtful-content/",
+        "href": "/{locale}/votw/thoughtful-content/",
     },
     {
         "title": "Content that connects: a practical guide",
         "meta": "April 28, 2024 · 7 min read",
-        "href": "/{locale}/votd/thoughtful-content/",
+        "href": "/{locale}/votw/thoughtful-content/",
     },
     {
         "title": "Sustainable content strategies for growth",
         "meta": "April 20, 2024 · 5 min read",
-        "href": "/{locale}/votd/thoughtful-content/",
+        "href": "/{locale}/votw/thoughtful-content/",
     },
 ]
 
@@ -34,5 +34,5 @@ def related_for(locale: str) -> list[dict[str, str]]:
             "meta": item["meta"],
             "href": item["href"].format(locale=locale),
         }
-        for item in RELATED_VOTD
+        for item in RELATED_VOTW
     ]

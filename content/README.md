@@ -13,7 +13,7 @@ content/
     privacy.md
     index.md         # optional reference text only — NOT built
   learn/{target}/    # language being learned
-    votd/            # vocabulary / verse of the day (and similar)
+    votw/            # word of the week (and similar)
 ```
 
 - **`core`** — depends only on interface language (`en`, `es`, `fr`; later `ar`, `pt`, …)
@@ -30,7 +30,7 @@ Example: French UI + Spanish learning → chrome for `fr`, materials from `learn
 
 ## Frontmatter
 
-VOTD (and similar learn pages) use YAML frontmatter (`title`, `description`, `date`, `slug`, …).
+VOTW (and similar learn pages) use YAML frontmatter (`title`, `description`, `date`, `slug`, …).
 
 Keep `slug` equal to the filename stem (e.g. `thoughtful-content.md` → `slug: thoughtful-content`). The builder prefers `slug` for the URL and warns if it does not match the filename.
 

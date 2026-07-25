@@ -21,7 +21,7 @@
 
       <nav class="content-header__nav" aria-label="Primary navigation">
         <a href="/{{ page.locale }}/">{{ chrome.home }}</a>
-        <a{% if page.active == 'votd' %} class="active"{% endif %} href="/{{ page.locale }}/votd/thoughtful-content/">{{ chrome.votd }}</a>
+        <a{% if page.active == 'votw' %} class="active"{% endif %} href="/{{ page.locale }}/votw/thoughtful-content/">{{ chrome.votw }}</a>
         <a{% if page.active == 'updates' %} class="active"{% endif %} href="/{{ page.locale }}/updates/">{{ chrome.updates }}</a>
         <a{% if page.active == 'privacy' %} class="active"{% endif %} href="/{{ page.locale }}/privacy/">{{ chrome.privacy }}</a>
       </nav>
@@ -50,7 +50,7 @@
 
       <nav class="content-header__mobile" aria-label="Mobile navigation" data-mobile-nav>
         <a href="/{{ page.locale }}/">{{ chrome.home }}</a>
-        <a{% if page.active == 'votd' %} class="active"{% endif %} href="/{{ page.locale }}/votd/thoughtful-content/">{{ chrome.votd }}</a>
+        <a{% if page.active == 'votw' %} class="active"{% endif %} href="/{{ page.locale }}/votw/thoughtful-content/">{{ chrome.votw }}</a>
         <a{% if page.active == 'updates' %} class="active"{% endif %} href="/{{ page.locale }}/updates/">{{ chrome.updates }}</a>
         <a{% if page.active == 'privacy' %} class="active"{% endif %} href="/{{ page.locale }}/privacy/">{{ chrome.privacy }}</a>
       </nav>
@@ -94,7 +94,7 @@
         {% endif %}
 
         <div class="sidebar-block related-block">
-          <h2>{{ chrome.related_votd }}</h2>
+          <h2>{{ chrome.related_votw }}</h2>
           <div class="mini-card-list">
             {% for item in related %}
             <a class="mini-card" href="{{ item.href }}">
