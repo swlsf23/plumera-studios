@@ -16,6 +16,9 @@ from tools.content_builder.chrome import chrome_for, format_date
 
 SITE_ORIGIN = "https://plumerastudios.com"
 CORE_SKIP = {"index.md"}  # landings are copied HTML; MD is reference-only
+VOTW_SKIP = {"index.md"}  # series intros — not emitted as verb articles (yet)
+# Top-level content/ dirs that are not UI locales
+CONTENT_NON_LOCALES = frozenset({"templates"})
 
 
 @dataclass
@@ -205,16 +208,28 @@ def parse_votw_page(path: Path, locale: str) -> Page:
     )
 
 
+def _locale_dirs(content_root: Path) -> list[Path]:
+    """UI locale folders under content/ (skips templates and other non-locales)."""
+    if not content_root.is_dir():
+        return []
+    return sorted(
+        path
+        for path in content_root.iterdir()
+        if path.is_dir()
+        and not path.name.startswith(".")
+        and path.name not in CONTENT_NON_LOCALES
+    )
+
+
 def discover_core_pages(content_root: Path) -> list[tuple[Path, str]]:
+    """Find content/{locale}/core/*.md (except index.md)."""
     pages: list[tuple[Path, str]] = []
-    core = content_root / "core"
-    if not core.is_dir():
-        return pages
-    for locale_dir in sorted(core.iterdir()):
-        if not locale_dir.is_dir():
+    for locale_dir in _locale_dirs(content_root):
+        core = locale_dir / "core"
+        if not core.is_dir():
             continue
         locale = locale_dir.name
-        for path in sorted(locale_dir.glob("*.md")):
+        for path in sorted(core.glob("*.md")):
             if path.name in CORE_SKIP:
                 continue
             pages.append((path, locale))
@@ -228,16 +243,15 @@ def is_draft(path: Path) -> bool:
 
 
 def discover_votw_pages(content_root: Path) -> list[tuple[Path, str]]:
+    """Find content/{locale}/learn/votw/*.md (except series index.md)."""
     pages: list[tuple[Path, str]] = []
-    learn = content_root / "learn"
-    if not learn.is_dir():
-        return pages
-    for locale_dir in sorted(learn.iterdir()):
-        if not locale_dir.is_dir():
-            continue
-        votw = locale_dir / "votw"
+    for locale_dir in _locale_dirs(content_root):
+        votw = locale_dir / "learn" / "votw"
         if not votw.is_dir():
             continue
+        locale = locale_dir.name
         for path in sorted(votw.glob("*.md")):
-            pages.append((path, locale_dir.name))
+            if path.name in VOTW_SKIP:
+                continue
+            pages.append((path, locale))
     return pages
