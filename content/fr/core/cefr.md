@@ -1,8 +1,8 @@
-Niveaux CECRL
+Comment nous utilisons le CECR
 
-# Ce que le CECRL signifie pour l’apprentissage des langues
+# Comment nous utilisons le CECR
 
-Le CECRL est le Cadre européen commun de référence pour les langues. Il décrit ce que vous pouvez faire dans une langue sur six niveaux, du débutant à l’avancé. Chez Plumera, nous utilisons ces niveaux pour vous aider à choisir des contenus adaptés à votre stade.
+Le CECR est le Cadre européen commun de référence pour les langues. Il décrit ce que vous pouvez faire dans une langue sur six niveaux, du débutant à l’avancé. Chez Plumera, nous utilisons ces niveaux pour vous aider à choisir des contenus adaptés à votre stade.
 
 ## Les six niveaux
 
@@ -17,17 +17,17 @@ Le CECRL est le Cadre européen commun de référence pour les langues. Il décr
 
 Les niveaux A et B correspondent souvent aux utilisateurs élémentaire et indépendant. Le C est le niveau compétent. La progression est progressive. Une étiquette est un guide, pas une note d’examen.
 
-## Comment Plumera utilise le CECRL
+## Comment Plumera utilise le CECR
 
-Sur les pages du Verbe de la semaine, chaque article vise un niveau CECRL. Une page A1 se concentre sur les sens et les constructions que vous rencontrez tôt. Une page de niveau plus élevé sur le même verbe peut aller vers des emplois plus rares, des expressions et des nuances de registre.
+Sur les pages du Verbe de la semaine, chaque article vise un niveau CECR. Une page A1 se concentre sur les sens et les constructions que vous rencontrez tôt. Une page de niveau plus élevé sur le même verbe peut aller vers des emplois plus rares, des expressions et des nuances de registre.
 
 Vous pouvez rester au niveau qui vous convient maintenant et revenir plus tard au même verbe à un niveau plus élevé.
 
-## Ce que le CECRL n’est pas
+## Ce que le CECR n’est pas
 
-Le CECRL ne mesure pas le nombre de mots que vous connaissez. Il décrit la capacité à communiquer : ce que vous pouvez comprendre et faire. Deux apprenants en B1 peuvent avoir des vocabularies différents et partager tout de même une gamme de tâches semblable.
+Le CECR ne mesure pas le nombre de mots que vous connaissez. Il décrit la capacité à communiquer : ce que vous pouvez comprendre et faire. Deux apprenants en B1 peuvent avoir des vocabularies différents et partager tout de même une gamme de tâches semblable.
 
-Les examens officiels et les programmes scolaires peuvent associer des cours aux niveaux CECRL. Les étiquettes Plumera servent à choisir du contenu d’apprentissage, pas à délivrer des certificats.
+Les examens officiels et les programmes scolaires peuvent associer des cours aux niveaux CECR. Les étiquettes Plumera servent à choisir du contenu d’apprentissage, pas à délivrer des certificats.
 
 ## Choisir un niveau concrètement
 

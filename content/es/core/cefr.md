@@ -1,6 +1,6 @@
-Niveles MCER
+Cómo usamos los niveles MCER
 
-# Qué significa el MCER para aprender idiomas
+# Cómo usamos los niveles MCER
 
 El MCER es el Marco Común Europeo de Referencia para las lenguas. Describe lo que puedes hacer en un idioma en seis niveles, de principiante a avanzado. En Plumera usamos estos niveles para que elijas materiales que encajen con donde estás.
 

@@ -1,6 +1,6 @@
-CEFR levels
+How we use CEFR levels
 
-# What CEFR means for language learning
+# How we use CEFR levels
 
 CEFR is the Common European Framework of Reference for Languages. It describes what you can do in a language across six levels, from beginner to advanced. Plumera uses these levels so you can pick material that matches where you are.
 
