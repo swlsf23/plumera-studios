@@ -1,44 +1,55 @@
 # Plumera Studios
 
-Monorepo for the Plumera website: static multilingual landings, React content pages, and Markdown sources.
+Monorepo for the Plumera website: static multilingual landings, Markdown content sources, a Python content builder, and a Vite/React app for interactive work.
 
-## Local development
+## Language split
+
+| Stack | Owns |
+|---|---|
+| **Python** (`.venv`) | Content builder, sitemaps, future APIs (e.g. Corpus) |
+| **TypeScript / React** (npm) | Interactive apps only — not production content pages |
+
+## Production site (Python)
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -e .
+python -m tools.content_builder
+```
+
+Output is `dist/`:
+
+- Landings and assets **copied** from `public/`
+- Content pages **emitted** from `content/` (updates, privacy, votd, …)
+- `index.md` is **not** built — landings stay hand-authored HTML
+
+Preview the static output with any static server, for example:
+
+```bash
+npx --yes serve dist
+```
+
+## React app (prototype / future apps)
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open:
-
-- Landing: [http://localhost:5173/en/index.html](http://localhost:5173/en/index.html)
-- Updates: [http://localhost:5173/en/updates.html](http://localhost:5173/en/updates.html)
-- Privacy: [http://localhost:5173/en/privacy.html](http://localhost:5173/en/privacy.html)
-- VOTD: [http://localhost:5173/en/votd/thoughtful-content](http://localhost:5173/en/votd/thoughtful-content)
-
-Spanish and French use the same paths under `/es/` and `/fr/`.
-
-## Production build
-
-```bash
-npm run build
-npm run preview
-```
+The SPA still serves Updates/Privacy/VOTD from `src/` for local prototyping. Production content URLs come from the Python builder.
 
 ## Structure
 
 ```text
 content/
-  core/{locale}/          # UI locale — landing, updates, privacy
-  learn/{target}/votd/    # language being learned — VOTD content
+  core/{locale}/          # UI locale — updates, privacy (+ optional index.md reference)
+  learn/{target}/votd/    # language being learned — VOTD Markdown
 public/
-  {en,es,fr}/index.html   # static landings
-  css/                    # landing + header styles
-src/                      # Vite React app (Updates, Privacy, VOTD)
-  i18n/                   # runtime copy (until content builder lands)
-  data/                   # small app constants (related links, social URLs)
-  pages/
-  components/
+  {en,es,fr}/index.html   # static landings (copied, not emitted)
+  css/                    # landing + content styles
+tools/content_builder/    # Python MD → full HTML
+src/                      # Vite React app (interactive / prototype)
 ```
 
 See [content/README.md](content/README.md) for content conventions.

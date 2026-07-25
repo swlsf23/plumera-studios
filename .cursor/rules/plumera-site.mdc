@@ -5,24 +5,38 @@ alwaysApply: true
 
 # Plumera site rules
 
+## Language split
+
+- **Python** — content builder, APIs (e.g. Corpus), sitemaps, generators, and other non-app tooling.
+- **TypeScript / React** — interactive apps only. Do **not** change the React app to deliver production content pages.
+- Local Python env: `.venv/` (gitignored). App deps stay on npm.
+
 ## Content delivery
 
 - Every content URL is a **full HTML document** (title, description, canonical, body in the file).
 - Do **not** use a React SPA / `#root` client router as the production path for content pages.
 - Do **not** set title, meta description, or canonical at runtime for content pages.
-- React is allowed only for interactive apps later; static tables/VOTD/core pages are prebuilt HTML.
+- Production output is `dist/` from the **Python** content builder + copied static assets.
+- Source of truth for copy is Markdown under `content/` (not `src/i18n/`).
+
+## Landings vs content pages
+
+- **Landings** (`public/{locale}/index.html`) are hand-authored HTML with a distinct layout.
+- The builder **copies** landings and other `public/` assets into `dist/`; it does **not** emit index pages from Markdown.
+- `content/core/*/index.md` may exist for editing reference text only; it is **not** a build input.
+- All other pages (for now: updates, privacy, votd, …) **must** have Markdown under `content/` and are **emitted** as full HTML.
 
 ## SEO / localization
 
-- **No hreflang.** Locales are parallel catalogs, not claimed translation pairs.
+- **No hreflang** alternate link tags claiming translation pairs.
 - Canonicals are **self-referencing only** (`https://plumerastudios.com/...` matching that page’s URL).
-- Prefer **the same slug/filename** across locales for sanity (e.g. `privacy.html`, `votd/verb-of-the-week.html`).
+- Prefer **the same slug/filename** across locales for sanity (e.g. `privacy.html`, `votd/thoughtful-content/`).
 
 ## Content layout
 
 ```text
 content/
-  core/{locale}/     # UI locale — landing, updates, privacy (same page set per locale)
+  core/{locale}/     # UI locale — updates, privacy (same page set per locale); index.md optional/reference only
   learn/{target}/    # language being learned — votd/, future conjugator/, etc.
 ```
 
@@ -32,9 +46,8 @@ content/
 
 ## Build / deploy
 
-- Production output is `dist/` from the content builder + static assets.
-- Source of truth for copy is Markdown under `content/`.
-- Sitemaps: root index pointing to per-locale sitemaps, generated from files that exist.
+- Builder: `python -m tools.content_builder` (after `.venv` + `pip install -e .`).
+- Sitemaps: root index pointing to per-locale sitemaps, generated from files that exist in `dist/`.
 
 ## Do not
 
@@ -42,3 +55,5 @@ content/
 - Canonicalize one locale to another.
 - Imply 1:1 correspondence between learn content across languages.
 - Add SPA meta-patching for SEO on content pages.
+- Emit landing `index.html` from Markdown.
+- Rewrite content delivery in TypeScript when Python tooling should own it.
