@@ -12,40 +12,29 @@ draft: true
 
 # Prendre
 
-*Prendre* is one of the first French verbs you will use often in different contexts. The closest English meaning is "to take," but French uses *prendre* in places where English prefers another verb. 
+*Prendre* is one of the first French verbs you will use constantly. The closest English meaning is "to take," but French uses *prendre* in places where English prefers another verb.
 
 In English, you take a bus, have a coffee, eat breakfast, or take medicine. In French, those ideas can all be expressed with *prendre*.
 
-Notice that the common idea here is to take something into your environment: an object in your hand, a seat on a train, a coffee in front of you, a pill. 
+What you take might be an object in your hand, a train across town, a coffee in front of you, a pill.
 
-Understand these patterns and you will use and hear *prendre* frequently in French.
+Learn these patterns and you will hear *prendre* everywhere in ordinary French.
 
-## At a Glance
+## Forms and grammar
 
-| Item | Value |
-|------|-------|
-| Infinitive | prendre |
-| Pronunciation | /pʁɑ̃dʁ/ |
-| CEFR | [A1](/en/cefr/) |
-| Auxiliary | avoir |
-| Past Participle | pris |
-| Core Meaning | to take |
+*Prendre* is irregular, and the stem changes as you move through the present tense: *je prends*, *nous prenons*, *ils prennent*. The three singular forms sound identical, so the spelling matters more in writing than in speech.
 
-## Core Concept
+One habit keeps your sentences correct: keep the article. French says *prendre le bus*, never *prendre bus*.
 
-At heart, *prendre* means to take something up. That can be physical, like a bag or a book. French also extends the same idea to things you choose or bring into the moment: a bus, a coffee, breakfast, medicine.
+In the past, *prendre* uses *avoir*, and the participle is *pris*: *j'ai pris le métro ce matin*.
 
-When a new use of *prendre* shows up, ask what is being taken. That question often gets you further than hunting for a new English verb each time.
+## How to use prendre
 
-## Meanings
+The three senses below are sorted by what gets taken: an object, a means of transport, or something you eat, drink, or swallow.
 
-### Meaning 1
+### Taking or picking something up
 
-**Definition**
-
-To take or pick up an object.
-
-**Examples**
+The most literal sense, and the closest to English.
 
 | French | English |
 |--------|---------|
@@ -53,17 +42,9 @@ To take or pick up an object.
 | Prends ton téléphone. | Take your phone. |
 | Elle prend un livre. | She takes a book. |
 
-**Usage Notes**
+### Taking transport
 
-This is the most basic sense: you take hold of something, or pick it up.
-
-### Meaning 2
-
-**Definition**
-
-To take a form of transport.
-
-**Examples**
+Buses, trains, taxis, the metro, planes. Where English says "go by bus," French names the transport as the thing you take.
 
 | French | English |
 |--------|---------|
@@ -71,17 +52,9 @@ To take a form of transport.
 | Nous prenons le train. | We take the train. |
 | Elle prend un taxi. | She takes a taxi. |
 
-**Usage Notes**
+### Having food, drink, or medicine
 
-French uses *prendre* with buses, trains, taxis, the metro, and similar ways of getting around.
-
-### Meaning 3
-
-**Definition**
-
-To have food, drink, or medicine.
-
-**Examples**
+Here *prendre* covers English "have," for meals, drinks, and medicine alike. Ordering in a café almost always uses it.
 
 | French | English |
 |--------|---------|
@@ -89,85 +62,78 @@ To have food, drink, or medicine.
 | Nous prenons le petit-déjeuner à huit heures. | We have breakfast at eight o'clock. |
 | Il prend un médicament. | He takes medicine. |
 
-**Usage Notes**
-
-French often uses *prendre* where English says "have," especially with meals, drinks, and medicine.
-
-## Common Constructions
-
-Useful patterns:
-
-- prendre + object
-- prendre + transport
-- prendre + meal or drink
-- prendre + medicine
-- prendre + une photo
+*Boire* and *prendre* both work with a drink, but they say different things.
 
 | French | English |
 |--------|---------|
-| prendre le métro | to take the metro |
+| Je bois un café. | I drink a coffee. |
+| Je prends un café. | I'm having a coffee. |
+
+*Boire* is the physical act of drinking. *Prendre* is the occasion: ordering it, sitting down with it, having one as part of your morning. *On prend un café ?* is an invitation — "shall we grab a coffee?" — and *on boit un café ?* does not carry that.
+
+English speakers tend to over-use *boire* here, because "I'm taking a coffee" in English suggests taking it away, so "take" never comes to mind.
+
+## Common constructions
+
+Here are three more combinations that fall outside the senses above:
+
+| French | English |
+|--------|---------|
 | prendre une photo | to take a photo |
-| prendre un café | to have a coffee |
-| prendre un médicament | to take medicine |
+| prendre rendez-vous | to make an appointment |
+| prendre une décision | to make a decision |
 
-## Expressions and Idioms
+The last two are worth a second look. In English, we *make* an appointment and *make* a decision. French "takes" both.
 
-### Expression 1
+## Expressions and idioms
 
-**Meaning**
+In fixed expressions *prendre* drifts away from taking, so learn the phrase whole rather than word by word.
 
-*prendre son temps* — to not hurry.
+### prendre son temps
 
-**Example**
+To not hurry.
 
 | French | English |
 |--------|---------|
 | Prends ton temps. | Take your time. |
 
-### Expression 2
+### prendre froid
 
-**Meaning**
-
-*prendre froid* — to catch a chill / get cold.
-
-**Example**
+To catch a chill.
 
 | French | English |
 |--------|---------|
 | Mets ton manteau, tu vas prendre froid. | Put on your coat or you'll catch a chill. |
 
-## Register and Usage
+## Common mistakes
 
-*Prendre* shows up in conversation, travel, school talk, and talk about meals. Learning a few fixed combinations (bus, café, photo, médicament) will help you sound natural early on.
+One of the mistakes below comes from translating an English pattern word for word. The other is a spelling slip in the irregular stem.
 
-## Common Mistakes
+### Using *avec* for transport
 
-### Mistake 1
+English speakers reach for "with the bus," on the model of "I go to work by bus." French makes the transport the object of *prendre* instead.
 
 | Incorrect | Correct |
 |-----------|---------|
 | *Je vais au travail avec le bus.* | *Je prends le bus pour aller au travail.* |
 
-**Explanation**
+### Keeping the *d* in the plural
 
-English speakers often reach for "with the bus." French usually uses *prendre* for the transport you use.
-
-### Mistake 2
+The *d* disappears in the *nous*, *vous*, and *ils* forms: *nous prenons*, *vous prenez*, *ils prennent*. The singular keeps it: *je prends*, *tu prends*, *il prend*.
 
 | Incorrect | Correct |
 |-----------|---------|
-| *Je bois un café tous les matins.* | *Je prends un café tous les matins.* |
+| *Nous prendons le train.* | *Nous prenons le train.* |
 
-**Explanation**
-
-*Boire un café* is fine when you mean the act of drinking. In everyday talk about ordering or having a coffee, *prendre un café* is the combination you will hear constantly. Learn both, and notice which one fits the situation.
-
-## Related Verbs
+## Related verbs
 
 - manger — to eat
 - boire — to drink
 - aller — to go
+- emmener — to take someone somewhere
+
+*Emmener* is the one to watch. For taking a *person* along, French uses *emmener*, not *prendre*: *je t'emmène à la gare*.
 
 ## Summary
 
-Start from "to take," then notice how French stretches that idea to transport, food and drink, and medicine. Those patterns will carry you through a lot of ordinary French.
+Learn *prendre* through the combinations it appears in rather than by translating it, and at [A1](/en/cefr/) it will carry you through most of the ordinary French you meet.
