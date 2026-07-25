@@ -68,6 +68,14 @@ content/
 - Links generated from files on disk (e.g. the VOTW series index list) follow the same rule, so a draft build links drafts and a production build does not.
 - Hand-authored landings are copied as-is and know nothing about drafts; a nav link there can point at a page production has not emitted.
 
+## Pull requests
+
+- **Every PR must be labeled.** Apply at least one `area:` and one `type:` label, plus `i18n` or `seo` when they apply. Label from the files actually changed, not from the title.
+- `area: app` · `area: content` · `area: builder` · `area: infra` · `area: static`
+- `type: feature` · `type: fix` · `type: chore` · `type: docs`
+- `i18n` for locale/target paths and chrome translations; `seo` for canonicals, meta, sitemaps, URL shape.
+- `do-not-merge` exists for work that must not land yet.
+
 
 ## Do not
 
