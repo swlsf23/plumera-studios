@@ -48,18 +48,10 @@ def _copy_public(dist: Path) -> None:
     )
 
 
-def _lang_hrefs(
-    locale: str, canonical_path: str, available: set[str]
-) -> list[dict[str, str | bool]]:
-    """Same path shape in each locale, or that locale's home when it has no
-    counterpart (locales are not translations of each other; no hreflang tags)."""
-    suffix = canonical_path[len(f"/{locale}") :]  # e.g. /updates/ or /votw/slug/
-
-    def href_for(code: str) -> str:
-        candidate = f"/{code}{suffix}"
-        return candidate if candidate in available else f"/{code}/"
-
-    return language_menu(locale, href_for)
+def _lang_hrefs(locale: str) -> list[dict[str, str | bool]]:
+    """Switching language goes to that locale's home. Locales are separate
+    audiences, not translations of each other, so pages have no counterparts."""
+    return language_menu(locale, lambda code: f"/{code}/")
 
 
 def _write(path: Path, html: str) -> None:
@@ -71,13 +63,13 @@ def _canonical_url(page_path: str) -> str:
     return f"{SITE_ORIGIN}{page_path}"
 
 
-def _render_page(template, page, votw_locales: set[str], available: set[str]) -> str:
+def _render_page(template, page, votw_locales: set[str]) -> str:
     locale = page.locale
     return template.render(
         page=page,
         chrome=chrome_for(locale),
         site_origin=SITE_ORIGIN,
-        languages=_lang_hrefs(locale, page.canonical_path, available),
+        languages=_lang_hrefs(locale),
         canonical_url=_canonical_url(page.canonical_path),
         related=related_for(locale),
         social_links=SOCIAL_LINKS,
@@ -113,15 +105,6 @@ def _votw_list_html(locale: str, include_drafts: bool) -> str:
     return f'\n<ul class="votw-list">\n{items}\n</ul>\n'
 
 
-def _landing_paths() -> set[str]:
-    """Landing URLs copied straight from public/, e.g. /fr/."""
-    return {
-        f"/{child.name}/"
-        for child in PUBLIC.iterdir()
-        if child.is_dir() and (child / "index.html").exists()
-    }
-
-
 def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
     env = _env()
     template = env.get_template("content_page.html")
@@ -138,18 +121,14 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
             print(f"emit draft: {path.relative_to(CONTENT)}", file=sys.stderr)
         votw_pages.append((parse_votw_page(path, locale), path))
 
-    # Known up front so the language switcher only ever links to a page this
-    # build emits, and so nav hides VOTW in locales without a series index.
-    available = _landing_paths() | {
-        page.canonical_path for page, _ in (*core_pages, *votw_pages)
-    }
+    # Known up front so nav hides VOTW in locales without a series index.
     votw_locales = {
         page.locale for page, path in votw_pages if path.stem == VOTW_INDEX_STEM
     }
     emitted = 0
 
     for page, path in core_pages:
-        html = _render_page(template, page, votw_locales, available)
+        html = _render_page(template, page, votw_locales)
         # /en/updates/ → en/updates/index.html (plain static hosting)
         stem = path.stem
         out = dist / page.locale / stem / "index.html"
@@ -168,7 +147,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
             # /en/votw/slug/ → en/votw/slug/index.html
             slug = page.canonical_path.rstrip("/").split("/")[-1]
             out = dist / locale / "votw" / slug / "index.html"
-        _write(out, _render_page(template, page, votw_locales, available))
+        _write(out, _render_page(template, page, votw_locales))
         emitted += 1
 
     sitemaps = write_sitemaps(dist)
