@@ -1,0 +1,68 @@
+name: Site
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python package
+        run: pip install -e .
+
+      - name: Build static site
+        run: python -m tools.content_builder
+
+      - name: Check critical dist files
+        run: |
+          set -euo pipefail
+          for path in \
+            dist/en/index.html \
+            dist/en/updates.html \
+            dist/en/privacy.html \
+            dist/en/votd/thoughtful-content/index.html \
+            dist/es/index.html \
+            dist/es/updates.html \
+            dist/es/privacy.html \
+            dist/fr/index.html \
+            dist/fr/updates.html \
+            dist/fr/privacy.html \
+            dist/sitemap.xml \
+            dist/en/sitemap.xml \
+            dist/css/content.css \
+            dist/robots.txt
+          do
+            test -f "$path"
+            echo "ok $path"
+          done
+
+      - name: Check baked head tags on content pages
+        run: |
+          set -euo pipefail
+          for path in dist/en/updates.html dist/en/privacy.html dist/en/votd/thoughtful-content/index.html; do
+            grep -q '<title>' "$path"
+            grep -q 'name="description"' "$path"
+            grep -q 'rel="canonical"' "$path"
+            echo "meta ok $path"
+          done
+
+      - name: Smoke-test served URLs
+        run: |
+          set -euo pipefail
+          python -m http.server 4173 --directory dist >/tmp/site-server.log 2>&1 &
+          pid=$!
+          trap 'kill $pid' EXIT
+          sleep 1
+          for path in /en/index.html /en/updates.html /en/privacy.html /en/votd/thoughtful-content/; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "http://127.0.0.1:4173${path}")
+            test "$code" = "200"
+            echo "$code $path"
+          done

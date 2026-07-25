@@ -50,9 +50,23 @@ This Vite app is a placeholder only. It does not deliver production content page
 ```text
 content/                  # Markdown source of truth (except landings)
 public/                   # Landings + static assets (copied into dist/)
-tools/content_builder/    # Python MD → full HTML
-dist/                     # Deployable site output
+tools/content_builder/    # Python MD → full HTML (extend/debug here)
+dist/                     # Deployable site output (gitignored)
 src/                      # Reserved for future interactive React apps
 ```
+
+### Python content builder
+
+Source: [`tools/content_builder/`](tools/content_builder/).
+
+| Module | Role |
+|---|---|
+| `build.py` | Orchestrates copy of `public/`, page emit, sitemaps |
+| `parse.py` | Markdown/frontmatter → page model |
+| `chrome.py` | Localized nav/footer strings |
+| `templates/content_page.html` | Full HTML document template |
+| `sitemaps.py` | Root + per-locale sitemaps from `dist/` |
+
+To extend (new page types, chrome strings, templates), change that package and re-run `npm run build:site`.
 
 See [content/README.md](content/README.md) for content conventions.

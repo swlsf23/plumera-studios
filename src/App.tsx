@@ -4,7 +4,11 @@
  */
 export default function App() {
   if (typeof window !== 'undefined') {
-    window.location.replace('/en/index.html');
+    try {
+      window.location.replace('/en/index.html');
+    } catch (error) {
+      console.error('Failed to redirect to landing:', error);
+    }
   }
   return null;
 }
