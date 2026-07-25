@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
-    "build:site": ".venv/bin/python -m tools.content_builder",
+    "build:site": "python -m tools.content_builder",
     "preview": "vite preview"
   },
   "dependencies": {

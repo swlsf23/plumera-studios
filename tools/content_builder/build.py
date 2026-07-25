@@ -57,8 +57,6 @@ def _write(path: Path, html: str) -> None:
 
 
 def _canonical_url(page_path: str) -> str:
-    if page_path.endswith("/"):
-        return f"{SITE_ORIGIN}{page_path}"
     return f"{SITE_ORIGIN}{page_path}"
 
 

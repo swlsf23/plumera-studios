@@ -174,8 +174,13 @@ def parse_votd_page(path: Path, locale: str) -> Page:
     dek = description or dek_from_body
     html, toc = _inject_heading_ids(html)
 
-    meta_bits = [p for p in (f"By {author}" if author else "", " · ".join(p for p in (date_label, read_time) if p)) if p]
-    meta_line = " · ".join(meta_bits) if meta_bits else ""
+    meta_parts: list[str] = []
+    if author:
+        meta_parts.append(f"By {author}")
+    detail = " · ".join(part for part in (date_label, read_time) if part)
+    if detail:
+        meta_parts.append(detail)
+    meta_line = " · ".join(meta_parts)
 
     heading_html = heading.replace(" — ", "<br>") if " — " in heading else heading
 
