@@ -52,9 +52,17 @@ content/
 ## Build / deploy
 
 - Build: `npm run build:site` or `python -m tools.content_builder` (after `.venv` + `pip install -e .`) → `dist/`.
-- Local: serve `dist/` with a plain static server (`npm run preview:site` = `python -m http.server --directory dist`).
+- Local: serve `dist/` with a plain static server (`npm run serve:site` = `http://localhost:4173`).
 - Deploy: upload/sync `dist/` as-is.
 - Sitemaps: root index pointing to per-locale sitemaps, generated from files that exist in `dist/`.
+
+## Drafts
+
+- Mark a page unfinished with `draft: true` in its frontmatter. It stays out of `dist/` and the sitemaps.
+- Review one locally with `python -m tools.content_builder --drafts`, which emits drafts alongside everything else and logs each as `emit draft:`. The default build logs them as `skip draft:`.
+- `--drafts` is the **same build**, not a preview mode: same code path, same output shape. Production never passes the flag, so publishing a page means removing `draft: true` — nothing else.
+- Links generated from files on disk (e.g. the VOTW series index list) follow the same rule, so a draft build links drafts and a production build does not.
+- Hand-authored landings are copied as-is and know nothing about drafts; a nav link there can point at a page production has not emitted.
 
 
 ## Do not

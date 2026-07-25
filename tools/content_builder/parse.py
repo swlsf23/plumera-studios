@@ -16,6 +16,9 @@ from tools.content_builder.chrome import chrome_for, format_date
 
 SITE_ORIGIN = "https://plumerastudios.com"
 CORE_SKIP = {"index.md"}  # landings are copied HTML; MD is reference-only
+VOTW_INDEX_STEM = "index"  # series index; emitted at /{locale}/votw/
+# Top-level content/ dirs that are not UI locales
+CONTENT_NON_LOCALES = frozenset({"templates"})
 
 
 @dataclass
@@ -188,12 +191,15 @@ def parse_votw_page(path: Path, locale: str) -> Page:
     meta_line = " · ".join(meta_parts)
 
     heading_html = heading.replace(" — ", "<br>") if " — " in heading else heading
+    canonical_path = (
+        f"/{locale}/votw/" if stem == VOTW_INDEX_STEM else f"/{locale}/votw/{slug}/"
+    )
 
     return Page(
         locale=locale,
         title=f"{title} — Plumera Studios",
         description=description,
-        canonical_path=f"/{locale}/votw/{slug}/",
+        canonical_path=canonical_path,
         eyebrow=category,
         heading_html=heading_html,
         dek=dek,
@@ -205,16 +211,28 @@ def parse_votw_page(path: Path, locale: str) -> Page:
     )
 
 
+def _locale_dirs(content_root: Path) -> list[Path]:
+    """UI locale folders under content/ (skips templates and other non-locales)."""
+    if not content_root.is_dir():
+        return []
+    return sorted(
+        path
+        for path in content_root.iterdir()
+        if path.is_dir()
+        and not path.name.startswith(".")
+        and path.name not in CONTENT_NON_LOCALES
+    )
+
+
 def discover_core_pages(content_root: Path) -> list[tuple[Path, str]]:
+    """Find content/{locale}/core/*.md (except index.md)."""
     pages: list[tuple[Path, str]] = []
-    core = content_root / "core"
-    if not core.is_dir():
-        return pages
-    for locale_dir in sorted(core.iterdir()):
-        if not locale_dir.is_dir():
+    for locale_dir in _locale_dirs(content_root):
+        core = locale_dir / "core"
+        if not core.is_dir():
             continue
         locale = locale_dir.name
-        for path in sorted(locale_dir.glob("*.md")):
+        for path in sorted(core.glob("*.md")):
             if path.name in CORE_SKIP:
                 continue
             pages.append((path, locale))
@@ -228,16 +246,37 @@ def is_draft(path: Path) -> bool:
 
 
 def discover_votw_pages(content_root: Path) -> list[tuple[Path, str]]:
+    """Find content/{locale}/learn/votw/*.md, series index.md included."""
     pages: list[tuple[Path, str]] = []
-    learn = content_root / "learn"
-    if not learn.is_dir():
-        return pages
-    for locale_dir in sorted(learn.iterdir()):
-        if not locale_dir.is_dir():
-            continue
-        votw = locale_dir / "votw"
+    for locale_dir in _locale_dirs(content_root):
+        votw = locale_dir / "learn" / "votw"
         if not votw.is_dir():
             continue
+        locale = locale_dir.name
         for path in sorted(votw.glob("*.md")):
-            pages.append((path, locale_dir.name))
+            pages.append((path, locale))
     return pages
+
+
+def votw_links(
+    content_root: Path, locale: str, *, include_drafts: bool = False
+) -> list[dict[str, str]]:
+    """Article links for a locale's VOTW series index, in filename order."""
+    links: list[dict[str, str]] = []
+    votw = content_root / locale / "learn" / "votw"
+    if not votw.is_dir():
+        return links
+    for path in sorted(votw.glob("*.md")):
+        if path.stem == VOTW_INDEX_STEM:
+            continue
+        meta = frontmatter.load(path).metadata
+        if meta.get("draft") and not include_drafts:
+            continue
+        slug = str(meta.get("slug") or path.stem)
+        links.append(
+            {
+                "title": str(meta.get("title") or path.stem),
+                "href": f"/{locale}/votw/{slug}/",
+            }
+        )
+    return links

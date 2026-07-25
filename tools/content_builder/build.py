@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+import argparse
 import shutil
 import sys
+from html import escape
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -11,11 +13,13 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 from tools.content_builder.chrome import chrome_for, language_menu
 from tools.content_builder.parse import (
     SITE_ORIGIN,
+    VOTW_INDEX_STEM,
     discover_core_pages,
     discover_votw_pages,
     is_draft,
     parse_core_page,
     parse_votw_page,
+    votw_links,
 )
 from tools.content_builder.sidebar import SOCIAL_LINKS, related_for
 from tools.content_builder.sitemaps import write_sitemaps
@@ -44,14 +48,10 @@ def _copy_public(dist: Path) -> None:
     )
 
 
-def _lang_hrefs(locale: str, canonical_path: str) -> list[dict[str, str | bool]]:
-    """Same path shape in each locale (self-canonical pages; no hreflang head tags)."""
-    suffix = canonical_path[len(f"/{locale}") :]  # e.g. /updates.html or /votw/slug/
-
-    def href_for(code: str) -> str:
-        return f"/{code}{suffix}"
-
-    return language_menu(locale, href_for)
+def _lang_hrefs(locale: str) -> list[dict[str, str | bool]]:
+    """Switching language goes to that locale's home. Locales are separate
+    audiences, not translations of each other, so pages have no counterparts."""
+    return language_menu(locale, lambda code: f"/{code}/")
 
 
 def _write(path: Path, html: str) -> None:
@@ -63,16 +63,17 @@ def _canonical_url(page_path: str) -> str:
     return f"{SITE_ORIGIN}{page_path}"
 
 
-def _render_page(template, page) -> str:
+def _render_page(template, page, votw_locales: set[str]) -> str:
     locale = page.locale
     return template.render(
         page=page,
         chrome=chrome_for(locale),
         site_origin=SITE_ORIGIN,
-        languages=_lang_hrefs(locale, page.canonical_path),
+        languages=_lang_hrefs(locale),
         canonical_url=_canonical_url(page.canonical_path),
         related=related_for(locale),
         social_links=SOCIAL_LINKS,
+        show_votw=locale in votw_locales,
     )
 
 
@@ -92,34 +93,61 @@ def _write_redirect(path: Path, target: str) -> None:
     )
 
 
-def build(dist: Path = DIST) -> int:
+def _votw_list_html(locale: str, include_drafts: bool) -> str:
+    """Link list appended to a series index, built from the files on disk."""
+    links = votw_links(CONTENT, locale, include_drafts=include_drafts)
+    if not links:
+        return ""
+    items = "\n".join(
+        f'  <li><a href="{escape(link["href"])}">{escape(link["title"])}</a></li>'
+        for link in links
+    )
+    return f'\n<ul class="votw-list">\n{items}\n</ul>\n'
+
+
+def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
     env = _env()
     template = env.get_template("content_page.html")
     _copy_public(dist)
 
-    emitted = 0
+    core_pages = [(parse_core_page(p, loc), p) for p, loc in discover_core_pages(CONTENT)]
 
-    for path, locale in discover_core_pages(CONTENT):
-        page = parse_core_page(path, locale)
-        html = _render_page(template, page)
-        # /en/updates/ → en/updates/index.html (plain static hosting)
-        stem = path.stem
-        out = dist / locale / stem / "index.html"
-        _write(out, html)
-        # Keep /en/updates.html working via a static redirect stub
-        _write_redirect(dist / locale / f"{stem}.html", page.canonical_path)
-        emitted += 1
-
+    votw_pages = []
     for path, locale in discover_votw_pages(CONTENT):
         if is_draft(path):
-            print(f"skip draft: {path.relative_to(CONTENT)}", file=sys.stderr)
-            continue
-        page = parse_votw_page(path, locale)
-        html = _render_page(template, page)
-        # /en/votw/slug/ → en/votw/slug/index.html
-        slug = page.canonical_path.rstrip("/").split("/")[-1]
-        out = dist / locale / "votw" / slug / "index.html"
+            if not include_drafts:
+                print(f"skip draft: {path.relative_to(CONTENT)}", file=sys.stderr)
+                continue
+            print(f"emit draft: {path.relative_to(CONTENT)}", file=sys.stderr)
+        votw_pages.append((parse_votw_page(path, locale), path))
+
+    # Known up front so nav hides VOTW in locales without a series index.
+    votw_locales = {
+        page.locale for page, path in votw_pages if path.stem == VOTW_INDEX_STEM
+    }
+    emitted = 0
+
+    for page, path in core_pages:
+        html = _render_page(template, page, votw_locales)
+        # /en/updates/ → en/updates/index.html (plain static hosting)
+        stem = path.stem
+        out = dist / page.locale / stem / "index.html"
         _write(out, html)
+        # Keep /en/updates.html working via a static redirect stub
+        _write_redirect(dist / page.locale / f"{stem}.html", page.canonical_path)
+        emitted += 1
+
+    for page, path in votw_pages:
+        locale = page.locale
+        if path.stem == VOTW_INDEX_STEM:
+            # /en/votw/ → en/votw/index.html, with the article list appended
+            page.body_html += _votw_list_html(locale, include_drafts)
+            out = dist / locale / "votw" / "index.html"
+        else:
+            # /en/votw/slug/ → en/votw/slug/index.html
+            slug = page.canonical_path.rstrip("/").split("/")[-1]
+            out = dist / locale / "votw" / slug / "index.html"
+        _write(out, _render_page(template, page, votw_locales))
         emitted += 1
 
     sitemaps = write_sitemaps(dist)
@@ -129,7 +157,14 @@ def build(dist: Path = DIST) -> int:
 
 
 def main() -> int:
-    return build()
+    parser = argparse.ArgumentParser(prog="python -m tools.content_builder")
+    parser.add_argument(
+        "--drafts",
+        action="store_true",
+        help="also emit pages marked draft: true (local builds only)",
+    )
+    args = parser.parse_args()
+    return build(include_drafts=args.drafts)
 
 
 if __name__ == "__main__":
