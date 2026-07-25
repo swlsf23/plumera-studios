@@ -31,7 +31,7 @@ alwaysApply: true
 
 - **No hreflang** alternate link tags claiming translation pairs.
 - Canonicals are **self-referencing only** (`https://plumerastudios.com/...` matching that page’s URL).
-- Prefer **the same slug/filename** across locales for sanity (e.g. `privacy.html`, `votd/thoughtful-content/`).
+- Prefer **the same slug/filename** across locales for sanity (e.g. `privacy.html`, `votw/votw-prendre-a1/`).
 
 ## Content layout
 

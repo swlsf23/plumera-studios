@@ -21,7 +21,6 @@
 
       <nav class="content-header__nav" aria-label="Primary navigation">
         <a href="/{{ page.locale }}/">{{ chrome.home }}</a>
-        <a{% if page.active == 'votw' %} class="active"{% endif %} href="/{{ page.locale }}/votw/thoughtful-content/">{{ chrome.votw }}</a>
         <a{% if page.active == 'updates' %} class="active"{% endif %} href="/{{ page.locale }}/updates/">{{ chrome.updates }}</a>
         <a{% if page.active == 'privacy' %} class="active"{% endif %} href="/{{ page.locale }}/privacy/">{{ chrome.privacy }}</a>
       </nav>
@@ -50,7 +49,6 @@
 
       <nav class="content-header__mobile" aria-label="Mobile navigation" data-mobile-nav>
         <a href="/{{ page.locale }}/">{{ chrome.home }}</a>
-        <a{% if page.active == 'votw' %} class="active"{% endif %} href="/{{ page.locale }}/votw/thoughtful-content/">{{ chrome.votw }}</a>
         <a{% if page.active == 'updates' %} class="active"{% endif %} href="/{{ page.locale }}/updates/">{{ chrome.updates }}</a>
         <a{% if page.active == 'privacy' %} class="active"{% endif %} href="/{{ page.locale }}/privacy/">{{ chrome.privacy }}</a>
       </nav>
@@ -93,6 +91,7 @@
         </div>
         {% endif %}
 
+        {% if related %}
         <div class="sidebar-block related-block">
           <h2>{{ chrome.related_votw }}</h2>
           <div class="mini-card-list">
@@ -104,6 +103,7 @@
             {% endfor %}
           </div>
         </div>
+        {% endif %}
 
         <div id="newsletter" class="sidebar-block newsletter-block">
           <h2>{{ chrome.follow_us }}</h2>
