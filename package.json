@@ -7,7 +7,7 @@
     "dev": "npm run build:site && npm run preview:site",
     "build": "npm run build:site",
     "build:site": "python -m tools.content_builder",
-    "preview:site": "npx --yes serve dist -l 4173",
+    "preview:site": "npx --yes serve -c serve.json -l 4173",
     "dev:app": "vite",
     "build:app": "tsc --noEmit && vite build",
     "preview:app": "vite preview"

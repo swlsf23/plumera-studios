@@ -6,7 +6,6 @@ readTime: 8 min read
 author: Plumera Team
 category: Category
 slug: thoughtful-content
-draft: true
 ---
 
 # The future of thoughtful content
