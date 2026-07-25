@@ -9,22 +9,26 @@ There is no React/SPA path for these pages in production or local site preview.
 ```text
 content/
   {locale}/              # explanatory / UI language
-    core/                # site-wide pages (same filenames across locales)
+    core/                # no target language — site-wide pages
       updates.md
       privacy.md
       cefr.md
       index.md           # optional reference text only — NOT built
-    learn/               # learning materials
+    {target}/            # language being taught
       votw/
+      conjugation/
   templates/             # authoring prompts — not published pages
 ```
 
 - **`locale`** — language of the explanation / UI (`en`, `es`, `fr`, …)
-- **`core`** — site pages for that locale (same filenames across locales; body copy is not assumed 1:1)
-- **`learn`** — learning materials written for that locale’s audience
-- **`target`** (frontmatter on learn pages) — language being taught (e.g. French verbs → `target: fr`), not a folder
+- **`core`** — site pages for that locale, with no target language (same filenames across locales; body copy is not assumed 1:1)
+- **`{target}`** — language being taught, one folder per language, holding every series for it (`votw/`, and whatever comes later)
 
-Example: English explanation of French VOTW → `content/en/learn/votw/…` with `locale: en` and `target: fr`.
+The second level is therefore either `core` or a language code, and nothing else.
+
+Grouping by target rather than by series keeps one language in one place: adding a language is a new folder, not a new subfolder inside every series.
+
+Example: English explanation of French VOTW → `content/en/fr/votw/…` with `locale: en` and `target: fr`.
 
 ## Build rules
 

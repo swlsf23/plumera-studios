@@ -14,7 +14,7 @@ INPUT (filled by the human before or with this prompt)
 
 OUTPUT RULES
 1. Return a complete Markdown file ready to save as
-   content/en/learn/votw/{slug}.md
+   content/en/fr/votw/{slug}.md
 2. Keep every ## heading exactly as written below and in this order.
    Do not rename, reorder, add, or remove top-level ## sections.
 3. Set the H1 to the French verb lemma (same string as title in frontmatter).
@@ -119,7 +119,7 @@ draft: true
   AUTHOR NOTES (delete this comment block before publishing)
 
   - Template: French VOTW for English speakers (fr-en)
-  - Copy to content/en/learn/votw/{slug}.md
+  - Copy to content/en/fr/votw/{slug}.md
   - Keep every ## heading below exactly as written and in this order.
   - Replace the H1 with the verb (same as title).
   - Fill sections; remove unused Meaning / Expression / Mistake blocks.
