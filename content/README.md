@@ -31,6 +31,8 @@ VOTD (and similar learn pages) use YAML frontmatter (`title`, `description`, `da
 
 Keep `slug` equal to the filename stem (e.g. `thoughtful-content.md` → `slug: thoughtful-content`). The builder prefers `slug` for the URL and warns if it does not match the filename.
 
+Set `draft: true` to keep a page out of `dist/` and sitemaps until it is ready.
+
 Core pages may use a plain first-line eyebrow/title, then a `#` heading, then body Markdown. Optional YAML frontmatter is also supported.
 
 ## Chrome / locales

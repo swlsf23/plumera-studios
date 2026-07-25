@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import shutil
+import sys
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -12,6 +13,7 @@ from tools.content_builder.parse import (
     SITE_ORIGIN,
     discover_core_pages,
     discover_votd_pages,
+    is_draft,
     parse_core_page,
     parse_votd_page,
 )
@@ -81,6 +83,9 @@ def build(dist: Path = DIST) -> int:
         emitted += 1
 
     for path, locale in discover_votd_pages(CONTENT):
+        if is_draft(path):
+            print(f"skip draft: {path.relative_to(CONTENT)}", file=sys.stderr)
+            continue
         page = parse_votd_page(path, locale)
         html = template.render(
             page=page,

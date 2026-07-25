@@ -216,6 +216,12 @@ def discover_core_pages(content_root: Path) -> list[tuple[Path, str]]:
     return pages
 
 
+def is_draft(path: Path) -> bool:
+    """True when frontmatter sets draft: true (pages must not be emitted)."""
+    post = frontmatter.load(path)
+    return bool(post.metadata.get("draft"))
+
+
 def discover_votd_pages(content_root: Path) -> list[tuple[Path, str]]:
     pages: list[tuple[Path, str]] = []
     learn = content_root / "learn"
