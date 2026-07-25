@@ -22,7 +22,7 @@ Fíjate en el hilo común: algo entra en tu situación. Un objeto en la mano, un
 |----------|-------|
 | Infinitivo | prendre |
 | Pronunciación | /pʁɑ̃dʁ/ |
-| MCER | A1 |
+| MCER | [A1](/es/cefr/) |
 | Auxiliar | avoir |
 | Participio pasado | pris |
 | Significado central | coger / tomar |

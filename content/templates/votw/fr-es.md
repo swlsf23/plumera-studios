@@ -131,6 +131,8 @@ draft: true
   - Fill sections; remove unused Significado / Expresión / Error blocks.
   - Do not rename headings — this Spanish series depends on them.
   - Example pairs use | Francés | Español | tables.
+  - Link MCER level codes in body copy to /es/cefr/ (e.g. [A1](/es/cefr/)).
+    Do not put Markdown links in YAML frontmatter.
   - Voice and pedagogy: see STYLE GUIDE comment above (Spanish audience, not EN).
   - To generate a draft with an LLM: paste this whole file and complete the
     INPUT fields in the LLM PROMPT comment at the top of the file.

@@ -22,7 +22,7 @@ Notice that the shared thread is taking something into your situation: an object
 |------|-------|
 | Infinitive | prendre |
 | Pronunciation | /pʁɑ̃dʁ/ |
-| CEFR | A1 |
+| CEFR | [A1](/en/cefr/) |
 | Auxiliary | avoir |
 | Past Participle | pris |
 | Core Meaning | to take |

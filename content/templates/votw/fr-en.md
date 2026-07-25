@@ -125,6 +125,8 @@ draft: true
   - Fill sections; remove unused Meaning / Expression / Mistake blocks.
   - Do not rename headings — the series TOC and future build checks rely on them.
   - Example pairs use | French | English | tables.
+  - Link CEFR level codes in body copy to /en/cefr/ (e.g. [A1](/en/cefr/)).
+    Do not put Markdown links in YAML frontmatter.
   - Voice and pedagogy: see STYLE GUIDE comment above (English audience, not ES).
   - To generate a draft with an LLM: paste this whole file and complete the
     INPUT fields in the LLM PROMPT comment at the top of the file.

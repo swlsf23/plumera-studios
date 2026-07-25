@@ -9,9 +9,10 @@ There is no React/SPA path for these pages in production or local site preview.
 ```text
 content/
   {locale}/              # explanatory / UI language
-    core/                # site-wide pages
+    core/                # site-wide pages (same filenames across locales)
       updates.md
       privacy.md
+      cefr.md
       index.md           # optional reference text only — NOT built
     learn/               # learning materials
       votw/
