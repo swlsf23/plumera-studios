@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="{{ page.locale }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{ page.description }}">
+  <title>{{ page.title }}</title>
+  <link rel="canonical" href="{{ canonical_url }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="a6e7309a-1696-4e8c-95f3-bd6d0361fb4a" data-domains="plumerastudios.com"></script>
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/content-header.css">
+  <link rel="stylesheet" href="/css/content.css">
+</head>
+<body>
+  <div class="page content-page">
+    <header class="content-header">
+      <a href="/{{ page.locale }}/index.html" class="content-header__brand" aria-label="{{ chrome.brand_home }}">Plumera</a>
+
+      <nav class="content-header__nav" aria-label="Primary navigation">
+        <a href="/{{ page.locale }}/index.html">{{ chrome.home }}</a>
+        <a{% if page.active == 'votd' %} class="active"{% endif %} href="/{{ page.locale }}/votd/thoughtful-content/">{{ chrome.votd }}</a>
+        <a{% if page.active == 'updates' %} class="active"{% endif %} href="/{{ page.locale }}/updates.html">{{ chrome.updates }}</a>
+        <a{% if page.active == 'privacy' %} class="active"{% endif %} href="/{{ page.locale }}/privacy.html">{{ chrome.privacy }}</a>
+      </nav>
+
+      <div class="content-header__actions">
+        <details class="content-header__lang">
+          <summary aria-label="{{ chrome.choose_language }}" title="{{ chrome.choose_language }}">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <circle cx="12" cy="12" r="9"></circle>
+              <path d="M3 12h18"></path>
+              <path d="M12 3a14 14 0 0 1 0 18"></path>
+              <path d="M12 3a14 14 0 0 0 0 18"></path>
+            </svg>
+          </summary>
+          <nav class="content-header__lang-menu" aria-label="{{ chrome.choose_language }}">
+            {% for lang in languages %}
+            <a href="{{ lang.href }}" lang="{{ lang.code }}"{% if lang.current %} aria-current="true"{% endif %}>{{ lang.label }}</a>
+            {% endfor %}
+          </nav>
+        </details>
+        <a class="content-header__subscribe" href="/{{ page.locale }}/updates.html">{{ chrome.subscribe }}</a>
+        <button class="content-header__menu" type="button" aria-label="{{ chrome.menu }}" aria-expanded="false" data-menu-toggle>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+        </button>
+      </div>
+
+      <nav class="content-header__mobile" aria-label="Mobile navigation" data-mobile-nav>
+        <a href="/{{ page.locale }}/index.html">{{ chrome.home }}</a>
+        <a{% if page.active == 'votd' %} class="active"{% endif %} href="/{{ page.locale }}/votd/thoughtful-content/">{{ chrome.votd }}</a>
+        <a{% if page.active == 'updates' %} class="active"{% endif %} href="/{{ page.locale }}/updates.html">{{ chrome.updates }}</a>
+        <a{% if page.active == 'privacy' %} class="active"{% endif %} href="/{{ page.locale }}/privacy.html">{{ chrome.privacy }}</a>
+      </nav>
+    </header>
+
+    <main class="page-grid{% if not page.toc %} page-grid--single{% endif %}">
+      <div class="content-column">
+        <header class="article-header">
+          {% if page.eyebrow %}<p class="eyebrow">{{ page.eyebrow }}</p>{% endif %}
+          <h1>{{ page.heading_html | safe }}</h1>
+          {% if page.dek %}<p class="dek">{{ page.dek }}</p>{% endif %}
+          {% if page.meta_line %}<p class="meta-line">{{ page.meta_line }}</p>{% endif %}
+        </header>
+
+        {% if page.show_hero_art %}
+        <div class="hero-art" aria-hidden="true">
+          <div class="hero-art__arc"></div>
+          <div class="hero-art__panel">
+            <span class="hero-art__shape hero-art__shape--circle"></span>
+            <span class="hero-art__shape hero-art__shape--bar"></span>
+            <span class="hero-art__shape hero-art__shape--dot"></span>
+          </div>
+        </div>
+        {% endif %}
+
+        <article class="article-body">
+          {{ page.body_html | safe }}
+        </article>
+      </div>
+
+      {% if page.toc %}
+      <aside class="sidebar">
+        <div class="sidebar-block">
+          <h2>{{ chrome.on_this_page }}</h2>
+          <nav class="toc" aria-label="{{ chrome.on_this_page }}">
+            {% for item in page.toc %}
+            <a href="#{{ item.id }}">{{ item.label }}</a>
+            {% endfor %}
+          </nav>
+        </div>
+      </aside>
+      {% endif %}
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-primary">
+        <details class="language-selector language-selector--footer">
+          <summary aria-label="{{ chrome.choose_language }}" title="{{ chrome.choose_language }}">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <circle cx="12" cy="12" r="9"></circle>
+              <path d="M3 12h18"></path>
+              <path d="M12 3a14 14 0 0 1 0 18"></path>
+              <path d="M12 3a14 14 0 0 0 0 18"></path>
+            </svg>
+          </summary>
+          <nav class="language-menu" aria-label="{{ chrome.choose_language }}">
+            {% for lang in languages %}
+            <a href="{{ lang.href }}" lang="{{ lang.code }}"{% if lang.current %} aria-current="true"{% endif %}>{{ lang.label }}</a>
+            {% endfor %}
+          </nav>
+        </details>
+        <div class="footer-links">
+          <a class="footer-link" href="/{{ page.locale }}/updates.html">{{ chrome.updates }}</a>
+          <a class="footer-link" href="/{{ page.locale }}/privacy.html">{{ chrome.privacy }}</a>
+        </div>
+      </div>
+      <p class="footer-copy">{{ chrome.copyright }}</p>
+    </footer>
+  </div>
+  <script src="/js/content-header.js"></script>
+</body>
+</html>
