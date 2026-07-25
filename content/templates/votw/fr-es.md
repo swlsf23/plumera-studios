@@ -14,9 +14,7 @@ INPUT (filled by the human before or with this prompt)
 
 OUTPUT RULES
 1. Return a complete Markdown file ready to save as
-   content/learn/fr/votw/{slug}.md
-   (UI locale for URLs may change later; for now follow the path above unless
-   the human gives a different path.)
+   content/es/learn/votw/{slug}.md
 2. Keep every ## heading exactly as written below and in this order.
    Do not rename, reorder, add, or remove top-level ## sections.
    Headings in this template are in Spanish and must stay in Spanish.
@@ -127,7 +125,7 @@ draft: true
   AUTHOR NOTES (delete this comment block before publishing)
 
   - Template: French VOTW for Spanish speakers (fr-es)
-  - Copy to content/learn/fr/votw/{slug}.md (path may gain a locale segment later)
+  - Copy to content/es/learn/votw/{slug}.md
   - Keep every ## heading below exactly as written and in this order.
   - Replace the H1 with the verb (same as title).
   - Fill sections; remove unused Significado / Expresión / Error blocks.
