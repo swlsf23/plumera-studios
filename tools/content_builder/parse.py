@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import re
+import sys
 from dataclasses import dataclass, field
 from datetime import date, datetime
 from pathlib import Path
@@ -145,8 +146,18 @@ def parse_core_page(path: Path, locale: str) -> Page:
 def parse_votd_page(path: Path, locale: str) -> Page:
     post = frontmatter.load(path)
     meta = post.metadata
-    slug = str(meta.get("slug") or path.stem)
-    title = str(meta.get("title") or path.stem)
+    stem = path.stem
+    if "slug" in meta and meta["slug"] is not None:
+        slug = str(meta["slug"])
+        if slug != stem:
+            print(
+                f"warning: VOTD slug {slug!r} != filename stem {stem!r} ({path}); "
+                f"emitting URL from slug, consider renaming the file to match",
+                file=sys.stderr,
+            )
+    else:
+        slug = stem
+    title = str(meta.get("title") or stem)
     description = str(meta.get("description") or "")
     category = str(meta.get("category") or "VOTD")
     author = str(meta.get("author") or "")

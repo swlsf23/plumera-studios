@@ -29,4 +29,10 @@ Example: French UI + Spanish learning → chrome for `fr`, materials from `learn
 
 VOTD (and similar learn pages) use YAML frontmatter (`title`, `description`, `date`, `slug`, …).
 
+Keep `slug` equal to the filename stem (e.g. `thoughtful-content.md` → `slug: thoughtful-content`). The builder prefers `slug` for the URL and warns if it does not match the filename.
+
 Core pages may use a plain first-line eyebrow/title, then a `#` heading, then body Markdown. Optional YAML frontmatter is also supported.
+
+## Chrome / locales
+
+Nav and footer labels for emitted pages live in `tools/content_builder/chrome.py`. If a locale is missing there, the builder falls back to English and prints a warning.
