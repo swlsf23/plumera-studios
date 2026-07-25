@@ -17,6 +17,7 @@ from tools.content_builder.parse import (
     parse_core_page,
     parse_votd_page,
 )
+from tools.content_builder.sidebar import SOCIAL_LINKS, related_for
 from tools.content_builder.sitemaps import write_sitemaps
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -62,6 +63,19 @@ def _canonical_url(page_path: str) -> str:
     return f"{SITE_ORIGIN}{page_path}"
 
 
+def _render_page(template, page) -> str:
+    locale = page.locale
+    return template.render(
+        page=page,
+        chrome=chrome_for(locale),
+        site_origin=SITE_ORIGIN,
+        languages=_lang_hrefs(locale, page.canonical_path),
+        canonical_url=_canonical_url(page.canonical_path),
+        related=related_for(locale),
+        social_links=SOCIAL_LINKS,
+    )
+
+
 def _write_redirect(path: Path, target: str) -> None:
     """Tiny static redirect stub (works on any static host, including local)."""
     _write(
@@ -87,13 +101,7 @@ def build(dist: Path = DIST) -> int:
 
     for path, locale in discover_core_pages(CONTENT):
         page = parse_core_page(path, locale)
-        html = template.render(
-            page=page,
-            chrome=chrome_for(locale),
-            site_origin=SITE_ORIGIN,
-            languages=_lang_hrefs(locale, page.canonical_path),
-            canonical_url=_canonical_url(page.canonical_path),
-        )
+        html = _render_page(template, page)
         # /en/updates/ → en/updates/index.html (plain static hosting)
         stem = path.stem
         out = dist / locale / stem / "index.html"
@@ -107,13 +115,7 @@ def build(dist: Path = DIST) -> int:
             print(f"skip draft: {path.relative_to(CONTENT)}", file=sys.stderr)
             continue
         page = parse_votd_page(path, locale)
-        html = template.render(
-            page=page,
-            chrome=chrome_for(locale),
-            site_origin=SITE_ORIGIN,
-            languages=_lang_hrefs(locale, page.canonical_path),
-            canonical_url=_canonical_url(page.canonical_path),
-        )
+        html = _render_page(template, page)
         # /en/votd/slug/ → en/votd/slug/index.html
         slug = page.canonical_path.rstrip("/").split("/")[-1]
         out = dist / locale / "votd" / slug / "index.html"

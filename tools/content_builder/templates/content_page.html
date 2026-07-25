@@ -56,7 +56,7 @@
       </nav>
     </header>
 
-    <main class="page-grid{% if not page.toc %} page-grid--single{% endif %}">
+    <main class="page-grid">
       <div class="content-column">
         <header class="article-header">
           {% if page.eyebrow %}<p class="eyebrow">{{ page.eyebrow }}</p>{% endif %}
@@ -81,8 +81,8 @@
         </article>
       </div>
 
-      {% if page.toc %}
       <aside class="sidebar">
+        {% if page.toc %}
         <div class="sidebar-block">
           <h2>{{ chrome.on_this_page }}</h2>
           <nav class="toc" aria-label="{{ chrome.on_this_page }}">
@@ -91,8 +91,29 @@
             {% endfor %}
           </nav>
         </div>
+        {% endif %}
+
+        <div class="sidebar-block related-block">
+          <h2>{{ chrome.related_votd }}</h2>
+          <div class="mini-card-list">
+            {% for item in related %}
+            <a class="mini-card" href="{{ item.href }}">
+              <h3>{{ item.title }}</h3>
+              <p>{{ item.meta }}</p>
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div id="newsletter" class="sidebar-block newsletter-block">
+          <h2>{{ chrome.follow_us }}</h2>
+          <nav class="social-links" aria-label="{{ chrome.follow_us }}">
+            {% for item in social_links %}
+            <a href="{{ item.href }}" target="_blank" rel="noopener noreferrer">{{ item.label }}</a>
+            {% endfor %}
+          </nav>
+        </div>
       </aside>
-      {% endif %}
     </main>
 
     <footer class="site-footer">

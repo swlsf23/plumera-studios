@@ -19,6 +19,8 @@ CHROME: dict[str, dict[str, str]] = {
         "choose_language": "Choose language",
         "menu": "Menu",
         "on_this_page": "On this page",
+        "related_votd": "Related VOTD",
+        "follow_us": "Follow us:",
         "copyright": "© 2026 Plumera Studios",
     },
     "es": {
@@ -31,6 +33,8 @@ CHROME: dict[str, dict[str, str]] = {
         "choose_language": "Elegir idioma",
         "menu": "Menú",
         "on_this_page": "En esta página",
+        "related_votd": "VOTD relacionados",
+        "follow_us": "Síguenos:",
         "copyright": "© 2026 Plumera Studios",
     },
     "fr": {
@@ -43,6 +47,8 @@ CHROME: dict[str, dict[str, str]] = {
         "choose_language": "Choisir la langue",
         "menu": "Menu",
         "on_this_page": "Sur cette page",
+        "related_votd": "VOTD associés",
+        "follow_us": "Suivez-nous :",
         "copyright": "© 2026 Plumera Studios",
     },
 }
