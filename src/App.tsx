@@ -5,7 +5,7 @@
 export default function App() {
   if (typeof window !== 'undefined') {
     try {
-      window.location.replace('/en/index.html');
+      window.location.replace('/en/');
     } catch (error) {
       console.error('Failed to redirect to landing:', error);
     }

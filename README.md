@@ -24,11 +24,11 @@ npm run preview:site  # python -m http.server on dist/
 
 Or `npm run dev` (= build + preview) at [http://localhost:4173](http://localhost:4173).
 
-Useful URLs (same paths in prod):
+Useful URLs (same paths in prod — directory indexes, trailing slashes):
 
-- [http://localhost:4173/en/index.html](http://localhost:4173/en/index.html)
-- [http://localhost:4173/en/updates.html](http://localhost:4173/en/updates.html)
-- [http://localhost:4173/en/privacy.html](http://localhost:4173/en/privacy.html)
+- [http://localhost:4173/en/](http://localhost:4173/en/)
+- [http://localhost:4173/en/updates/](http://localhost:4173/en/updates/)
+- [http://localhost:4173/en/privacy/](http://localhost:4173/en/privacy/)
 - [http://localhost:4173/en/votd/thoughtful-content/](http://localhost:4173/en/votd/thoughtful-content/)
 
 View Source on content URLs: title, description, and canonical are in the HTML file.

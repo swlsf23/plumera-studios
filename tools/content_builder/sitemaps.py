@@ -54,15 +54,17 @@ def _sitemap_index(locales: list[str]) -> str:
 
 
 def _urls_for_locale(locale: str, locale_dir: Path) -> list[str]:
+    """Index documents use trailing-slash URLs; skip *.html redirect stubs."""
     urls: list[str] = []
     for path in sorted(locale_dir.rglob("*.html")):
         rel = path.relative_to(locale_dir).as_posix()
         if rel == "index.html":
-            urls.append(f"/{locale}/index.html")
-        elif rel.endswith("/index.html"):
+            urls.append(f"/{locale}/")
+            continue
+        if rel.endswith("/index.html"):
             urls.append(f"/{locale}/{rel[: -len('index.html')]}")
-        else:
-            urls.append(f"/{locale}/{rel}")
+            continue
+        # Ignore legacy redirect stubs like updates.html → updates/
     return urls
 
 

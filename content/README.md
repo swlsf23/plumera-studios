@@ -25,6 +25,7 @@ Example: French UI + Spanish learning → chrome for `fr`, materials from `learn
 
 - Landings are **not** emitted from Markdown. `public/{locale}/index.html` is copied as-is.
 - All other pages (for now) should have a Markdown file here and are emitted as full HTML documents (title, description, canonical baked in).
+- Emitted URLs are directory indexes with trailing slashes (e.g. `/en/updates/` → `updates/index.html`), so plain static hosting matches local and production.
 - No hreflang alternate tags; canonicals are self-referencing only.
 
 ## Frontmatter

@@ -62,6 +62,22 @@ def _canonical_url(page_path: str) -> str:
     return f"{SITE_ORIGIN}{page_path}"
 
 
+def _write_redirect(path: Path, target: str) -> None:
+    """Tiny static redirect stub (works on any static host, including local)."""
+    _write(
+        path,
+        (
+            "<!doctype html>\n"
+            f'<html lang="en"><head><meta charset="utf-8">'
+            f'<meta http-equiv="refresh" content="0; url={target}">'
+            f'<link rel="canonical" href="{SITE_ORIGIN}{target}">'
+            f"<title>Redirecting…</title>"
+            f"<script>location.replace({target!r})</script>"
+            f'</head><body><p><a href="{target}">Continue</a></p></body></html>\n'
+        ),
+    )
+
+
 def build(dist: Path = DIST) -> int:
     env = _env()
     template = env.get_template("content_page.html")
@@ -78,8 +94,12 @@ def build(dist: Path = DIST) -> int:
             languages=_lang_hrefs(locale, page.canonical_path),
             canonical_url=_canonical_url(page.canonical_path),
         )
-        out = dist / locale / f"{path.stem}.html"
+        # /en/updates/ → en/updates/index.html (plain static hosting)
+        stem = path.stem
+        out = dist / locale / stem / "index.html"
         _write(out, html)
+        # Keep /en/updates.html working via a static redirect stub
+        _write_redirect(dist / locale / f"{stem}.html", page.canonical_path)
         emitted += 1
 
     for path, locale in discover_votd_pages(CONTENT):

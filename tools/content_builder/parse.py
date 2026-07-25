@@ -133,7 +133,7 @@ def parse_core_page(path: Path, locale: str) -> Page:
         locale=locale,
         title=page_title,
         description=description,
-        canonical_path=f"/{locale}/{stem}.html",
+        canonical_path=f"/{locale}/{stem}/",
         eyebrow=eyebrow,
         heading_html=heading.replace(" — ", "<br>") if " — " in heading else heading,
         dek=dek,
