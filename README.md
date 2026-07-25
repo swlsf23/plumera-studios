@@ -1,55 +1,58 @@
 # Plumera Studios
 
-Monorepo for the Plumera website: static multilingual landings, Markdown content sources, a Python content builder, and a Vite/React app for interactive work.
+Monorepo for the Plumera website: static multilingual landings, Markdown content sources, a Python content builder, and a reserved Vite/React scaffold for future interactive apps.
 
 ## Language split
 
 | Stack | Owns |
 |---|---|
 | **Python** (`.venv`) | Content builder, sitemaps, future APIs (e.g. Corpus) |
-| **TypeScript / React** (npm) | Interactive apps only — not production content pages |
+| **TypeScript / React** (npm) | Interactive apps only — **not** content pages |
 
-## Production site (Python)
+## Local site (static HTML)
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -e .
-python -m tools.content_builder
-```
 
-Output is `dist/`:
-
-- Landings and assets **copied** from `public/`
-- Content pages **emitted** from `content/` (updates, privacy, votd, …)
-- `index.md` is **not** built — landings stay hand-authored HTML
-
-Preview the static output with any static server, for example:
-
-```bash
-npx --yes serve dist
-```
-
-## React app (prototype / future apps)
-
-```bash
-npm install
 npm run dev
 ```
 
-The SPA still serves Updates/Privacy/VOTD from `src/` for local prototyping. Production content URLs come from the Python builder.
+`npm run dev` builds `dist/` with the Python builder, then serves it at [http://localhost:4173](http://localhost:4173).
+
+Useful URLs:
+
+- Landing: [http://localhost:4173/en/index.html](http://localhost:4173/en/index.html)
+- Updates: [http://localhost:4173/en/updates.html](http://localhost:4173/en/updates.html)
+- Privacy: [http://localhost:4173/en/privacy.html](http://localhost:4173/en/privacy.html)
+- VOTD: [http://localhost:4173/en/votd/thoughtful-content/](http://localhost:4173/en/votd/thoughtful-content/)
+
+Or step by step:
+
+```bash
+npm run build:site    # python -m tools.content_builder → dist/
+npm run preview:site  # serve dist/
+```
+
+View Source on content URLs: title, description, and canonical are in the HTML file.
+
+## React scaffold (future apps)
+
+```bash
+npm run dev:app
+```
+
+This Vite app is a placeholder only. It does not deliver production content pages.
 
 ## Structure
 
 ```text
-content/
-  core/{locale}/          # UI locale — updates, privacy (+ optional index.md reference)
-  learn/{target}/votd/    # language being learned — VOTD Markdown
-public/
-  {en,es,fr}/index.html   # static landings (copied, not emitted)
-  css/                    # landing + content styles
+content/                  # Markdown source of truth (except landings)
+public/                   # Landings + static assets (copied into dist/)
 tools/content_builder/    # Python MD → full HTML
-src/                      # Vite React app (interactive / prototype)
+dist/                     # Deployable site output
+src/                      # Reserved for future interactive React apps
 ```
 
 See [content/README.md](content/README.md) for content conventions.

@@ -1,6 +1,8 @@
 # Content source
 
-Markdown sources for the Plumera site. **This tree is the copy source of truth** for content pages. The Python builder (`python -m tools.content_builder`) emits full HTML into `dist/`.
+Markdown sources for the Plumera site. **This tree is the copy source of truth** for content pages. The Python builder (`python -m tools.content_builder` / `npm run build:site`) emits full HTML into `dist/`.
+
+There is no React/SPA path for these pages in production or local site preview.
 
 ## Layout
 
