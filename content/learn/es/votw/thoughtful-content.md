@@ -2,7 +2,6 @@
 title: The future of thoughtful content
 description: Exploring how meaningful content builds trust, drives engagement, and creates lasting impact.
 date: 2024-05-12
-readTime: 8 min read
 author: Plumera Team
 category: Category
 slug: thoughtful-content

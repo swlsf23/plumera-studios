@@ -168,7 +168,6 @@ def parse_votw_page(path: Path, locale: str) -> Page:
     description = str(meta.get("description") or "")
     category = str(meta.get("category") or "VOTW")
     author = str(meta.get("author") or "")
-    read_time = str(meta.get("readTime") or meta.get("read_time") or "")
     date_label = _format_date(meta.get("date"), locale)
 
     html = _md_to_html(post.content.strip())
@@ -184,9 +183,8 @@ def parse_votw_page(path: Path, locale: str) -> Page:
     meta_parts: list[str] = []
     if author:
         meta_parts.append(chrome_for(locale)["by_author"].format(author=author))
-    detail = " · ".join(part for part in (date_label, read_time) if part)
-    if detail:
-        meta_parts.append(detail)
+    if date_label:
+        meta_parts.append(date_label)
     meta_line = " · ".join(meta_parts)
 
     heading_html = heading.replace(" — ", "<br>") if " — " in heading else heading
