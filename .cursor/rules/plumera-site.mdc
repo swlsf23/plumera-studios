@@ -16,7 +16,8 @@ alwaysApply: true
 - Every content URL is a **full HTML document** (title, description, canonical, body in the file).
 - Do **not** use a React SPA / `#root` client router for content pages (local or production).
 - Do **not** set title, meta description, or canonical at runtime for content pages.
-- Production and local site preview use `dist/` from the **Python** content builder (`npm run dev` / `npm run build:site`).
+- **`dist/` is the deployable site.** Local preview serves that same folder as static files; do not add a separate preview rewrite layer.
+- Build with the **Python** content builder (`npm run build:site` / `python -m tools.content_builder`).
 - Source of truth for copy is Markdown under `content/`.
 
 ## Landings vs content pages
@@ -46,8 +47,9 @@ content/
 
 ## Build / deploy
 
-- Site: `npm run build:site` or `python -m tools.content_builder` (after `.venv` + `pip install -e .`).
-- Preview: `npm run preview:site` (or `npm run dev` = build + preview).
+- Build: `npm run build:site` or `python -m tools.content_builder` (after `.venv` + `pip install -e .`) → `dist/`.
+- Local: serve `dist/` with a plain static server (`npm run preview:site` = `python -m http.server --directory dist`).
+- Deploy: upload/sync `dist/` as-is.
 - Sitemaps: root index pointing to per-locale sitemaps, generated from files that exist in `dist/`.
 
 

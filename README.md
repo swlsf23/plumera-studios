@@ -9,31 +9,27 @@ Monorepo for the Plumera website: static multilingual landings, Markdown content
 | **Python** (`.venv`) | Content builder, sitemaps, future APIs (e.g. Corpus) |
 | **TypeScript / React** (npm) | Interactive apps only — **not** content pages |
 
-## Local site (static HTML)
+## What gets deployed
+
+**`dist/` is the site.** Build it once; deploy that folder as-is (S3, nginx, etc.). Local preview serves the same `dist/` with a plain static file server — no special rewrite layer.
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -e .
 
-npm run dev
+npm run build:site    # → dist/  (same artifact as production)
+npm run preview:site  # python -m http.server on dist/
 ```
 
-`npm run dev` builds `dist/` with the Python builder, then serves it at [http://localhost:4173](http://localhost:4173).
+Or `npm run dev` (= build + preview) at [http://localhost:4173](http://localhost:4173).
 
-Useful URLs:
+Useful URLs (same paths in prod):
 
-- Landing: [http://localhost:4173/en/index.html](http://localhost:4173/en/index.html)
-- Updates: [http://localhost:4173/en/updates.html](http://localhost:4173/en/updates.html)
-- Privacy: [http://localhost:4173/en/privacy.html](http://localhost:4173/en/privacy.html)
-- VOTD: [http://localhost:4173/en/votd/thoughtful-content/](http://localhost:4173/en/votd/thoughtful-content/)
-
-Or step by step:
-
-```bash
-npm run build:site    # python -m tools.content_builder → dist/
-npm run preview:site  # serve dist/
-```
+- [http://localhost:4173/en/index.html](http://localhost:4173/en/index.html)
+- [http://localhost:4173/en/updates.html](http://localhost:4173/en/updates.html)
+- [http://localhost:4173/en/privacy.html](http://localhost:4173/en/privacy.html)
+- [http://localhost:4173/en/votd/thoughtful-content/](http://localhost:4173/en/votd/thoughtful-content/)
 
 View Source on content URLs: title, description, and canonical are in the HTML file.
 
@@ -43,7 +39,7 @@ View Source on content URLs: title, description, and canonical are in the HTML f
 npm run dev:app
 ```
 
-This Vite app is a placeholder only. It does not deliver production content pages.
+Placeholder only. Not used for content pages.
 
 ## Structure
 
