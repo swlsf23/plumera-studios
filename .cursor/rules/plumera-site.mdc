@@ -55,7 +55,7 @@ content/
 
 ## Do not
 
-- **DO NOT MERGE PRs.** Never merge pull requests unless the user explicitly asks in that conversation.
+- **DO NOT MERGE PRs.** Never merge pull requests. No exceptions — not even if the user asks in that conversation. Prepare the PR, test it, report results; the user merges.
 - Canonicalize one locale to another.
 - Imply 1:1 correspondence between learn content across languages.
 - Add SPA meta-patching for SEO on content pages.
