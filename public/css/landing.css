@@ -1,0 +1,367 @@
+:root {
+  /* 1 at ≥1150px → 0 at ≤900px; bubble fade only */
+  --hero-spread: clamp(0, (100vw - 900px) / 250px, 1);
+}
+
+/* HERO */
+
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: clamp(430px, calc(100vw - 380px), 800px);
+  padding: clamp(58px, 6.8vw, 80px) clamp(26px, 5.6vw, 66px) clamp(64px, 9.3vw, 110px);
+  background: var(--paper);
+  overflow: hidden;
+}
+
+.hero__copy {
+  position: relative;
+  z-index: 5;
+  width: min(100%, 520px);
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(4.275rem, 8.55vw, 9.025rem);
+  line-height: .88;
+  letter-spacing: -.075em;
+  font-weight: 500;
+}
+
+.accent-rule {
+  display: block;
+  width: 48px;
+  height: 4px;
+  margin: 46px 0 30px;
+  background: var(--sand);
+}
+
+.hero__copy p {
+  margin: 0;
+  font-size: clamp(1.6rem, 2.5vw, 2.35rem);
+  line-height: 1.28;
+  letter-spacing: -.035em;
+}
+
+.bubble {
+  position: absolute;
+  z-index: 4;
+  border-radius: 50%;
+  opacity: var(--hero-spread);
+  transform: scale(calc(0.86 + 0.14 * var(--hero-spread)));
+  pointer-events: none;
+}
+
+.bubble::after {
+  content: "";
+  position: absolute;
+}
+
+.bubble--dark {
+  width: 265px;
+  height: 265px;
+  top: calc(50% - 332px);
+  left: 65%;
+  background: var(--ink);
+}
+
+.bubble--dark::after {
+  right: -4px;
+  bottom: 9px;
+  width: 78px;
+  height: 90px;
+  background: var(--ink);
+  clip-path: polygon(0 0, 100% 100%, 15% 72%);
+}
+
+.bubble--cream {
+  width: 270px;
+  height: 270px;
+  top: calc(50% - 148px);
+  left: calc(58% - 10px);
+  background: var(--paper-deep);
+  z-index: 5;
+}
+
+.bubble--cream::after {
+  left: -23px;
+  bottom: -18px;
+  width: 75px;
+  height: 96px;
+  background: var(--paper-deep);
+  clip-path: polygon(100% 0, 57% 100%, 0 84%);
+}
+
+.bubble--blue {
+  width: 245px;
+  height: 245px;
+  top: calc(50% + 63px);
+  left: 64%;
+  background: var(--blue);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  z-index: 6;
+}
+
+.bubble--blue::after {
+  left: 10px;
+  bottom: -24px;
+  width: 78px;
+  height: 90px;
+  background: var(--blue);
+  clip-path: polygon(100% 0, 55% 100%, 0 85%);
+}
+
+.line {
+  position: absolute;
+  left: 55px;
+  height: 3px;
+  background: var(--line-mid);
+}
+
+.line--one { width: 125px; top: 105px; }
+.line--two { width: 100px; top: 127px; }
+.line--three { width: 125px; top: 149px; }
+
+.line--dark {
+  left: auto;
+  right: 48px;
+  height: 8px;
+  background: var(--line-on-dark);
+}
+
+.line--dark-a {
+  top: 96px;
+  width: 95px;
+}
+
+.line--dark-b {
+  top: 116px;
+  width: 145px;
+}
+
+.line--dark-c {
+  top: 136px;
+  width: 118px;
+}
+
+.dot {
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: var(--ink);
+}
+
+/* CONTENT */
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.panel {
+  min-height: 585px;
+  padding: 54px 52px 60px;
+}
+
+.panel--paper {
+  background: var(--green);
+  color: var(--paper);
+}
+
+.panel--blue {
+  background: linear-gradient(180deg, var(--blue), var(--blue-deep));
+  color: var(--paper);
+}
+
+.panel--green {
+  background: var(--paper-deep);
+  color: var(--ink);
+}
+
+.icon {
+  position: relative;
+  width: 78px;
+  height: 78px;
+  margin-bottom: 28px;
+}
+
+.panel h2 {
+  margin: 0;
+  font-size: .95rem;
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  font-weight: 600;
+}
+
+.panel-rule {
+  display: block;
+  width: 32px;
+  height: 3px;
+  margin: 18px 0 28px;
+  background: var(--sand);
+}
+
+.panel p,
+.panel li {
+  font-size: var(--body-size);
+  font-weight: 400;
+  line-height: var(--body-leading);
+  letter-spacing: -.015em;
+}
+
+.panel p {
+  margin: 0 0 27px;
+}
+
+.panel ul {
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.panel li {
+  position: relative;
+  padding-left: 42px;
+  margin-bottom: 14px;
+}
+
+.panel li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .8em;
+  width: 23px;
+  height: 2px;
+  background: var(--sand-soft);
+}
+
+/* simple line icons */
+
+.book-page {
+  position: absolute;
+  top: 0;
+  width: 38px;
+  height: 78px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 7px;
+  border: 2px solid var(--paper);
+}
+
+.book-page--left {
+  left: 0;
+  padding: 0 7px 0 9px;
+  border-radius: 6px 2px 2px 4px;
+}
+
+.book-page--right {
+  right: 0;
+  padding: 0 9px 0 7px;
+  border-radius: 2px 6px 4px 2px;
+}
+
+.book-page i {
+  display: block;
+  height: 1.5px;
+  background: var(--paper);
+  opacity: .75;
+  font-style: normal;
+}
+
+.book-page i:nth-child(2) { width: 85%; }
+.book-page i:nth-child(3) { width: 70%; }
+.book-page i:nth-child(4) { width: 90%; }
+.book-page i:nth-child(5) { width: 60%; }
+
+.book-spine {
+  position: absolute;
+  left: 38px;
+  top: 2px;
+  width: 2px;
+  height: 74px;
+  background: var(--paper);
+}
+
+.icon--crossword {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 2px;
+  padding: 8px;
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+}
+
+.cw-cell {
+  background: transparent;
+  border: 1.5px solid var(--ink);
+  border-radius: 1px;
+}
+
+.cw-cell--fill {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+.icon--wordfind {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 2px;
+  padding: 8px;
+  border: 2px solid var(--icon-light);
+  border-radius: 4px;
+}
+
+.wf-cell {
+  border: 1.5px solid var(--icon-light);
+  border-radius: 1px;
+}
+
+.wf-circle {
+  position: absolute;
+  z-index: 1;
+  left: 6px;
+  top: 8px;
+  width: calc(100% - 12px);
+  height: 16px;
+  border: 1.5px solid var(--sand);
+  border-radius: 10px;
+  pointer-events: none;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 920px) {
+  .bubble {
+    visibility: hidden;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .panel {
+    min-height: auto;
+    padding: 56px 48px;
+  }
+
+}
+
+@media (max-width: 640px) {
+  .hero__copy p {
+    font-size: 1.5rem;
+  }
+
+  .panel {
+    padding: 48px 28px;
+  }
+
+}
+
+
