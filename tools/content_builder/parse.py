@@ -16,9 +16,10 @@ from tools.content_builder.chrome import chrome_for, format_date
 
 SITE_ORIGIN = "https://plumerastudios.com"
 CORE_SKIP = {"index.md"}  # landings are copied HTML; MD is reference-only
-VOTW_INDEX_STEM = "index"  # series index; emitted at /{locale}/votw/
+VOTW_INDEX_STEM = "index"  # series index; emitted at /{locale}/{target}/votw/
 # Top-level content/ dirs that are not UI locales
 CONTENT_NON_LOCALES = frozenset({"templates"})
+CORE_DIR = "core"  # the one second-level dir with no target language
 
 
 @dataclass
@@ -153,10 +154,17 @@ def parse_core_page(path: Path, locale: str) -> Page:
     )
 
 
-def parse_votw_page(path: Path, locale: str) -> Page:
+def parse_votw_page(path: Path, locale: str, target: str) -> Page:
     post = frontmatter.load(path)
     meta = post.metadata
     stem = path.stem
+    meta_target = meta.get("target")
+    if meta_target and str(meta_target) != target:
+        print(
+            f"warning: frontmatter target {str(meta_target)!r} disagrees with folder "
+            f"{target!r} ({path}); the folder decides the URL",
+            file=sys.stderr,
+        )
     if "slug" in meta and meta["slug"] is not None:
         slug = str(meta["slug"])
         if slug != stem:
@@ -191,9 +199,8 @@ def parse_votw_page(path: Path, locale: str) -> Page:
     meta_line = " · ".join(meta_parts)
 
     heading_html = heading.replace(" — ", "<br>") if " — " in heading else heading
-    canonical_path = (
-        f"/{locale}/votw/" if stem == VOTW_INDEX_STEM else f"/{locale}/votw/{slug}/"
-    )
+    series = f"/{locale}/{target}/votw/"
+    canonical_path = series if stem == VOTW_INDEX_STEM else f"{series}{slug}/"
 
     return Page(
         locale=locale,
@@ -224,11 +231,20 @@ def _locale_dirs(content_root: Path) -> list[Path]:
     )
 
 
+def _target_dirs(locale_dir: Path) -> list[Path]:
+    """Target-language folders under a locale: everything beside core/."""
+    return sorted(
+        path
+        for path in locale_dir.iterdir()
+        if path.is_dir() and not path.name.startswith(".") and path.name != CORE_DIR
+    )
+
+
 def discover_core_pages(content_root: Path) -> list[tuple[Path, str]]:
     """Find content/{locale}/core/*.md (except index.md)."""
     pages: list[tuple[Path, str]] = []
     for locale_dir in _locale_dirs(content_root):
-        core = locale_dir / "core"
+        core = locale_dir / CORE_DIR
         if not core.is_dir():
             continue
         locale = locale_dir.name
@@ -245,25 +261,25 @@ def is_draft(path: Path) -> bool:
     return bool(post.metadata.get("draft"))
 
 
-def discover_votw_pages(content_root: Path) -> list[tuple[Path, str]]:
-    """Find content/{locale}/learn/votw/*.md, series index.md included."""
-    pages: list[tuple[Path, str]] = []
+def discover_votw_pages(content_root: Path) -> list[tuple[Path, str, str]]:
+    """Find content/{locale}/{target}/votw/*.md, series index.md included."""
+    pages: list[tuple[Path, str, str]] = []
     for locale_dir in _locale_dirs(content_root):
-        votw = locale_dir / "learn" / "votw"
-        if not votw.is_dir():
-            continue
-        locale = locale_dir.name
-        for path in sorted(votw.glob("*.md")):
-            pages.append((path, locale))
+        for target_dir in _target_dirs(locale_dir):
+            votw = target_dir / "votw"
+            if not votw.is_dir():
+                continue
+            for path in sorted(votw.glob("*.md")):
+                pages.append((path, locale_dir.name, target_dir.name))
     return pages
 
 
 def votw_links(
-    content_root: Path, locale: str, *, include_drafts: bool = False
+    content_root: Path, locale: str, target: str, *, include_drafts: bool = False
 ) -> list[dict[str, str]]:
-    """Article links for a locale's VOTW series index, in filename order."""
+    """Article links for one series index, in filename order."""
     links: list[dict[str, str]] = []
-    votw = content_root / locale / "learn" / "votw"
+    votw = content_root / locale / target / "votw"
     if not votw.is_dir():
         return links
     for path in sorted(votw.glob("*.md")):
@@ -276,7 +292,7 @@ def votw_links(
         links.append(
             {
                 "title": str(meta.get("title") or path.stem),
-                "href": f"/{locale}/votw/{slug}/",
+                "href": f"/{locale}/{target}/votw/{slug}/",
             }
         )
     return links

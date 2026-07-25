@@ -12,9 +12,13 @@ draft: true
 
 # Prendre
 
-*Prendre* is one of the first French verbs you will use often. The closest English meaning is "to take," but French reaches for *prendre* in places where English picks another verb. You take a bus, have a coffee, eat breakfast, or take medicine. In French, those ideas can all sit under *prendre*.
+*Prendre* is one of the first French verbs you will use often in different contexts. The closest English meaning is "to take," but French uses *prendre* in places where English prefers another verb. 
 
-Notice that the shared thread is taking something into your situation: an object in your hand, a seat on a train, a coffee in front of you, a pill. Learn those patterns and you will hear *prendre* all over ordinary French.
+In English, you take a bus, have a coffee, eat breakfast, or take medicine. In French, those ideas can all be expressed with *prendre*.
+
+Notice that the common idea here is to take something into your environment: an object in your hand, a seat on a train, a coffee in front of you, a pill. 
+
+Understand these patterns and you will use and hear *prendre* frequently in French.
 
 ## At a Glance
 

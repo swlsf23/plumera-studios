@@ -21,7 +21,7 @@
 
       <nav class="content-header__nav" aria-label="Primary navigation">
         <a href="/{{ page.locale }}/">{{ chrome.home }}</a>
-        {% if show_votw %}<a{% if page.active == 'votw' %} class="active"{% endif %} href="/{{ page.locale }}/votw/">{{ chrome.votw }}</a>{% endif %}
+        {% if votw_href %}<a{% if page.active == 'votw' %} class="active"{% endif %} href="{{ votw_href }}">{{ chrome.votw }}</a>{% endif %}
         <a{% if page.active == 'updates' %} class="active"{% endif %} href="/{{ page.locale }}/updates/">{{ chrome.updates }}</a>
         <a{% if page.active == 'privacy' %} class="active"{% endif %} href="/{{ page.locale }}/privacy/">{{ chrome.privacy }}</a>
       </nav>
@@ -50,7 +50,7 @@
 
       <nav class="content-header__mobile" aria-label="Mobile navigation" data-mobile-nav>
         <a href="/{{ page.locale }}/">{{ chrome.home }}</a>
-        {% if show_votw %}<a{% if page.active == 'votw' %} class="active"{% endif %} href="/{{ page.locale }}/votw/">{{ chrome.votw }}</a>{% endif %}
+        {% if votw_href %}<a{% if page.active == 'votw' %} class="active"{% endif %} href="{{ votw_href }}">{{ chrome.votw }}</a>{% endif %}
         <a{% if page.active == 'updates' %} class="active"{% endif %} href="/{{ page.locale }}/updates/">{{ chrome.updates }}</a>
         <a{% if page.active == 'privacy' %} class="active"{% endif %} href="/{{ page.locale }}/privacy/">{{ chrome.privacy }}</a>
       </nav>

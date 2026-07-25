@@ -12,4 +12,4 @@ Naming: `{target}-{locale}.md`
 | `es-en.md` | Spanish | English | later |
 | `es-fr.md` | Spanish | French | later |
 
-Templates are not built by the content builder. Copy into `content/{locale}/learn/votw/{slug}.md` when drafting (e.g. English audience → `content/en/learn/votw/…`).
+Templates are not built by the content builder. Copy into `content/{locale}/{target}/votw/{slug}.md` when drafting (e.g. French verbs for an English audience → `content/en/fr/votw/…`).

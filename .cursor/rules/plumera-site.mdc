@@ -31,7 +31,7 @@ alwaysApply: true
 
 - **No hreflang** alternate link tags claiming translation pairs.
 - Canonicals are **self-referencing only** (`https://plumerastudios.com/...` matching that page’s URL).
-- Prefer **the same slug/filename** across locales for sanity (e.g. `privacy.md`, `cefr.md`, `votw/votw-prendre-a1/`).
+- Prefer **the same slug/filename** across locales for sanity (e.g. `privacy.md`, `cefr.md`, `{target}/votw/votw-prendre-a1.md`).
 - When body copy mentions a CEFR level code (A1, B2, …), link it to that locale’s CEFR page (`/{locale}/cefr/`). Do not put Markdown links in YAML frontmatter.
 
 ## Content layout
@@ -39,14 +39,18 @@ alwaysApply: true
 ```text
 content/
   {locale}/          # explanatory / UI language
-    core/            # site pages — updates, privacy; index.md optional/reference only
-    learn/           # learning materials for that audience
+    core/            # no target language — updates, privacy, cefr; index.md optional/reference only
+    {target}/        # language being taught
       votw/
+      conjugation/
 ```
 
 - **locale** — language of the explanation / UI.
 - **core** — structural equivalence across locales (same filenames); body copy is not assumed 1:1.
-- **learn** — no required file parity across locales; `target` (language taught) is frontmatter, not a folder.
+- **target** — language taught. It is a **folder**, one per language, holding every series for it; `target` in frontmatter must agree with the folder.
+- The second level is either `core` or a language code. Nothing else belongs there.
+- Grouped by target, not by series: adding a language is one new folder, not a new subfolder inside every series.
+- No required file parity across targets or locales.
 - Future locales include `ar`, `pt`, etc.
 
 ## Build / deploy
