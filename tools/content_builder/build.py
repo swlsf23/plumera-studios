@@ -67,7 +67,7 @@ def _canonical_url(page_path: str) -> str:
     return f"{SITE_ORIGIN}{page_path}"
 
 
-def _render_page(template, page) -> str:
+def _render_page(template, page, votw_locales: set[str] = frozenset()) -> str:
     locale = page.locale
     return template.render(
         page=page,
@@ -77,6 +77,7 @@ def _render_page(template, page) -> str:
         canonical_url=_canonical_url(page.canonical_path),
         related=related_for(locale),
         social_links=SOCIAL_LINKS,
+        show_votw=locale in votw_locales,
     )
 
 
@@ -108,16 +109,26 @@ def _votw_list_html(locale: str, include_drafts: bool) -> str:
     return f'\n<ul class="votw-list">\n{items}\n</ul>\n'
 
 
+def _votw_locales(include_drafts: bool) -> set[str]:
+    """Locales whose series index lands in this build, so nav has a target."""
+    return {
+        locale
+        for path, locale in discover_votw_pages(CONTENT)
+        if path.stem == VOTW_INDEX_STEM and (include_drafts or not is_draft(path))
+    }
+
+
 def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
     env = _env()
     template = env.get_template("content_page.html")
     _copy_public(dist)
 
+    votw_locales = _votw_locales(include_drafts)
     emitted = 0
 
     for path, locale in discover_core_pages(CONTENT):
         page = parse_core_page(path, locale)
-        html = _render_page(template, page)
+        html = _render_page(template, page, votw_locales)
         # /en/updates/ → en/updates/index.html (plain static hosting)
         stem = path.stem
         out = dist / locale / stem / "index.html"
@@ -141,7 +152,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
             # /en/votw/slug/ → en/votw/slug/index.html
             slug = page.canonical_path.rstrip("/").split("/")[-1]
             out = dist / locale / "votw" / slug / "index.html"
-        _write(out, _render_page(template, page))
+        _write(out, _render_page(template, page, votw_locales))
         emitted += 1
 
     sitemaps = write_sitemaps(dist)
