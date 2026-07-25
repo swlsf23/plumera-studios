@@ -8,18 +8,23 @@ There is no React/SPA path for these pages in production or local site preview.
 
 ```text
 content/
-  core/{locale}/     # UI locale — site-wide pages
-    updates.md
-    privacy.md
-    index.md         # optional reference text only — NOT built
-  learn/{target}/    # language being learned
-    votw/            # word of the week (and similar)
+  {locale}/              # explanatory / UI language
+    core/                # site-wide pages (same filenames across locales)
+      updates.md
+      privacy.md
+      cefr.md
+      index.md           # optional reference text only — NOT built
+    learn/               # learning materials
+      votw/
+  templates/             # authoring prompts — not published pages
 ```
 
-- **`core`** — depends only on interface language (`en`, `es`, `fr`; later `ar`, `pt`, …)
-- **`learn`** — depends on the language someone is studying (independent of UI locale)
+- **`locale`** — language of the explanation / UI (`en`, `es`, `fr`, …)
+- **`core`** — site pages for that locale (same filenames across locales; body copy is not assumed 1:1)
+- **`learn`** — learning materials written for that locale’s audience
+- **`target`** (frontmatter on learn pages) — language being taught (e.g. French verbs → `target: fr`), not a folder
 
-Example: French UI + Spanish learning → chrome for `fr`, materials from `learn/es/`.
+Example: English explanation of French VOTW → `content/en/learn/votw/…` with `locale: en` and `target: fr`.
 
 ## Build rules
 
@@ -30,9 +35,9 @@ Example: French UI + Spanish learning → chrome for `fr`, materials from `learn
 
 ## Frontmatter
 
-VOTW (and similar learn pages) use YAML frontmatter (`title`, `description`, `date`, `slug`, …).
+VOTW (and similar learn pages) use YAML frontmatter (`title`, `description`, `date`, `slug`, `target`, `locale`, …).
 
-Keep `slug` equal to the filename stem (e.g. `thoughtful-content.md` → `slug: thoughtful-content`). The builder prefers `slug` for the URL and warns if it does not match the filename.
+Keep `slug` equal to the filename stem (e.g. `votw-prendre-a1.md` → `slug: votw-prendre-a1`). The builder prefers `slug` for the URL and warns if it does not match the filename.
 
 Set `draft: true` to keep a page out of `dist/` and sitemaps until it is ready.
 

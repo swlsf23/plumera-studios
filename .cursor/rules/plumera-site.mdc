@@ -24,26 +24,30 @@ alwaysApply: true
 
 - **Landings** (`public/{locale}/index.html`) are hand-authored HTML with a distinct layout.
 - The builder **copies** landings and other `public/` assets into `dist/`; it does **not** emit index pages from Markdown.
-- `content/core/*/index.md` may exist for editing reference text only; it is **not** a build input.
-- All other pages (for now: updates, privacy, votd, …) **must** have Markdown under `content/` and are **emitted** as full HTML.
+- `content/{locale}/core/index.md` may exist for editing reference text only; it is **not** a build input.
+- All other pages (for now: updates, privacy, votw, …) **must** have Markdown under `content/` and are **emitted** as full HTML.
 
 ## SEO / localization
 
 - **No hreflang** alternate link tags claiming translation pairs.
 - Canonicals are **self-referencing only** (`https://plumerastudios.com/...` matching that page’s URL).
-- Prefer **the same slug/filename** across locales for sanity (e.g. `privacy.html`, `votd/thoughtful-content/`).
+- Prefer **the same slug/filename** across locales for sanity (e.g. `privacy.md`, `cefr.md`, `votw/votw-prendre-a1/`).
+- When body copy mentions a CEFR level code (A1, B2, …), link it to that locale’s CEFR page (`/{locale}/cefr/`). Do not put Markdown links in YAML frontmatter.
 
 ## Content layout
 
 ```text
 content/
-  core/{locale}/     # UI locale — updates, privacy (same page set per locale); index.md optional/reference only
-  learn/{target}/    # language being learned — votd/, future conjugator/, etc.
+  {locale}/          # explanatory / UI language
+    core/            # site pages — updates, privacy; index.md optional/reference only
+    learn/           # learning materials for that audience
+      votw/
 ```
 
-- `core`: structural equivalence across UI locales (same filenames); body copy is not assumed 1:1.
-- `learn`: no required file parity across targets.
-- Future UI locales include `ar`, `pt`, etc. under `core/`.
+- **locale** — language of the explanation / UI.
+- **core** — structural equivalence across locales (same filenames); body copy is not assumed 1:1.
+- **learn** — no required file parity across locales; `target` (language taught) is frontmatter, not a folder.
+- Future locales include `ar`, `pt`, etc.
 
 ## Build / deploy
 
