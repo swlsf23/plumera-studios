@@ -56,8 +56,8 @@ content/
 ## Do not
 
 - **DO NOT MERGE PRs.** Never merge pull requests. No exceptions — not even if the user asks in that conversation. Prepare the PR, test it, report results; the user merges.
-- **DO NOT CHANGE CONTENT.** Do not edit user-facing copy (Markdown under `content/`, landing HTML text, chrome/nav/footer strings, template labels, sidebar titles, etc.) unless that exact change is in the current plan or the user explicitly asked for it in this conversation. No drive-by renames, rewrites, or “helpful” wording fixes. No exceptions.
-- **DO NOT ADD LARGE FEATURES** outside the agreed plan or discussion. Code fixes and small scoped changes that implement what was asked are fine; new product surface, sidebar blocks, nav items, or other expansions that were not requested are not. When unsure, ask.
+- **DO NOT CHANGE CONTENT.** Do not edit user-facing copy (Markdown under `content/`, landing HTML text, chrome/nav/footer strings, template labels, sidebar titles, etc.) unless that exact change is in the current plan or the user explicitly asked for it in this conversation. No drive-by renames, rewrites, or “helpful” wording fixes. No exceptions — not even if the change seems obviously correct or “helpful.”
+- **DO NOT ADD LARGE FEATURES** outside the agreed plan or discussion. No exceptions — not even if the feature seems small, related, or an improvement. Code fixes and small scoped changes that implement what was asked are fine; new product surface, sidebar blocks, nav items, or other expansions that were not requested are not. When unsure, ask.
 - Canonicalize one locale to another.
 - Imply 1:1 correspondence between learn content across languages.
 - Add SPA meta-patching for SEO on content pages.
