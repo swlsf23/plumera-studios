@@ -12,6 +12,8 @@ import frontmatter
 import markdown
 from markdown.extensions.toc import slugify as md_slugify
 
+from tools.content_builder.chrome import chrome_for, format_date
+
 SITE_ORIGIN = "https://plumerastudios.com"
 CORE_SKIP = {"index.md"}  # landings are copied HTML; MD is reference-only
 
@@ -94,14 +96,19 @@ def _inject_heading_ids(html: str) -> tuple[str, list[TocItem]]:
     return html, toc
 
 
-def _format_date(value: object) -> str:
+def _format_date(value: object, locale: str) -> str:
+    """Normalize a frontmatter date, then render it in the locale's convention.
+
+    A non-ISO string is passed through as authored, so a page can override the
+    label with free text.
+    """
     if isinstance(value, datetime):
-        return value.strftime("%b %d, %Y")
+        return format_date(value.date(), locale)
     if isinstance(value, date):
-        return value.strftime("%b %d, %Y")
+        return format_date(value, locale)
     if isinstance(value, str) and value.strip():
         try:
-            return date.fromisoformat(value.strip()).strftime("%b %d, %Y")
+            return format_date(date.fromisoformat(value.strip()), locale)
         except ValueError:
             return value.strip()
     return ""
@@ -133,7 +140,7 @@ def parse_core_page(path: Path, locale: str) -> Page:
         locale=locale,
         title=page_title,
         description=description,
-        canonical_path=f"/{locale}/{stem}.html",
+        canonical_path=f"/{locale}/{stem}/",
         eyebrow=eyebrow,
         heading_html=heading.replace(" — ", "<br>") if " — " in heading else heading,
         dek=dek,
@@ -143,7 +150,7 @@ def parse_core_page(path: Path, locale: str) -> Page:
     )
 
 
-def parse_votd_page(path: Path, locale: str) -> Page:
+def parse_votw_page(path: Path, locale: str) -> Page:
     post = frontmatter.load(path)
     meta = post.metadata
     stem = path.stem
@@ -151,7 +158,7 @@ def parse_votd_page(path: Path, locale: str) -> Page:
         slug = str(meta["slug"])
         if slug != stem:
             print(
-                f"warning: VOTD slug {slug!r} != filename stem {stem!r} ({path}); "
+                f"warning: VOTW slug {slug!r} != filename stem {stem!r} ({path}); "
                 f"emitting URL from slug, consider renaming the file to match",
                 file=sys.stderr,
             )
@@ -159,10 +166,9 @@ def parse_votd_page(path: Path, locale: str) -> Page:
         slug = stem
     title = str(meta.get("title") or stem)
     description = str(meta.get("description") or "")
-    category = str(meta.get("category") or "VOTD")
+    category = str(meta.get("category") or "VOTW")
     author = str(meta.get("author") or "")
-    read_time = str(meta.get("readTime") or meta.get("read_time") or "")
-    date_label = _format_date(meta.get("date"))
+    date_label = _format_date(meta.get("date"), locale)
 
     html = _md_to_html(post.content.strip())
     heading, html = _strip_tag(html, "h1")
@@ -176,10 +182,9 @@ def parse_votd_page(path: Path, locale: str) -> Page:
 
     meta_parts: list[str] = []
     if author:
-        meta_parts.append(f"By {author}")
-    detail = " · ".join(part for part in (date_label, read_time) if part)
-    if detail:
-        meta_parts.append(detail)
+        meta_parts.append(chrome_for(locale)["by_author"].format(author=author))
+    if date_label:
+        meta_parts.append(date_label)
     meta_line = " · ".join(meta_parts)
 
     heading_html = heading.replace(" — ", "<br>") if " — " in heading else heading
@@ -188,14 +193,14 @@ def parse_votd_page(path: Path, locale: str) -> Page:
         locale=locale,
         title=f"{title} — Plumera Studios",
         description=description,
-        canonical_path=f"/{locale}/votd/{slug}/",
+        canonical_path=f"/{locale}/votw/{slug}/",
         eyebrow=category,
         heading_html=heading_html,
         dek=dek,
         meta_line=meta_line,
         body_html=html,
         toc=toc,
-        active="votd",
+        active="votw",
         show_hero_art=True,
     )
 
@@ -222,7 +227,7 @@ def is_draft(path: Path) -> bool:
     return bool(post.metadata.get("draft"))
 
 
-def discover_votd_pages(content_root: Path) -> list[tuple[Path, str]]:
+def discover_votw_pages(content_root: Path) -> list[tuple[Path, str]]:
     pages: list[tuple[Path, str]] = []
     learn = content_root / "learn"
     if not learn.is_dir():
@@ -230,9 +235,9 @@ def discover_votd_pages(content_root: Path) -> list[tuple[Path, str]]:
     for locale_dir in sorted(learn.iterdir()):
         if not locale_dir.is_dir():
             continue
-        votd = locale_dir / "votd"
-        if not votd.is_dir():
+        votw = locale_dir / "votw"
+        if not votw.is_dir():
             continue
-        for path in sorted(votd.glob("*.md")):
+        for path in sorted(votw.glob("*.md")):
             pages.append((path, locale_dir.name))
     return pages

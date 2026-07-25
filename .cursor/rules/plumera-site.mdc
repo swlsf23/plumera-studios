@@ -8,16 +8,17 @@ alwaysApply: true
 ## Language split
 
 - **Python** — content builder, APIs (e.g. Corpus), sitemaps, generators, and other non-app tooling.
-- **TypeScript / React** — interactive apps only. Do **not** change the React app to deliver production content pages.
+- **TypeScript / React** — interactive apps only (`npm run dev:app`). Do **not** deliver content pages via the SPA.
 - Local Python env: `.venv/` (gitignored). App deps stay on npm.
 
 ## Content delivery
 
 - Every content URL is a **full HTML document** (title, description, canonical, body in the file).
-- Do **not** use a React SPA / `#root` client router as the production path for content pages.
+- Do **not** use a React SPA / `#root` client router for content pages (local or production).
 - Do **not** set title, meta description, or canonical at runtime for content pages.
-- Production output is `dist/` from the **Python** content builder + copied static assets.
-- Source of truth for copy is Markdown under `content/` (not `src/i18n/`).
+- **`dist/` is the deployable site.** Local preview serves that same folder as static files; do not add a separate preview rewrite layer.
+- Build with the **Python** content builder (`npm run build:site` / `python -m tools.content_builder`).
+- Source of truth for copy is Markdown under `content/`.
 
 ## Landings vs content pages
 
@@ -46,8 +47,11 @@ content/
 
 ## Build / deploy
 
-- Builder: `python -m tools.content_builder` (after `.venv` + `pip install -e .`).
+- Build: `npm run build:site` or `python -m tools.content_builder` (after `.venv` + `pip install -e .`) → `dist/`.
+- Local: serve `dist/` with a plain static server (`npm run preview:site` = `python -m http.server --directory dist`).
+- Deploy: upload/sync `dist/` as-is.
 - Sitemaps: root index pointing to per-locale sitemaps, generated from files that exist in `dist/`.
+
 
 ## Do not
 

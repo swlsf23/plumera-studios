@@ -17,13 +17,13 @@
 <body>
   <div class="page content-page">
     <header class="content-header">
-      <a href="/{{ page.locale }}/index.html" class="content-header__brand" aria-label="{{ chrome.brand_home }}">Plumera</a>
+      <a href="/{{ page.locale }}/" class="content-header__brand" aria-label="{{ chrome.brand_home }}">Plumera</a>
 
       <nav class="content-header__nav" aria-label="Primary navigation">
-        <a href="/{{ page.locale }}/index.html">{{ chrome.home }}</a>
-        <a{% if page.active == 'votd' %} class="active"{% endif %} href="/{{ page.locale }}/votd/thoughtful-content/">{{ chrome.votd }}</a>
-        <a{% if page.active == 'updates' %} class="active"{% endif %} href="/{{ page.locale }}/updates.html">{{ chrome.updates }}</a>
-        <a{% if page.active == 'privacy' %} class="active"{% endif %} href="/{{ page.locale }}/privacy.html">{{ chrome.privacy }}</a>
+        <a href="/{{ page.locale }}/">{{ chrome.home }}</a>
+        <a{% if page.active == 'votw' %} class="active"{% endif %} href="/{{ page.locale }}/votw/thoughtful-content/">{{ chrome.votw }}</a>
+        <a{% if page.active == 'updates' %} class="active"{% endif %} href="/{{ page.locale }}/updates/">{{ chrome.updates }}</a>
+        <a{% if page.active == 'privacy' %} class="active"{% endif %} href="/{{ page.locale }}/privacy/">{{ chrome.privacy }}</a>
       </nav>
 
       <div class="content-header__actions">
@@ -42,21 +42,21 @@
             {% endfor %}
           </nav>
         </details>
-        <a class="content-header__subscribe" href="/{{ page.locale }}/updates.html">{{ chrome.subscribe }}</a>
+        <a class="content-header__subscribe" href="/{{ page.locale }}/updates/">{{ chrome.subscribe }}</a>
         <button class="content-header__menu" type="button" aria-label="{{ chrome.menu }}" aria-expanded="false" data-menu-toggle>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
         </button>
       </div>
 
       <nav class="content-header__mobile" aria-label="Mobile navigation" data-mobile-nav>
-        <a href="/{{ page.locale }}/index.html">{{ chrome.home }}</a>
-        <a{% if page.active == 'votd' %} class="active"{% endif %} href="/{{ page.locale }}/votd/thoughtful-content/">{{ chrome.votd }}</a>
-        <a{% if page.active == 'updates' %} class="active"{% endif %} href="/{{ page.locale }}/updates.html">{{ chrome.updates }}</a>
-        <a{% if page.active == 'privacy' %} class="active"{% endif %} href="/{{ page.locale }}/privacy.html">{{ chrome.privacy }}</a>
+        <a href="/{{ page.locale }}/">{{ chrome.home }}</a>
+        <a{% if page.active == 'votw' %} class="active"{% endif %} href="/{{ page.locale }}/votw/thoughtful-content/">{{ chrome.votw }}</a>
+        <a{% if page.active == 'updates' %} class="active"{% endif %} href="/{{ page.locale }}/updates/">{{ chrome.updates }}</a>
+        <a{% if page.active == 'privacy' %} class="active"{% endif %} href="/{{ page.locale }}/privacy/">{{ chrome.privacy }}</a>
       </nav>
     </header>
 
-    <main class="page-grid{% if not page.toc %} page-grid--single{% endif %}">
+    <main class="page-grid">
       <div class="content-column">
         <header class="article-header">
           {% if page.eyebrow %}<p class="eyebrow">{{ page.eyebrow }}</p>{% endif %}
@@ -81,8 +81,8 @@
         </article>
       </div>
 
-      {% if page.toc %}
       <aside class="sidebar">
+        {% if page.toc %}
         <div class="sidebar-block">
           <h2>{{ chrome.on_this_page }}</h2>
           <nav class="toc" aria-label="{{ chrome.on_this_page }}">
@@ -91,8 +91,29 @@
             {% endfor %}
           </nav>
         </div>
+        {% endif %}
+
+        <div class="sidebar-block related-block">
+          <h2>{{ chrome.related_votw }}</h2>
+          <div class="mini-card-list">
+            {% for item in related %}
+            <a class="mini-card" href="{{ item.href }}">
+              <h3>{{ item.title }}</h3>
+              <p>{{ item.meta }}</p>
+            </a>
+            {% endfor %}
+          </div>
+        </div>
+
+        <div id="newsletter" class="sidebar-block newsletter-block">
+          <h2>{{ chrome.follow_us }}</h2>
+          <nav class="social-links" aria-label="{{ chrome.follow_us }}">
+            {% for item in social_links %}
+            <a href="{{ item.href }}" target="_blank" rel="noopener noreferrer">{{ item.label }}</a>
+            {% endfor %}
+          </nav>
+        </div>
       </aside>
-      {% endif %}
     </main>
 
     <footer class="site-footer">
@@ -113,8 +134,8 @@
           </nav>
         </details>
         <div class="footer-links">
-          <a class="footer-link" href="/{{ page.locale }}/updates.html">{{ chrome.updates }}</a>
-          <a class="footer-link" href="/{{ page.locale }}/privacy.html">{{ chrome.privacy }}</a>
+          <a class="footer-link" href="/{{ page.locale }}/updates/">{{ chrome.updates }}</a>
+          <a class="footer-link" href="/{{ page.locale }}/privacy/">{{ chrome.privacy }}</a>
         </div>
       </div>
       <p class="footer-copy">{{ chrome.copyright }}</p>

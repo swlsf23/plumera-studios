@@ -1,55 +1,68 @@
 # Plumera Studios
 
-Monorepo for the Plumera website: static multilingual landings, Markdown content sources, a Python content builder, and a Vite/React app for interactive work.
+Monorepo for the Plumera website: static multilingual landings, Markdown content sources, a Python content builder, and a reserved Vite/React scaffold for future interactive apps.
 
 ## Language split
 
 | Stack | Owns |
 |---|---|
 | **Python** (`.venv`) | Content builder, sitemaps, future APIs (e.g. Corpus) |
-| **TypeScript / React** (npm) | Interactive apps only — not production content pages |
+| **TypeScript / React** (npm) | Interactive apps only — **not** content pages |
 
-## Production site (Python)
+## What gets deployed
+
+**`dist/` is the site.** Build it once; deploy that folder as-is (S3, nginx, etc.). Local preview serves the same `dist/` with a plain static file server — no special rewrite layer.
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -e .
-python -m tools.content_builder
+
+npm run build:site    # → dist/  (same artifact as production)
+npm run preview:site  # python -m http.server on dist/
 ```
 
-Output is `dist/`:
+Or `npm run dev` (= build + preview) at [http://localhost:4173](http://localhost:4173).
 
-- Landings and assets **copied** from `public/`
-- Content pages **emitted** from `content/` (updates, privacy, votd, …)
-- `index.md` is **not** built — landings stay hand-authored HTML
+Useful URLs (same paths in prod — directory indexes, trailing slashes):
 
-Preview the static output with any static server, for example:
+- [http://localhost:4173/en/](http://localhost:4173/en/)
+- [http://localhost:4173/en/updates/](http://localhost:4173/en/updates/)
+- [http://localhost:4173/en/privacy/](http://localhost:4173/en/privacy/)
+- [http://localhost:4173/en/votw/thoughtful-content/](http://localhost:4173/en/votw/thoughtful-content/)
+
+View Source on content URLs: title, description, and canonical are in the HTML file.
+
+## React scaffold (future apps)
 
 ```bash
-npx --yes serve dist
+npm run dev:app
 ```
 
-## React app (prototype / future apps)
-
-```bash
-npm install
-npm run dev
-```
-
-The SPA still serves Updates/Privacy/VOTD from `src/` for local prototyping. Production content URLs come from the Python builder.
+Placeholder only. Not used for content pages.
 
 ## Structure
 
 ```text
-content/
-  core/{locale}/          # UI locale — updates, privacy (+ optional index.md reference)
-  learn/{target}/votd/    # language being learned — VOTD Markdown
-public/
-  {en,es,fr}/index.html   # static landings (copied, not emitted)
-  css/                    # landing + content styles
-tools/content_builder/    # Python MD → full HTML
-src/                      # Vite React app (interactive / prototype)
+content/                  # Markdown source of truth (except landings)
+public/                   # Landings + static assets (copied into dist/)
+tools/content_builder/    # Python MD → full HTML (extend/debug here)
+dist/                     # Deployable site output (gitignored)
+src/                      # Reserved for future interactive React apps
 ```
+
+### Python content builder
+
+Source: [`tools/content_builder/`](tools/content_builder/).
+
+| Module | Role |
+|---|---|
+| `build.py` | Orchestrates copy of `public/`, page emit, sitemaps |
+| `parse.py` | Markdown/frontmatter → page model |
+| `chrome.py` | Localized nav/footer strings |
+| `templates/content_page.html` | Full HTML document template |
+| `sitemaps.py` | Root + per-locale sitemaps from `dist/` |
+
+To extend (new page types, chrome strings, templates), change that package and re-run `npm run build:site`.
 
 See [content/README.md](content/README.md) for content conventions.
