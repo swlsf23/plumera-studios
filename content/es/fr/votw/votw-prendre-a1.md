@@ -112,7 +112,7 @@ Patrones útiles:
 
 **Significado**
 
-*prendre son temps* — no tener prisa.
+*prendre son temps*: no tener prisa.
 
 **Ejemplo**
 
@@ -124,7 +124,7 @@ Patrones útiles:
 
 **Significado**
 
-*prendre froid* — coger frío / enfriarse.
+*prendre froid*: coger frío / enfriarse.
 
 **Ejemplo**
 
@@ -160,9 +160,9 @@ En español *prender* puede significar encender. *Prendre* en francés no. Se pa
 
 ## Verbos relacionados
 
-- manger — comer
-- boire — beber
-- aller — ir
+- manger: comer
+- boire: beber
+- aller: ir
 
 ## Resumen
 
