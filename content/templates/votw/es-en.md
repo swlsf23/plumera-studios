@@ -1,12 +1,12 @@
 <!--
-LLM PROMPT: French Verb of the Week (for English speakers)
-==========================================================
-You are drafting a Plumera Studios French Verb of the Week article for
+LLM PROMPT: Spanish Verb of the Week (for English speakers)
+===========================================================
+You are drafting a Plumera Studios Spanish Verb of the Week article for
 English-speaking learners. Fill this Markdown template. Do not invent a
 different structure.
 
 INPUT (filled by the human before or with this prompt)
-- French verb / infinitive:
+- Spanish verb / infinitive:
 - CEFR level:
 - Author:
 - Date (YYYY-MM-DD):
@@ -14,19 +14,19 @@ INPUT (filled by the human before or with this prompt)
 
 OUTPUT RULES
 1. Return a complete Markdown file ready to save as
-   content/en/fr/votw/{slug}.md
+   content/en/es/votw/{slug}.md
 2. Keep every ## heading exactly as written below and in this order.
    Do not rename, reorder, or add top-level ## sections. Register and usage is
    the one optional section and may be deleted (see its note).
-3. Set the H1 to the French verb lemma (same string as title in frontmatter).
+3. Set the H1 to the Spanish verb lemma (same string as title in frontmatter).
 4. Fill YAML frontmatter: title, description, slug, target, locale, level,
-   author, date. Set target: fr and locale: en.
+   author, date. Set target: es and locale: en.
    Keep draft: true unless the human asks to publish.
 5. slug must be a URL-safe form of the infinitive, with the level as a suffix
-   (e.g. votw-prendre-a1). frontmatter level is the source of truth. The suffix
-   only keeps two articles about the same verb apart (prendre-a1, prendre-b2).
+   (e.g. votw-tomar-a1). frontmatter level is the source of truth. The suffix
+   only keeps two articles about the same verb apart (tomar-a1, tomar-b2).
 6. Write all learner-facing prose in English.
-7. For example pairs, use Markdown tables with columns French | English.
+7. For example pairs, use Markdown tables with columns Spanish | English.
    The language being taught goes in the left column. Prefer 2–4 rows.
 8. Order the senses under How to use by a principle you state in that section's
    opening line, so the reader knows what separates them.
@@ -46,11 +46,11 @@ OUTPUT RULES
 14. Do not point forward at items the reader has not reached. "These two" and
     "the first two" need an antecedent, as in "two of the mistakes below".
 15. Do not state a rule in Forms and grammar that Common mistakes also covers.
-16. Sentence case for all headings. A heading that is a French expression keeps
+16. Sentence case for all headings. A heading that is a Spanish expression keeps
     its own capitalization.
 17. Follow the STYLE GUIDE comment below (audience, voice, writing, examples,
     translation, pedagogy, L1 interference). This file is for English-speaking
-    learners only. Do not write for Spanish speakers or mix audiences.
+    learners only. Do not write for French speakers or mix audiences.
 18. Write clear learner-facing prose. No meta commentary, no "as an AI",
     no placeholder text like "TODO" or "fill in".
 19. Before finishing, delete this LLM PROMPT comment, the STYLE GUIDE comment,
@@ -61,23 +61,25 @@ OUTPUT RULES
 QUALITY BAR
 - Introduction: about 100 to 200 words, why the verb matters, and the central
   idea that ties its uses together.
-- Forms and grammar: only the mechanics the examples below rely on.
-- Examples: natural, level-appropriate, accurate French with English glosses.
-- Common mistakes: typical for English speakers learning French (see L1).
+- Forms and grammar: only the mechanics the examples below rely on, including
+  stem changes and any irregular preterite.
+- Examples: natural, level-appropriate, accurate Spanish with English glosses.
+- Common mistakes: typical for English speakers learning Spanish (see L1).
 - Summary: reinforce the core idea without restating every gloss.
 
 Fill the template that follows (frontmatter, then body).
 -->
 
 <!--
-STYLE GUIDE: French VOTW for English speakers (fr-en)
-====================================================
-Pair: target=fr, locale=en. Do not reuse Spanish-audience guidance.
+STYLE GUIDE: Spanish VOTW for English speakers (es-en)
+=====================================================
+Pair: target=es, locale=en. Do not reuse French-audience or Spanish-audience
+guidance.
 
 Audience
-- Native English speakers learning French.
+- Native English speakers learning Spanish.
 - Explain concepts without assuming prior grammatical knowledge.
-- Do not assume they know Spanish or other Romance languages.
+- Do not assume they know French or other Romance languages.
 
 Voice
 - Write like a native English speaker: natural idiom, rhythm, and word choice.
@@ -88,23 +90,27 @@ Voice
 - Prefer explanation over definition.
 - Assume the reader is curious, not studying for an exam.
 - Prefer "Notice that..." over "Remember that..."
-- Prefer "French uses..." over "French is..."
+- Prefer "Spanish uses..." over "Spanish is..."
 - Do not exaggerate rules.
 - Avoid saying "simply", "just", "always", or "never" unless literally true.
 
 Writing
 - Use active voice.
 - Prefer short paragraphs.
-- Avoid unnecessary grammar jargon. If you need a term, explain it in plain English.
-- Introduce French terminology only when useful.
+- Avoid unnecessary grammar jargon. If you need a term, explain it in plain
+  English. Subjunctive and preterite need a plain-English gloss the first time.
+- Introduce Spanish terminology only when useful.
 - Explain why something works, not just what it means.
 - Avoid AI-slop tropes. No em dashes. No semicolons. Do not use
   "this is not X, it's Y" (or "not X but Y") contrast formulas.
 
 Examples
-- Use natural, contemporary French.
+- Use natural, contemporary Spanish.
 - Avoid textbook-only examples where possible.
 - Prefer examples someone might actually hear or say.
+- Where peninsular and Latin American usage differ, say so instead of presenting
+  one as correct. Note vosotros and ustedes when the verb's forms make it
+  relevant.
 
 Translation
 - Translate naturally into English.
@@ -114,21 +120,27 @@ Pedagogy
 - Build from concrete meanings to abstract or idiomatic ones.
 - Highlight patterns rather than isolated facts.
 - Compare with English only when it aids understanding.
-- Never use Spanish (or another L3) as a bridge.
+- Never use French (or another L3) as a bridge.
 
-L1 interference (English → French)
-- Anticipate calques from English (especially phrasal-verb habits).
-- Watch overuse of être where French prefers another verb or construction.
+L1 interference (English → Spanish)
+- Anticipate calques from English, especially phrasal-verb habits and verb +
+  noun collocations.
+- Watch ser and estar, which English covers with be alone.
+- Watch the past: English has one simple past where Spanish chooses between the
+  preterite and the imperfect.
+- Watch the subjunctive, which is ordinary in Spanish and nearly gone in English.
+- Watch gustar-type verbs, where the thing liked is the subject.
+- Watch por and para, and the personal a, which English has no equivalent for.
 - Address false friends that trip English speakers when relevant to this verb.
 - In Common mistakes, focus on errors English speakers typically make, not
-  Hispanophone transfer errors.
+  francophone transfer errors.
 -->
 
 ---
-title:          # French verb lemma, e.g. Prendre
+title:          # Spanish verb lemma, e.g. Tomar
 description:    # One-sentence meta description (English)
-slug:           # votw-{verb}-{level}, e.g. votw-prendre-a1
-target: fr      # Language taught
+slug:           # votw-{verb}-{level}, e.g. votw-tomar-a1
+target: es      # Language taught
 locale: en      # Language of the explanation (audience)
 level:          # CEFR: A1 | A2 | B1 | B2 | C1 | C2, or a range like A1, A2
 author:
@@ -139,8 +151,8 @@ draft: true
 <!--
   AUTHOR NOTES (delete this comment block before publishing)
 
-  - Template: French VOTW for English speakers (fr-en)
-  - Copy to content/en/fr/votw/{slug}.md
+  - Template: Spanish VOTW for English speakers (es-en)
+  - Copy to content/en/es/votw/{slug}.md
   - Keep every ## heading below as written and in this order. Register and usage
     is optional and may be deleted.
   - Replace the H1 with the verb (same as title).
@@ -148,10 +160,10 @@ draft: true
     spare blocks.
   - Every ## opens with a sentence before any ###. No stacked headings, and no
     filler sentence either: it has to say something.
-  - Example pairs use | French | English | tables, French on the left.
+  - Example pairs use | Spanish | English | tables, Spanish on the left.
   - Link CEFR level codes in body copy to /en/cefr/ (e.g. [A1](/en/cefr/)).
     Do not put Markdown links in YAML frontmatter.
-  - Voice and pedagogy: see STYLE GUIDE comment above (English audience, not ES).
+  - Voice and pedagogy: see STYLE GUIDE comment above (English audience, not FR).
   - To generate a draft with an LLM: paste this whole file and complete the
     INPUT fields in the LLM PROMPT comment at the top of the file.
 -->
@@ -163,8 +175,8 @@ and the idea that ties its uses together. Do not list every translation.
 
 ## Forms and grammar
 
-The mechanics a learner needs in order to build a correct sentence: irregular
-forms, stem changes, the auxiliary and past participle, any article or
+The mechanics a learner needs in order to build a correct sentence: stem
+changes, an irregular preterite, the participle, reflexive forms, any
 preposition habit. Keep to what the examples below actually rely on.
 
 ## How to use {verb}
@@ -174,11 +186,11 @@ separates them rather than meeting three headings cold.
 
 ### First sense, as a short descriptive heading
 
-One line of guidance: what this use covers, or where French parts company with
+One line of guidance: what this use covers, or where Spanish parts company with
 English.
 
-| French | English |
-|--------|---------|
+| Spanish | English |
+|---------|---------|
 | | |
 | | |
 
@@ -186,8 +198,8 @@ English.
 
 One line of guidance.
 
-| French | English |
-|--------|---------|
+| Spanish | English |
+|---------|---------|
 | | |
 | | |
 
@@ -195,8 +207,8 @@ One line of guidance.
 
 One line of guidance.
 
-| French | English |
-|--------|---------|
+| Spanish | English |
+|---------|---------|
 | | |
 | | |
 
@@ -206,11 +218,11 @@ One line of guidance.
 
 ## Common constructions
 
-One sentence introducing the combinations. Prefer collocations where French and
+One sentence introducing the combinations. Prefer collocations where Spanish and
 English diverge over ones that translate predictably.
 
-| French | English |
-|--------|---------|
+| Spanish | English |
+|---------|---------|
 | | |
 | | |
 
@@ -220,28 +232,29 @@ A closing note on whichever row is least predictable for an English speaker.
 
 One sentence on what sets these apart from the senses above.
 
-### french expression
+### expresión española
 
 Short gloss.
 
-| French | English |
-|--------|---------|
+| Spanish | English |
+|---------|---------|
 | | |
 
 ### second expression
 
 Short gloss.
 
-| French | English |
-|--------|---------|
+| Spanish | English |
+|---------|---------|
 | | |
 
 ## Register and usage
 
 OPTIONAL, and harder to write than it looks. Keep it only if there is something
 concrete to say: a use that is formal, dated, regional, or that would sound
-wrong in ordinary conversation. Delete the whole section if the honest answer is
-that the verb is neutral everywhere. Do not pad it.
+wrong in ordinary conversation. This is also where peninsular and Latin American
+differences belong, when they bear on this verb. Delete the whole section if the
+honest answer is that the verb is neutral everywhere.
 
 ## Common mistakes
 

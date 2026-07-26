@@ -69,7 +69,7 @@ Here *prendre* covers English "have," for meals, drinks, and medicine alike. Ord
 | Je bois un café. | I drink a coffee. |
 | Je prends un café. | I'm having a coffee. |
 
-*Boire* is the physical act of drinking. *Prendre* is the occasion: ordering it, sitting down with it, having one as part of your morning. *On prend un café ?* is an invitation — "shall we grab a coffee?" — and *on boit un café ?* does not carry that.
+*Boire* is the physical act of drinking. *Prendre* is the occasion: ordering it, sitting down with it, having one as part of your morning. *On prend un café ?* is an invitation, the equivalent of "shall we grab a coffee?". *On boit un café ?* does not carry that.
 
 English speakers tend to over-use *boire* here, because "I'm taking a coffee" in English suggests taking it away, so "take" never comes to mind.
 
@@ -127,10 +127,10 @@ The *d* disappears in the *nous*, *vous*, and *ils* forms: *nous prenons*, *vous
 
 ## Related verbs
 
-- manger — to eat
-- boire — to drink
-- aller — to go
-- emmener — to take someone somewhere
+- manger: to eat
+- boire: to drink
+- aller: to go
+- emmener: to take someone somewhere
 
 *Emmener* is the one to watch. For taking a *person* along, French uses *emmener*, not *prendre*: *je t'emmène à la gare*.
 

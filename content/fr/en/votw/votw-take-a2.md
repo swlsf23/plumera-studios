@@ -22,7 +22,7 @@ Dans l’autre sens, plusieurs emplois de *prendre* refusent *take* : le café, 
 
 *Take* est irrégulier : *take, took, taken*. À la troisième personne du singulier, *he takes*, *she takes*.
 
-L’anglais distingue deux présents là où le français n’en a qu’un. *I take the bus* décrit une habitude ; *I’m taking the bus* décrit ce qui se passe maintenant. *Je prends le bus* couvre les deux.
+L’anglais distingue deux présents là où le français n’en a qu’un. *I take the bus* décrit une habitude. *I’m taking the bus* décrit ce qui se passe maintenant. *Je prends le bus* couvre les deux.
 
 Le prétérit *took* rend à la fois *je pris* et *j’ai pris* : *I took the metro this morning*.
 
@@ -132,7 +132,7 @@ La première vient du français, la seconde d’un faux ami.
 |-----------|---------|
 | *I have taken the bus yesterday.* | *I took the bus yesterday.* |
 
-*J’ai pris* ressemble à *I have taken*, et la ressemblance est un piège. Dès qu’un moment du passé est nommé — *yesterday*, *this morning*, *last week* — l’anglais exige le prétérit.
+*J’ai pris* ressemble à *I have taken*, et la ressemblance est un piège. Dès qu’un moment du passé est nommé, comme *yesterday*, *this morning* ou *last week*, l’anglais exige le prétérit.
 
 ### passed pour un examen qu’on a seulement subi
 
@@ -144,10 +144,10 @@ La première vient du français, la seconde d’un faux ami.
 
 ## Verbes voisins
 
-- bring — apporter, amener
-- have — prendre, pour un repas ou une boisson
-- make — faire, pour un rendez-vous ou une décision
-- catch — attraper
+- bring : apporter, amener
+- have : prendre, pour un repas ou une boisson
+- make : faire, pour un rendez-vous ou une décision
+- catch : attraper
 
 *Catch* mérite un mot : *to catch the bus* existe aussi pour *prendre le bus*, avec l’idée de l’attraper à temps.
 

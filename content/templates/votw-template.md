@@ -1,9 +1,7 @@
 <!--
-  Moved. Use the pair-specific templates instead:
+  Moved. Use the pair-specific templates in content/templates/votw/ instead,
+  one per target and locale combination.
 
-  - content/templates/votw/fr-en.md  — French VOTW for English speakers
-  - content/templates/votw/fr-es.md  — French VOTW for Spanish speakers
-
-  See content/templates/votw/README.md for the full naming matrix (including
-  planned es-en and es-fr templates).
+  See content/templates/votw/README.md for the naming matrix and the shared
+  article shape.
 -->
