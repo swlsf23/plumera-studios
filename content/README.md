@@ -9,20 +9,20 @@ There is no React/SPA path for these pages in production or local site preview.
 ```text
 content/
   {locale}/              # explanatory / UI language
-    core/                # no target language — site-wide pages
+    core/                # no target language, site-wide pages
       updates.md
       privacy.md
       cefr.md
-      index.md           # optional reference text only — NOT built
+      index.md           # optional reference text only, NOT built
     {target}/            # language being taught
       votw/
       conjugation/
-  templates/             # authoring prompts — not published pages
+  templates/             # authoring prompts, not published pages
 ```
 
-- **`locale`** — language of the explanation / UI (`en`, `es`, `fr`, …)
-- **`core`** — site pages for that locale, with no target language (same filenames across locales; body copy is not assumed 1:1)
-- **`{target}`** — language being taught, one folder per language, holding every series for it (`votw/`, and whatever comes later)
+- **`locale`**: language of the explanation / UI (`en`, `es`, `fr`, …)
+- **`core`**: site pages for that locale, with no target language (same filenames across locales, and body copy is not assumed 1:1)
+- **`{target}`**: language being taught, one folder per language, holding every series for it (`votw/`, and whatever comes later)
 
 The second level is therefore either `core` or a language code, and nothing else.
 
@@ -35,7 +35,7 @@ Example: English explanation of French VOTW → `content/en/fr/votw/…` with `l
 - Landings are **not** emitted from Markdown. `public/{locale}/index.html` is copied as-is.
 - All other pages (for now) should have a Markdown file here and are emitted as full HTML documents (title, description, canonical baked in).
 - Emitted URLs are directory indexes with trailing slashes (e.g. `/en/updates/` → `updates/index.html`), so plain static hosting matches local and production.
-- No hreflang alternate tags; canonicals are self-referencing only.
+- No hreflang alternate tags. Canonicals are self-referencing only.
 
 ## Frontmatter
 
