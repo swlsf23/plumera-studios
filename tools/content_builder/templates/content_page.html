@@ -11,13 +11,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
   <script defer src="https://cloud.umami.is/script.js" data-website-id="a6e7309a-1696-4e8c-95f3-bd6d0361fb4a" data-domains="plumerastudios.com"></script>
   <link rel="stylesheet" href="/css/base.css">
-  <link rel="stylesheet" href="/css/content-header.css">
-  <link rel="stylesheet" href="/css/content.css">
+  <link rel="stylesheet" href="/css/content-header.css?v=brand-2">
+  <link rel="stylesheet" href="/css/content.css?v=dek-gold">
 </head>
 <body>
   <div class="page content-page">
     <header class="content-header">
-      <a href="/{{ page.locale }}/" class="content-header__brand" aria-label="{{ chrome.brand_home }}">Plumera</a>
+      <a href="/{{ page.locale }}/" class="content-header__brand" aria-label="{{ chrome.brand_home }}">Plumera Studios</a>
 
       <nav class="content-header__nav" aria-label="Primary navigation">
         <a href="/{{ page.locale }}/">{{ chrome.home }}</a>
@@ -56,7 +56,7 @@
       </nav>
     </header>
 
-    <main class="page-grid">
+    <main class="page-grid{% if page.eyebrow %} page-grid--align-sidebar-title{% endif %}">
       <div class="content-column">
         <header class="article-header">
           {% if page.eyebrow %}<p class="eyebrow">{{ page.eyebrow }}</p>{% endif %}
@@ -79,6 +79,9 @@
         <article class="article-body">
           {{ page.body_html | safe }}
         </article>
+        {% if page.after_body_html %}
+        {{ page.after_body_html | safe }}
+        {% endif %}
       </div>
 
       <aside class="sidebar">
@@ -95,12 +98,12 @@
 
         {% if related %}
         <div class="sidebar-block related-block">
-          <h2>{{ chrome.related_votw }}</h2>
+          <h2>{{ chrome.you_might_also_like }}</h2>
           <div class="mini-card-list">
             {% for item in related %}
             <a class="mini-card" href="{{ item.href }}">
               <h3>{{ item.title }}</h3>
-              <p>{{ item.meta }}</p>
+              {% if item.meta %}<p>{{ item.meta }}</p>{% endif %}
             </a>
             {% endfor %}
           </div>

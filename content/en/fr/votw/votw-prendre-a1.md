@@ -1,13 +1,18 @@
 ---
-title: Prendre
+title: "French Verb of the Week: Prendre"
 description: How French uses prendre for taking things, taking transport, and having food, drink, or medicine.
 slug: votw-prendre-a1
 target: fr
 locale: en
 level: A1
 author:
-date:
+date: 2026-07-27
 draft: true
+related:
+  - title: French Verb of the Week
+    href: /en/fr/votw/
+  - title: CEFR levels
+    href: /en/cefr/
 ---
 
 # Prendre
@@ -132,7 +137,7 @@ The *d* disappears in the *nous*, *vous*, and *ils* forms: *nous prenons*, *vous
 - aller: to go
 - emmener: to take someone somewhere
 
-*Emmener* is the one to watch. For taking a *person* along, French uses *emmener*, not *prendre*: *je t'emmène à la gare*.
+> *Emmener* is the one to watch. For taking a *person* along, French uses *emmener*, not *prendre*: *je t'emmène à la gare*.
 
 ## Summary
 

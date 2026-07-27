@@ -21,7 +21,7 @@ from tools.content_builder.parse import (
     parse_votw_page,
     votw_links,
 )
-from tools.content_builder.sidebar import SOCIAL_LINKS, related_for
+from tools.content_builder.sidebar import SOCIAL_LINKS
 from tools.content_builder.sitemaps import write_sitemaps
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -71,7 +71,7 @@ def _render_page(template, page, votw_nav: dict[str, str]) -> str:
         site_origin=SITE_ORIGIN,
         languages=_lang_hrefs(locale),
         canonical_url=_canonical_url(page.canonical_path),
-        related=related_for(locale),
+        related=page.related,
         social_links=SOCIAL_LINKS,
         votw_href=votw_nav.get(locale),
     )
@@ -94,15 +94,36 @@ def _write_redirect(path: Path, target: str) -> None:
 
 
 def _votw_list_html(locale: str, target: str, include_drafts: bool) -> str:
-    """Link list appended to a series index, built from the files on disk."""
+    """Card list for a series index, built from the files on disk."""
     links = votw_links(CONTENT, locale, target, include_drafts=include_drafts)
     if not links:
         return ""
-    items = "\n".join(
-        f'  <li><a href="{escape(link["href"])}">{escape(link["title"])}</a></li>'
-        for link in links
+    cards: list[str] = []
+    for link in links:
+        meta = escape(link["date"]) if link.get("date") else ""
+        dek = escape(link["description"]) if link.get("description") else ""
+        level = escape(link["level"]) if link.get("level") else ""
+        level_html = (
+            f'\n      <span class="votw-card__level">{level}</span>' if level else ""
+        )
+        meta_html = (
+            f'\n    <p class="votw-card__meta">{meta}</p>' if meta else ""
+        )
+        dek_html = f'\n    <p class="votw-card__dek">{dek}</p>' if dek else ""
+        cards.append(
+            f'  <a class="votw-card" href="{escape(link["href"])}">\n'
+            f'    <div class="votw-card__heading">\n'
+            f'      <h2 class="votw-card__title">{escape(link["title"])}</h2>'
+            f"{level_html}\n"
+            f"    </div>"
+            f"{meta_html}{dek_html}\n"
+            f"  </a>"
+        )
+    return (
+        f'<nav class="votw-card-list" aria-label="Verb of the Week">\n'
+        f"{chr(10).join(cards)}\n"
+        f"</nav>\n"
     )
-    return f'\n<ul class="votw-list">\n{items}\n</ul>\n'
 
 
 def _votw_nav_hrefs(series: list[tuple[str, str]]) -> dict[str, str]:
@@ -117,7 +138,7 @@ def _votw_nav_hrefs(series: list[tuple[str, str]]) -> dict[str, str]:
         if len(targets) > 1:
             print(
                 f"warning: {locale} has VOTW series for {', '.join(targets)}; the "
-                f"header can only point at one and uses {targets[0]!r} — decide on a "
+                f"header can only point at one and uses {targets[0]!r}. Decide on a "
                 f"hub page or per-target nav items",
                 file=sys.stderr,
             )
@@ -164,8 +185,9 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
         locale = page.locale
         series = dist / locale / target / "votw"
         if path.stem == VOTW_INDEX_STEM:
-            # /en/fr/votw/ → en/fr/votw/index.html, with the article list appended
-            page.body_html += _votw_list_html(locale, target, include_drafts)
+            # /en/fr/votw/ → en/fr/votw/index.html, with the article cards
+            # outside .article-body so prose link styles do not flatten them.
+            page.after_body_html = _votw_list_html(locale, target, include_drafts)
             out = series / "index.html"
         else:
             # /en/fr/votw/slug/ → en/fr/votw/slug/index.html

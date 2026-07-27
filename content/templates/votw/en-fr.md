@@ -19,10 +19,11 @@ OUTPUT RULES
    Do not rename, reorder, or add top-level ## sections. Registre et usage is
    the one optional section and may be deleted (see its note).
    Headings in this template are in French and must stay in French.
-3. Set the H1 to the English verb (same string as title in frontmatter), in the
-   form "To take".
+3. Set the H1 to the English verb only, in the form "To take".
 4. Fill YAML frontmatter: title, description, slug, target, locale, level,
    author, date. Set target: en and locale: fr.
+   title is the full document <title>, not just the verb:
+   "Verbe anglais de la semaine : To take". The builder uses it as-is.
    Keep draft: true unless the human asks to publish.
 5. slug must be a URL-safe form of the verb, with the level as a suffix
    (e.g. votw-take-a2). frontmatter level is the source of truth. The suffix only
@@ -147,7 +148,7 @@ L1 interference (French → English)
 -->
 
 ---
-title:          # Verbe anglais, p. ex. To take
+title:          # <title> complet, p. ex. "Verbe anglais de la semaine : To take"
 description:    # Méta-description en une phrase (français)
 slug:           # votw-{verbe}-{niveau}, p. ex. votw-take-a2
 target: en      # Langue enseignée
@@ -156,6 +157,10 @@ level:          # CECR : A1 | A2 | B1 | B2 | C1 | C2, ou une plage comme A1, A2
 author:
 date:           # AAAA-MM-JJ
 draft: true
+related:        # Cartes « Vous aimerez aussi » (optionnel)
+  - title:      # Titre de la carte
+    meta:       # Sous-titre optionnel (p. ex. date)
+    href:       # Chemin du site, p. ex. /fr/en/votw/
 ---
 
 <!--

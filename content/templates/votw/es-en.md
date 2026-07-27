@@ -18,9 +18,11 @@ OUTPUT RULES
 2. Keep every ## heading exactly as written below and in this order.
    Do not rename, reorder, or add top-level ## sections. Register and usage is
    the one optional section and may be deleted (see its note).
-3. Set the H1 to the Spanish verb lemma (same string as title in frontmatter).
+3. Set the H1 to the Spanish verb lemma only (e.g. Tomar).
 4. Fill YAML frontmatter: title, description, slug, target, locale, level,
    author, date. Set target: es and locale: en.
+   title is the full document <title>, not just the verb:
+   "Spanish Verb of the Week: Tomar". The builder uses it as-is.
    Keep draft: true unless the human asks to publish.
 5. slug must be a URL-safe form of the infinitive, with the level as a suffix
    (e.g. votw-tomar-a1). frontmatter level is the source of truth. The suffix
@@ -137,7 +139,7 @@ L1 interference (English → Spanish)
 -->
 
 ---
-title:          # Spanish verb lemma, e.g. Tomar
+title:          # Full <title>, e.g. "Spanish Verb of the Week: Tomar"
 description:    # One-sentence meta description (English)
 slug:           # votw-{verb}-{level}, e.g. votw-tomar-a1
 target: es      # Language taught
@@ -146,6 +148,10 @@ level:          # CEFR: A1 | A2 | B1 | B2 | C1 | C2, or a range like A1, A2
 author:
 date:           # YYYY-MM-DD
 draft: true
+related:        # Sidebar "You might also like" cards (optional)
+  - title:      # Card title
+    meta:       # Optional subtitle (e.g. date)
+    href:       # Site path, e.g. /en/es/votw/ or /en/es/votw/votw-otro-a1/
 ---
 
 <!--

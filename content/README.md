@@ -43,6 +43,8 @@ VOTW (and similar learn pages) use YAML frontmatter (`title`, `description`, `da
 
 Keep `slug` equal to the filename stem (e.g. `votw-prendre-a1.md` → `slug: votw-prendre-a1`). The builder prefers `slug` for the URL and warns if it does not match the filename.
 
+Optional `related` is a list of sidebar cards (`title`, `href`, optional `meta`) for the “You might also like” block.
+
 Set `draft: true` to keep a page out of `dist/` and sitemaps until it is ready.
 
 Core pages may use a plain first-line eyebrow/title, then a `#` heading, then body Markdown. Optional YAML frontmatter is also supported.
