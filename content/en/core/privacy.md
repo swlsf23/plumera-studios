@@ -7,6 +7,8 @@ related:
     href: /en/updates/
   - title: CEFR levels
     href: /en/cefr/
+  - title: French Verb of the Week
+    href: /en/fr/votw/
 ---
 
 # Privacy at Plumera Studios
