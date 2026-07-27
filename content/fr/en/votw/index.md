@@ -7,6 +7,12 @@ locale: fr
 author:
 date:
 draft: true
+eyebrow: Série
+related:
+  - title: Niveaux CECR
+    href: /fr/cefr/
+  - title: To take
+    href: /fr/en/votw/votw-take-a2/
 ---
 
 # Verbe anglais de la semaine

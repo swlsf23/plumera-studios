@@ -1,4 +1,13 @@
-Comment nous utilisons le CECR
+---
+title: Comment nous utilisons le CECR
+description: Le CECR décrit ce que vous pouvez faire dans une langue sur six niveaux. Chez Plumera, nous l’utilisons pour vous aider à choisir des contenus adaptés.
+eyebrow: Niveaux
+related:
+  - title: Verbe anglais de la semaine
+    href: /fr/en/votw/
+  - title: To take
+    href: /fr/en/votw/votw-take-a2/
+---
 
 # Comment nous utilisons le CECR
 

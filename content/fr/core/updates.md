@@ -1,4 +1,13 @@
-Actualités de Plumera
+---
+title: Des actualités utiles. Sans encombrer votre boîte de réception.
+description: Découvrez les nouveaux outils linguistiques, les ressources pédagogiques, les jeux de lettres et les lancements marquants de Plumera Studios.
+eyebrow: Actualités
+related:
+  - title: Verbe anglais de la semaine
+    href: /fr/en/votw/
+  - title: Niveaux CECR
+    href: /fr/cefr/
+---
 
 # Des actualités utiles. Sans encombrer votre boîte de réception.
 
@@ -8,7 +17,7 @@ Découvrez les nouveaux outils linguistiques, les ressources pédagogiques, les 
 
 Envoyez un court message avec **Actualités** en objet à l’adresse suivante :
 
-hello [arobase] plumerastudios [point] com
+> hello [arobase] plumerastudios [point] com
 
 Nous vous répondrons pour confirmer que vous souhaitez être ajouté à la liste.
 

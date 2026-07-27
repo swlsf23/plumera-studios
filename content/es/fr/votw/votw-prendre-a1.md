@@ -1,5 +1,5 @@
 ---
-title: Prendre
+title: "Verbo francés de la semana: Prendre"
 description: Cómo el francés usa prendre para coger cosas, tomar transporte y pedir comida, bebida o medicina.
 slug: votw-prendre-a1
 target: fr

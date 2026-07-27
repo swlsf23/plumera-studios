@@ -19,9 +19,11 @@ OUTPUT RULES
    Do not rename, reorder, or add top-level ## sections. Registro y uso is the
    one optional section and may be deleted (see its note).
    Headings in this template are in Spanish and must stay in Spanish.
-3. Set the H1 to the French verb lemma (same string as title in frontmatter).
+3. Set the H1 to the French verb lemma only (e.g. Prendre).
 4. Fill YAML frontmatter: title, description, slug, target, locale, level,
    author, date. Set target: fr and locale: es.
+   title is the full document <title>, not just the verb:
+   "Verbo francés de la semana: {Verbo}". The builder uses it as-is.
    Keep draft: true unless the human asks to publish.
 5. slug must be a URL-safe form of the infinitive, with the level as a suffix
    (e.g. votw-prendre-a1). frontmatter level is the source of truth. The suffix
@@ -131,7 +133,7 @@ L1 interference (Spanish → French)
 -->
 
 ---
-title:          # Lema del verbo francés, p. ej. Prendre
+title:          # <title> completo, p. ej. "Verbo francés de la semana: Prendre"
 description:    # Meta descripción en una frase (español)
 slug:           # votw-{verbo}-{nivel}, p. ej. votw-prendre-a1
 target: fr      # Idioma que se enseña
@@ -140,6 +142,10 @@ level:          # MCER: A1 | A2 | B1 | B2 | C1 | C2, o un rango como A1, A2
 author:
 date:           # AAAA-MM-DD
 draft: true
+related:        # Tarjetas "También te puede interesar" (opcional)
+  - title:      # Título de la tarjeta
+    meta:       # Subtítulo opcional (p. ej. fecha)
+    href:       # Ruta del sitio, p. ej. /es/fr/votw/
 ---
 
 <!--

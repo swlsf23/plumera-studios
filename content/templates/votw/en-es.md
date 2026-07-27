@@ -19,10 +19,11 @@ OUTPUT RULES
    Do not rename, reorder, or add top-level ## sections. Registro y uso is the
    one optional section and may be deleted (see its note).
    Headings in this template are in Spanish and must stay in Spanish.
-3. Set the H1 to the English verb (same string as title in frontmatter), in the
-   form "To take".
+3. Set the H1 to the English verb only, in the form "To take".
 4. Fill YAML frontmatter: title, description, slug, target, locale, level,
    author, date. Set target: en and locale: es.
+   title is the full document <title>, not just the verb:
+   "Verbo inglés de la semana: To take". The builder uses it as-is.
    Keep draft: true unless the human asks to publish.
 5. slug must be a URL-safe form of the verb, with the level as a suffix
    (e.g. votw-take-a2). frontmatter level is the source of truth. The suffix only
@@ -145,7 +146,7 @@ L1 interference (Spanish → English)
 -->
 
 ---
-title:          # Verbo inglés, p. ej. To take
+title:          # <title> completo, p. ej. "Verbo inglés de la semana: To take"
 description:    # Meta descripción en una frase (español)
 slug:           # votw-{verbo}-{nivel}, p. ej. votw-take-a2
 target: en      # Idioma que se enseña
@@ -154,6 +155,10 @@ level:          # MCER: A1 | A2 | B1 | B2 | C1 | C2, o un rango como A1, A2
 author:
 date:           # AAAA-MM-DD
 draft: true
+related:        # Tarjetas "También te puede interesar" (opcional)
+  - title:      # Título de la tarjeta
+    meta:       # Subtítulo opcional (p. ej. fecha)
+    href:       # Ruta del sitio, p. ej. /es/en/votw/
 ---
 
 <!--

@@ -12,7 +12,7 @@ import frontmatter
 import markdown
 from markdown.extensions.toc import slugify as md_slugify
 
-from tools.content_builder.chrome import chrome_for, format_date
+from tools.content_builder.chrome import chrome_for, format_date, votw_series_label
 
 SITE_ORIGIN = "https://plumerastudios.com"
 CORE_SKIP = {"index.md"}  # landings are copied HTML; MD is reference-only
@@ -39,7 +39,9 @@ class Page:
     dek: str = ""
     meta_line: str = ""
     body_html: str = ""
+    after_body_html: str = ""
     toc: list[TocItem] = field(default_factory=list)
+    related: list[dict[str, str]] = field(default_factory=list)
     active: str = ""
     show_hero_art: bool = False
 
@@ -118,18 +120,52 @@ def _format_date(value: object, locale: str) -> str:
     return ""
 
 
+def _parse_related(meta: dict, path: Path) -> list[dict[str, str]]:
+    """Sidebar related cards from frontmatter `related:` (list of title/href/meta)."""
+    raw = meta.get("related")
+    if raw is None:
+        return []
+    if not isinstance(raw, list):
+        print(
+            f"warning: related must be a list ({path}); ignoring",
+            file=sys.stderr,
+        )
+        return []
+    items: list[dict[str, str]] = []
+    for i, entry in enumerate(raw):
+        if not isinstance(entry, dict):
+            print(
+                f"warning: related[{i}] must be a mapping with title and href "
+                f"({path}); skipping",
+                file=sys.stderr,
+            )
+            continue
+        title = str(entry.get("title") or "").strip()
+        href = str(entry.get("href") or "").strip()
+        label = str(entry.get("meta") or "").strip()
+        if not title or not href:
+            print(
+                f"warning: related[{i}] needs non-empty title and href ({path}); "
+                f"skipping",
+                file=sys.stderr,
+            )
+            continue
+        items.append({"title": title, "href": href, "meta": label})
+    return items
+
+
 def parse_core_page(path: Path, locale: str) -> Page:
     raw = path.read_text(encoding="utf-8")
     post = frontmatter.loads(raw)
     body = post.content.strip()
     lines = body.splitlines()
+    meta = post.metadata
 
-    eyebrow = ""
-    if lines and not lines[0].startswith("#") and lines[0].strip():
+    eyebrow = str(meta.get("eyebrow") or "").strip()
+    if not eyebrow and lines and not lines[0].startswith("#") and lines[0].strip():
         eyebrow = lines[0].strip()
         body = "\n".join(lines[1:]).lstrip()
 
-    meta = post.metadata
     html = _md_to_html(body)
     heading, html = _strip_tag(html, "h1")
     dek, html = _extract_dek(html)
@@ -138,11 +174,10 @@ def parse_core_page(path: Path, locale: str) -> Page:
     stem = path.stem
     title = str(meta.get("title") or eyebrow or heading or stem)
     description = str(meta.get("description") or dek)
-    page_title = f"{title} — Plumera Studios" if "Plumera" not in title else title
 
     return Page(
         locale=locale,
-        title=page_title,
+        title=title,
         description=description,
         canonical_path=f"/{locale}/{stem}/",
         eyebrow=eyebrow,
@@ -150,7 +185,9 @@ def parse_core_page(path: Path, locale: str) -> Page:
         dek=dek,
         body_html=html,
         toc=toc,
+        related=_parse_related(meta, path),
         active=stem,
+        show_hero_art=True,
     )
 
 
@@ -177,7 +214,6 @@ def parse_votw_page(path: Path, locale: str, target: str) -> Page:
         slug = stem
     title = str(meta.get("title") or stem)
     description = str(meta.get("description") or "")
-    category = str(meta.get("category") or "VOTW")
     author = str(meta.get("author") or "")
     date_label = _format_date(meta.get("date"), locale)
 
@@ -191,11 +227,19 @@ def parse_votw_page(path: Path, locale: str, target: str) -> Page:
     dek = description or dek_from_body
     html, toc = _inject_heading_ids(html)
 
+    # Eyebrow: frontmatter override, else series name (+ date on articles).
+    series_name = str(meta.get("category") or votw_series_label(locale, target))
+    eyebrow_override = str(meta.get("eyebrow") or "").strip()
+    if eyebrow_override:
+        eyebrow = eyebrow_override
+    elif date_label and stem != VOTW_INDEX_STEM:
+        eyebrow = f"{series_name} · {date_label}"
+    else:
+        eyebrow = series_name
+
     meta_parts: list[str] = []
     if author:
         meta_parts.append(chrome_for(locale)["by_author"].format(author=author))
-    if date_label:
-        meta_parts.append(date_label)
     meta_line = " · ".join(meta_parts)
 
     heading_html = heading.replace(" — ", "<br>") if " — " in heading else heading
@@ -204,15 +248,16 @@ def parse_votw_page(path: Path, locale: str, target: str) -> Page:
 
     return Page(
         locale=locale,
-        title=f"{title} — Plumera Studios",
+        title=title,
         description=description,
         canonical_path=canonical_path,
-        eyebrow=category,
+        eyebrow=eyebrow,
         heading_html=heading_html,
         dek=dek,
         meta_line=meta_line,
         body_html=html,
         toc=toc,
+        related=_parse_related(meta, path),
         active="votw",
         show_hero_art=True,
     )
@@ -285,13 +330,27 @@ def votw_links(
     for path in sorted(votw.glob("*.md")):
         if path.stem == VOTW_INDEX_STEM:
             continue
-        meta = frontmatter.load(path).metadata
+        post = frontmatter.load(path)
+        meta = post.metadata
         if meta.get("draft") and not include_drafts:
             continue
         slug = str(meta.get("slug") or path.stem)
+        # Series list uses the body H1 (the verb). Frontmatter title is the
+        # full document <title> and is often longer (series name + verb).
+        list_title = str(meta.get("title") or path.stem)
+        for line in post.content.splitlines():
+            if line.startswith("# "):
+                list_title = line[2:].strip()
+                break
+        date_label = _format_date(meta.get("date"), locale)
+        description = str(meta.get("description") or "").strip()
+        level = str(meta.get("level") or "").strip()
         links.append(
             {
-                "title": str(meta.get("title") or path.stem),
+                "title": list_title,
+                "date": date_label,
+                "description": description,
+                "level": level,
                 "href": f"/{locale}/{target}/votw/{slug}/",
             }
         )

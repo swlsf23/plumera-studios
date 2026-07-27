@@ -1,4 +1,13 @@
-Plumera updates
+---
+title: Useful updates. No inbox noise.
+description: Hear about new language tools, learning resources, word games, and meaningful Plumera Studios releases.
+eyebrow: News
+related:
+  - title: French Verb of the Week
+    href: /en/fr/votw/
+  - title: CEFR levels
+    href: /en/cefr/
+---
 
 # Useful updates. No inbox noise.
 
@@ -8,7 +17,7 @@ Hear about new language tools, learning resources, word games, and meaningful Pl
 
 Send a short note with **Updates** in the subject line to:
 
-hello [at] plumerastudios [dot] com
+> hello [at] plumerastudios [dot] com
 
 We’ll reply to confirm that you want to be included.
 

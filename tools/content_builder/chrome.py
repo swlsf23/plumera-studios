@@ -11,7 +11,7 @@ from datetime import date
 
 CHROME: dict[str, dict[str, str]] = {
     "en": {
-        "brand_home": "Plumera home",
+        "brand_home": "Plumera Studios home",
         "home": "Home",
         "votw": "VOTW",
         "updates": "Updates",
@@ -20,13 +20,13 @@ CHROME: dict[str, dict[str, str]] = {
         "choose_language": "Choose language",
         "menu": "Menu",
         "on_this_page": "On this page",
-        "related_votw": "Related VOTW",
+        "you_might_also_like": "You might also like",
         "follow_us": "Follow us:",
         "by_author": "By {author}",
         "copyright": "© 2026 Plumera Studios",
     },
     "es": {
-        "brand_home": "Inicio de Plumera",
+        "brand_home": "Inicio de Plumera Studios",
         "home": "Inicio",
         "votw": "VOTW",
         "updates": "Novedades",
@@ -35,13 +35,13 @@ CHROME: dict[str, dict[str, str]] = {
         "choose_language": "Elegir idioma",
         "menu": "Menú",
         "on_this_page": "En esta página",
-        "related_votw": "VOTW relacionados",
+        "you_might_also_like": "También te puede interesar",
         "follow_us": "Síguenos:",
         "by_author": "Por {author}",
         "copyright": "© 2026 Plumera Studios",
     },
     "fr": {
-        "brand_home": "Accueil Plumera",
+        "brand_home": "Accueil Plumera Studios",
         "home": "Accueil",
         "votw": "VOTW",
         "updates": "Actualités",
@@ -50,7 +50,7 @@ CHROME: dict[str, dict[str, str]] = {
         "choose_language": "Choisir la langue",
         "menu": "Menu",
         "on_this_page": "Sur cette page",
-        "related_votw": "VOTW associés",
+        "you_might_also_like": "Vous aimerez aussi",
         "follow_us": "Suivez-nous :",
         "by_author": "Par {author}",
         "copyright": "© 2026 Plumera Studios",
@@ -61,6 +61,26 @@ LANGUAGE_LABELS = {
     "en": "English",
     "es": "Español",
     "fr": "Français",
+}
+
+# Spelled-out VOTW series label for article eyebrows: locale → target → label.
+# Nav chrome keeps the short "VOTW"; this is the reader-facing series name.
+VOTW_SERIES: dict[str, dict[str, str]] = {
+    "en": {
+        "fr": "French Verb of the Week",
+        "es": "Spanish Verb of the Week",
+        "en": "English Verb of the Week",
+    },
+    "es": {
+        "fr": "Verbo francés de la semana",
+        "en": "Verbo inglés de la semana",
+        "es": "Verbo español de la semana",
+    },
+    "fr": {
+        "en": "Verbe anglais de la semaine",
+        "es": "Verbe espagnol de la semaine",
+        "fr": "Verbe français de la semaine",
+    },
 }
 
 MONTHS: dict[str, list[str]] = {
@@ -94,6 +114,26 @@ def chrome_for(locale: str) -> dict[str, str]:
         file=sys.stderr,
     )
     return CHROME["en"]
+
+
+def votw_series_label(locale: str, target: str) -> str:
+    """Spelled-out series name for a locale/target pair (article eyebrow)."""
+    by_target = VOTW_SERIES.get(locale)
+    if by_target is None:
+        print(
+            f"warning: no VOTW series labels for locale {locale!r}; falling back to 'en'",
+            file=sys.stderr,
+        )
+        by_target = VOTW_SERIES["en"]
+    label = by_target.get(target)
+    if label is None:
+        print(
+            f"warning: no VOTW series label for locale {locale!r} target {target!r}; "
+            f"using a fallback",
+            file=sys.stderr,
+        )
+        return f"Verb of the Week ({target})"
+    return label
 
 
 def language_menu(locale: str, href_for) -> list[dict[str, str | bool]]:

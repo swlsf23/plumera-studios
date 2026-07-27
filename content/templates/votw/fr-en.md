@@ -18,9 +18,11 @@ OUTPUT RULES
 2. Keep every ## heading exactly as written below and in this order.
    Do not rename, reorder, or add top-level ## sections. Register and usage is
    the one optional section and may be deleted (see its note).
-3. Set the H1 to the French verb lemma (same string as title in frontmatter).
+3. Set the H1 to the French verb lemma only (e.g. Prendre).
 4. Fill YAML frontmatter: title, description, slug, target, locale, level,
    author, date. Set target: fr and locale: en.
+   title is the full document <title>, not just the verb:
+   "French Verb of the Week: {Verb}". The builder uses it as-is.
    Keep draft: true unless the human asks to publish.
 5. slug must be a URL-safe form of the infinitive, with the level as a suffix
    (e.g. votw-prendre-a1). frontmatter level is the source of truth. The suffix
@@ -125,7 +127,7 @@ L1 interference (English → French)
 -->
 
 ---
-title:          # French verb lemma, e.g. Prendre
+title:          # Full <title>, e.g. "French Verb of the Week: Prendre"
 description:    # One-sentence meta description (English)
 slug:           # votw-{verb}-{level}, e.g. votw-prendre-a1
 target: fr      # Language taught
@@ -134,6 +136,10 @@ level:          # CEFR: A1 | A2 | B1 | B2 | C1 | C2, or a range like A1, A2
 author:
 date:           # YYYY-MM-DD
 draft: true
+related:        # Sidebar "You might also like" cards (optional)
+  - title:      # Card title
+    meta:       # Optional subtitle (e.g. date)
+    href:       # Site path, e.g. /en/fr/votw/ or /en/fr/votw/votw-autre-a1/
 ---
 
 <!--
