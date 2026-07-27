@@ -1,4 +1,13 @@
-Data privacy
+---
+title: Privacy at Plumera Studios
+description: We collect only the information needed to operate our site, understand how it is used, receive feedback, and send updates people have requested.
+eyebrow: Legal
+related:
+  - title: Updates
+    href: /en/updates/
+  - title: CEFR levels
+    href: /en/cefr/
+---
 
 # Privacy at Plumera Studios
 

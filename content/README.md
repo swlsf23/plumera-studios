@@ -37,17 +37,23 @@ Example: English explanation of French VOTW → `content/en/fr/votw/…` with `l
 - Emitted URLs are directory indexes with trailing slashes (e.g. `/en/updates/` → `updates/index.html`), so plain static hosting matches local and production.
 - No hreflang alternate tags. Canonicals are self-referencing only.
 
+## Content page template
+
+Every emitted content page uses one layout (not landings): short **eyebrow**, **H1**, **dek** as a lede, slim decorative **hero** band, article body, then an end band with optional **You might also like** cards and **Follow us**.
+
+Author that shape in Markdown + YAML. Do not add a right-rail “On this page” TOC for content pages.
+
 ## Frontmatter
 
-VOTW (and similar learn pages) use YAML frontmatter (`title`, `description`, `date`, `slug`, `target`, `locale`, …).
+Prefer YAML frontmatter on content pages (`title`, `description`, `eyebrow`, `related`, and for VOTW also `date`, `slug`, `target`, `locale`, `level`, …).
 
 Keep `slug` equal to the filename stem (e.g. `votw-prendre-a1.md` → `slug: votw-prendre-a1`). The builder prefers `slug` for the URL and warns if it does not match the filename.
 
-Optional `related` is a list of sidebar cards (`title`, `href`, optional `meta`) for the “You might also like” block.
+Optional `related` is a list of end-band cards (`title`, `href`, optional `meta`) for “You might also like”.
+
+Optional `eyebrow` is the short label above the H1 (e.g. `Levels`, `News`, `Series`).
 
 Set `draft: true` to keep a page out of `dist/` and sitemaps until it is ready.
-
-Core pages may use a plain first-line eyebrow/title, then a `#` heading, then body Markdown. Optional YAML frontmatter is also supported.
 
 ## Chrome / locales
 

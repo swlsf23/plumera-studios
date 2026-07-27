@@ -7,6 +7,12 @@ locale: es
 author:
 date:
 draft: true
+eyebrow: Serie
+related:
+  - title: Niveles MCER
+    href: /es/cefr/
+  - title: Prendre
+    href: /es/fr/votw/votw-prendre-a1/
 ---
 
 # Verbo francés de la semana

@@ -159,13 +159,13 @@ def parse_core_page(path: Path, locale: str) -> Page:
     post = frontmatter.loads(raw)
     body = post.content.strip()
     lines = body.splitlines()
+    meta = post.metadata
 
-    eyebrow = ""
-    if lines and not lines[0].startswith("#") and lines[0].strip():
+    eyebrow = str(meta.get("eyebrow") or "").strip()
+    if not eyebrow and lines and not lines[0].startswith("#") and lines[0].strip():
         eyebrow = lines[0].strip()
         body = "\n".join(lines[1:]).lstrip()
 
-    meta = post.metadata
     html = _md_to_html(body)
     heading, html = _strip_tag(html, "h1")
     dek, html = _extract_dek(html)
@@ -187,6 +187,7 @@ def parse_core_page(path: Path, locale: str) -> Page:
         toc=toc,
         related=_parse_related(meta, path),
         active=stem,
+        show_hero_art=True,
     )
 
 
@@ -226,10 +227,12 @@ def parse_votw_page(path: Path, locale: str, target: str) -> Page:
     dek = description or dek_from_body
     html, toc = _inject_heading_ids(html)
 
-    # Eyebrow: spelled-out series name, with the publish date when set.
-    # Frontmatter category overrides the series label if present.
+    # Eyebrow: frontmatter override, else series name (+ date on articles).
     series_name = str(meta.get("category") or votw_series_label(locale, target))
-    if date_label and stem != VOTW_INDEX_STEM:
+    eyebrow_override = str(meta.get("eyebrow") or "").strip()
+    if eyebrow_override:
+        eyebrow = eyebrow_override
+    elif date_label and stem != VOTW_INDEX_STEM:
         eyebrow = f"{series_name} · {date_label}"
     else:
         eyebrow = series_name
@@ -256,7 +259,7 @@ def parse_votw_page(path: Path, locale: str, target: str) -> Page:
         toc=toc,
         related=_parse_related(meta, path),
         active="votw",
-        show_hero_art=False,
+        show_hero_art=True,
     )
 
 

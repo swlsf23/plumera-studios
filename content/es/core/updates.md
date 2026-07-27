@@ -1,4 +1,13 @@
-Novedades de Plumera
+---
+title: Novedades útiles. Sin ruido en tu bandeja de entrada.
+description: Infórmate sobre nuevas herramientas lingüísticas, recursos de aprendizaje, juegos de palabras y lanzamientos importantes de Plumera Studios.
+eyebrow: Noticias
+related:
+  - title: Verbo francés de la semana
+    href: /es/fr/votw/
+  - title: Niveles MCER
+    href: /es/cefr/
+---
 
 # Novedades útiles. Sin ruido en tu bandeja de entrada.
 
@@ -8,7 +17,7 @@ Infórmate sobre nuevas herramientas lingüísticas, recursos de aprendizaje, ju
 
 Envía una nota breve con **Novedades** en el asunto a:
 
-hello [arroba] plumerastudios [punto] com
+> hello [arroba] plumerastudios [punto] com
 
 Te responderemos para confirmar que deseas recibirlas.
 

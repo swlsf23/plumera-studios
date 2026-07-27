@@ -1,4 +1,13 @@
-Privacidad de los datos
+---
+title: Privacidad en Plumera Studios
+description: Recopilamos únicamente la información necesaria para gestionar nuestro sitio, comprender cómo se utiliza, recibir comentarios y enviar las novedades que las personas hayan solicitado.
+eyebrow: Legal
+related:
+  - title: Novedades
+    href: /es/updates/
+  - title: Niveles MCER
+    href: /es/cefr/
+---
 
 # Privacidad en Plumera Studios
 
