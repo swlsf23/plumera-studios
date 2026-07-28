@@ -171,14 +171,41 @@
   background: #e8ded2;
 }
 
+/* Slim band: soft diagonal wash (not a hard two-tone fill that reads as a meter). */
 .content-page--lesson .hero-art {
+  display: block;
+  position: relative;
   margin: 36px 0 20px;
-  min-height: 20px;
-  max-height: 22px;
-  border-radius: 6px;
+  min-height: 36px;
+  max-height: 40px;
+  border-radius: 8px;
+  background:
+    radial-gradient(ellipse 70% 220% at 8% 130%, rgba(255, 255, 255, 0.42), transparent 58%),
+    linear-gradient(
+      118deg,
+      #ece3d8 0%,
+      #e4d9cc 36%,
+      rgba(127, 153, 162, 0.85) 68%,
+      var(--blue-deep) 100%
+    );
 }
 
-/* Slim band: keep the two-tone plane, drop motif pieces that read as UI chrome. */
+.content-page--lesson .hero-art__arc {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+}
+
+.content-page--lesson .hero-art__arc::before {
+  width: 420px;
+  height: 420px;
+  border-width: 48px;
+  left: -210px;
+  top: -268px;
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.content-page--lesson .hero-art__panel,
 .content-page--lesson .hero-art__shape {
   display: none;
 }
@@ -826,6 +853,12 @@
     grid-template-columns: 55% 45%;
     min-height: 100px;
     max-height: 112px;
+  }
+
+  .content-page--lesson .hero-art {
+    display: block;
+    min-height: 32px;
+    max-height: 36px;
   }
 
   .article-body > h2 {
