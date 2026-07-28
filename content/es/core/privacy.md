@@ -1,5 +1,5 @@
 ---
-title: Privacidad en Plumera Studios
+title: "Plumera | Privacidad en Plumera Studios"
 description: Recopilamos únicamente la información necesaria para gestionar nuestro sitio, comprender cómo se utiliza, recibir comentarios y enviar las novedades que las personas hayan solicitado.
 eyebrow: Legal
 related:

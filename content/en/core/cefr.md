@@ -1,5 +1,5 @@
 ---
-title: How we use CEFR levels
+title: "Plumera | How we use CEFR levels"
 description: CEFR is the Common European Framework of Reference for Languages. Plumera uses these levels so you can pick material that matches where you are.
 eyebrow: Levels
 related:

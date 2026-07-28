@@ -127,7 +127,7 @@ L1 interference (English → French)
 -->
 
 ---
-title:          # Full <title>, e.g. "French Verb of the Week: Prendre"
+title:          # Full <title>, e.g. "Plumera | French Verb of the Week: Prendre"
 description:    # One-sentence meta description (English)
 slug:           # votw-{verb}-{level}, e.g. votw-prendre-a1
 target: fr      # Language taught

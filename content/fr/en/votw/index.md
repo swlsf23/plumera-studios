@@ -1,5 +1,5 @@
 ---
-title: Verbe anglais de la semaine
+title: "Plumera | Verbe anglais de la semaine"
 description: Un verbe anglais à la fois, du sens principal aux constructions, expressions et tournures du quotidien, classé par niveau CECR.
 slug: index
 target: en

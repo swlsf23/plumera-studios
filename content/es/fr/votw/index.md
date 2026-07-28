@@ -1,5 +1,5 @@
 ---
-title: Verbo francés de la semana
+title: "Plumera | Verbo francés de la semana"
 description: Un verbo francés a la vez, del sentido central a las construcciones, modismos y expresiones cotidianas, organizado por nivel MCER.
 slug: index
 target: fr

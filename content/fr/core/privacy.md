@@ -1,5 +1,5 @@
 ---
-title: La confidentialité chez Plumera Studios
+title: "Plumera | La confidentialité chez Plumera Studios"
 description: Nous recueillons uniquement les informations nécessaires pour exploiter notre site, comprendre son utilisation, recevoir des commentaires et envoyer les actualités demandées.
 eyebrow: Mentions
 related:
