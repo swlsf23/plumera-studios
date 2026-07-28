@@ -171,11 +171,16 @@
   background: #e8ded2;
 }
 
+/* Equal gutters via padding (does not collapse with sibling margins). */
+.content-page--lesson .hero-art-slot {
+  padding: 28px 0;
+}
+
 /* Decorative band: curves/lines on a soft field — not a meter-like fill strip. */
 .content-page--lesson .hero-art {
   display: block;
   position: relative;
-  margin: 28px 0;
+  margin: 0;
   min-height: 28px;
   max-height: 30px;
   border-radius: 8px;
@@ -185,13 +190,17 @@
     linear-gradient(160deg, #ece3d8 0%, #e6dbcf 48%, #d7e0e3 78%, #6f8f98 100%);
 }
 
-/* Keep band gutters equal: don't stack section/paragraph spacing against them. */
-.content-page--lesson .hero-art:not(.hero-art--inline) + .article-body > h2:first-child {
+/* Don't stack section/paragraph spacing against the band gutters. */
+.content-page--lesson .hero-art-slot + .article-body > h2:first-child {
   padding-top: 0;
 }
 
-.content-page--lesson .article-body > *:has(+ .hero-art--inline) {
+.content-page--lesson .article-body > *:has(+ .hero-art-slot) {
   margin-bottom: 0;
+}
+
+.content-page--lesson .article-body > .hero-art-slot + h2 {
+  padding-top: 0;
 }
 
 .content-page--lesson .hero-art__arc {
@@ -380,10 +389,6 @@
 
 .content-page--lesson .hero-art--inline .hero-art__stroke--cool {
   stroke: rgba(24, 49, 55, 0.28);
-}
-
-.content-page--lesson .hero-art--inline + h2 {
-  padding-top: 0;
 }
 
 .article-body > h3 {

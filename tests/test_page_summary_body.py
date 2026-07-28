@@ -99,6 +99,7 @@ class ArtBandMarkerTests(unittest.TestCase):
         html = "<p>a</p><!-- art: band --><h2>Mid</h2><!-- art: band --><p>b</p>"
         out = _expand_art_bands(html)
         self.assertEqual(out.count("hero-art--inline"), 2)
+        self.assertEqual(out.count("hero-art-slot"), 2)
         self.assertNotIn("<!-- art: band -->", out)
         self.assertIn("<h2>Mid</h2>", out)
 
