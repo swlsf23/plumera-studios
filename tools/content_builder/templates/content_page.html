@@ -12,7 +12,7 @@
   <script defer src="https://cloud.umami.is/script.js" data-website-id="a6e7309a-1696-4e8c-95f3-bd6d0361fb4a" data-domains="plumerastudios.com"></script>
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/content-header.css?v=brand-2">
-  <link rel="stylesheet" href="/css/content.css?v=hero-wash">
+  <link rel="stylesheet" href="/css/content.css?v=hero-curves">
 </head>
 <body>
   {# One content-page template: single-column lesson chrome for every emitted page. #}
@@ -89,6 +89,13 @@
         {% if page.show_hero_art %}
         <div class="hero-art" aria-hidden="true">
           <div class="hero-art__arc"></div>
+          <svg class="hero-art__flourish" viewBox="0 0 800 88" preserveAspectRatio="none" focusable="false">
+            <path class="hero-art__stroke hero-art__stroke--warm" d="M-30 62 C 90 8, 190 96, 320 28 S 520 -4, 860 54"></path>
+            <path class="hero-art__stroke hero-art__stroke--cool" d="M-20 40 C 150 94, 280 -6, 430 52 S 650 86, 860 18"></path>
+            <circle class="hero-art__ring hero-art__ring--left" cx="118" cy="8" r="54"></circle>
+            <circle class="hero-art__ring hero-art__ring--right" cx="668" cy="46" r="34"></circle>
+            <path class="hero-art__stroke hero-art__stroke--fine" d="M 240 78 L 390 12 M 510 70 L 620 22"></path>
+          </svg>
           <div class="hero-art__panel">
             <span class="hero-art__shape hero-art__shape--circle"></span>
             <span class="hero-art__shape hero-art__shape--bar"></span>
