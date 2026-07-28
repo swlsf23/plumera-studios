@@ -192,69 +192,119 @@ def _write_redirect(path: Path, target: str) -> None:
     )
 
 
-def _votw_list_html(locale: str, target: str, include_drafts: bool) -> str:
-    """Card list for a series index, built from the files on disk."""
-    links = votw_links(CONTENT, locale, target, include_drafts=include_drafts)
-    if not links:
-        return ""
-    cards: list[str] = []
-    for link in links:
-        meta = escape(link["date"]) if link.get("date") else ""
-        dek = escape(link["description"]) if link.get("description") else ""
-        title = escape(_title_with_level(link["title"], link.get("level") or ""))
-        meta_html = (
-            f'\n    <p class="votw-card__meta">{meta}</p>' if meta else ""
-        )
-        dek_html = f'\n    <p class="votw-card__dek">{dek}</p>' if dek else ""
-        cards.append(
-            f'  <a class="votw-card" href="{escape(link["href"])}">\n'
-            f'    <h2 class="votw-card__title">{title}</h2>'
-            f"{meta_html}{dek_html}\n"
-            f"  </a>"
-        )
-    return (
-        f'<nav class="votw-card-list" aria-label="Verb of the Week">\n'
-        f"{chr(10).join(cards)}\n"
-        f"</nav>\n"
-    )
+def _list_marker_re(kind: str) -> re.Pattern[str]:
+    """<!-- {kind}: list --> insert point for an automated content list."""
+    return re.compile(rf"<!--\s*{re.escape(kind)}:\s*list\s*-->", re.I)
 
 
-def _whats_new_list_html(locale: str, target: str, include_drafts: bool) -> str:
-    """Plain list for what's-new: VOTW lessons + articles, newest first."""
-    links = recent_target_links(
-        CONTENT, locale, target, include_drafts=include_drafts
-    )
-    if not links:
+def _split_at_list_marker(
+    html: str, kind: str, *, source: str = ""
+) -> tuple[str, str] | None:
+    """Split body on <!-- {kind}: list -->; None if the marker is missing.
+
+    Only the first marker is used. Extra markers stay in the HTML and trigger
+    a warning.
+    """
+    matches = list(_list_marker_re(kind).finditer(html))
+    if not matches:
+        return None
+    if len(matches) > 1:
+        where = f" in {source}" if source else ""
+        print(
+            f"warning: multiple <!-- {kind}: list -->{where}; using the first",
+            file=sys.stderr,
+        )
+    match = matches[0]
+    before = html[: match.start()].rstrip()
+    after = html[match.end() :].lstrip()
+    return before, after
+
+
+def _content_list_html(
+    aria_label: str, entries: list[dict[str, str]]
+) -> str:
+    """Shared dense link list used by VOTW series index and what’s-new.
+
+    Date labels print only when the date changes from the previous row, so
+    same-day items read as one block.
+    """
+    if not entries:
         return ""
-    label = chrome_for(locale)["whats_new"]
     items: list[str] = []
-    for link in links:
-        kind = escape(link["kind"]) if link.get("kind") else ""
-        date = escape(link["date"]) if link.get("date") else ""
-        meta_bits = [bit for bit in (kind, date) if bit]
-        meta = " · ".join(meta_bits)
-        dek = escape(link["description"]) if link.get("description") else ""
-        title = escape(_title_with_level(link["title"], link.get("level") or ""))
-        meta_html = (
-            f'\n      <p class="whats-new-list__meta">{meta}</p>' if meta else ""
+    prev_date = None
+    for entry in entries:
+        kind = escape(entry["kind"]) if entry.get("kind") else ""
+        raw_date = entry.get("date") or ""
+        date = escape(raw_date) if raw_date else ""
+        show_date = bool(date) and raw_date != prev_date
+        if raw_date:
+            prev_date = raw_date
+        summary = escape(entry["summary"]) if entry.get("summary") else ""
+        title = escape(entry["title"])
+        date_html = (
+            f'\n      <span class="content-list__date">{date}</span>'
+            if show_date
+            else ""
         )
-        dek_html = (
-            f'\n      <p class="whats-new-list__dek">{dek}</p>' if dek else ""
+        kind_html = (
+            f'\n      <p class="content-list__kind">{kind}</p>' if kind else ""
+        )
+        summary_html = (
+            f'\n      <p class="content-list__summary">{summary}</p>'
+            if summary
+            else ""
         )
         items.append(
-            f'  <li class="whats-new-list__item">\n'
-            f'    <a class="whats-new-list__link" href="{escape(link["href"])}">'
-            f'<span class="whats-new-list__title">{title}</span></a>'
-            f"{meta_html}{dek_html}\n"
+            f'  <li class="content-list__item">\n'
+            f'    <div class="content-list__row">\n'
+            f'      <a class="content-list__link" href="{escape(entry["href"])}">'
+            f'<span class="content-list__title">{title}</span></a>'
+            f"{date_html}\n"
+            f"    </div>"
+            f"{kind_html}{summary_html}\n"
             f"  </li>"
         )
     return (
-        f'<nav class="whats-new-list" aria-label="{escape(label)}">\n'
+        f'<nav class="content-list" aria-label="{escape(aria_label)}">\n'
         f"<ul>\n"
         f"{chr(10).join(items)}\n"
         f"</ul>\n"
         f"</nav>\n"
     )
+
+
+def _votw_list_html(locale: str, target: str, include_drafts: bool) -> str:
+    """Lesson list for a series index, built from the files on disk."""
+    links = votw_links(CONTENT, locale, target, include_drafts=include_drafts)
+    entries = [
+        {
+            "href": link["href"],
+            "title": _title_with_level(link["title"], link.get("level") or ""),
+            "date": link.get("date") or "",
+            "summary": link.get("description") or "",
+        }
+        for link in links
+    ]
+    return _content_list_html("Verb of the Week", entries)
+
+
+def _whats_new_list_html(locale: str, target: str, include_drafts: bool) -> str:
+    """What’s-new list: VOTW lessons + articles, newest first."""
+    links = recent_target_links(
+        CONTENT, locale, target, include_drafts=include_drafts
+    )
+    label = chrome_for(locale)["whats_new"]
+    entries = [
+        {
+            "href": link["href"],
+            "title": _title_with_level(link["title"], link.get("level") or ""),
+            "kind": link.get("kind") or "",
+            "date": link.get("date") or "",
+            "summary": link.get("description") or "",
+        }
+        for link in links
+    ]
+    return _content_list_html(label, entries)
 
 
 def _votw_nav_hrefs(series: list[tuple[str, str]]) -> dict[str, str]:
@@ -371,11 +421,23 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
 
     for page, path, target in votw_pages:
         locale = page.locale
+        source = str(path.relative_to(CONTENT))
         series = dist / locale / target / "votw"
         if path.stem == VOTW_INDEX_STEM:
-            # /en/fr/votw/ → en/fr/votw/index.html, with the article cards
-            # outside .article-body so prose link styles do not flatten them.
-            page.after_body_html = _votw_list_html(locale, target, include_drafts)
+            # /en/fr/votw/ → en/fr/votw/index.html
+            # List replaces <!-- votw: list --> (outside .article-body).
+            lesson_list = _votw_list_html(locale, target, include_drafts)
+            split = _split_at_list_marker(page.body_html, "votw", source=source)
+            if split is None:
+                print(
+                    f"warning: missing <!-- votw: list --> in {source}; "
+                    f"appending the lesson list after the body",
+                    file=sys.stderr,
+                )
+                page.after_body_html = lesson_list
+            else:
+                page.body_html, page.tail_body_html = split
+                page.after_body_html = lesson_list
             out = series / "index.html"
         else:
             # /en/fr/votw/slug/ → en/fr/votw/slug/index.html
@@ -388,7 +450,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
                 page,
                 votw_nav,
                 pages_by_href,
-                source=str(path.relative_to(CONTENT)),
+                source=source,
                 draft_hrefs=draft_hrefs,
                 warn_draft_targets=warn_draft_targets,
             ),
@@ -415,9 +477,20 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
 
     for page, path, target in whats_new_pages:
         # /en/fr/whats-new/ → en/fr/whats-new/index.html
-        page.after_body_html = _whats_new_list_html(
-            page.locale, target, include_drafts
-        )
+        # List replaces <!-- whats-new: list --> (outside .article-body).
+        source = str(path.relative_to(CONTENT))
+        lesson_list = _whats_new_list_html(page.locale, target, include_drafts)
+        split = _split_at_list_marker(page.body_html, "whats-new", source=source)
+        if split is None:
+            print(
+                f"warning: missing <!-- whats-new: list --> in {source}; "
+                f"appending the lesson list after the body",
+                file=sys.stderr,
+            )
+            page.after_body_html = lesson_list
+        else:
+            page.body_html, page.tail_body_html = split
+            page.after_body_html = lesson_list
         out = dist / page.locale / target / WHATS_NEW_STEM / "index.html"
         _write(
             out,
@@ -426,7 +499,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
                 page,
                 votw_nav,
                 pages_by_href,
-                source=str(path.relative_to(CONTENT)),
+                source=source,
                 draft_hrefs=draft_hrefs,
                 warn_draft_targets=warn_draft_targets,
             ),

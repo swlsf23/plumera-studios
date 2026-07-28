@@ -12,7 +12,7 @@
   <script defer src="https://cloud.umami.is/script.js" data-website-id="a6e7309a-1696-4e8c-95f3-bd6d0361fb4a" data-domains="plumerastudios.com"></script>
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/content-header.css?v=brand-2">
-  <link rel="stylesheet" href="/css/content.css?v=level-in-link">
+  <link rel="stylesheet" href="/css/content.css?v=content-list-date-right">
 </head>
 <body>
   {# One content-page template: single-column lesson chrome for every emitted page. #}
@@ -82,7 +82,7 @@
           </div>
           {% endif %}
           <h1>{{ page.heading_html | safe }}</h1>
-          {% if page.dek %}<p class="dek">{{ page.dek }}</p>{% endif %}
+          {% if page.description %}<p class="page-summary">{{ page.description }}</p>{% endif %}
           {% if page.meta_line %}<p class="meta-line">{{ page.meta_line }}</p>{% endif %}
         </header>
 
@@ -97,11 +97,18 @@
         </div>
         {% endif %}
 
+        {% if page.body_html %}
         <article class="article-body">
           {{ page.body_html | safe }}
         </article>
+        {% endif %}
         {% if page.after_body_html %}
         {{ page.after_body_html | safe }}
+        {% endif %}
+        {% if page.tail_body_html %}
+        <article class="article-body">
+          {{ page.tail_body_html | safe }}
+        </article>
         {% endif %}
 
         <aside class="article-end">

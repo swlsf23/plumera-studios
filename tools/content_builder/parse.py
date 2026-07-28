@@ -38,10 +38,11 @@ class Page:
     canonical_path: str
     eyebrow: str = ""
     heading_html: str = ""
-    dek: str = ""
     meta_line: str = ""
     body_html: str = ""
     after_body_html: str = ""
+    # Prose after after_body_html (e.g. series index: intro, cards, then more copy).
+    tail_body_html: str = ""
     toc: list[TocItem] = field(default_factory=list)
     related: list[dict[str, str]] = field(default_factory=list)
     active: str = ""
@@ -71,14 +72,6 @@ def _strip_tag(html: str, tag: str) -> tuple[str, str]:
     return inner, rest
 
 
-def _extract_dek(html: str) -> tuple[str, str]:
-    match = re.match(r"<p>(.*?)</p>\s*", html, re.I | re.S)
-    if not match:
-        return "", html
-    dek = re.sub(r"<[^>]+>", "", match.group(1)).strip()
-    return dek, html[match.end() :].lstrip()
-
-
 # Localized Incorrect/Correct table headers (UI locale of the article).
 _CORRECTION_HEADER_PAIRS = frozenset(
     {
@@ -87,23 +80,34 @@ _CORRECTION_HEADER_PAIRS = frozenset(
     }
 )
 
+# Optional Markdown hint immediately above a table: <!-- table: forms -->
+_TABLE_HINT_KINDS = {
+    "example": "pair-table--example",
+    "correction": "pair-table--correction",
+    "forms": "pair-table--forms",
+    "conjugation": "pair-table--forms",
+}
+
 
 def _classify_votw_tables(html: str) -> str:
-    """Tag bilingual example tables vs incorrect/correct pairs for CSS."""
+    """Tag pair tables for CSS (hint comment, else header heuristics)."""
 
     def repl(match: re.Match[str]) -> str:
-        table = match.group(0)
+        hint = (match.group(1) or "").strip().lower()
+        table = match.group(2)
         if 'class="' in table[:48].lower():
             return table
-        ths = re.findall(r"<th[^>]*>(.*?)</th>", table, re.I | re.S)
-        labels = tuple(
-            re.sub(r"<[^>]+>", "", th).strip().lower() for th in ths[:2]
-        )
-        kind = (
-            "pair-table--correction"
-            if labels in _CORRECTION_HEADER_PAIRS
-            else "pair-table--example"
-        )
+        kind = _TABLE_HINT_KINDS.get(hint)
+        if kind is None:
+            ths = re.findall(r"<th[^>]*>(.*?)</th>", table, re.I | re.S)
+            labels = tuple(
+                re.sub(r"<[^>]+>", "", th).strip().lower() for th in ths[:2]
+            )
+            kind = (
+                "pair-table--correction"
+                if labels in _CORRECTION_HEADER_PAIRS
+                else "pair-table--example"
+            )
         return re.sub(
             r"<table\b",
             f'<table class="pair-table {kind}"',
@@ -112,7 +116,12 @@ def _classify_votw_tables(html: str) -> str:
             flags=re.I,
         )
 
-    return re.sub(r"<table\b[^>]*>.*?</table>", repl, html, flags=re.I | re.S)
+    return re.sub(
+        r"(?:<!--\s*table:\s*(\w+)\s*-->\s*)?(<table\b[^>]*>.*?</table>)",
+        repl,
+        html,
+        flags=re.I | re.S,
+    )
 
 
 def _inject_heading_ids(html: str) -> tuple[str, list[TocItem]]:
@@ -206,12 +215,11 @@ def parse_core_page(path: Path, locale: str) -> Page:
 
     html = _md_to_html(body)
     heading, html = _strip_tag(html, "h1")
-    dek, html = _extract_dek(html)
     html, toc = _inject_heading_ids(html)
 
     stem = path.stem
     title = str(meta.get("title") or eyebrow or heading or stem)
-    description = str(meta.get("description") or dek)
+    description = str(meta.get("description") or "")
 
     return Page(
         locale=locale,
@@ -220,7 +228,6 @@ def parse_core_page(path: Path, locale: str) -> Page:
         canonical_path=f"/{locale}/{stem}/",
         eyebrow=eyebrow,
         heading_html=heading.replace(" — ", "<br>") if " — " in heading else heading,
-        dek=dek,
         body_html=html,
         toc=toc,
         related=_parse_related(meta, path),
@@ -259,10 +266,6 @@ def parse_votw_page(path: Path, locale: str, target: str) -> Page:
     heading, html = _strip_tag(html, "h1")
     if not heading:
         heading = title
-    dek_from_body, html = _extract_dek(html)
-    if not description:
-        description = dek_from_body
-    dek = description or dek_from_body
     html, toc = _inject_heading_ids(html)
     html = _classify_votw_tables(html)
 
@@ -292,7 +295,6 @@ def parse_votw_page(path: Path, locale: str, target: str) -> Page:
         canonical_path=canonical_path,
         eyebrow=eyebrow,
         heading_html=heading_html,
-        dek=dek,
         meta_line=meta_line,
         body_html=html,
         toc=toc,
@@ -334,10 +336,6 @@ def parse_article_page(path: Path, locale: str, target: str) -> Page:
     heading, html = _strip_tag(html, "h1")
     if not heading:
         heading = title
-    dek_from_body, html = _extract_dek(html)
-    if not description:
-        description = dek_from_body
-    dek = description or dek_from_body
     html, toc = _inject_heading_ids(html)
     html = _classify_votw_tables(html)
 
@@ -364,7 +362,6 @@ def parse_article_page(path: Path, locale: str, target: str) -> Page:
         canonical_path=canonical_path,
         eyebrow=eyebrow,
         heading_html=heading_html,
-        dek=dek,
         meta_line=meta_line,
         body_html=html,
         toc=toc,
@@ -473,10 +470,6 @@ def parse_whats_new_page(path: Path, locale: str, target: str) -> Page:
     heading, html = _strip_tag(html, "h1")
     if not heading:
         heading = title
-    dek_from_body, html = _extract_dek(html)
-    if not description:
-        description = dek_from_body
-    dek = description or dek_from_body
     html, toc = _inject_heading_ids(html)
 
     eyebrow = str(meta.get("eyebrow") or "").strip() or chrome_for(locale)["whats_new"]
@@ -489,7 +482,6 @@ def parse_whats_new_page(path: Path, locale: str, target: str) -> Page:
         canonical_path=f"/{locale}/{target}/{WHATS_NEW_STEM}/",
         eyebrow=eyebrow,
         heading_html=heading_html,
-        dek=dek,
         body_html=html,
         toc=toc,
         related=_parse_related(meta, path),
