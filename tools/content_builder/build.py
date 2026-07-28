@@ -87,20 +87,61 @@ def _title_with_level(title: str, level: str) -> str:
     return f"{title} · {level}"
 
 
+def _plain_heading(heading_html: str) -> str:
+    """Strip tags from page H1 HTML for use as a related-card label."""
+    return re.sub(r"<[^>]+>", "", heading_html or "").strip()
+
+
 def _enrich_related(
     related: list[dict[str, str]],
     pages_by_href: dict[str, dict[str, str]],
+    *,
+    source: str = "",
+    draft_hrefs: set[str] | None = None,
+    warn_draft_targets: bool = False,
 ) -> list[dict[str, str]]:
-    """Prefer the target page's document title, then append CEFR level."""
-    if not related or not pages_by_href:
+    """Label related cards: author title override, else target H1, then CEFR level."""
+    if not related:
         return related
+    draft_hrefs = draft_hrefs or set()
+    where = f" in {source}" if source else ""
     enriched: list[dict[str, str]] = []
-    for item in related:
+    for i, item in enumerate(related):
         entry = dict(item)
-        target = pages_by_href.get(_normalize_href(entry.get("href", "")))
-        if target:
-            title = target.get("title") or entry.get("title", "")
-            entry["title"] = _title_with_level(title, target.get("level") or "")
+        href = _normalize_href(entry.get("href", ""))
+        author_title = (entry.get("title") or "").strip()
+        target = pages_by_href.get(href)
+        if author_title:
+            label = author_title
+            level = (target or {}).get("level") or ""
+        elif target:
+            label = (
+                (target.get("heading") or "").strip()
+                or (target.get("title") or "").strip()
+            )
+            level = target.get("level") or ""
+        else:
+            print(
+                f"warning: related[{i}]{where}: unresolved href {href!r} "
+                f"(no title override and no matching content page); skipping",
+                file=sys.stderr,
+            )
+            continue
+        if not label:
+            print(
+                f"warning: related[{i}]{where}: href {href!r} resolved with "
+                f"empty label; skipping",
+                file=sys.stderr,
+            )
+            continue
+        if warn_draft_targets and href in draft_hrefs:
+            print(
+                f"warning: related[{i}]{where}: href {href!r} points at a "
+                f"draft page; the label resolves, but that URL is not emitted "
+                f"without --drafts",
+                file=sys.stderr,
+            )
+        entry["title"] = _title_with_level(label, level)
         enriched.append(entry)
     return enriched
 
@@ -110,9 +151,19 @@ def _render_page(
     page,
     votw_nav: dict[str, str],
     pages_by_href: dict[str, dict[str, str]] | None = None,
+    *,
+    source: str = "",
+    draft_hrefs: set[str] | None = None,
+    warn_draft_targets: bool = False,
 ) -> str:
     locale = page.locale
-    related = _enrich_related(page.related, pages_by_href or {})
+    related = _enrich_related(
+        page.related,
+        pages_by_href or {},
+        source=source,
+        draft_hrefs=draft_hrefs,
+        warn_draft_targets=warn_draft_targets,
+    )
     return template.render(
         page=page,
         chrome=chrome_for(locale),
@@ -270,34 +321,50 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
 
     core_pages = [(parse_core_page(p, loc), p) for p, loc in discover_core_pages(CONTENT)]
 
+    # Always parse for related-link labels; only emit non-drafts unless --drafts.
+    draft_hrefs: set[str] = set()
     votw_pages = []
+    votw_for_index = []
     for path, locale, target in discover_votw_pages(CONTENT):
+        page = parse_votw_page(path, locale, target)
+        votw_for_index.append(page)
         if is_draft(path):
+            draft_hrefs.add(page.canonical_path)
             if not include_drafts:
                 print(f"skip draft: {path.relative_to(CONTENT)}", file=sys.stderr)
                 continue
             print(f"emit draft: {path.relative_to(CONTENT)}", file=sys.stderr)
-        votw_pages.append((parse_votw_page(path, locale, target), path, target))
+        votw_pages.append((page, path, target))
 
     article_pages = []
+    article_for_index = []
     for path, locale, target in discover_article_pages(CONTENT):
+        page = parse_article_page(path, locale, target)
+        article_for_index.append(page)
         if is_draft(path):
+            draft_hrefs.add(page.canonical_path)
             if not include_drafts:
                 print(f"skip draft: {path.relative_to(CONTENT)}", file=sys.stderr)
                 continue
             print(f"emit draft: {path.relative_to(CONTENT)}", file=sys.stderr)
-        article_pages.append((parse_article_page(path, locale, target), path, target))
+        article_pages.append((page, path, target))
 
     whats_new_pages = []
+    whats_new_for_index = []
     for path, locale, target in discover_whats_new_pages(CONTENT):
+        page = parse_whats_new_page(path, locale, target)
+        whats_new_for_index.append(page)
         if is_draft(path):
+            draft_hrefs.add(page.canonical_path)
             if not include_drafts:
                 print(f"skip draft: {path.relative_to(CONTENT)}", file=sys.stderr)
                 continue
             print(f"emit draft: {path.relative_to(CONTENT)}", file=sys.stderr)
-        whats_new_pages.append(
-            (parse_whats_new_page(path, locale, target), path, target)
-        )
+        whats_new_pages.append((page, path, target))
+
+    for page, path in core_pages:
+        if is_draft(path):
+            draft_hrefs.add(page.canonical_path)
 
     votw_nav = _votw_nav_hrefs(
         [
@@ -306,14 +373,31 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
             if path.stem == VOTW_INDEX_STEM
         ]
     )
-    pages_by_href = {
-        page.canonical_path: {"title": page.title, "level": page.level}
-        for page, _path, _target in [*article_pages, *votw_pages]
-    }
+    pages_by_href: dict[str, dict[str, str]] = {}
+    for page in (
+        *[p for p, _path in core_pages],
+        *votw_for_index,
+        *article_for_index,
+        *whats_new_for_index,
+    ):
+        pages_by_href[page.canonical_path] = {
+            "heading": _plain_heading(page.heading_html),
+            "title": page.title,
+            "level": page.level,
+        }
+    warn_draft_targets = not include_drafts
     emitted = 0
 
     for page, path in core_pages:
-        html = _render_page(template, page, votw_nav, pages_by_href)
+        html = _render_page(
+            template,
+            page,
+            votw_nav,
+            pages_by_href,
+            source=str(path.relative_to(CONTENT)),
+            draft_hrefs=draft_hrefs,
+            warn_draft_targets=warn_draft_targets,
+        )
         # /en/updates/ → en/updates/index.html (plain static hosting)
         stem = path.stem
         out = dist / page.locale / stem / "index.html"
@@ -345,14 +429,36 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
             # /en/fr/votw/slug/ → en/fr/votw/slug/index.html
             slug = page.canonical_path.rstrip("/").split("/")[-1]
             out = series / slug / "index.html"
-        _write(out, _render_page(template, page, votw_nav, pages_by_href))
+        _write(
+            out,
+            _render_page(
+                template,
+                page,
+                votw_nav,
+                pages_by_href,
+                source=str(path.relative_to(CONTENT)),
+                draft_hrefs=draft_hrefs,
+                warn_draft_targets=warn_draft_targets,
+            ),
+        )
         emitted += 1
 
     for page, path, target in article_pages:
         # /en/fr/articles/slug/ → en/fr/articles/slug/index.html
         slug = page.canonical_path.rstrip("/").split("/")[-1]
         out = dist / page.locale / target / ARTICLES_DIR / slug / "index.html"
-        _write(out, _render_page(template, page, votw_nav, pages_by_href))
+        _write(
+            out,
+            _render_page(
+                template,
+                page,
+                votw_nav,
+                pages_by_href,
+                source=str(path.relative_to(CONTENT)),
+                draft_hrefs=draft_hrefs,
+                warn_draft_targets=warn_draft_targets,
+            ),
+        )
         emitted += 1
 
     for page, path, target in whats_new_pages:
@@ -371,7 +477,18 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
             page.body_html, page.tail_body_html = split
             page.after_body_html = lesson_list
         out = dist / page.locale / target / WHATS_NEW_STEM / "index.html"
-        _write(out, _render_page(template, page, votw_nav, pages_by_href))
+        _write(
+            out,
+            _render_page(
+                template,
+                page,
+                votw_nav,
+                pages_by_href,
+                source=str(path.relative_to(CONTENT)),
+                draft_hrefs=draft_hrefs,
+                warn_draft_targets=warn_draft_targets,
+            ),
+        )
         emitted += 1
 
     sitemaps = write_sitemaps(dist)

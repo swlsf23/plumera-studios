@@ -3,8 +3,7 @@ title: "Plumera | Des actualités utiles. Sans encombrer votre boîte de récept
 description: Découvrez les nouveaux outils linguistiques, les ressources pédagogiques, les jeux de lettres et les lancements marquants de Plumera Studios.
 eyebrow: Actualités
 related:
-  - title: Verbe anglais de la semaine
-    href: /fr/en/votw/
+  - href: /fr/en/votw/
   - title: Niveaux CECR
     href: /fr/cefr/
 ---

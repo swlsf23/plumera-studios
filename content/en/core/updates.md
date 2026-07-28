@@ -3,8 +3,7 @@ title: "Plumera | Useful updates. No inbox noise."
 description: Hear about new language tools, learning resources, word games, and meaningful Plumera Studios releases.
 eyebrow: News
 related:
-  - title: French Verb of the Week
-    href: /en/fr/votw/
+  - href: /en/fr/votw/
   - title: CEFR levels
     href: /en/cefr/
 ---
