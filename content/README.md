@@ -57,7 +57,18 @@ Prefer YAML frontmatter on content pages (`title`, `description`, `eyebrow`, `re
 
 Keep `slug` equal to the filename stem (e.g. `votw-prendre-a1.md` → `slug: votw-prendre-a1`). The builder prefers `slug` for the URL and warns if it does not match the filename.
 
-Optional `related` is a list of end-band cards (`title`, `href`, optional `meta`) for “You might also like”.
+Optional `related` is a list of end-band cards for “You might also like”. Each item needs `href`. Optional `meta` is a short secondary line.
+
+**Label resolution precedence**
+
+1. Author `title` override, if set  
+2. Else the target page’s H1  
+3. Else the target page’s document `title`  
+4. If none of those resolve, the card is skipped (warning includes the source file and href)
+
+When the target declares `level`, the builder appends `· Level` to the resolved label (override or default), unless the label already ends with that level code.
+
+Draft pages are indexed for those H1 labels even when not emitted. A production build warns if a related `href` points at a draft URL (label works; the link is not in `dist/` without `--drafts`).
 
 Optional `eyebrow` is the short label above the H1 (e.g. `Levels`, `News`, `Series`).
 

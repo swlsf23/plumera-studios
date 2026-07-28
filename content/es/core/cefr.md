@@ -3,10 +3,8 @@ title: "Plumera | Cómo usamos los niveles MCER"
 description: El MCER describe lo que puedes hacer en un idioma en seis niveles. En Plumera lo usamos para que elijas materiales que encajen con donde estás.
 eyebrow: Niveles
 related:
-  - title: Verbo francés de la semana
-    href: /es/fr/votw/
-  - title: Prendre
-    href: /es/fr/votw/votw-prendre-a1/
+  - href: /es/fr/votw/
+  - href: /es/fr/votw/votw-prendre-a1/
 ---
 
 # Cómo usamos los niveles MCER

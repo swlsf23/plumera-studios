@@ -160,7 +160,7 @@ def _format_date(value: object, locale: str) -> str:
 
 
 def _parse_related(meta: dict, path: Path) -> list[dict[str, str]]:
-    """Sidebar related cards from frontmatter `related:` (list of title/href/meta)."""
+    """Sidebar related cards from frontmatter `related:` (href required; title optional)."""
     raw = meta.get("related")
     if raw is None:
         return []
@@ -174,7 +174,7 @@ def _parse_related(meta: dict, path: Path) -> list[dict[str, str]]:
     for i, entry in enumerate(raw):
         if not isinstance(entry, dict):
             print(
-                f"warning: related[{i}] must be a mapping with title and href "
+                f"warning: related[{i}] must be a mapping with href "
                 f"({path}); skipping",
                 file=sys.stderr,
             )
@@ -182,10 +182,9 @@ def _parse_related(meta: dict, path: Path) -> list[dict[str, str]]:
         title = str(entry.get("title") or "").strip()
         href = str(entry.get("href") or "").strip()
         label = str(entry.get("meta") or "").strip()
-        if not title or not href:
+        if not href:
             print(
-                f"warning: related[{i}] needs non-empty title and href ({path}); "
-                f"skipping",
+                f"warning: related[{i}] needs non-empty href ({path}); skipping",
                 file=sys.stderr,
             )
             continue
