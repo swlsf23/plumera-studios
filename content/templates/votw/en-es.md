@@ -31,7 +31,7 @@ OUTPUT RULES
 6. Write all learner-facing prose in Spanish. description and body must be
    Spanish. Do not write the article in English.
 7. For example pairs, use Markdown tables with columns Inglés | Español.
-   The language being taught goes in the left column. Prefer 2–4 rows.
+   The language being taught goes in the left column. Prefer 2-4 rows.
 8. Order the senses under Cómo se usa by a principle you state in that section's
    opening line, so the reader knows what separates them.
 9. Every ## section opens with at least one sentence before any ### heading.
@@ -183,7 +183,7 @@ related:        # Tarjetas "También te puede interesar" (opcional)
 
 # To verb
 
-Párrafos introductorios (unas 100–200 palabras). Por qué vale la pena aprender
+Párrafos introductorios (unas 100-200 palabras). Por qué vale la pena aprender
 este verbo y cuál es la idea que une sus usos. No enumeres todas las
 traducciones. Si el inglés y el español reparten el sentido de otra manera,
 anúncialo aquí.

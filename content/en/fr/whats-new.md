@@ -6,7 +6,7 @@ target: fr
 locale: en
 author:
 date:
-draft: true
+draft: false
 eyebrow: French
 related:
   - href: /en/fr/votw/
@@ -14,13 +14,17 @@ related:
     href: /en/cefr/
 ---
 
-# What's new in French
+# New French lessons and articles
 
-This page lists French learning material explained in English, newest first. Use it when you want to see what has been added lately without digging through every series.
+This page lists the newest French lessons and articles for English speakers. Use it when you want a quick overview of the latest French lessons and articles.
 
-You will find two kinds of pages here:
+<!-- whats-new: list -->
 
-- **[French Verb of the Week](/en/fr/votw/)** — one verb at a time, from the core meaning into everyday constructions and idioms, tagged by [CEFR](/en/cefr/) level.
-- **Articles** — standalone explainers that sit beside the series. They go deeper on a topic (for example higher-level uses of a verb you already met at A1) without living inside the weekly index.
+You will find two types of pages here:
 
-Each item shows its level when it has one, so you can open what matches where you are and come back later for the rest. The list updates whenever we publish a new French page for English speakers.
+- **[French Verb of the Week](/en/fr/votw/)**: covers one verb at a time, from its core meaning into everyday constructions and idioms, tagged by [CEFR](/en/cefr/) level.
+- **Articles**: standalone explainers that explore a topic in more depth, from grammar and pronunciation to vocabulary and usage.
+
+Each item shows its level, when it has one. You can decide what content matches your current level. Come back later for the more advanced topics. 
+
+Whenever we publish something new for French learners, you'll find it here.
