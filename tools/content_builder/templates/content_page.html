@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="{{ page.description }}">
-  <title>{{ page.title }}</title>
+  <title>{% if page.title.startswith('Plumera |') or page.title.startswith('Plumera Studios |') %}{{ page.title }}{% else %}Plumera | {{ page.title }}{% endif %}</title>
   <link rel="canonical" href="{{ canonical_url }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +12,7 @@
   <script defer src="https://cloud.umami.is/script.js" data-website-id="a6e7309a-1696-4e8c-95f3-bd6d0361fb4a" data-domains="plumerastudios.com"></script>
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/content-header.css?v=brand-2">
-  <link rel="stylesheet" href="/css/content.css?v=level-eyebrow">
+  <link rel="stylesheet" href="/css/content.css?v=level-in-link">
 </head>
 <body>
   {# One content-page template: single-column lesson chrome for every emitted page. #}
@@ -21,9 +21,14 @@
       <a href="/{{ page.locale }}/" class="content-header__brand" aria-label="{{ chrome.brand_home }}">Plumera Studios</a>
 
       <nav class="content-header__nav" aria-label="Primary navigation">
+        {% if page.locale == 'en' %}
+        {% if votw_href %}<a{% if page.active == 'votw' %} class="active"{% endif %} href="{{ votw_href }}">Verb of the Week</a>{% endif %}
+        <a{% if page.active == 'whats-new' %} class="active"{% endif %} href="/en/fr/whats-new/">{{ chrome.whats_new }}</a>
+        {% else %}
         <a href="/{{ page.locale }}/">{{ chrome.home }}</a>
         {% if votw_href %}<a{% if page.active == 'votw' %} class="active"{% endif %} href="{{ votw_href }}">{{ chrome.votw }}</a>{% endif %}
         <a{% if page.active == 'updates' %} class="active"{% endif %} href="/{{ page.locale }}/updates/">{{ chrome.updates }}</a>
+        {% endif %}
         <a{% if page.active == 'privacy' %} class="active"{% endif %} href="/{{ page.locale }}/privacy/">{{ chrome.privacy }}</a>
       </nav>
 
@@ -50,9 +55,14 @@
       </div>
 
       <nav class="content-header__mobile" aria-label="Mobile navigation" data-mobile-nav>
+        {% if page.locale == 'en' %}
+        {% if votw_href %}<a{% if page.active == 'votw' %} class="active"{% endif %} href="{{ votw_href }}">Verb of the Week</a>{% endif %}
+        <a{% if page.active == 'whats-new' %} class="active"{% endif %} href="/en/fr/whats-new/">{{ chrome.whats_new }}</a>
+        {% else %}
         <a href="/{{ page.locale }}/">{{ chrome.home }}</a>
         {% if votw_href %}<a{% if page.active == 'votw' %} class="active"{% endif %} href="{{ votw_href }}">{{ chrome.votw }}</a>{% endif %}
         <a{% if page.active == 'updates' %} class="active"{% endif %} href="/{{ page.locale }}/updates/">{{ chrome.updates }}</a>
+        {% endif %}
         <a{% if page.active == 'privacy' %} class="active"{% endif %} href="/{{ page.locale }}/privacy/">{{ chrome.privacy }}</a>
       </nav>
     </header>
