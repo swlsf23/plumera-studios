@@ -90,7 +90,7 @@ Here *prendre* covers English "have," for meals, drinks, and medicine alike. Ord
 | Je bois un café. | I drink a coffee. |
 | Je prends un café. | I'm having a coffee. |
 
-*Boire* is the physical act of drinking. *Prendre* is the occasion: ordering it, sitting down with it, having one as part of your morning. *On prend un café ?* is an invitation, the equivalent of "shall we grab a coffee?". *On boit un café ?* does not carry that.
+*Boire* is the physical act of drinking. *Prendre* is the occasion: ordering it, sitting down with it, having one as part of your morning. *On prend un café ?* is an invitation, the equivalent of "shall we grab a coffee?". *On boit un café ?* doesn't naturally carry that conversational invitation meaning.
 
 English speakers tend to over-use *boire* here, because "I'm taking a coffee" in English suggests taking it away, so "take" never comes to mind.
 
