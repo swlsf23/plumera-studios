@@ -6,7 +6,7 @@ target: fr
 locale: en
 level: A1
 author:
-date: 2026-07-27
+date: 2026-07-28
 draft: false
 related:
   - title: "Prendre: Idioms and Fixed Expressions"
@@ -21,33 +21,37 @@ related:
 
 # Prendre
 
-*Prendre* is one of the first French verbs you will use constantly. The closest English meaning is "to take," but French uses *prendre* in places where English prefers another verb.
+*Prendre* is among the French verbs you will use often, even early on. The closest English meaning is "to take," but French uses *prendre* in places where English prefers another verb.
 
 In English, you take a bus, have a coffee, eat breakfast, or take medicine. In French, those ideas can all be expressed with *prendre*.
 
-What you take might be an object in your hand, a train across town, a coffee in front of you, a pill.
+What you take might be an object in your hand, a train across town, a coffee in front of you, or medication.
 
-Learn these patterns and you will hear *prendre* everywhere in ordinary French.
+Learn these patterns and you will be able to use *prendre* in your everyday French.
 
 ## Forms and grammar
 
-*Prendre* is irregular, and the stem changes as you move through the present tense: 
+*Prendre* is irregular, and the stem changes as you move through the present tense:
 
-| 1st person | 2nd person |
-|--------|---------|
+<!-- table: forms -->
+
+| Singular | Plural |
+|----------|--------|
 | je prends | nous prenons |
 | tu prends | vous prenez |
 | il / elle prend | ils / elles prennent |
 
-The three singular forms sound identical, so the spelling matters more in writing than in speech. This conjugation pattern is similar to other verbs like *apprendre* and *comprendre*.
+The three singular forms sound identical, so spelling matters more in writing than in speech. This conjugation pattern is similar to other verbs like *apprendre* and *comprendre*.
 
 One habit that will keep your sentences correct: keep the article. French says *prendre le bus*, never *prendre bus*.
 
-In the past tense, *prendre* uses *avoir*, and the participle is *pris*: 
+In the past tense, *prendre* uses *avoir*, and the participle is *pris*:
 
 | French | English |
 |--------|---------|
-| *j'ai pris le métro ce matin*. | I took the metro this morning |
+| J'ai pris le métro ce matin. | I took the metro this morning. |
+| J'ai pris un café dans le restaurant. | I had a coffee in the restaurant. |
+
 
 ## How to use prendre
 
@@ -55,7 +59,7 @@ The three uses of *prendre* below are sorted by what gets taken: an object, a me
 
 ### Taking or picking something up
 
-The most literal sense, and the closest to English.
+This is the most literal sense, and the closest to English.
 
 | French | English |
 |--------|---------|
@@ -69,7 +73,7 @@ Buses, trains, taxis, the metro, planes. Where English says "go by bus," French 
 
 | French | English |
 |--------|---------|
-| Je prends le bus. | I take the bus. |
+| J'ai pris le bus. | I took the bus. / I went by bus. |
 | Nous prenons le train. | We take the train. |
 | Elle prend un taxi. | She takes a taxi. |
 
@@ -90,13 +94,15 @@ Here *prendre* covers English "have," for meals, drinks, and medicine alike. Ord
 | Je bois un café. | I drink a coffee. |
 | Je prends un café. | I'm having a coffee. |
 
-*Boire* is the physical act of drinking. *Prendre* is the occasion: ordering it, sitting down with it, having one as part of your morning. *On prend un café ?* is an invitation, the equivalent of "shall we grab a coffee?". *On boit un café ?* doesn't naturally carry that conversational invitation meaning.
+*Boire* is the physical act of drinking. *Prendre* is the occasion: ordering a drink, sitting down with it, having one as part of your morning.
 
-You may be tempted to over-use *boire* here, because "I'm taking a coffee" in English suggests taking it away, so "take" never comes to mind.
+*On prend un café ?* is an invitation, the equivalent of "shall we grab a coffee?". *On boit un café ?* doesn't naturally carry that conversational invitation meaning.
 
-## Common constructions
+You may be tempted to over-use *boire* here, because "I'm taking a coffee" in English can suggest taking it away, so "take" never comes to mind.
 
-Here are three more combinations that fall outside the senses above:
+## Other common constructions
+
+Here are three more combinations using *prendre* that fall outside the senses above:
 
 | French | English |
 |--------|---------|
@@ -104,11 +110,11 @@ Here are three more combinations that fall outside the senses above:
 | prendre rendez-vous | to make an appointment |
 | prendre une décision | to make a decision |
 
-The last two are worth a second look. In English, we *make* an appointment and *make* a decision. French "takes" both.
+The last two are worth a second look. In English, we *make* an appointment and *make* a decision. French uses *prendre* for both.
 
 ## Expressions and idioms
 
-In fixed expressions *prendre* drifts away from taking, so learn the phrase whole rather than word by word.
+In fixed expressions *prendre* drifts away from taking, so learn the phrase as a whole rather than word by word.
 
 ### prendre son temps
 
@@ -155,6 +161,6 @@ The *d* disappears in the *nous*, *vous*, and *ils* forms: *nous prenons*, *vous
 
 > *Emmener* is the one to watch. For taking a *person* along, French uses *emmener*, not *prendre*: *je t'emmène à la gare*.
 
-## Summary
+## Before you go
 
-Learn *prendre* through the combinations it appears in rather than by translating it, and at [A1](/en/cefr/) it will carry you through most of the ordinary French you meet.
+Learn *prendre* through the combinations where it appears rather than by translating it directly. At [A1](/en/cefr/) level it will carry you through much of the day-to-day French you meet.

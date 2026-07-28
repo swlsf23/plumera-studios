@@ -6,7 +6,7 @@ target: fr
 locale: en
 level: B1
 author:
-date: 2026-07-27
+date: 2026-07-28
 draft: false
 related:
   - title: "French Verb of the Week: Prendre"
