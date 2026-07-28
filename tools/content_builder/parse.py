@@ -17,6 +17,7 @@ from tools.content_builder.chrome import chrome_for, format_date, votw_series_la
 SITE_ORIGIN = "https://plumerastudios.com"
 CORE_SKIP = {"index.md"}  # landings are copied HTML; MD is reference-only
 VOTW_INDEX_STEM = "index"  # series index; emitted at /{locale}/{target}/votw/
+ARTICLES_DIR = "articles"  # standalone target-language pages (not a series)
 # Top-level content/ dirs that are not UI locales
 CONTENT_NON_LOCALES = frozenset({"templates"})
 CORE_DIR = "core"  # the one second-level dir with no target language
@@ -44,6 +45,7 @@ class Page:
     related: list[dict[str, str]] = field(default_factory=list)
     active: str = ""
     show_hero_art: bool = False
+    level: str = ""
 
 
 def slugify(value: str) -> str:
@@ -74,6 +76,42 @@ def _extract_dek(html: str) -> tuple[str, str]:
         return "", html
     dek = re.sub(r"<[^>]+>", "", match.group(1)).strip()
     return dek, html[match.end() :].lstrip()
+
+
+# Localized Incorrect/Correct table headers (UI locale of the article).
+_CORRECTION_HEADER_PAIRS = frozenset(
+    {
+        ("incorrect", "correct"),
+        ("incorrecto", "correcto"),
+    }
+)
+
+
+def _classify_votw_tables(html: str) -> str:
+    """Tag bilingual example tables vs incorrect/correct pairs for CSS."""
+
+    def repl(match: re.Match[str]) -> str:
+        table = match.group(0)
+        if 'class="' in table[:48].lower():
+            return table
+        ths = re.findall(r"<th[^>]*>(.*?)</th>", table, re.I | re.S)
+        labels = tuple(
+            re.sub(r"<[^>]+>", "", th).strip().lower() for th in ths[:2]
+        )
+        kind = (
+            "pair-table--correction"
+            if labels in _CORRECTION_HEADER_PAIRS
+            else "pair-table--example"
+        )
+        return re.sub(
+            r"<table\b",
+            f'<table class="pair-table {kind}"',
+            table,
+            count=1,
+            flags=re.I,
+        )
+
+    return re.sub(r"<table\b[^>]*>.*?</table>", repl, html, flags=re.I | re.S)
 
 
 def _inject_heading_ids(html: str) -> tuple[str, list[TocItem]]:
@@ -226,6 +264,7 @@ def parse_votw_page(path: Path, locale: str, target: str) -> Page:
         description = dek_from_body
     dek = description or dek_from_body
     html, toc = _inject_heading_ids(html)
+    html = _classify_votw_tables(html)
 
     # Eyebrow: frontmatter override, else series name (+ date on articles).
     series_name = str(meta.get("category") or votw_series_label(locale, target))
@@ -260,6 +299,79 @@ def parse_votw_page(path: Path, locale: str, target: str) -> Page:
         related=_parse_related(meta, path),
         active="votw",
         show_hero_art=True,
+        level=str(meta.get("level") or "").strip(),
+    )
+
+
+def parse_article_page(path: Path, locale: str, target: str) -> Page:
+    """Standalone page under content/{locale}/{target}/articles/."""
+    post = frontmatter.load(path)
+    meta = post.metadata
+    stem = path.stem
+    meta_target = meta.get("target")
+    if meta_target and str(meta_target) != target:
+        print(
+            f"warning: frontmatter target {str(meta_target)!r} disagrees with folder "
+            f"{target!r} ({path}); the folder decides the URL",
+            file=sys.stderr,
+        )
+    if "slug" in meta and meta["slug"] is not None:
+        slug = str(meta["slug"])
+        if slug != stem:
+            print(
+                f"warning: article slug {slug!r} != filename stem {stem!r} ({path}); "
+                f"emitting URL from slug, consider renaming the file to match",
+                file=sys.stderr,
+            )
+    else:
+        slug = stem
+    title = str(meta.get("title") or stem)
+    description = str(meta.get("description") or "")
+    author = str(meta.get("author") or "")
+    date_label = _format_date(meta.get("date"), locale)
+
+    html = _md_to_html(post.content.strip())
+    heading, html = _strip_tag(html, "h1")
+    if not heading:
+        heading = title
+    dek_from_body, html = _extract_dek(html)
+    if not description:
+        description = dek_from_body
+    dek = description or dek_from_body
+    html, toc = _inject_heading_ids(html)
+    html = _classify_votw_tables(html)
+
+    eyebrow_override = str(meta.get("eyebrow") or "").strip()
+    if eyebrow_override:
+        eyebrow = eyebrow_override
+    elif date_label:
+        eyebrow = f"{chrome_for(locale)['article']} · {date_label}"
+    else:
+        eyebrow = chrome_for(locale)["article"]
+
+    meta_parts: list[str] = []
+    if author:
+        meta_parts.append(chrome_for(locale)["by_author"].format(author=author))
+    meta_line = " · ".join(meta_parts)
+
+    heading_html = heading.replace(" — ", "<br>") if " — " in heading else heading
+    canonical_path = f"/{locale}/{target}/{ARTICLES_DIR}/{slug}/"
+
+    return Page(
+        locale=locale,
+        title=title,
+        description=description,
+        canonical_path=canonical_path,
+        eyebrow=eyebrow,
+        heading_html=heading_html,
+        dek=dek,
+        meta_line=meta_line,
+        body_html=html,
+        toc=toc,
+        related=_parse_related(meta, path),
+        active="articles",
+        show_hero_art=True,
+        level=str(meta.get("level") or "").strip(),
     )
 
 
@@ -315,6 +427,19 @@ def discover_votw_pages(content_root: Path) -> list[tuple[Path, str, str]]:
             if not votw.is_dir():
                 continue
             for path in sorted(votw.glob("*.md")):
+                pages.append((path, locale_dir.name, target_dir.name))
+    return pages
+
+
+def discover_article_pages(content_root: Path) -> list[tuple[Path, str, str]]:
+    """Find content/{locale}/{target}/articles/*.md (no series index)."""
+    pages: list[tuple[Path, str, str]] = []
+    for locale_dir in _locale_dirs(content_root):
+        for target_dir in _target_dirs(locale_dir):
+            articles = target_dir / ARTICLES_DIR
+            if not articles.is_dir():
+                continue
+            for path in sorted(articles.glob("*.md")):
                 pages.append((path, locale_dir.name, target_dir.name))
     return pages
 

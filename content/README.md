@@ -15,14 +15,16 @@ content/
       cefr.md
       index.md           # optional reference text only, NOT built
     {target}/            # language being taught
-      votw/
-      conjugation/
+      votw/              # Verb of the Week series (+ optional index.md)
+      articles/          # standalone pages (not a series index)
+      conjugation/       # future series
   templates/             # authoring prompts, not published pages
 ```
 
 - **`locale`**: language of the explanation / UI (`en`, `es`, `fr`, …)
 - **`core`**: site pages for that locale, with no target language (same filenames across locales, and body copy is not assumed 1:1)
-- **`{target}`**: language being taught, one folder per language, holding every series for it (`votw/`, and whatever comes later)
+- **`{target}`**: language being taught, one folder per language, holding every series for it (`votw/`, `articles/`, and whatever comes later)
+- **`articles/`**: one-off explainers for that target; emitted at `/{locale}/{target}/articles/{slug}/`. Not listed on the VOTW index. Default eyebrow is “Article” (override with frontmatter `eyebrow`).
 
 The second level is therefore either `core` or a language code, and nothing else.
 

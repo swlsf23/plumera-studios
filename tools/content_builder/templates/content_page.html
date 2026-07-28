@@ -12,11 +12,11 @@
   <script defer src="https://cloud.umami.is/script.js" data-website-id="a6e7309a-1696-4e8c-95f3-bd6d0361fb4a" data-domains="plumerastudios.com"></script>
   <link rel="stylesheet" href="/css/base.css">
   <link rel="stylesheet" href="/css/content-header.css?v=brand-2">
-  <link rel="stylesheet" href="/css/content.css?v=lesson-20">
+  <link rel="stylesheet" href="/css/content.css?v=level-eyebrow">
 </head>
 <body>
   {# One content-page template: single-column lesson chrome for every emitted page. #}
-  <div class="page content-page content-page--lesson{% if page.active == 'votw' %} content-page--votw{% endif %}">
+  <div class="page content-page content-page--lesson content-page--{{ page.active }}">
     <header class="content-header">
       <a href="/{{ page.locale }}/" class="content-header__brand" aria-label="{{ chrome.brand_home }}">Plumera Studios</a>
 
@@ -60,7 +60,17 @@
     <main class="page-grid page-grid--lesson">
       <div class="content-column">
         <header class="article-header">
-          {% if page.eyebrow %}<p class="eyebrow">{{ page.eyebrow }}</p>{% endif %}
+          {% if page.eyebrow or page.level %}
+          <div class="article-header__meta-row">
+            {% if page.eyebrow %}<p class="eyebrow">{{ page.eyebrow }}</p>{% else %}<span></span>{% endif %}
+            {% if page.level %}
+            <span class="article-level">
+              <span class="article-level__prefix">{{ chrome.level_prefix }}</span>
+              <a class="article-level__badge" href="/{{ page.locale }}/cefr/">{{ page.level }}</a>
+            </span>
+            {% endif %}
+          </div>
+          {% endif %}
           <h1>{{ page.heading_html | safe }}</h1>
           {% if page.dek %}<p class="dek">{{ page.dek }}</p>{% endif %}
           {% if page.meta_line %}<p class="meta-line">{{ page.meta_line }}</p>{% endif %}
