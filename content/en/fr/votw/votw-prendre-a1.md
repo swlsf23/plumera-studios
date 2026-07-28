@@ -11,7 +11,7 @@ draft: false
 related:
   - title: "Prendre: Idioms and Fixed Expressions"
     href: /en/fr/articles/verb-prendre-b1/
-  - title: What's new in French
+  - title: New French lessons and articles
     href: /en/fr/whats-new/
   - title: French Verb of the Week
     href: /en/fr/votw/

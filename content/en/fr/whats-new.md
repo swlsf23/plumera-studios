@@ -6,7 +6,7 @@ target: fr
 locale: en
 author:
 date:
-draft: true
+draft: false
 eyebrow: French
 related:
   - title: French Verb of the Week
@@ -15,7 +15,7 @@ related:
     href: /en/cefr/
 ---
 
-# What's new in French
+# New French lessons and articles
 
 This page lists the newest French lessons and articles for English speakers. Use it when you want a quick overview of the latest French lessons and articles.
 
