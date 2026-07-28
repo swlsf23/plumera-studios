@@ -175,7 +175,7 @@
 .content-page--lesson .hero-art {
   display: block;
   position: relative;
-  margin: 36px 0 20px;
+  margin: 28px 0;
   min-height: 28px;
   max-height: 30px;
   border-radius: 8px;
@@ -183,6 +183,15 @@
     radial-gradient(ellipse 55% 140% at 78% 40%, rgba(47, 94, 104, 0.55), transparent 62%),
     radial-gradient(ellipse 48% 160% at 18% 110%, rgba(255, 255, 255, 0.38), transparent 60%),
     linear-gradient(160deg, #ece3d8 0%, #e6dbcf 48%, #d7e0e3 78%, #6f8f98 100%);
+}
+
+/* Keep band gutters equal: don't stack section/paragraph spacing against them. */
+.content-page--lesson .hero-art:not(.hero-art--inline) + .article-body > h2:first-child {
+  padding-top: 0;
+}
+
+.content-page--lesson .article-body > *:has(+ .hero-art--inline) {
+  margin-bottom: 0;
 }
 
 .content-page--lesson .hero-art__arc {
@@ -353,7 +362,6 @@
 
 /* Inline bands from <!-- art: band -->: same slim height, mirrored / cooler wash. */
 .content-page--lesson .hero-art--inline {
-  margin: 36px 0 4px;
   background:
     radial-gradient(ellipse 50% 150% at 22% 30%, rgba(47, 94, 104, 0.48), transparent 60%),
     radial-gradient(ellipse 42% 180% at 88% 120%, rgba(255, 255, 255, 0.34), transparent 58%),
@@ -375,7 +383,7 @@
 }
 
 .content-page--lesson .hero-art--inline + h2 {
-  padding-top: 22px;
+  padding-top: 0;
 }
 
 .article-body > h3 {
