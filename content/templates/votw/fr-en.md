@@ -228,7 +228,7 @@ One sentence on what sets these apart from the senses above.
 
 ### french expression
 
-Short gloss.
+One short explanatory sentence (not a bare infinitive gloss).
 
 | French | English |
 |--------|---------|
@@ -236,7 +236,7 @@ Short gloss.
 
 ### second expression
 
-Short gloss.
+One short explanatory sentence (not a bare infinitive gloss).
 
 | French | English |
 |--------|---------|
@@ -272,12 +272,13 @@ The explanation.
 
 ## Related verbs
 
-Verbs learners confuse with this one, or that cover part of its ground, each
-with a short gloss:
+Verbs learners confuse with this one, or that cover part of its ground:
 
--
--
--
+| French | English |
+|--------|---------|
+| | |
+| | |
+| | |
 
 A note on whichever one causes English speakers the most trouble.
 
