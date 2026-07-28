@@ -92,5 +92,22 @@ class ListMarkerTests(unittest.TestCase):
         self.assertIn("fixture.md", buf.getvalue())
 
 
+class ArtBandMarkerTests(unittest.TestCase):
+    def test_expands_every_marker(self) -> None:
+        from tools.content_builder.build import _expand_art_bands
+
+        html = "<p>a</p><!-- art: band --><h2>Mid</h2><!-- art: band --><p>b</p>"
+        out = _expand_art_bands(html)
+        self.assertEqual(out.count("hero-art--inline"), 2)
+        self.assertNotIn("<!-- art: band -->", out)
+        self.assertIn("<h2>Mid</h2>", out)
+
+    def test_leaves_html_without_marker(self) -> None:
+        from tools.content_builder.build import _expand_art_bands
+
+        html = "<p>plain</p>"
+        self.assertEqual(_expand_art_bands(html), html)
+
+
 if __name__ == "__main__":
     unittest.main()
