@@ -1,5 +1,5 @@
 ---
-title: French Verb of the Week
+title: "Plumera | French Verb of the Week"
 description: One French verb at a time, from core meaning to everyday constructions, idioms, and expressions, organized by CEFR level.
 slug: index
 target: fr
