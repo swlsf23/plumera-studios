@@ -527,14 +527,25 @@
 }
 
 .content-page .content-list__item {
+  position: relative;
   margin: 0;
-  padding: 16px 0 16px 14px;
+  padding: 16px 0 16px 1.35rem;
   border-bottom: 1px solid rgba(127, 153, 162, 0.22);
-  border-left: 3px solid var(--blue-deep);
 }
 
 .content-page .content-list__item:last-child {
   border-bottom: 0;
+}
+
+.content-page .content-list__item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 1.45em;
+  width: 0.42em;
+  height: 0.42em;
+  border-radius: 50%;
+  background: var(--blue-deep);
 }
 
 .content-page .content-list__row {
