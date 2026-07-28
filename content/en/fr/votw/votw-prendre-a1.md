@@ -7,7 +7,7 @@ locale: en
 level: A1
 author:
 date: 2026-07-27
-draft: true
+draft: false
 related:
   - title: "Prendre: Idioms and Fixed Expressions"
     href: /en/fr/articles/verb-prendre-b1/
@@ -31,15 +31,27 @@ Learn these patterns and you will hear *prendre* everywhere in ordinary French.
 
 ## Forms and grammar
 
-*Prendre* is irregular, and the stem changes as you move through the present tense: *je prends*, *nous prenons*, *ils prennent*. The three singular forms sound identical, so the spelling matters more in writing than in speech.
+*Prendre* is irregular, and the stem changes as you move through the present tense: 
 
-One habit keeps your sentences correct: keep the article. French says *prendre le bus*, never *prendre bus*.
+| 1st person | 2nd person |
+|--------|---------|
+| je prends | nous prenons |
+| tu prends | vous prenez |
+| il / elle prend | ils / elles prennent |
 
-In the past, *prendre* uses *avoir*, and the participle is *pris*: *j'ai pris le métro ce matin*.
+The three singular forms sound identical, so the spelling matters more in writing than in speech. This conjugation pattern is similar to other verbs like *apprendre* and *comprendre*.
+
+One habit that will keep your sentences correct: keep the article. French says *prendre le bus*, never *prendre bus*.
+
+In the past tense, *prendre* uses *avoir*, and the participle is *pris*: 
+
+| French | English |
+|--------|---------|
+| *j'ai pris le métro ce matin*. | I took the metro this morning |
 
 ## How to use prendre
 
-The three senses below are sorted by what gets taken: an object, a means of transport, or something you eat, drink, or swallow.
+The three uses of *prendre* below are sorted by what gets taken: an object, a means of transport, or something you eat, drink, or swallow.
 
 ### Taking or picking something up
 
