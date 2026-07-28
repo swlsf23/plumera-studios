@@ -96,6 +96,7 @@ def _enrich_related(
     related: list[dict[str, str]],
     pages_by_href: dict[str, dict[str, str]],
     *,
+    source: str = "",
     draft_hrefs: set[str] | None = None,
     warn_draft_targets: bool = False,
 ) -> list[dict[str, str]]:
@@ -103,6 +104,7 @@ def _enrich_related(
     if not related:
         return related
     draft_hrefs = draft_hrefs or set()
+    where = f" in {source}" if source else ""
     enriched: list[dict[str, str]] = []
     for i, item in enumerate(related):
         entry = dict(item)
@@ -120,23 +122,23 @@ def _enrich_related(
             level = target.get("level") or ""
         else:
             print(
-                f"warning: related[{i}] href {href!r} has no title and no "
-                f"matching content page; skipping",
+                f"warning: related[{i}]{where}: unresolved href {href!r} "
+                f"(no title override and no matching content page); skipping",
                 file=sys.stderr,
             )
             continue
         if not label:
             print(
-                f"warning: related[{i}] href {href!r} resolved with empty "
-                f"label; skipping",
+                f"warning: related[{i}]{where}: href {href!r} resolved with "
+                f"empty label; skipping",
                 file=sys.stderr,
             )
             continue
         if warn_draft_targets and href in draft_hrefs:
             print(
-                f"warning: related[{i}] href {href!r} points at a draft page; "
-                f"the label resolves, but that URL is not emitted without "
-                f"--drafts",
+                f"warning: related[{i}]{where}: href {href!r} points at a "
+                f"draft page; the label resolves, but that URL is not emitted "
+                f"without --drafts",
                 file=sys.stderr,
             )
         entry["title"] = _title_with_level(label, level)
@@ -150,6 +152,7 @@ def _render_page(
     votw_nav: dict[str, str],
     pages_by_href: dict[str, dict[str, str]] | None = None,
     *,
+    source: str = "",
     draft_hrefs: set[str] | None = None,
     warn_draft_targets: bool = False,
 ) -> str:
@@ -157,6 +160,7 @@ def _render_page(
     related = _enrich_related(
         page.related,
         pages_by_href or {},
+        source=source,
         draft_hrefs=draft_hrefs,
         warn_draft_targets=warn_draft_targets,
     )
@@ -353,6 +357,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
             page,
             votw_nav,
             pages_by_href,
+            source=str(path.relative_to(CONTENT)),
             draft_hrefs=draft_hrefs,
             warn_draft_targets=warn_draft_targets,
         )
@@ -383,6 +388,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
                 page,
                 votw_nav,
                 pages_by_href,
+                source=str(path.relative_to(CONTENT)),
                 draft_hrefs=draft_hrefs,
                 warn_draft_targets=warn_draft_targets,
             ),
@@ -400,6 +406,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
                 page,
                 votw_nav,
                 pages_by_href,
+                source=str(path.relative_to(CONTENT)),
                 draft_hrefs=draft_hrefs,
                 warn_draft_targets=warn_draft_targets,
             ),
@@ -419,6 +426,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
                 page,
                 votw_nav,
                 pages_by_href,
+                source=str(path.relative_to(CONTENT)),
                 draft_hrefs=draft_hrefs,
                 warn_draft_targets=warn_draft_targets,
             ),
