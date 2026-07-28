@@ -34,11 +34,11 @@ Around [B1](/en/cefr/), you start meeting *prendre* in expressions where a word-
 | Il se prend pour le patron. | He thinks he's the boss. |
 | Elle se prend pour une célébrité. | She thinks she's a celebrity. |
 
-*Prendre pour* is mistaking someone for someone else. *Se prendre pour* is mistaking yourself for someone more important — and French usually says it to cut you down to size.
+*Prendre pour* is mistaking someone for someone else. *Se prendre pour* is mistaking yourself for someone more important. French usually says it to cut you down to size.
 
 ## Getting caught, hit, or blamed
 
-These uses are common in spoken French. Something gets stuck, someone "takes" a blow or a fine, or anger is aimed at a person.
+You'll hear these uses often in spoken French. Something gets stuck, someone "takes" a blow or a fine, or anger is aimed at a person.
 
 ### Se prendre dans…
 
@@ -59,7 +59,7 @@ Here the subject receives something unpleasant: a fine, a slap, or a collision y
 | Je me suis pris une gifle. | I got slapped. |
 | Elle s'est prise un poteau. | She walked into a pole. |
 
-English usually puts the subject as the victim (“I got fined”). French keeps the same person as subject, but uses *se prendre* + the unpleasant thing.
+English usually puts the subject as the victim (“I got fined”). French keeps the same person as the subject, but uses *se prendre* + the unpleasant thing.
 
 ### S'en prendre à…
 
@@ -70,7 +70,7 @@ When the target is a person, *s'en prendre à* means to pick on, blame, or attac
 | Pourquoi tu t'en prends à moi ? | Why are you picking on me? |
 | Ils s'en sont pris aux journalistes. | They attacked the journalists. |
 
-The anger or blame has a clear target. English splits this across *pick on*, *blame*, and *attack*; French keeps one pattern aimed *à* someone. Learn *s'en prendre à* as a chunk — same family as expressions like *s'en aller*.
+The anger or blame has a clear target. English splits this across *pick on*, *blame*, and *attack*. French keeps one pattern aimed *à* someone. Learn *s'en prendre à* as a chunk, similar to expressions in the same family like *s'en aller*.
 
 ## Starting to feel or do something
 
@@ -85,11 +85,11 @@ You find yourself doing something, sometimes without planning to. The tone can f
 | Je me suis pris à sourire. | I found myself smiling. |
 | Elle s'est prise à aimer cette ville. | She found herself growing fond of this city. |
 
-This is not deciding to act. The action starts almost on its own, and you notice yourself already doing it — closer to “I found myself…” than “I began to…”
+This is not deciding to act. The action starts almost on its own, and you notice yourself already doing it, closer to “I found myself…” than “I began to…”
 
 ### Prendre goût à… and prendre peur
 
-*Prendre goût à* is how liking for something takes hold. *Prendre peur* marks the moment fear starts.
+*Prendre goût à* is how you start to like something. *Prendre peur* marks the moment fear hits you.
 
 | French | English |
 |--------|---------|
@@ -97,7 +97,7 @@ This is not deciding to act. The action starts almost on its own, and you notice
 | Elle a pris goût à la lecture. | She grew to enjoy reading. |
 | Les enfants ont pris peur. | The children got frightened. |
 
-Both mark the moment something takes hold. English often needs a different verb each time (*develop a taste*, *get frightened*); French keeps *prendre* and changes only what is taken.
+Both mark the moment something takes hold. English often needs a different verb each time (*develop a taste*, *get frightened*). French keeps *prendre* and changes only what is taken.
 
 ### Qu'est-ce qui te prend ?
 
@@ -107,24 +107,24 @@ When someone's behavior changes suddenly, French asks what has "taken" them. Eng
 |--------|---------|
 | Qu'est-ce qui te prend ? | What's gotten into you? |
 
-French pictures a force that has taken hold of the person. You are not asking what they *chose* to do — you are asking what got into them.
+French pictures a force that has taken hold of the person. You are not asking what they *chose* to do. You are asking what got into them.
 
 ## Taking sides
 
-*Prendre parti* is about choosing a camp, for or against someone, or refusing to choose at all.
+*Prendre parti* is about taking a side, for or against someone, or refusing to choose at all.
 
 | French | English |
 |--------|---------|
 | Il a pris parti pour son frère. | He sided with his brother. |
 | Elle refuse de prendre parti. | She refuses to take sides. |
 
-*Parti* here is a camp, not a party invitation. Taking sides is framed as taking a position — and refusing is refusing to take one at all.
+*Parti* here is a camp, not a party invitation. Taking sides is framed as taking a position, and refusing is refusing to take one at all.
 
 ## Catch, shape, end, origin
 
 These fixed phrases keep a thin link to "taking," but you should learn each one whole. Some are everyday. Others belong more to news, writing, or geography, so they may show up a little later than solid [B1](/en/cefr/) chat.
 
-In each case something “takes” a state or a stage: fire, form, an end, a starting point. The link to physical taking is thin; the chunk is what matters.
+In each case something “takes” a state or a stage: fire, form, an end, a starting point. The link to physical taking is thin. The chunk is what matters.
 
 | French | English |
 |--------|---------|
@@ -137,14 +137,14 @@ In each case something “takes” a state or a stage: fire, form, an end, a sta
 
 ## Ahead and behind
 
-With time, work, or transport, *prendre de l'avance* and *prendre du retard* mark gaining or losing ground on a schedule.
+With time, work, or transport, *prendre de l'avance* and *prendre du retard* are how you get ahead or fall behind on a schedule.
 
 | French | English |
 |--------|---------|
 | Nous avons pris de l'avance. | We got ahead of schedule. |
 | Le train a pris du retard. | The train was delayed. |
 
-Time and schedule are treated like ground you can gain or lose. English often switches verbs (*got ahead*, *was delayed*); French stays with *prendre* + *avance* / *retard*.
+Time and schedule are treated like ground you can gain or lose. English often switches verbs (*got ahead*, *was delayed*). French stays with *prendre* + *avance* / *retard*.
 
 ## A pattern worth noticing
 
@@ -158,7 +158,7 @@ Instead, *prendre* often marks:
 - a pronominal construction describing accidents or receiving something unpleasant (*se prendre dans*, *se prendre une…*)
 - a fixed social move (*s'en prendre à*, *se prendre pour*, *prendre parti*)
 
-Recognizing the pattern matters more than forcing every line through the English verb "take."
+Noticing the pattern is more useful than forcing every line through the English verb "take."
 
 ## Summary
 

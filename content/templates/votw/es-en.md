@@ -29,7 +29,7 @@ OUTPUT RULES
    only keeps two articles about the same verb apart (tomar-a1, tomar-b2).
 6. Write all learner-facing prose in English.
 7. For example pairs, use Markdown tables with columns Spanish | English.
-   The language being taught goes in the left column. Prefer 2–4 rows.
+   The language being taught goes in the left column. Prefer 2-4 rows.
 8. Order the senses under How to use by a principle you state in that section's
    opening line, so the reader knows what separates them.
 9. Every ## section opens with at least one sentence before any ### heading.
@@ -176,7 +176,7 @@ related:        # Sidebar "You might also like" cards (optional)
 
 # Verb
 
-Introductory paragraphs (about 100–200 words). Why the verb is worth learning,
+Introductory paragraphs (about 100-200 words). Why the verb is worth learning,
 and the idea that ties its uses together. Do not list every translation.
 
 ## Forms and grammar

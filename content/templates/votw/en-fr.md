@@ -32,7 +32,7 @@ OUTPUT RULES
    French. Do not write the article in English.
 7. Address the reader as vous, matching the other French-locale pages.
 8. For example pairs, use Markdown tables with columns Anglais | Français.
-   The language being taught goes in the left column. Prefer 2–4 rows.
+   The language being taught goes in the left column. Prefer 2-4 rows.
 9. Order the senses under Comment utiliser by a principle you state in that
    section's opening line, so the reader knows what separates them.
 10. Every ## section opens with at least one sentence before any ### heading.

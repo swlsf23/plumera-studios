@@ -92,7 +92,7 @@ Here *prendre* covers English "have," for meals, drinks, and medicine alike. Ord
 
 *Boire* is the physical act of drinking. *Prendre* is the occasion: ordering it, sitting down with it, having one as part of your morning. *On prend un café ?* is an invitation, the equivalent of "shall we grab a coffee?". *On boit un café ?* doesn't naturally carry that conversational invitation meaning.
 
-English speakers tend to over-use *boire* here, because "I'm taking a coffee" in English suggests taking it away, so "take" never comes to mind.
+You may be tempted to over-use *boire* here, because "I'm taking a coffee" in English suggests taking it away, so "take" never comes to mind.
 
 ## Common constructions
 
@@ -132,7 +132,7 @@ One of the mistakes below comes from translating an English pattern word for wor
 
 ### Using *avec* for transport
 
-English speakers reach for "with the bus," on the model of "I go to work by bus." French makes the transport the object of *prendre* instead.
+You might reach for "with the bus," following the English pattern "I go to work by bus." French makes the transport the object of *prendre* instead.
 
 | Incorrect | Correct |
 |-----------|---------|
