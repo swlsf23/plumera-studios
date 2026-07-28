@@ -171,12 +171,8 @@
   background: #e8ded2;
 }
 
-/*
- * Equal gutters: slot uses margin only (no padding/border/overflow) so the
- * previous block's margin-bottom collapses into margin-top → one shared gap.
- */
 .content-page--lesson .hero-art-slot {
-  margin: 28px 0;
+  margin: 32px 0;
   padding: 0;
 }
 
@@ -192,13 +188,6 @@
     radial-gradient(ellipse 55% 140% at 78% 40%, rgba(47, 94, 104, 0.55), transparent 62%),
     radial-gradient(ellipse 48% 160% at 18% 110%, rgba(255, 255, 255, 0.38), transparent 60%),
     linear-gradient(160deg, #ece3d8 0%, #e6dbcf 48%, #d7e0e3 78%, #6f8f98 100%);
-}
-
-/* Don't stack H2 section padding against the band gutters. */
-.content-page--lesson .hero-art-slot + .article-body > h2:first-child,
-.content-page--lesson .article-body > .hero-art-slot + h2 {
-  padding-top: 0;
-  margin-top: 0;
 }
 
 .content-page--lesson .hero-art__arc {
@@ -365,6 +354,25 @@
 
 .content-page--lesson .article-body > h2:nth-of-type(n + 5) {
   padding-top: 70px;
+}
+
+/*
+ * Art-band gutters must win over the H2 nth-of-type padding above.
+ * Equal 32px above/below; strip the previous block's bottom margin so it
+ * cannot stack on the slot's margin-top.
+ */
+.content-page--lesson .hero-art-slot + .article-body > h2:first-child,
+.content-page--lesson .article-body > .hero-art-slot + h2 {
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.content-page--lesson .article-body > p:has(+ .hero-art-slot),
+.content-page--lesson .article-body > table:has(+ .hero-art-slot),
+.content-page--lesson .article-body > ul:has(+ .hero-art-slot),
+.content-page--lesson .article-body > ol:has(+ .hero-art-slot),
+.content-page--lesson .article-body > blockquote:has(+ .hero-art-slot) {
+  margin-bottom: 0;
 }
 
 /* Inline bands from <!-- art: band -->: same slim height, mirrored / cooler wash. */
