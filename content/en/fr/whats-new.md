@@ -9,8 +9,7 @@ date:
 draft: true
 eyebrow: French
 related:
-  - title: French Verb of the Week
-    href: /en/fr/votw/
+  - href: /en/fr/votw/
   - title: CEFR levels
     href: /en/cefr/
 ---

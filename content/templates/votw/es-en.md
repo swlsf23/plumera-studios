@@ -149,9 +149,9 @@ author:
 date:           # YYYY-MM-DD
 draft: true
 related:        # Sidebar "You might also like" cards (optional)
-  - title:      # Card title
+  - href:       # Site path, e.g. /en/es/votw/ or /en/es/votw/votw-otro-a1/
+    title:      # Optional override; omit to use the target page H1
     meta:       # Optional subtitle (e.g. date)
-    href:       # Site path, e.g. /en/es/votw/ or /en/es/votw/votw-otro-a1/
 ---
 
 <!--
