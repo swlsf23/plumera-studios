@@ -11,8 +11,7 @@ draft: false
 related:
   - title: "French Verb of the Week: Prendre"
     href: /en/fr/votw/votw-prendre-a1/
-  - title: New French lessons and articles
-    href: /en/fr/whats-new/
+  - href: /en/fr/whats-new/
   - title: CEFR levels
     href: /en/cefr/
 ---

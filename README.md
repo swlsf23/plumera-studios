@@ -7,11 +7,11 @@ Monorepo for the Plumera website: static multilingual landings, Markdown content
 | Stack | Owns |
 |---|---|
 | **Python** (`.venv`) | Content builder, sitemaps, future APIs (e.g. Corpus) |
-| **TypeScript / React** (npm) | Interactive apps only — **not** content pages |
+| **TypeScript / React** (npm) | Interactive apps only, **not** content pages |
 
 ## What gets deployed
 
-**`dist/` is the site.** Build it once; deploy that folder as-is (S3, nginx, etc.). Local preview serves the same `dist/` with a plain static file server — no special rewrite layer.
+**`dist/` is the site.** Build it once, then deploy that folder as-is (S3, nginx, etc.). Local preview serves the same `dist/` with a plain static file server, with no special rewrite layer.
 
 ```bash
 python3 -m venv .venv
@@ -19,7 +19,7 @@ source .venv/bin/activate
 pip install -e .
 
 npm run build:site    # → dist/  (same artifact as production)
-npm run serve:site    # http://localhost:4173 — serves dist/
+npm run serve:site    # http://localhost:4173 serves dist/
 ```
 
 Pages with `draft: true` are left out. To build them locally for review:
@@ -30,7 +30,7 @@ python3 -m tools.content_builder --drafts
 
 Or `npm run dev` (= build + serve) at [http://localhost:4173](http://localhost:4173).
 
-Useful URLs (same paths in prod — directory indexes, trailing slashes):
+Useful URLs (same paths in prod: directory indexes, trailing slashes):
 
 - [http://localhost:4173/en/](http://localhost:4173/en/)
 - [http://localhost:4173/en/updates/](http://localhost:4173/en/updates/)

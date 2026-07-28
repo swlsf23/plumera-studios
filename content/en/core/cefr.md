@@ -3,10 +3,8 @@ title: "Plumera | How we use CEFR levels"
 description: CEFR is the Common European Framework of Reference for Languages. Plumera uses these levels so you can pick material that matches where you are.
 eyebrow: Levels
 related:
-  - title: French Verb of the Week
-    href: /en/fr/votw/
-  - title: Prendre
-    href: /en/fr/votw/votw-prendre-a1/
+  - href: /en/fr/votw/
+  - href: /en/fr/votw/votw-prendre-a1/
 ---
 
 # How we use CEFR levels

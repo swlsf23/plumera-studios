@@ -143,9 +143,9 @@ author:
 date:           # AAAA-MM-DD
 draft: true
 related:        # Tarjetas "También te puede interesar" (opcional)
-  - title:      # Título de la tarjeta
+  - href:       # Ruta del sitio, p. ej. /es/fr/votw/
+    title:      # Anulación opcional; omitir para usar el H1 de la página destino
     meta:       # Subtítulo opcional (p. ej. fecha)
-    href:       # Ruta del sitio, p. ej. /es/fr/votw/
 ---
 
 <!--

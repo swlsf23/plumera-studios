@@ -11,8 +11,7 @@ eyebrow: Series
 related:
   - title: CEFR levels
     href: /en/cefr/
-  - title: Prendre
-    href: /en/fr/votw/votw-prendre-a1/
+  - href: /en/fr/votw/votw-prendre-a1/
 ---
 
 # French Verb of the Week

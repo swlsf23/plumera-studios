@@ -160,9 +160,9 @@ author:
 date:           # AAAA-MM-JJ
 draft: true
 related:        # Cartes « Vous aimerez aussi » (optionnel)
-  - title:      # Titre de la carte
+  - href:       # Chemin du site, p. ex. /fr/es/votw/
+    title:      # Remplacement optionnel. Omettre pour utiliser le H1 de la page cible
     meta:       # Sous-titre optionnel (p. ex. date)
-    href:       # Chemin du site, p. ex. /fr/es/votw/
 ---
 
 <!--
