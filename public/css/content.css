@@ -176,9 +176,9 @@
   display: block;
   position: relative;
   margin: 36px 0 20px;
-  min-height: 72px;
-  max-height: 80px;
-  border-radius: 10px;
+  min-height: 28px;
+  max-height: 30px;
+  border-radius: 8px;
   background:
     radial-gradient(ellipse 55% 140% at 78% 40%, rgba(47, 94, 104, 0.55), transparent 62%),
     radial-gradient(ellipse 48% 160% at 18% 110%, rgba(255, 255, 255, 0.38), transparent 60%),
@@ -225,18 +225,18 @@
 }
 
 .hero-art__stroke--warm {
-  stroke: rgba(255, 255, 255, 0.55);
-  stroke-width: 2.4;
+  stroke: rgba(255, 255, 255, 0.62);
+  stroke-width: 1.6;
 }
 
 .hero-art__stroke--cool {
-  stroke: rgba(24, 49, 55, 0.2);
-  stroke-width: 1.8;
+  stroke: rgba(24, 49, 55, 0.22);
+  stroke-width: 1.2;
 }
 
 .hero-art__stroke--fine {
-  stroke: rgba(255, 255, 255, 0.38);
-  stroke-width: 1.2;
+  stroke: rgba(255, 255, 255, 0.42);
+  stroke-width: 0.9;
 }
 
 .hero-art__ring {
@@ -244,13 +244,13 @@
 }
 
 .hero-art__ring--left {
-  stroke: rgba(255, 255, 255, 0.34);
-  stroke-width: 12;
+  stroke: rgba(255, 255, 255, 0.4);
+  stroke-width: 5;
 }
 
 .hero-art__ring--right {
-  stroke: rgba(243, 238, 230, 0.4);
-  stroke-width: 9;
+  stroke: rgba(243, 238, 230, 0.48);
+  stroke-width: 4;
 }
 
 .hero-art__arc {
@@ -900,8 +900,8 @@
 
   .content-page--lesson .hero-art {
     display: block;
-    min-height: 64px;
-    max-height: 72px;
+    min-height: 26px;
+    max-height: 28px;
   }
 
   .article-body > h2 {
