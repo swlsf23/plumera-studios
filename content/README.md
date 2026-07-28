@@ -47,7 +47,7 @@ Example: English explanation of French VOTW → `content/en/fr/votw/…` with `l
 
 ## Content page template
 
-Every emitted content page uses one layout (not landings): short **eyebrow**, **H1**, frontmatter **description** as the summary under the title, slim decorative **hero** band, article body, then an end band with optional **You might also like** cards and **Follow us**. The body is left intact; the first paragraph is not pulled out for that summary.
+Every emitted content page uses one layout (not landings): short **eyebrow**, **H1**, frontmatter **description** as the summary under the title (omit `description` → no summary line), slim decorative **hero** band, article body, then an end band with optional **You might also like** cards and **Follow us**. The body is left intact; the first paragraph is never pulled out for that summary.
 
 Author that shape in Markdown + YAML. Do not add a right-rail “On this page” TOC for content pages.
 
@@ -83,7 +83,16 @@ Put an HTML comment where the shared content list should appear:
 <!-- whats-new: list -->   # what’s-new.md
 ```
 
-The builder replaces that marker with the list (title · level, date, kind when relevant, summary) outside the article body. Move the comment to reorder prose around the list. If the marker is missing, the list is appended after the body and a warning is printed.
+The builder replaces that marker with the list (title · level, date, kind when relevant, summary) outside the article body. Move the comment to reorder prose around the list.
+
+**Marker fallback**
+
+- Missing marker: list is appended after the body, with a warning naming the source file.
+- Multiple markers: the first wins; later markers stay in the HTML and a warning is printed.
+
+**Same-day date grouping**
+
+List rows show the date only when it changes from the previous row. Dates come from each page’s frontmatter `date` (calendar day → locale label). Grouping compares those labels and does not use the build machine’s clock or timezone.
 
 ## Tables (VOTW and articles)
 

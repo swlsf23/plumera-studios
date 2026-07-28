@@ -197,11 +197,24 @@ def _list_marker_re(kind: str) -> re.Pattern[str]:
     return re.compile(rf"<!--\s*{re.escape(kind)}:\s*list\s*-->", re.I)
 
 
-def _split_at_list_marker(html: str, kind: str) -> tuple[str, str] | None:
-    """Split body on <!-- {kind}: list -->; None if the marker is missing."""
-    match = _list_marker_re(kind).search(html)
-    if not match:
+def _split_at_list_marker(
+    html: str, kind: str, *, source: str = ""
+) -> tuple[str, str] | None:
+    """Split body on <!-- {kind}: list -->; None if the marker is missing.
+
+    Only the first marker is used. Extra markers stay in the HTML and trigger
+    a warning.
+    """
+    matches = list(_list_marker_re(kind).finditer(html))
+    if not matches:
         return None
+    if len(matches) > 1:
+        where = f" in {source}" if source else ""
+        print(
+            f"warning: multiple <!-- {kind}: list -->{where}; using the first",
+            file=sys.stderr,
+        )
+    match = matches[0]
     before = html[: match.start()].rstrip()
     after = html[match.end() :].lstrip()
     return before, after
@@ -408,15 +421,16 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
 
     for page, path, target in votw_pages:
         locale = page.locale
+        source = str(path.relative_to(CONTENT))
         series = dist / locale / target / "votw"
         if path.stem == VOTW_INDEX_STEM:
             # /en/fr/votw/ → en/fr/votw/index.html
             # List replaces <!-- votw: list --> (outside .article-body).
             lesson_list = _votw_list_html(locale, target, include_drafts)
-            split = _split_at_list_marker(page.body_html, "votw")
+            split = _split_at_list_marker(page.body_html, "votw", source=source)
             if split is None:
                 print(
-                    f"warning: missing <!-- votw: list --> in {path}; "
+                    f"warning: missing <!-- votw: list --> in {source}; "
                     f"appending the lesson list after the body",
                     file=sys.stderr,
                 )
@@ -436,7 +450,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
                 page,
                 votw_nav,
                 pages_by_href,
-                source=str(path.relative_to(CONTENT)),
+                source=source,
                 draft_hrefs=draft_hrefs,
                 warn_draft_targets=warn_draft_targets,
             ),
@@ -464,11 +478,12 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
     for page, path, target in whats_new_pages:
         # /en/fr/whats-new/ → en/fr/whats-new/index.html
         # List replaces <!-- whats-new: list --> (outside .article-body).
+        source = str(path.relative_to(CONTENT))
         lesson_list = _whats_new_list_html(page.locale, target, include_drafts)
-        split = _split_at_list_marker(page.body_html, "whats-new")
+        split = _split_at_list_marker(page.body_html, "whats-new", source=source)
         if split is None:
             print(
-                f"warning: missing <!-- whats-new: list --> in {path}; "
+                f"warning: missing <!-- whats-new: list --> in {source}; "
                 f"appending the lesson list after the body",
                 file=sys.stderr,
             )
@@ -484,7 +499,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
                 page,
                 votw_nav,
                 pages_by_href,
-                source=str(path.relative_to(CONTENT)),
+                source=source,
                 draft_hrefs=draft_hrefs,
                 warn_draft_targets=warn_draft_targets,
             ),
