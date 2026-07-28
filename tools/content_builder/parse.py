@@ -18,6 +18,7 @@ SITE_ORIGIN = "https://plumerastudios.com"
 CORE_SKIP = {"index.md"}  # landings are copied HTML; MD is reference-only
 VOTW_INDEX_STEM = "index"  # series index; emitted at /{locale}/{target}/votw/
 ARTICLES_DIR = "articles"  # standalone target-language pages (not a series)
+WHATS_NEW_STEM = "whats-new"  # target hub: /{locale}/{target}/whats-new/
 # Top-level content/ dirs that are not UI locales
 CONTENT_NON_LOCALES = frozenset({"templates"})
 CORE_DIR = "core"  # the one second-level dir with no target language
@@ -444,6 +445,83 @@ def discover_article_pages(content_root: Path) -> list[tuple[Path, str, str]]:
     return pages
 
 
+def discover_whats_new_pages(content_root: Path) -> list[tuple[Path, str, str]]:
+    """Find content/{locale}/{target}/whats-new.md."""
+    pages: list[tuple[Path, str, str]] = []
+    for locale_dir in _locale_dirs(content_root):
+        for target_dir in _target_dirs(locale_dir):
+            path = target_dir / f"{WHATS_NEW_STEM}.md"
+            if path.is_file():
+                pages.append((path, locale_dir.name, target_dir.name))
+    return pages
+
+
+def parse_whats_new_page(path: Path, locale: str, target: str) -> Page:
+    """Target-scoped recent-content page at /{locale}/{target}/whats-new/."""
+    post = frontmatter.load(path)
+    meta = post.metadata
+    meta_target = meta.get("target")
+    if meta_target and str(meta_target) != target:
+        print(
+            f"warning: frontmatter target {str(meta_target)!r} disagrees with folder "
+            f"{target!r} ({path}); the folder decides the URL",
+            file=sys.stderr,
+        )
+
+    title = str(meta.get("title") or chrome_for(locale)["whats_new"])
+    description = str(meta.get("description") or "")
+    html = _md_to_html(post.content.strip())
+    heading, html = _strip_tag(html, "h1")
+    if not heading:
+        heading = title
+    dek_from_body, html = _extract_dek(html)
+    if not description:
+        description = dek_from_body
+    dek = description or dek_from_body
+    html, toc = _inject_heading_ids(html)
+
+    eyebrow = str(meta.get("eyebrow") or "").strip() or chrome_for(locale)["whats_new"]
+    heading_html = heading.replace(" — ", "<br>") if " — " in heading else heading
+
+    return Page(
+        locale=locale,
+        title=title,
+        description=description,
+        canonical_path=f"/{locale}/{target}/{WHATS_NEW_STEM}/",
+        eyebrow=eyebrow,
+        heading_html=heading_html,
+        dek=dek,
+        body_html=html,
+        toc=toc,
+        related=_parse_related(meta, path),
+        active=WHATS_NEW_STEM,
+        show_hero_art=True,
+    )
+
+
+def _frontmatter_sort_date(value: object) -> date:
+    """ISO date for sorting; unknown/missing sorts to the epoch (oldest)."""
+    if isinstance(value, datetime):
+        return value.date()
+    if isinstance(value, date):
+        return value
+    if isinstance(value, str) and value.strip():
+        try:
+            return date.fromisoformat(value.strip())
+        except ValueError:
+            return date.min
+    return date.min
+
+
+def _list_title_from_post(post, fallback: str) -> str:
+    """Prefer body H1 for list cards; else frontmatter title / fallback."""
+    list_title = str(post.metadata.get("title") or fallback)
+    for line in post.content.splitlines():
+        if line.startswith("# "):
+            return line[2:].strip()
+    return list_title
+
+
 def votw_links(
     content_root: Path, locale: str, target: str, *, include_drafts: bool = False
 ) -> list[dict[str, str]]:
@@ -480,3 +558,63 @@ def votw_links(
             }
         )
     return links
+
+
+def recent_target_links(
+    content_root: Path, locale: str, target: str, *, include_drafts: bool = False
+) -> list[dict[str, str]]:
+    """VOTW lessons + articles for one locale/target, newest date first."""
+    chrome = chrome_for(locale)
+    series_name = votw_series_label(locale, target)
+    items: list[tuple[date, dict[str, str]]] = []
+
+    votw = content_root / locale / target / "votw"
+    if votw.is_dir():
+        for path in votw.glob("*.md"):
+            if path.stem == VOTW_INDEX_STEM:
+                continue
+            post = frontmatter.load(path)
+            meta = post.metadata
+            if meta.get("draft") and not include_drafts:
+                continue
+            slug = str(meta.get("slug") or path.stem)
+            items.append(
+                (
+                    _frontmatter_sort_date(meta.get("date")),
+                    {
+                        "title": _list_title_from_post(post, path.stem),
+                        "date": _format_date(meta.get("date"), locale),
+                        "description": str(meta.get("description") or "").strip(),
+                        "level": str(meta.get("level") or "").strip(),
+                        "kind": series_name,
+                        "href": f"/{locale}/{target}/votw/{slug}/",
+                    },
+                )
+            )
+
+    articles = content_root / locale / target / ARTICLES_DIR
+    if articles.is_dir():
+        for path in articles.glob("*.md"):
+            post = frontmatter.load(path)
+            meta = post.metadata
+            if meta.get("draft") and not include_drafts:
+                continue
+            slug = str(meta.get("slug") or path.stem)
+            items.append(
+                (
+                    _frontmatter_sort_date(meta.get("date")),
+                    {
+                        # Articles: frontmatter title is the card label (H1 may
+                        # include Markdown emphasis that should not show raw).
+                        "title": str(meta.get("title") or path.stem),
+                        "date": _format_date(meta.get("date"), locale),
+                        "description": str(meta.get("description") or "").strip(),
+                        "level": str(meta.get("level") or "").strip(),
+                        "kind": chrome["article"],
+                        "href": f"/{locale}/{target}/{ARTICLES_DIR}/{slug}/",
+                    },
+                )
+            )
+
+    items.sort(key=lambda pair: (pair[0], pair[1]["title"]), reverse=True)
+    return [item for _sort_date, item in items]

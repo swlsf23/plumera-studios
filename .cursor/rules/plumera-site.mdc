@@ -42,6 +42,7 @@ content/
   {locale}/          # explanatory / UI language
     core/            # no target language — updates, privacy, cefr; index.md optional/reference only
     {target}/        # language being taught
+      whats-new.md   # optional: recent pages for this target
       votw/          # Verb of the Week series
       articles/      # standalone pages (not a series)
       conjugation/   # future series
@@ -51,6 +52,9 @@ content/
 - **core** — structural equivalence across locales (same filenames); body copy is not assumed 1:1.
 - **target** — language taught. It is a **folder**, one per language, holding every series (and `articles/`) for it; `target` in frontmatter must agree with the folder.
 - **articles** — one-off target-language pages at `/{locale}/{target}/articles/{slug}/`; not part of the VOTW index.
+- **whats-new** — optional `/{locale}/{target}/whats-new/`; authored intro plus a builder-generated newest-first list of that target’s VOTW lessons and articles.
+- **CEFR on links** — builder-generated links to pages with `level` append it to the label (`Title · A1`): related cards, what’s-new list, VOTW index cards.
+- **Document `<title>`** — template emits `Plumera | {title}` unless frontmatter `title` already starts with `Plumera |` / `Plumera Studios |`. Landings use `Plumera | …` in their hand-authored HTML.
 - The second level is either `core` or a language code. Nothing else belongs there.
 - Grouped by target, not by series: adding a language is one new folder, not a new subfolder inside every series.
 - No required file parity across targets or locales.
