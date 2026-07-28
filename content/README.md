@@ -59,6 +59,8 @@ Keep `slug` equal to the filename stem (e.g. `votw-prendre-a1.md` → `slug: vot
 
 Optional `related` is a list of end-band cards for “You might also like”. Each item needs `href`. Omit `title` to use the target page’s H1 (recommended). Set `title` only to override that label. Optional `meta` is a short secondary line. When the target declares `level`, the builder appends it as `Title · A1`.
 
+Draft pages are indexed for those H1 labels even when not emitted. A production build warns if a related `href` points at a draft URL (label works; the link is not in `dist/` without `--drafts`).
+
 Optional `eyebrow` is the short label above the H1 (e.g. `Levels`, `News`, `Series`).
 
 Set `draft: true` to keep a page out of `dist/` and sitemaps until it is ready.
