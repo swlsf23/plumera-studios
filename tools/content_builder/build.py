@@ -95,10 +95,14 @@ def _plain_heading(heading_html: str) -> str:
 def _enrich_related(
     related: list[dict[str, str]],
     pages_by_href: dict[str, dict[str, str]],
+    *,
+    draft_hrefs: set[str] | None = None,
+    warn_draft_targets: bool = False,
 ) -> list[dict[str, str]]:
     """Label related cards: author title override, else target H1, then CEFR level."""
     if not related:
         return related
+    draft_hrefs = draft_hrefs or set()
     enriched: list[dict[str, str]] = []
     for i, item in enumerate(related):
         entry = dict(item)
@@ -128,6 +132,13 @@ def _enrich_related(
                 file=sys.stderr,
             )
             continue
+        if warn_draft_targets and href in draft_hrefs:
+            print(
+                f"warning: related[{i}] href {href!r} points at a draft page; "
+                f"the label resolves, but that URL is not emitted without "
+                f"--drafts",
+                file=sys.stderr,
+            )
         entry["title"] = _title_with_level(label, level)
         enriched.append(entry)
     return enriched
@@ -138,9 +149,17 @@ def _render_page(
     page,
     votw_nav: dict[str, str],
     pages_by_href: dict[str, dict[str, str]] | None = None,
+    *,
+    draft_hrefs: set[str] | None = None,
+    warn_draft_targets: bool = False,
 ) -> str:
     locale = page.locale
-    related = _enrich_related(page.related, pages_by_href or {})
+    related = _enrich_related(
+        page.related,
+        pages_by_href or {},
+        draft_hrefs=draft_hrefs,
+        warn_draft_targets=warn_draft_targets,
+    )
     return template.render(
         page=page,
         chrome=chrome_for(locale),
@@ -262,12 +281,14 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
     core_pages = [(parse_core_page(p, loc), p) for p, loc in discover_core_pages(CONTENT)]
 
     # Always parse for related-link labels; only emit non-drafts unless --drafts.
+    draft_hrefs: set[str] = set()
     votw_pages = []
     votw_for_index = []
     for path, locale, target in discover_votw_pages(CONTENT):
         page = parse_votw_page(path, locale, target)
         votw_for_index.append(page)
         if is_draft(path):
+            draft_hrefs.add(page.canonical_path)
             if not include_drafts:
                 print(f"skip draft: {path.relative_to(CONTENT)}", file=sys.stderr)
                 continue
@@ -280,6 +301,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
         page = parse_article_page(path, locale, target)
         article_for_index.append(page)
         if is_draft(path):
+            draft_hrefs.add(page.canonical_path)
             if not include_drafts:
                 print(f"skip draft: {path.relative_to(CONTENT)}", file=sys.stderr)
                 continue
@@ -292,11 +314,16 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
         page = parse_whats_new_page(path, locale, target)
         whats_new_for_index.append(page)
         if is_draft(path):
+            draft_hrefs.add(page.canonical_path)
             if not include_drafts:
                 print(f"skip draft: {path.relative_to(CONTENT)}", file=sys.stderr)
                 continue
             print(f"emit draft: {path.relative_to(CONTENT)}", file=sys.stderr)
         whats_new_pages.append((page, path, target))
+
+    for page, path in core_pages:
+        if is_draft(path):
+            draft_hrefs.add(page.canonical_path)
 
     votw_nav = _votw_nav_hrefs(
         [
@@ -317,10 +344,18 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
             "title": page.title,
             "level": page.level,
         }
+    warn_draft_targets = not include_drafts
     emitted = 0
 
     for page, path in core_pages:
-        html = _render_page(template, page, votw_nav, pages_by_href)
+        html = _render_page(
+            template,
+            page,
+            votw_nav,
+            pages_by_href,
+            draft_hrefs=draft_hrefs,
+            warn_draft_targets=warn_draft_targets,
+        )
         # /en/updates/ → en/updates/index.html (plain static hosting)
         stem = path.stem
         out = dist / page.locale / stem / "index.html"
@@ -341,14 +376,34 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
             # /en/fr/votw/slug/ → en/fr/votw/slug/index.html
             slug = page.canonical_path.rstrip("/").split("/")[-1]
             out = series / slug / "index.html"
-        _write(out, _render_page(template, page, votw_nav, pages_by_href))
+        _write(
+            out,
+            _render_page(
+                template,
+                page,
+                votw_nav,
+                pages_by_href,
+                draft_hrefs=draft_hrefs,
+                warn_draft_targets=warn_draft_targets,
+            ),
+        )
         emitted += 1
 
     for page, path, target in article_pages:
         # /en/fr/articles/slug/ → en/fr/articles/slug/index.html
         slug = page.canonical_path.rstrip("/").split("/")[-1]
         out = dist / page.locale / target / ARTICLES_DIR / slug / "index.html"
-        _write(out, _render_page(template, page, votw_nav, pages_by_href))
+        _write(
+            out,
+            _render_page(
+                template,
+                page,
+                votw_nav,
+                pages_by_href,
+                draft_hrefs=draft_hrefs,
+                warn_draft_targets=warn_draft_targets,
+            ),
+        )
         emitted += 1
 
     for page, path, target in whats_new_pages:
@@ -357,7 +412,17 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
             page.locale, target, include_drafts
         )
         out = dist / page.locale / target / WHATS_NEW_STEM / "index.html"
-        _write(out, _render_page(template, page, votw_nav, pages_by_href))
+        _write(
+            out,
+            _render_page(
+                template,
+                page,
+                votw_nav,
+                pages_by_href,
+                draft_hrefs=draft_hrefs,
+                warn_draft_targets=warn_draft_targets,
+            ),
+        )
         emitted += 1
 
     sitemaps = write_sitemaps(dist)
