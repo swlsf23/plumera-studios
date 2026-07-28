@@ -171,9 +171,13 @@
   background: #e8ded2;
 }
 
-/* Equal gutters via padding (does not collapse with sibling margins). */
+/*
+ * Equal gutters: slot uses margin only (no padding/border/overflow) so the
+ * previous block's margin-bottom collapses into margin-top → one shared gap.
+ */
 .content-page--lesson .hero-art-slot {
-  padding: 28px 0;
+  margin: 28px 0;
+  padding: 0;
 }
 
 /* Decorative band: curves/lines on a soft field — not a meter-like fill strip. */
@@ -190,17 +194,11 @@
     linear-gradient(160deg, #ece3d8 0%, #e6dbcf 48%, #d7e0e3 78%, #6f8f98 100%);
 }
 
-/* Don't stack section/paragraph spacing against the band gutters. */
-.content-page--lesson .hero-art-slot + .article-body > h2:first-child {
-  padding-top: 0;
-}
-
-.content-page--lesson .article-body > *:has(+ .hero-art-slot) {
-  margin-bottom: 0;
-}
-
+/* Don't stack H2 section padding against the band gutters. */
+.content-page--lesson .hero-art-slot + .article-body > h2:first-child,
 .content-page--lesson .article-body > .hero-art-slot + h2 {
   padding-top: 0;
+  margin-top: 0;
 }
 
 .content-page--lesson .hero-art__arc {
