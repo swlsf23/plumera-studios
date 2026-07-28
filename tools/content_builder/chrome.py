@@ -23,6 +23,8 @@ CHROME: dict[str, dict[str, str]] = {
         "you_might_also_like": "You might also like",
         "follow_us": "Follow us:",
         "by_author": "By {author}",
+        "article": "Article",
+        "level_prefix": "Level:",
         "copyright": "© 2026 Plumera Studios",
     },
     "es": {
@@ -38,6 +40,8 @@ CHROME: dict[str, dict[str, str]] = {
         "you_might_also_like": "También te puede interesar",
         "follow_us": "Síguenos:",
         "by_author": "Por {author}",
+        "article": "Artículo",
+        "level_prefix": "Nivel:",
         "copyright": "© 2026 Plumera Studios",
     },
     "fr": {
@@ -53,6 +57,8 @@ CHROME: dict[str, dict[str, str]] = {
         "you_might_also_like": "Vous aimerez aussi",
         "follow_us": "Suivez-nous :",
         "by_author": "Par {author}",
+        "article": "Article",
+        "level_prefix": "Niveau :",
         "copyright": "© 2026 Plumera Studios",
     },
 }

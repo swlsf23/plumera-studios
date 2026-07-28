@@ -12,11 +12,14 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 from tools.content_builder.chrome import chrome_for, language_menu
 from tools.content_builder.parse import (
+    ARTICLES_DIR,
     SITE_ORIGIN,
     VOTW_INDEX_STEM,
+    discover_article_pages,
     discover_core_pages,
     discover_votw_pages,
     is_draft,
+    parse_article_page,
     parse_core_page,
     parse_votw_page,
     votw_links,
@@ -63,15 +66,47 @@ def _canonical_url(page_path: str) -> str:
     return f"{SITE_ORIGIN}{page_path}"
 
 
-def _render_page(template, page, votw_nav: dict[str, str]) -> str:
+def _normalize_href(href: str) -> str:
+    href = href.strip()
+    if href and not href.endswith("/"):
+        href += "/"
+    return href
+
+
+def _related_with_levels(
+    related: list[dict[str, str]],
+    levels_by_href: dict[str, str],
+) -> list[dict[str, str]]:
+    """Append a CEFR level to related link titles when the href points at a
+    page that declares one (articles and VOTW lessons)."""
+    if not related or not levels_by_href:
+        return related
+    enriched: list[dict[str, str]] = []
+    for item in related:
+        entry = dict(item)
+        level = levels_by_href.get(_normalize_href(entry.get("href", "")))
+        title = entry.get("title", "")
+        if level and title and not title.rstrip().endswith(level):
+            entry["title"] = f"{title} · {level}"
+        enriched.append(entry)
+    return enriched
+
+
+def _render_page(
+    template,
+    page,
+    votw_nav: dict[str, str],
+    levels_by_href: dict[str, str] | None = None,
+) -> str:
     locale = page.locale
+    related = _related_with_levels(page.related, levels_by_href or {})
     return template.render(
         page=page,
         chrome=chrome_for(locale),
         site_origin=SITE_ORIGIN,
         languages=_lang_hrefs(locale),
         canonical_url=_canonical_url(page.canonical_path),
-        related=page.related,
+        related=related,
         social_links=SOCIAL_LINKS,
         votw_href=votw_nav.get(locale),
     )
@@ -162,6 +197,15 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
             print(f"emit draft: {path.relative_to(CONTENT)}", file=sys.stderr)
         votw_pages.append((parse_votw_page(path, locale, target), path, target))
 
+    article_pages = []
+    for path, locale, target in discover_article_pages(CONTENT):
+        if is_draft(path):
+            if not include_drafts:
+                print(f"skip draft: {path.relative_to(CONTENT)}", file=sys.stderr)
+                continue
+            print(f"emit draft: {path.relative_to(CONTENT)}", file=sys.stderr)
+        article_pages.append((parse_article_page(path, locale, target), path, target))
+
     votw_nav = _votw_nav_hrefs(
         [
             (page.locale, target)
@@ -169,10 +213,15 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
             if path.stem == VOTW_INDEX_STEM
         ]
     )
+    levels_by_href = {
+        page.canonical_path: page.level
+        for page, _path, _target in [*article_pages, *votw_pages]
+        if page.level
+    }
     emitted = 0
 
     for page, path in core_pages:
-        html = _render_page(template, page, votw_nav)
+        html = _render_page(template, page, votw_nav, levels_by_href)
         # /en/updates/ → en/updates/index.html (plain static hosting)
         stem = path.stem
         out = dist / page.locale / stem / "index.html"
@@ -193,7 +242,14 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
             # /en/fr/votw/slug/ → en/fr/votw/slug/index.html
             slug = page.canonical_path.rstrip("/").split("/")[-1]
             out = series / slug / "index.html"
-        _write(out, _render_page(template, page, votw_nav))
+        _write(out, _render_page(template, page, votw_nav, levels_by_href))
+        emitted += 1
+
+    for page, path, target in article_pages:
+        # /en/fr/articles/slug/ → en/fr/articles/slug/index.html
+        slug = page.canonical_path.rstrip("/").split("/")[-1]
+        out = dist / page.locale / target / ARTICLES_DIR / slug / "index.html"
+        _write(out, _render_page(template, page, votw_nav, levels_by_href))
         emitted += 1
 
     sitemaps = write_sitemaps(dist)

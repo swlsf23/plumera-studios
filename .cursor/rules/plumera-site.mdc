@@ -42,13 +42,15 @@ content/
   {locale}/          # explanatory / UI language
     core/            # no target language — updates, privacy, cefr; index.md optional/reference only
     {target}/        # language being taught
-      votw/
-      conjugation/
+      votw/          # Verb of the Week series
+      articles/      # standalone pages (not a series)
+      conjugation/   # future series
 ```
 
 - **locale** — language of the explanation / UI.
 - **core** — structural equivalence across locales (same filenames); body copy is not assumed 1:1.
-- **target** — language taught. It is a **folder**, one per language, holding every series for it; `target` in frontmatter must agree with the folder.
+- **target** — language taught. It is a **folder**, one per language, holding every series (and `articles/`) for it; `target` in frontmatter must agree with the folder.
+- **articles** — one-off target-language pages at `/{locale}/{target}/articles/{slug}/`; not part of the VOTW index.
 - The second level is either `core` or a language code. Nothing else belongs there.
 - Grouped by target, not by series: adding a language is one new folder, not a new subfolder inside every series.
 - No required file parity across targets or locales.
