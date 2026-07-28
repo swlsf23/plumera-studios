@@ -28,7 +28,7 @@ content/
 - **`articles/`**: one-off explainers for that target; emitted at `/{locale}/{target}/articles/{slug}/`. Not listed on the VOTW index. Default eyebrow is “Article” (override with frontmatter `eyebrow`).
 - **`whats-new.md`**: optional page at `/{locale}/{target}/whats-new/`. Intro copy is authored; the builder appends a newest-first list of that target’s VOTW lessons and articles (draft filtering matches the build).
 
-**CEFR on links (site standard):** when the builder generates a link to a page that declares `level` in frontmatter (related cards, what’s-new list, VOTW index cards), it appends the level to the link label as `Title · A1`. Authors do not need to put the level in the related `title` by hand.
+**CEFR on links (site standard):** when the builder generates a link to a page that declares `level` in frontmatter (related cards, what’s-new list, VOTW series list), it appends the level to the link label as `Title · A1`. Authors do not need to put the level in the related `title` by hand.
 
 **Document `<title>`:** the template emits `Plumera | {title}` unless frontmatter `title` already starts with `Plumera |` or `Plumera Studios |`.
 
@@ -47,7 +47,7 @@ Example: English explanation of French VOTW → `content/en/fr/votw/…` with `l
 
 ## Content page template
 
-Every emitted content page uses one layout (not landings): short **eyebrow**, **H1**, **dek** as a lede, slim decorative **hero** band, article body, then an end band with optional **You might also like** cards and **Follow us**.
+Every emitted content page uses one layout (not landings): short **eyebrow**, **H1**, frontmatter **description** as the summary under the title, slim decorative **hero** band, article body, then an end band with optional **You might also like** cards and **Follow us**. The body is left intact; the first paragraph is not pulled out for that summary.
 
 Author that shape in Markdown + YAML. Do not add a right-rail “On this page” TOC for content pages.
 
@@ -62,6 +62,33 @@ Optional `related` is a list of end-band cards (`title`, `href`, optional `meta`
 Optional `eyebrow` is the short label above the H1 (e.g. `Levels`, `News`, `Series`).
 
 Set `draft: true` to keep a page out of `dist/` and sitemaps until it is ready.
+
+### Automated content lists
+
+Put an HTML comment where the shared content list should appear:
+
+```markdown
+<!-- votw: list -->        # VOTW series index.md
+<!-- whats-new: list -->   # what’s-new.md
+```
+
+The builder replaces that marker with the list (title · level, date, kind when relevant, summary) outside the article body. Move the comment to reorder prose around the list. If the marker is missing, the list is appended after the body and a warning is printed.
+
+## Tables (VOTW and articles)
+
+Default styling is French | English (source strong, gloss muted). Incorrect | Correct headers get correction styling.
+
+For same-language forms (e.g. conjugation), put this HTML comment on the line immediately above the table:
+
+```markdown
+<!-- table: forms -->
+
+| Singular | Plural |
+|----------|--------|
+| je prends | nous prenons |
+```
+
+`conjugation` is accepted as an alias for `forms`. You can also force `example` or `correction` with the same comment shape.
 
 ## Chrome / locales
 
