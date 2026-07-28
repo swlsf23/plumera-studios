@@ -15,6 +15,7 @@ content/
       cefr.md
       index.md           # optional reference text only, NOT built
     {target}/            # language being taught
+      whats-new.md       # optional: recent pages for this target
       votw/              # Verb of the Week series (+ optional index.md)
       articles/          # standalone pages (not a series index)
       conjugation/       # future series
@@ -25,6 +26,11 @@ content/
 - **`core`**: site pages for that locale, with no target language (same filenames across locales, and body copy is not assumed 1:1)
 - **`{target}`**: language being taught, one folder per language, holding every series for it (`votw/`, `articles/`, and whatever comes later)
 - **`articles/`**: one-off explainers for that target; emitted at `/{locale}/{target}/articles/{slug}/`. Not listed on the VOTW index. Default eyebrow is “Article” (override with frontmatter `eyebrow`).
+- **`whats-new.md`**: optional page at `/{locale}/{target}/whats-new/`. Intro copy is authored; the builder appends a newest-first list of that target’s VOTW lessons and articles (draft filtering matches the build).
+
+**CEFR on links (site standard):** when the builder generates a link to a page that declares `level` in frontmatter (related cards, what’s-new list, VOTW index cards), it appends the level to the link label as `Title · A1`. Authors do not need to put the level in the related `title` by hand.
+
+**Document `<title>`:** the template emits `Plumera | {title}` unless frontmatter `title` already starts with `Plumera |` or `Plumera Studios |`.
 
 The second level is therefore either `core` or a language code, and nothing else.
 
