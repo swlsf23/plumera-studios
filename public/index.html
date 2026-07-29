@@ -10,7 +10,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
   <script defer src="https://cloud.umami.is/script.js" data-website-id="a6e7309a-1696-4e8c-95f3-bd6d0361fb4a" data-domains="plumerastudios.com"></script>
-  <link rel="stylesheet" href="/css/root.css?v=index-13">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/content-header.css?v=brand-2">
+  <link rel="stylesheet" href="/css/root.css?v=index-14">
 </head>
 <body>
   <!--
@@ -18,59 +20,61 @@
     No hreflang — separate sites on one domain, not translation pairs.
     Future locales (ar, pt, …): add another .card in .cards.
   -->
-  <main class="shell">
-    <header>
-      <a class="brand" href="/">
+  <div class="page root-page">
+    <header class="content-header">
+      <a href="/" class="content-header__brand" aria-label="Plumera Studios">
         <h1>Plumera Studios</h1>
       </a>
     </header>
 
-    <div class="hero-art-slot" aria-hidden="true">
-      <div class="hero-art">
-        <div class="hero-art__arc"></div>
-        <svg class="hero-art__flourish" viewBox="0 0 800 30" preserveAspectRatio="none" focusable="false">
-          <path class="hero-art__stroke hero-art__stroke--warm" d="M-30 22 C 90 2, 190 34, 320 10 S 520 -2, 860 20"></path>
-          <path class="hero-art__stroke hero-art__stroke--cool" d="M-20 14 C 150 32, 280 -2, 430 18 S 650 30, 860 6"></path>
-          <circle class="hero-art__ring hero-art__ring--left" cx="110" cy="2" r="20"></circle>
-          <circle class="hero-art__ring hero-art__ring--right" cx="670" cy="16" r="14"></circle>
-          <path class="hero-art__stroke hero-art__stroke--fine" d="M 240 26 L 360 4 M 520 24 L 620 8"></path>
-        </svg>
+    <main class="root-main">
+      <div class="hero-art-slot" aria-hidden="true">
+        <div class="hero-art">
+          <div class="hero-art__arc"></div>
+          <svg class="hero-art__flourish" viewBox="0 0 800 30" preserveAspectRatio="none" focusable="false">
+            <path class="hero-art__stroke hero-art__stroke--warm" d="M-30 22 C 90 2, 190 34, 320 10 S 520 -2, 860 20"></path>
+            <path class="hero-art__stroke hero-art__stroke--cool" d="M-20 14 C 150 32, 280 -2, 430 18 S 650 30, 860 6"></path>
+            <circle class="hero-art__ring hero-art__ring--left" cx="110" cy="2" r="20"></circle>
+            <circle class="hero-art__ring hero-art__ring--right" cx="670" cy="16" r="14"></circle>
+            <path class="hero-art__stroke hero-art__stroke--fine" d="M 240 26 L 360 4 M 520 24 L 620 8"></path>
+          </svg>
+        </div>
       </div>
-    </div>
 
-    <nav class="cards" aria-label="Français, Español, English">
-      <a class="card" href="/fr/" lang="fr">
-        <div>
-          <small>LANGUE</small>
-          <h2>Français</h2>
-          <p>Outils linguistiques. Jeux de lettres.<br>Apprentissage des langues.</p>
-        </div>
-        <span class="divider" aria-hidden="true"></span>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="card" href="/es/" lang="es">
-        <div>
-          <small>IDIOMA</small>
-          <h2>Español</h2>
-          <p>Herramientas lingüísticas.<br>Juegos de palabras. Aprendizaje de idiomas.</p>
-        </div>
-        <span class="divider" aria-hidden="true"></span>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-      <a class="card" href="/en/" lang="en">
-        <div>
-          <small>LANGUAGE</small>
-          <h2>English</h2>
-          <p>Language tools. Word games.<br>Language learning.</p>
-        </div>
-        <span class="divider" aria-hidden="true"></span>
-        <span class="go" aria-hidden="true">→</span>
-      </a>
-    </nav>
+      <nav class="cards" aria-label="Français, Español, English">
+        <a class="card" href="/fr/" lang="fr">
+          <div>
+            <small>LANGUE</small>
+            <h2>Français</h2>
+            <p>Outils linguistiques. Jeux de lettres.<br>Apprentissage des langues.</p>
+          </div>
+          <span class="divider" aria-hidden="true"></span>
+          <span class="go" aria-hidden="true">→</span>
+        </a>
+        <a class="card" href="/es/" lang="es">
+          <div>
+            <small>IDIOMA</small>
+            <h2>Español</h2>
+            <p>Herramientas lingüísticas.<br>Juegos de palabras. Aprendizaje de idiomas.</p>
+          </div>
+          <span class="divider" aria-hidden="true"></span>
+          <span class="go" aria-hidden="true">→</span>
+        </a>
+        <a class="card" href="/en/" lang="en">
+          <div>
+            <small>LANGUAGE</small>
+            <h2>English</h2>
+            <p>Language tools. Word games.<br>Language learning.</p>
+          </div>
+          <span class="divider" aria-hidden="true"></span>
+          <span class="go" aria-hidden="true">→</span>
+        </a>
+      </nav>
 
-    <footer>
-      <p>© 2026 Plumera Studios</p>
-    </footer>
-  </main>
+      <footer class="root-footer">
+        <p>© 2026 Plumera Studios</p>
+      </footer>
+    </main>
+  </div>
 </body>
 </html>
