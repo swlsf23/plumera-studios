@@ -52,10 +52,11 @@ a {
   gap: 15px;
 }
 
+/* Same brand type as .content-header__brand on every other page. */
 .brand h1 {
   margin: 0;
-  font-size: clamp(1.1rem, 1.8vw, 1.45rem);
-  font-weight: 500;
+  font-size: 25px;
+  font-weight: 650;
   letter-spacing: -0.035em;
 }
 
