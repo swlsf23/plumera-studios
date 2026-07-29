@@ -34,7 +34,7 @@ alwaysApply: true
 - Canonicals are **self-referencing only** (`https://plumerastudios.com/...` matching that page’s URL).
 - Prefer **the same slug/filename** across locales for sanity (e.g. `privacy.md`, `cefr.md`, `{target}/votw/votw-prendre-a1.md`).
 - When body copy mentions a CEFR level code (A1, B2, …), link it to that locale’s CEFR page (`/{locale}/cefr/`). Do not put Markdown links in YAML frontmatter.
-- Root `/` (`public/index.html`) is the domain entry into each locale site (fr → es → en cards; no hreflang).
+- Root `/` (`public/index.html`) is the domain entry into each locale site (en → fr → es cards; no hreflang).
 
 ## Content layout
 
