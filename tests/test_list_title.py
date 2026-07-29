@@ -35,13 +35,13 @@ class ListTitleTests(unittest.TestCase):
     def test_recent_target_links_articles_use_h1(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            articles = root / "en" / "fr" / "articles"
+            articles = root / "en" / "learn-french" / "articles"
             articles.mkdir(parents=True)
             (articles / "verb-prendre-b1.md").write_text(
                 '---\n'
                 'title: "Plumera | Prendre (French): idioms and fixed expressions"\n'
                 "slug: verb-prendre-b1\n"
-                "target: fr\n"
+                "target: learn-french\n"
                 "locale: en\n"
                 "level: B1\n"
                 "date: 2026-07-28\n"
@@ -51,7 +51,7 @@ class ListTitleTests(unittest.TestCase):
                 "Body.\n",
                 encoding="utf-8",
             )
-            links = recent_target_links(root, "en", "fr")
+            links = recent_target_links(root, "en", "learn-french")
         self.assertEqual(len(links), 1)
         self.assertEqual(
             links[0]["title"],

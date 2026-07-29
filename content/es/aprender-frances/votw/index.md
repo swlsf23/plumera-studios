@@ -2,7 +2,7 @@
 title: "Plumera | Verbo francés de la semana"
 description: Un verbo francés a la vez, del sentido central a las construcciones, modismos y expresiones cotidianas, organizado por nivel MCER.
 slug: index
-target: fr
+target: aprender-frances
 locale: es
 author:
 date:
@@ -11,7 +11,7 @@ eyebrow: Serie
 related:
   - title: Niveles MCER
     href: /es/cefr/
-  - href: /es/fr/votw/votw-prendre-a1/
+  - href: /es/aprender-frances/votw/votw-prendre-a1/
 ---
 
 # Verbo francés de la semana

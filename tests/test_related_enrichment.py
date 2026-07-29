@@ -10,12 +10,12 @@ from tools.content_builder.build import _enrich_related, _title_with_level
 
 
 PAGES = {
-    "/en/fr/votw/votw-prendre-a1/": {
+    "/en/learn-french/votw/votw-prendre-a1/": {
         "heading": "Prendre",
         "title": "Plumera | French Verb of the Week: Prendre",
         "level": "A1",
     },
-    "/en/fr/articles/verb-prendre-b1/": {
+    "/en/learn-french/articles/verb-prendre-b1/": {
         "heading": "Prendre: Idioms and Fixed Expressions",
         "title": "Plumera | Prendre (French): idioms and fixed expressions",
         "level": "B1",
@@ -47,7 +47,7 @@ class RelatedEnrichmentTests(unittest.TestCase):
 
     def test_cefr_suffix_on_default_h1(self) -> None:
         related = [
-            {"title": "", "href": "/en/fr/votw/votw-prendre-a1/", "meta": ""}
+            {"title": "", "href": "/en/learn-french/votw/votw-prendre-a1/", "meta": ""}
         ]
         out = _enrich_related(related, PAGES, source="fixture.md")
         self.assertEqual(out[0]["title"], "Prendre · A1")
@@ -56,7 +56,7 @@ class RelatedEnrichmentTests(unittest.TestCase):
         related = [
             {
                 "title": "Idioms and fixed expressions",
-                "href": "/en/fr/articles/verb-prendre-b1/",
+                "href": "/en/learn-french/articles/verb-prendre-b1/",
                 "meta": "",
             }
         ]
@@ -67,7 +67,7 @@ class RelatedEnrichmentTests(unittest.TestCase):
         related = [
             {
                 "title": "Prendre · A1",
-                "href": "/en/fr/votw/votw-prendre-a1/",
+                "href": "/en/learn-french/votw/votw-prendre-a1/",
                 "meta": "",
             }
         ]

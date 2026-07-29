@@ -7,7 +7,7 @@ related:
     href: /en/updates/
   - title: CEFR levels
     href: /en/cefr/
-  - href: /en/fr/votw/
+  - href: /en/learn-french/votw/
 ---
 
 # Privacy at Plumera Studios

@@ -2,7 +2,7 @@
 title: "Plumera | Prendre (French): idioms and fixed expressions"
 description: How French uses prendre in reflexive forms, fixed constructions, and idioms you will meet around B1, after the core A1 senses.
 slug: verb-prendre-b1
-target: fr
+target: learn-french
 locale: en
 level: B1
 author:
@@ -10,15 +10,15 @@ date: 2026-07-28
 draft: false
 related:
   - title: "French Verb of the Week: Prendre"
-    href: /en/fr/votw/votw-prendre-a1/
-  - href: /en/fr/whats-new/
+    href: /en/learn-french/votw/votw-prendre-a1/
+  - href: /en/learn-french/whats-new/
   - title: CEFR levels
     href: /en/cefr/
 ---
 
 # Idioms and fixed expressions with *prendre*
 
-At [A1](/en/cefr/), *prendre* usually means to take: a bus, a coffee, medicine. That core is covered in the [French Verb of the Week lesson on *prendre*](/en/fr/votw/votw-prendre-a1/).
+At [A1](/en/cefr/), *prendre* usually means to take: a bus, a coffee, medicine. That core is covered in the [French Verb of the Week lesson on *prendre*](/en/learn-french/votw/votw-prendre-a1/).
 
 Around [B1](/en/cefr/), you start meeting *prendre* in expressions where a word-for-word take no longer helps. Some use pronominal forms, some are fixed phrases, and some only share a vague idea of catching or starting something. Learn them as whole patterns. The same shapes show up again and again.
 
@@ -161,4 +161,4 @@ Noticing the pattern is more useful than forcing every line through the English 
 
 ## Summary
 
-Past the [A1](/en/cefr/) senses in the [VOTW lesson](/en/fr/votw/votw-prendre-a1/), *prendre* shows up in whole expressions for mistakes, accidents, feelings, sides, and schedules. Learn those chunks as they are, and everyday French at [B1](/en/cefr/) and beyond gets much easier to follow.
+Past the [A1](/en/cefr/) senses in the [VOTW lesson](/en/learn-french/votw/votw-prendre-a1/), *prendre* shows up in whole expressions for mistakes, accidents, feelings, sides, and schedules. Learn those chunks as they are, and everyday French at [B1](/en/cefr/) and beyond gets much easier to follow.

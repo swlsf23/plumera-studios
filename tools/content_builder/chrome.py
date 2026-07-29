@@ -76,19 +76,16 @@ LANGUAGE_LABELS = {
 # Nav chrome keeps the short "VOTW"; this is the reader-facing series name.
 VOTW_SERIES: dict[str, dict[str, str]] = {
     "en": {
-        "fr": "French Verb of the Week",
-        "es": "Spanish Verb of the Week",
-        "en": "English Verb of the Week",
+        "learn-french": "French Verb of the Week",
+        "learn-spanish": "Spanish Verb of the Week",
     },
     "es": {
-        "fr": "Verbo francés de la semana",
-        "en": "Verbo inglés de la semana",
-        "es": "Verbo español de la semana",
+        "aprender-frances": "Verbo francés de la semana",
+        "aprender-anglais": "Verbo inglés de la semana",
     },
     "fr": {
-        "en": "Verbe anglais de la semaine",
-        "es": "Verbe espagnol de la semaine",
-        "fr": "Verbe français de la semaine",
+        "aprendre-anglais": "Verbe anglais de la semaine",
+        "aprendre-espagnole": "Verbe espagnol de la semaine",
     },
 }
 
