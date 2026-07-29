@@ -79,10 +79,10 @@ class RelatedEnrichmentTests(unittest.TestCase):
         related = [{"title": "", "href": "/en/missing/", "meta": ""}]
         buf = io.StringIO()
         with redirect_stderr(buf):
-            out = _enrich_related(related, PAGES, source="en/fr/votw/index.md")
+            out = _enrich_related(related, PAGES, source="en/learn-french/votw/index.md")
         self.assertEqual(out, [])
         msg = buf.getvalue()
-        self.assertIn("en/fr/votw/index.md", msg)
+        self.assertIn("en/learn-french/votw/index.md", msg)
         self.assertIn("/en/missing/", msg)
         self.assertIn("unresolved href", msg)
 
