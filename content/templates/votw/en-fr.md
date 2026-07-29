@@ -14,14 +14,14 @@ INPUT (filled by the human before or with this prompt)
 
 OUTPUT RULES
 1. Return a complete Markdown file ready to save as
-   content/fr/en/votw/{slug}.md
+   content/fr/apprendre-anglais/votw/{slug}.md
 2. Keep every ## heading exactly as written below and in this order.
    Do not rename, reorder, or add top-level ## sections. Registre et usage is
    the one optional section and may be deleted (see its note).
    Headings in this template are in French and must stay in French.
 3. Set the H1 to the English verb only, in the form "To take".
 4. Fill YAML frontmatter: title, description, slug, target, locale, level,
-   author, date. Set target: en and locale: fr.
+   author, date. Set target: apprendre-anglais and locale: fr.
    title is the full document <title>, not just the verb:
    "Verbe anglais de la semaine : To take". The builder uses it as-is.
    Keep draft: true unless the human asks to publish.
@@ -151,14 +151,14 @@ L1 interference (French → English)
 title:          # <title> complet, p. ex. "Plumera | Verbe anglais de la semaine : To take"
 description:    # Méta-description en une phrase (français)
 slug:           # votw-{verbe}-{niveau}, p. ex. votw-take-a2
-target: en      # Langue enseignée
+target: apprendre-anglais      # Langue enseignée
 locale: fr      # Langue de l'explication (audience)
 level:          # CECR : A1 | A2 | B1 | B2 | C1 | C2, ou une plage comme A1, A2
 author:
 date:           # AAAA-MM-JJ
 draft: true
 related:        # Cartes « Vous aimerez aussi » (optionnel)
-  - href:       # Chemin du site, p. ex. /fr/en/votw/
+  - href:       # Chemin du site, p. ex. /fr/apprendre-anglais/votw/
     title:      # Remplacement optionnel. Omettre pour utiliser le H1 de la page cible
     meta:       # Sous-titre optionnel (p. ex. date)
 ---
@@ -167,7 +167,7 @@ related:        # Cartes « Vous aimerez aussi » (optionnel)
   AUTHOR NOTES (delete this comment block before publishing)
 
   - Template: English VOTW for French speakers (en-fr)
-  - Copy to content/fr/en/votw/{slug}.md
+  - Copy to content/fr/apprendre-anglais/votw/{slug}.md
   - Keep every ## heading below as written and in this order. Registre et usage
     is optional and may be deleted.
   - Replace the H1 with the verb (same as title).

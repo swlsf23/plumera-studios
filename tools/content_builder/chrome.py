@@ -14,7 +14,7 @@ CHROME: dict[str, dict[str, str]] = {
         "brand_home": "Plumera Studios home",
         "home": "Home",
         "votw": "VOTW",
-        "updates": "Updates",
+        "contact": "Contact",
         "privacy": "Privacy",
         "subscribe": "Subscribe",
         "choose_language": "Choose language",
@@ -32,7 +32,7 @@ CHROME: dict[str, dict[str, str]] = {
         "brand_home": "Inicio de Plumera Studios",
         "home": "Inicio",
         "votw": "VOTW",
-        "updates": "Novedades",
+        "contact": "Contacto",
         "privacy": "Privacidad",
         "subscribe": "Suscribirse",
         "choose_language": "Elegir idioma",
@@ -50,7 +50,7 @@ CHROME: dict[str, dict[str, str]] = {
         "brand_home": "Accueil Plumera Studios",
         "home": "Accueil",
         "votw": "VOTW",
-        "updates": "Actualités",
+        "contact": "Contact",
         "privacy": "Confidentialité",
         "subscribe": "S’abonner",
         "choose_language": "Choisir la langue",
@@ -76,19 +76,16 @@ LANGUAGE_LABELS = {
 # Nav chrome keeps the short "VOTW"; this is the reader-facing series name.
 VOTW_SERIES: dict[str, dict[str, str]] = {
     "en": {
-        "fr": "French Verb of the Week",
-        "es": "Spanish Verb of the Week",
-        "en": "English Verb of the Week",
+        "learn-french": "French Verb of the Week",
+        "learn-spanish": "Spanish Verb of the Week",
     },
     "es": {
-        "fr": "Verbo francés de la semana",
-        "en": "Verbo inglés de la semana",
-        "es": "Verbo español de la semana",
+        "aprender-frances": "Verbo francés de la semana",
+        "aprender-ingles": "Verbo inglés de la semana",
     },
     "fr": {
-        "en": "Verbe anglais de la semaine",
-        "es": "Verbe espagnol de la semaine",
-        "fr": "Verbe français de la semaine",
+        "apprendre-anglais": "Verbe anglais de la semaine",
+        "apprendre-espagnol": "Verbe espagnol de la semaine",
     },
 }
 

@@ -438,11 +438,11 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
             draft_hrefs=draft_hrefs,
             warn_draft_targets=warn_draft_targets,
         )
-        # /en/updates/ → en/updates/index.html (plain static hosting)
+        # /en/contact/ → en/contact/index.html (plain static hosting)
         stem = path.stem
         out = dist / page.locale / stem / "index.html"
         _write(out, html)
-        # Keep /en/updates.html working via a static redirect stub
+        # Keep /en/contact.html working via a static redirect stub
         _write_redirect(dist / page.locale / f"{stem}.html", page.canonical_path)
         emitted += 1
 
@@ -451,7 +451,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
         source = str(path.relative_to(CONTENT))
         series = dist / locale / target / "votw"
         if path.stem == VOTW_INDEX_STEM:
-            # /en/fr/votw/ → en/fr/votw/index.html
+            # /en/learn-french/votw/ → en/learn-french/votw/index.html
             # List replaces <!-- votw: list --> (outside .article-body).
             lesson_list = _votw_list_html(locale, target, include_drafts)
             split = _split_at_list_marker(page.body_html, "votw", source=source)
@@ -467,7 +467,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
                 page.after_body_html = lesson_list
             out = series / "index.html"
         else:
-            # /en/fr/votw/slug/ → en/fr/votw/slug/index.html
+            # /en/learn-french/votw/slug/ → en/learn-french/votw/slug/index.html
             slug = page.canonical_path.rstrip("/").split("/")[-1]
             out = series / slug / "index.html"
         _write(
@@ -485,7 +485,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
         emitted += 1
 
     for page, path, target in article_pages:
-        # /en/fr/articles/slug/ → en/fr/articles/slug/index.html
+        # /en/learn-french/articles/slug/ → en/learn-french/articles/slug/index.html
         slug = page.canonical_path.rstrip("/").split("/")[-1]
         out = dist / page.locale / target / ARTICLES_DIR / slug / "index.html"
         _write(
@@ -503,7 +503,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
         emitted += 1
 
     for page, path, target in whats_new_pages:
-        # /en/fr/whats-new/ → en/fr/whats-new/index.html
+        # /en/learn-french/whats-new/ → en/learn-french/whats-new/index.html
         # List replaces <!-- whats-new: list --> (outside .article-body).
         source = str(path.relative_to(CONTENT))
         lesson_list = _whats_new_list_html(page.locale, target, include_drafts)

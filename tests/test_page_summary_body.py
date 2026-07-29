@@ -15,7 +15,7 @@ class PageSummaryBodyTests(unittest.TestCase):
 title: "Plumera | French Verb of the Week"
 description: One French verb at a time.
 slug: index
-target: fr
+target: learn-french
 locale: en
 draft: false
 ---
@@ -31,7 +31,7 @@ More prose here.
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "index.md"
             path.write_text(md, encoding="utf-8")
-            page = parse_votw_page(path, "en", "fr")
+            page = parse_votw_page(path, "en", "learn-french")
 
         self.assertEqual(page.description, "One French verb at a time.")
         self.assertIn(
@@ -47,7 +47,7 @@ More prose here.
         md = """---
 title: "Plumera | Test"
 slug: index
-target: fr
+target: learn-french
 locale: en
 draft: false
 ---
@@ -61,7 +61,7 @@ Second paragraph too.
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "index.md"
             path.write_text(md, encoding="utf-8")
-            page = parse_votw_page(path, "en", "fr")
+            page = parse_votw_page(path, "en", "learn-french")
 
         self.assertEqual(page.description, "")
         self.assertIn("First paragraph stays in the body", page.body_html)

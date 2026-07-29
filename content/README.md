@@ -10,7 +10,7 @@ There is no React/SPA path for these pages in production or local site preview.
 content/
   {locale}/              # explanatory / UI language
     core/                # no target language, site-wide pages
-      updates.md
+      contact.md
       privacy.md
       cefr.md
       index.md           # optional reference text only, NOT built
@@ -24,7 +24,7 @@ content/
 
 - **`locale`**: language of the explanation / UI (`en`, `es`, `fr`, …)
 - **`core`**: site pages for that locale, with no target language (same filenames across locales, and body copy is not assumed 1:1)
-- **`{target}`**: language being taught, one folder per language, holding every series for it (`votw/`, `articles/`, and whatever comes later)
+- **`{target}`**: language being taught, as a URL slug folder (`learn-french`, `apprendre-anglais`, …), holding every series for it (`votw/`, `articles/`, and whatever comes later)
 - **`articles/`**: one-off explainers for that target, emitted at `/{locale}/{target}/articles/{slug}/`. Not listed on the VOTW index. Default eyebrow is “Article” (override with frontmatter `eyebrow`).
 - **`whats-new.md`**: optional page at `/{locale}/{target}/whats-new/`. Intro copy is authored. The builder appends a newest-first list of that target’s VOTW lessons and articles (draft filtering matches the build).
 
@@ -32,17 +32,17 @@ content/
 
 **Document `<title>`:** the template emits `Plumera | {title}` unless frontmatter `title` already starts with `Plumera |` or `Plumera Studios |`.
 
-The second level is therefore either `core` or a language code, and nothing else.
+The second level is therefore either `core` or a target slug (e.g. `learn-french`), and nothing else.
 
 Grouping by target rather than by series keeps one language in one place: adding a language is a new folder, not a new subfolder inside every series.
 
-Example: English explanation of French VOTW → `content/en/fr/votw/…` with `locale: en` and `target: fr`.
+Example: English explanation of French VOTW → `content/en/learn-french/votw/…` with `locale: en` and `target: learn-french`.
 
 ## Build rules
 
 - Landings are **not** emitted from Markdown. `public/{locale}/index.html` is copied as-is.
 - All other pages (for now) should have a Markdown file here and are emitted as full HTML documents (title, description, canonical baked in).
-- Emitted URLs are directory indexes with trailing slashes (e.g. `/en/updates/` → `updates/index.html`), so plain static hosting matches local and production.
+- Emitted URLs are directory indexes with trailing slashes (e.g. `/en/contact/` → `updates/index.html`), so plain static hosting matches local and production.
 - No hreflang alternate tags. Canonicals are self-referencing only.
 
 ## Content page template

@@ -14,7 +14,7 @@ Naming: `{target}-{locale}.md`
 | `es-en.md` | Spanish | English | English |
 | `es-fr.md` | Spanish | French | French |
 
-Templates are not built by the content builder. Copy into `content/{locale}/{target}/votw/{slug}.md` when drafting (e.g. French verbs for an English audience → `content/en/fr/votw/…`).
+Templates are not built by the content builder. Copy into `content/{locale}/{target}/votw/{slug}.md` when drafting (e.g. French verbs for an English audience → `content/en/learn-french/votw/…`).
 
 ## Article shape
 

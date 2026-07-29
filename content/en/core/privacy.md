@@ -4,10 +4,10 @@ description: We collect only the information needed to operate our site, underst
 eyebrow: Legal
 related:
   - title: Updates
-    href: /en/updates/
+    href: /en/contact/
   - title: CEFR levels
     href: /en/cefr/
-  - href: /en/fr/votw/
+  - href: /en/learn-french/votw/
 ---
 
 # Privacy at Plumera Studios

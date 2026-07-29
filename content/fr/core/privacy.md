@@ -4,7 +4,7 @@ description: Nous recueillons uniquement les informations nécessaires pour expl
 eyebrow: Mentions
 related:
   - title: Actualités
-    href: /fr/updates/
+    href: /fr/contact/
   - title: Niveaux CECR
     href: /fr/cefr/
 ---

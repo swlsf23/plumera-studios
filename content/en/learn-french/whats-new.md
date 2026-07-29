@@ -2,14 +2,14 @@
 title: "Plumera | New content for learning French"
 description: Recently added French lessons and articles for English speakers, newest first.
 slug: whats-new
-target: fr
+target: learn-french
 locale: en
 author:
 date:
 draft: false
 eyebrow: French
 related:
-  - href: /en/fr/votw/
+  - href: /en/learn-french/votw/
   - title: CEFR levels
     href: /en/cefr/
 ---
@@ -22,7 +22,7 @@ This page lists the newest French lessons and articles for English speakers. Use
 
 You will find two types of pages here:
 
-- **[French Verb of the Week](/en/fr/votw/)**: covers one verb at a time, from its core meaning into everyday constructions and idioms, tagged by [CEFR](/en/cefr/) level.
+- **[French Verb of the Week](/en/learn-french/votw/)**: covers one verb at a time, from its core meaning into everyday constructions and idioms, tagged by [CEFR](/en/cefr/) level.
 - **Articles**: standalone explainers that explore a topic in more depth, from grammar and pronunciation to vocabulary and usage.
 
 Each item shows its level, when it has one. You can decide what content matches your current level. Come back later for the more advanced topics. 

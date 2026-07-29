@@ -33,7 +33,7 @@ Or `npm run dev` (= build + serve) at [http://localhost:4173](http://localhost:4
 Useful URLs (same paths in prod: directory indexes, trailing slashes):
 
 - [http://localhost:4173/en/](http://localhost:4173/en/)
-- [http://localhost:4173/en/updates/](http://localhost:4173/en/updates/)
+- [http://localhost:4173/en/contact/](http://localhost:4173/en/contact/)
 - [http://localhost:4173/en/privacy/](http://localhost:4173/en/privacy/)
 
 View Source on content URLs: title, description, and canonical are in the HTML file.

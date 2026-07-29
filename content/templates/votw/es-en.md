@@ -14,13 +14,13 @@ INPUT (filled by the human before or with this prompt)
 
 OUTPUT RULES
 1. Return a complete Markdown file ready to save as
-   content/en/es/votw/{slug}.md
+   content/en/learn-spanish/votw/{slug}.md
 2. Keep every ## heading exactly as written below and in this order.
    Do not rename, reorder, or add top-level ## sections. Register and usage is
    the one optional section and may be deleted (see its note).
 3. Set the H1 to the Spanish verb lemma only (e.g. Tomar).
 4. Fill YAML frontmatter: title, description, slug, target, locale, level,
-   author, date. Set target: es and locale: en.
+   author, date. Set target: learn-spanish and locale: en.
    title is the full document <title>, not just the verb:
    "Spanish Verb of the Week: Tomar". The builder uses it as-is.
    Keep draft: true unless the human asks to publish.
@@ -142,14 +142,14 @@ L1 interference (English → Spanish)
 title:          # Full <title>, e.g. "Plumera | Spanish Verb of the Week: Tomar"
 description:    # One-sentence meta description (English)
 slug:           # votw-{verb}-{level}, e.g. votw-tomar-a1
-target: es      # Language taught
+target: learn-spanish      # Language taught
 locale: en      # Language of the explanation (audience)
 level:          # CEFR: A1 | A2 | B1 | B2 | C1 | C2, or a range like A1, A2
 author:
 date:           # YYYY-MM-DD
 draft: true
 related:        # Sidebar "You might also like" cards (optional)
-  - href:       # Site path, e.g. /en/es/votw/ or /en/es/votw/votw-otro-a1/
+  - href:       # Site path, e.g. /en/learn-spanish/votw/ or /en/learn-spanish/votw/votw-otro-a1/
     title:      # Optional override; omit to use the target page H1
     meta:       # Optional subtitle (e.g. date)
 ---
@@ -158,7 +158,7 @@ related:        # Sidebar "You might also like" cards (optional)
   AUTHOR NOTES (delete this comment block before publishing)
 
   - Template: Spanish VOTW for English speakers (es-en)
-  - Copy to content/en/es/votw/{slug}.md
+  - Copy to content/en/learn-spanish/votw/{slug}.md
   - Keep every ## heading below as written and in this order. Register and usage
     is optional and may be deleted.
   - Replace the H1 with the verb (same as title).

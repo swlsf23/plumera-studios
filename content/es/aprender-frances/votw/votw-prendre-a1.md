@@ -2,7 +2,7 @@
 title: "Plumera | Verbo francés de la semana: Prendre"
 description: Cómo el francés usa prendre para coger cosas, tomar transporte y pedir comida, bebida o medicina.
 slug: votw-prendre-a1
-target: fr
+target: aprender-frances
 locale: es
 level: A1
 author:

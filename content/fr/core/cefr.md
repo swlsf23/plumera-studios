@@ -3,7 +3,7 @@ title: "Plumera | Comment nous utilisons le CECR"
 description: Le CECR décrit ce que vous pouvez faire dans une langue sur six niveaux. Chez Plumera, nous l’utilisons pour vous aider à choisir des contenus adaptés.
 eyebrow: Niveaux
 related:
-  - href: /fr/updates/
+  - href: /fr/contact/
 ---
 
 # Comment nous utilisons le CECR

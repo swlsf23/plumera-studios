@@ -4,7 +4,7 @@ description: Recopilamos únicamente la información necesaria para gestionar nu
 eyebrow: Legal
 related:
   - title: Novedades
-    href: /es/updates/
+    href: /es/contact/
   - title: Niveles MCER
     href: /es/cefr/
 ---

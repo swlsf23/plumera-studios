@@ -2,7 +2,7 @@
 title: "Plumera | French Verb of the Week"
 description: One French verb at a time, from core meaning to everyday constructions, idioms, and expressions, organized by CEFR level.
 slug: index
-target: fr
+target: learn-french
 locale: en
 author:
 date:
@@ -11,7 +11,7 @@ eyebrow: Series
 related:
   - title: CEFR levels
     href: /en/cefr/
-  - href: /en/fr/votw/votw-prendre-a1/
+  - href: /en/learn-french/votw/votw-prendre-a1/
 ---
 
 # French Verb of the Week
