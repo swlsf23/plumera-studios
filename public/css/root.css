@@ -40,8 +40,8 @@
   flex: 1 1 0;
   display: flex;
   align-items: center;
-  min-height: clamp(210px, 30vh, 340px);
-  padding: clamp(36px, 5vw, 56px) clamp(26px, 5.6vw, 66px);
+  min-height: clamp(260px, 34vh, 400px);
+  padding: clamp(52px, 7vw, 88px) clamp(28px, 5.6vw, 66px);
   overflow: hidden;
   isolation: isolate;
   color: var(--ink);
