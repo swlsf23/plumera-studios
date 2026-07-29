@@ -4,8 +4,6 @@
   --muted: #667478;
   --line: #ddd2c1;
   --accent: #bd9a61;
-  --go-face: #ece2d1;
-
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -86,54 +84,9 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: var(--go-face);
+  background: #ece2d1;
+  font-size: 1.35rem;
   transition: 0.32s ease;
-}
-
-/* Compact Plumera mark — enter affordance. */
-.mark {
-  position: relative;
-  display: block;
-  width: 22px;
-  height: 24px;
-  border-radius: 1px 11px 11px 1px;
-  background: var(--ink);
-  transition: background 0.32s ease;
-}
-
-.mark::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 7px;
-  height: 12px;
-  background: var(--ink);
-  transition: background 0.32s ease;
-}
-
-.mark > span {
-  position: absolute;
-  z-index: 1;
-  top: 5px;
-  left: 6px;
-  width: 11px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--go-face);
-  transition: background 0.32s ease;
-}
-
-.mark > span::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-  width: 5px;
-  height: 5px;
-  background: var(--go-face);
-  clip-path: polygon(0 0, 100% 0, 0 100%);
-  transition: background 0.32s ease;
 }
 
 .card:hover,
@@ -151,20 +104,7 @@
 .card:focus-visible .go {
   transform: translateX(3px);
   background: var(--ink);
-}
-
-.card:hover .mark,
-.card:focus-visible .mark,
-.card:hover .mark::after,
-.card:focus-visible .mark::after {
-  background: var(--paper);
-}
-
-.card:hover .mark > span,
-.card:focus-visible .mark > span,
-.card:hover .mark > span::after,
-.card:focus-visible .mark > span::after {
-  background: var(--ink);
+  color: var(--paper);
 }
 
 .card:focus-visible {
@@ -227,20 +167,12 @@
     height: 44px;
   }
 
-  .mark {
-    width: 20px;
-    height: 22px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .card,
   .card > div,
-  .go,
-  .mark,
-  .mark::after,
-  .mark > span,
-  .mark > span::after {
+  .go {
     transition: none;
   }
 }
