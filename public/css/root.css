@@ -53,78 +53,10 @@ a {
   letter-spacing: -0.035em;
 }
 
-/* Art-only hero: dense bubble cluster, no copy, no empty text column. */
-.hero {
-  position: relative;
-  height: clamp(168px, 22vw, 220px);
-  margin: 28px 0 8px;
-  overflow: hidden;
-}
-
-.hero-rule {
-  position: absolute;
-  z-index: 2;
-  top: 50%;
-  left: 12px;
-  width: 35px;
-  height: 3px;
-  margin-top: -1px;
-  background: var(--accent);
-}
-
-.bubbles {
-  position: absolute;
-  top: 50%;
-  right: -12px;
-  width: min(420px, 58%);
-  height: 200px;
-  transform: translateY(-50%);
-}
-
-.bubbles span {
-  position: absolute;
-  display: block;
-  border-radius: 50%;
-}
-
-.bubbles span::after {
-  content: "";
-  position: absolute;
-  left: 6%;
-  bottom: -6%;
-  width: 24%;
-  height: 24%;
-  background: inherit;
-  clip-path: polygon(0 0, 100% 18%, 14% 100%);
-}
-
-.b1 {
-  width: 168px;
-  height: 168px;
-  top: 4px;
-  left: 18px;
-  background: rgba(236, 226, 209, 0.86);
-}
-
-.b2 {
-  width: 176px;
-  height: 176px;
-  right: 4px;
-  top: 28px;
-  background: rgba(156, 174, 180, 0.68);
-}
-
-.b3 {
-  width: 92px;
-  height: 92px;
-  left: 108px;
-  bottom: 6px;
-  background: rgba(109, 127, 132, 0.76);
-}
-
 .cards {
   display: grid;
   gap: 16px;
+  margin-top: 36px;
 }
 
 .card {
@@ -229,32 +161,8 @@ footer > p {
     padding: 28px 24px;
   }
 
-  .hero {
-    height: 160px;
-    margin: 20px 0 4px;
-  }
-
-  .bubbles {
-    width: min(300px, 70%);
-    height: 160px;
-    right: -28px;
-  }
-
-  .b1 {
-    width: 128px;
-    height: 128px;
-  }
-
-  .b2 {
-    width: 136px;
-    height: 136px;
-    top: 22px;
-  }
-
-  .b3 {
-    width: 70px;
-    height: 70px;
-    left: 86px;
+  .cards {
+    margin-top: 28px;
   }
 
   .card {
@@ -267,16 +175,6 @@ footer > p {
 }
 
 @media (max-width: 580px) {
-  .hero {
-    height: 140px;
-  }
-
-  .bubbles {
-    width: 240px;
-    right: -48px;
-    opacity: 0.85;
-  }
-
   .card {
     grid-template-columns: 1fr 82px;
     min-height: 205px;
