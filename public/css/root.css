@@ -224,6 +224,7 @@ footer {
   border-top: 1px solid var(--line);
   color: var(--muted);
   font-size: 0.91rem;
+  text-align: right;
 }
 
 footer > p {
