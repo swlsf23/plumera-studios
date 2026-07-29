@@ -46,46 +46,39 @@ a {
   gap: 15px;
 }
 
-.brand strong {
+.brand h1 {
+  margin: 0;
   font-size: clamp(1.15rem, 2vw, 1.75rem);
   font-weight: 500;
   letter-spacing: -0.035em;
 }
 
+/* Art-only hero: dense bubble cluster, no copy, no empty text column. */
 .hero {
   position: relative;
-  display: grid;
-  grid-template-columns: 1fr 0.85fr;
-  align-items: center;
-  min-height: 280px;
-  padding: 36px 12px 28px;
+  height: clamp(168px, 22vw, 220px);
+  margin: 28px 0 8px;
+  overflow: hidden;
 }
 
-.hero-welcome {
-  display: grid;
-  gap: 0.12em;
-  margin: 0;
-  font-size: clamp(2.4rem, 5vw, 3.6rem);
-  font-weight: 500;
-  letter-spacing: -0.06em;
-  line-height: 1;
-}
-
-.hero-welcome span {
-  display: block;
-}
-
-.hero i {
-  display: block;
+.hero-rule {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 12px;
   width: 35px;
   height: 3px;
-  margin-top: 22px;
+  margin-top: -1px;
   background: var(--accent);
 }
 
 .bubbles {
-  position: relative;
-  min-height: 220px;
+  position: absolute;
+  top: 50%;
+  right: -12px;
+  width: min(420px, 58%);
+  height: 200px;
+  transform: translateY(-50%);
 }
 
 .bubbles span {
@@ -106,26 +99,26 @@ a {
 }
 
 .b1 {
-  width: 160px;
-  height: 160px;
-  top: 8px;
-  left: 28px;
+  width: 168px;
+  height: 168px;
+  top: 4px;
+  left: 18px;
   background: rgba(236, 226, 209, 0.86);
 }
 
 .b2 {
-  width: 168px;
-  height: 168px;
-  right: 10px;
-  top: 62px;
+  width: 176px;
+  height: 176px;
+  right: 4px;
+  top: 28px;
   background: rgba(156, 174, 180, 0.68);
 }
 
 .b3 {
-  width: 88px;
-  height: 88px;
-  left: 100px;
-  bottom: 10px;
+  width: 92px;
+  height: 92px;
+  left: 108px;
+  bottom: 6px;
   background: rgba(109, 127, 132, 0.76);
 }
 
@@ -237,34 +230,31 @@ footer > p {
   }
 
   .hero {
-    grid-template-columns: 1fr;
-    min-height: 0;
-    padding-top: 40px;
+    height: 160px;
+    margin: 20px 0 4px;
   }
 
   .bubbles {
-    position: absolute;
-    inset: 16px -35px auto auto;
-    width: 200px;
-    min-height: 180px;
-    opacity: 0.72;
+    width: min(300px, 70%);
+    height: 160px;
+    right: -28px;
   }
 
   .b1 {
-    width: 120px;
-    height: 120px;
+    width: 128px;
+    height: 128px;
   }
 
   .b2 {
-    width: 128px;
-    height: 128px;
-    top: 56px;
+    width: 136px;
+    height: 136px;
+    top: 22px;
   }
 
   .b3 {
-    width: 64px;
-    height: 64px;
-    left: 70px;
+    width: 70px;
+    height: 70px;
+    left: 86px;
   }
 
   .card {
@@ -278,16 +268,13 @@ footer > p {
 
 @media (max-width: 580px) {
   .hero {
-    padding: 36px 0 28px;
-  }
-
-  .hero-welcome {
-    font-size: clamp(2.1rem, 11vw, 2.8rem);
+    height: 140px;
   }
 
   .bubbles {
-    inset: 12px -70px auto auto;
-    transform: scale(0.82);
+    width: 240px;
+    right: -48px;
+    opacity: 0.85;
   }
 
   .card {
