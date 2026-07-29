@@ -64,7 +64,7 @@ def _urls_for_locale(locale: str, locale_dir: Path) -> list[str]:
         if rel.endswith("/index.html"):
             urls.append(f"/{locale}/{rel[: -len('index.html')]}")
             continue
-        # Ignore legacy redirect stubs like updates.html → updates/
+        # Ignore legacy redirect stubs like contact.html → contact/
     return urls
 
 

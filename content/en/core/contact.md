@@ -1,7 +1,7 @@
 ---
 title: "Plumera | Useful updates. No inbox noise."
 description: Hear about new language tools, learning resources, word games, and meaningful Plumera Studios releases.
-eyebrow: News
+eyebrow: Contact
 related:
   - href: /en/learn-french/votw/
   - title: CEFR levels

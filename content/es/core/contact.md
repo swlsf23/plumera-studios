@@ -1,7 +1,7 @@
 ---
 title: "Plumera | Novedades útiles. Sin ruido en tu bandeja de entrada."
 description: Infórmate sobre nuevas herramientas lingüísticas, recursos de aprendizaje, juegos de palabras y lanzamientos importantes de Plumera Studios.
-eyebrow: Noticias
+eyebrow: Contacto
 related:
   - title: Niveles MCER
     href: /es/cefr/
