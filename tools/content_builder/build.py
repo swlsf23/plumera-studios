@@ -164,6 +164,8 @@ def _render_page(
         draft_hrefs=draft_hrefs,
         warn_draft_targets=warn_draft_targets,
     )
+    page.body_html = _expand_art_bands(page.body_html)
+    page.tail_body_html = _expand_art_bands(page.tail_body_html)
     return template.render(
         page=page,
         chrome=chrome_for(locale),
@@ -190,6 +192,31 @@ def _write_redirect(path: Path, target: str) -> None:
             f'</head><body><p><a href="{target}">Continue</a></p></body></html>\n'
         ),
     )
+
+
+_ART_BAND_MARKER_RE = re.compile(r"<!--\s*art:\s*band\s*-->", re.I)
+
+# Mid-article decorative band (same language as the title hero, different marks).
+_ART_BAND_HTML = """\
+<div class="hero-art-slot" aria-hidden="true">
+  <div class="hero-art hero-art--inline">
+    <div class="hero-art__arc"></div>
+    <svg class="hero-art__flourish" viewBox="0 0 800 30" preserveAspectRatio="none" focusable="false">
+      <path class="hero-art__stroke hero-art__stroke--warm" d="M860 8 C 640 28, 520 -4, 380 20 S 160 34, -30 10"></path>
+      <path class="hero-art__stroke hero-art__stroke--cool" d="M860 24 C 680 0, 540 32, 360 8 S 140 -2, -30 22"></path>
+      <circle class="hero-art__ring hero-art__ring--left" cx="690" cy="4" r="18"></circle>
+      <circle class="hero-art__ring hero-art__ring--right" cx="160" cy="22" r="12"></circle>
+      <path class="hero-art__stroke hero-art__stroke--fine" d="M 480 4 L 580 26 M 220 6 L 300 24"></path>
+    </svg>
+  </div>
+</div>"""
+
+
+def _expand_art_bands(html: str) -> str:
+    """Replace every <!-- art: band --> with the inline decorative band."""
+    if not html or "art:" not in html.lower():
+        return html
+    return _ART_BAND_MARKER_RE.sub(_ART_BAND_HTML, html)
 
 
 def _list_marker_re(kind: str) -> re.Pattern[str]:

@@ -81,9 +81,12 @@ Put an HTML comment where the shared content list should appear:
 ```markdown
 <!-- votw: list -->        # VOTW series index.md
 <!-- whats-new: list -->   # what’s-new.md
+<!-- art: band -->         # slim decorative band (any content page; repeatable)
 ```
 
-The builder replaces that marker with the list (title · level, date, kind when relevant, summary) outside the article body. Move the comment to reorder prose around the list.
+List markers are replaced with the shared content list (title · level, date, kind when relevant, summary) outside the article body. Move the comment to reorder prose around the list.
+
+`<!-- art: band -->` is replaced in place with a slim curved accent band (related to the title hero, not identical). Use as many as you want; each comment becomes one band.
 
 **Marker fallback**
 

@@ -504,13 +504,21 @@ def _frontmatter_sort_date(value: object) -> date:
     return date.min
 
 
+def _plain_list_title(text: str) -> str:
+    """Strip light Markdown emphasis from a list label (e.g. *prendre* → prendre)."""
+    text = re.sub(r"\*\*(.+?)\*\*", r"\1", text)
+    text = re.sub(r"\*(.+?)\*", r"\1", text)
+    text = re.sub(r"_(.+?)_", r"\1", text)
+    return text.strip()
+
+
 def _list_title_from_post(post, fallback: str) -> str:
     """Prefer body H1 for list cards; else frontmatter title / fallback."""
     list_title = str(post.metadata.get("title") or fallback)
     for line in post.content.splitlines():
         if line.startswith("# "):
-            return line[2:].strip()
-    return list_title
+            return _plain_list_title(line[2:])
+    return _plain_list_title(list_title)
 
 
 def votw_links(
@@ -531,11 +539,7 @@ def votw_links(
         slug = str(meta.get("slug") or path.stem)
         # Series list uses the body H1 (the verb). Frontmatter title is the
         # full document <title> and is often longer (series name + verb).
-        list_title = str(meta.get("title") or path.stem)
-        for line in post.content.splitlines():
-            if line.startswith("# "):
-                list_title = line[2:].strip()
-                break
+        list_title = _list_title_from_post(post, path.stem)
         date_label = _format_date(meta.get("date"), locale)
         description = str(meta.get("description") or "").strip()
         level = str(meta.get("level") or "").strip()
@@ -595,9 +599,9 @@ def recent_target_links(
                 (
                     _frontmatter_sort_date(meta.get("date")),
                     {
-                        # Articles: frontmatter title is the card label (H1 may
-                        # include Markdown emphasis that should not show raw).
-                        "title": str(meta.get("title") or path.stem),
+                        # Same as VOTW / related: list label is the body H1
+                        # (emphasis stripped), not the document <title>.
+                        "title": _list_title_from_post(post, path.stem),
                         "date": _format_date(meta.get("date"), locale),
                         "description": str(meta.get("description") or "").strip(),
                         "level": str(meta.get("level") or "").strip(),

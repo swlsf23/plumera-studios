@@ -110,6 +110,8 @@ Here are three more combinations using *prendre* that fall outside the senses ab
 
 The last two are worth a second look. In English, we *make* an appointment and *make* a decision. French uses *prendre* for both.
 
+<!-- art: band -->
+
 ## Expressions and idioms
 
 In fixed expressions *prendre* drifts away from taking, so learn the phrase as a whole rather than word by word.
