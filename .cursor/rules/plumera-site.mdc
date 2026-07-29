@@ -30,10 +30,11 @@ alwaysApply: true
 
 ## SEO / localization
 
-- **No hreflang** alternate link tags claiming translation pairs.
+- **No hreflang** — not in `<head>`, not on links. Locales (`/en/`, `/es/`, `/fr/`, …) are separate sites that share a domain, not translation pairs.
 - Canonicals are **self-referencing only** (`https://plumerastudios.com/...` matching that page’s URL).
 - Prefer **the same slug/filename** across locales for sanity (e.g. `privacy.md`, `cefr.md`, `{target}/votw/votw-prendre-a1.md`).
 - When body copy mentions a CEFR level code (A1, B2, …), link it to that locale’s CEFR page (`/{locale}/cefr/`). Do not put Markdown links in YAML frontmatter.
+- Root `/` (`public/index.html`) is equal vertical entry bands into each locale site (not a language picker UI, no hreflang).
 
 ## Content layout
 

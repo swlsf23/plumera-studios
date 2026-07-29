@@ -1,0 +1,81 @@
+/* Root entry: equal-height vertical bands, one per locale site. */
+
+.root-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.root-brand {
+  flex: 0 0 auto;
+  padding: clamp(28px, 4vw, 44px) clamp(28px, 5vw, 56px) clamp(20px, 3vw, 28px);
+}
+
+.root-brand__name {
+  margin: 0;
+  font-size: clamp(2rem, 4.2vw, 2.85rem);
+  font-weight: 500;
+  letter-spacing: -0.055em;
+  line-height: 1;
+}
+
+.site-stack {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/*
+ * Equal vertical weight. Add another .site-band for future locale sites
+ * (e.g. AR, PT); they share the same flex fraction automatically.
+ */
+.site-band {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: clamp(140px, 22vh, 240px);
+  padding: clamp(28px, 5vw, 48px) clamp(28px, 5vw, 56px);
+  color: var(--ink);
+  text-decoration: none;
+  border-top: 1px solid rgba(23, 53, 52, 0.14);
+  transition: background-color 160ms ease;
+}
+
+.site-band:first-child {
+  border-top: 0;
+}
+
+.site-band--fr {
+  background: var(--paper);
+}
+
+.site-band--es {
+  background: #ebe4d6;
+}
+
+.site-band--en {
+  background: var(--paper-deep);
+}
+
+.site-band:hover,
+.site-band:focus-visible {
+  background: #e0d7c6;
+}
+
+.site-band__name {
+  font-size: clamp(2.1rem, 4.5vw, 3.25rem);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  line-height: 1.05;
+}
+
+.site-band__hint {
+  margin-top: 10px;
+  max-width: 28ch;
+  color: var(--blue-deep);
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  letter-spacing: -0.015em;
+  line-height: 1.35;
+}

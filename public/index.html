@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Plumera Studios. Language tools. Word games. Language learning.">
+  <title>Plumera Studios</title>
+  <link rel="canonical" href="https://plumerastudios.com/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="a6e7309a-1696-4e8c-95f3-bd6d0361fb4a" data-domains="plumerastudios.com"></script>
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/root.css">
+</head>
+<body>
+  <!--
+    Root entry for three locale sites on one domain (fr, es, en).
+    No hreflang: these are separate sites, not translation pairs.
+    Future locales (ar, pt, …): add another equal .site-band in the stack.
+  -->
+  <div class="page root-page">
+    <header class="root-brand">
+      <p class="root-brand__name">Plumera Studios</p>
+    </header>
+
+    <main class="site-stack">
+      <a class="site-band site-band--fr" href="/fr/" lang="fr">
+        <span class="site-band__name">Français</span>
+        <span class="site-band__hint">Outils linguistiques. Jeux de lettres. Apprentissage des langues.</span>
+      </a>
+      <a class="site-band site-band--es" href="/es/" lang="es">
+        <span class="site-band__name">Español</span>
+        <span class="site-band__hint">Herramientas lingüísticas. Juegos de palabras. Aprendizaje de idiomas.</span>
+      </a>
+      <a class="site-band site-band--en" href="/en/" lang="en">
+        <span class="site-band__name">English</span>
+        <span class="site-band__hint">Language tools. Word games. Language learning.</span>
+      </a>
+    </main>
+  </div>
+</body>
+</html>
