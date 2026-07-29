@@ -52,47 +52,6 @@ a {
   letter-spacing: -0.035em;
 }
 
-.mark {
-  position: relative;
-  display: inline-block;
-  width: 45px;
-  height: 48px;
-  border-radius: 2px 22px 22px 2px;
-  background: var(--ink);
-}
-
-.mark::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 15px;
-  height: 24px;
-  background: var(--ink);
-}
-
-.mark span {
-  position: absolute;
-  z-index: 1;
-  top: 11px;
-  left: 12px;
-  width: 23px;
-  height: 20px;
-  border-radius: 50%;
-  background: var(--paper);
-}
-
-.mark span::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -5px;
-  width: 10px;
-  height: 10px;
-  background: var(--paper);
-  clip-path: polygon(0 0, 100% 0, 0 100%);
-}
-
 .hero {
   position: relative;
   display: grid;
@@ -274,12 +233,15 @@ footer {
 .footbrand {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 14px;
 }
 
-.foot {
-  width: 39px;
-  height: 42px;
+.foot-mark {
+  color: var(--ink);
+  font-size: 1.65rem;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1;
 }
 
 .footbrand p,
