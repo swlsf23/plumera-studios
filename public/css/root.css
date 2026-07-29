@@ -4,7 +4,6 @@
 .root-page {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
 }
 
 /* Slim brand bar — distinct from the first locale band. */
@@ -37,11 +36,10 @@
 .site-band {
   --band-spread: clamp(0.45, (100vw - 640px) / 360px, 1);
   position: relative;
-  flex: 1 1 0;
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
-  min-height: clamp(260px, 34vh, 400px);
-  padding: clamp(52px, 7vw, 88px) clamp(28px, 5.6vw, 66px);
+  padding: clamp(44px, 5.5vw, 64px) clamp(28px, 5.6vw, 66px);
   overflow: hidden;
   isolation: isolate;
   color: var(--ink);
