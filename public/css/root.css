@@ -1,5 +1,5 @@
 /* Root entry: equal-height vertical bands, one per locale site.
-   Motif language mirrors locale landings (bubbles, sand rule, large type). */
+   Each band is a self-contained field (art clipped; no bleed between sites). */
 
 .root-page {
   display: flex;
@@ -7,17 +7,19 @@
   min-height: 100vh;
 }
 
+/* Slim brand bar — distinct from the first locale band. */
 .root-brand {
   flex: 0 0 auto;
-  padding: clamp(22px, 3.2vw, 36px) clamp(26px, 5vw, 56px);
-  background: var(--paper);
+  padding: clamp(18px, 2.6vw, 26px) clamp(26px, 5vw, 56px);
+  background: var(--ink);
+  color: var(--paper);
 }
 
 .root-brand__name {
   margin: 0;
-  font-size: clamp(1.55rem, 2.8vw, 2rem);
+  font-size: clamp(1.35rem, 2.4vw, 1.7rem);
   font-weight: 500;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.045em;
   line-height: 1;
 }
 
@@ -33,23 +35,24 @@
  * (e.g. AR, PT); they share the same flex fraction automatically.
  */
 .site-band {
-  --band-spread: clamp(0.35, (100vw - 640px) / 400px, 1);
+  --band-spread: clamp(0.45, (100vw - 640px) / 360px, 1);
   position: relative;
   flex: 1 1 0;
   display: flex;
   align-items: center;
-  min-height: clamp(200px, 28vh, 320px);
+  min-height: clamp(210px, 30vh, 340px);
   padding: clamp(36px, 5vw, 56px) clamp(26px, 5.6vw, 66px);
   overflow: hidden;
+  isolation: isolate;
   color: var(--ink);
   text-decoration: none;
-  transition: background-color 180ms ease;
+  transition: filter 180ms ease;
 }
 
 .site-band__copy {
   position: relative;
   z-index: 5;
-  width: min(100%, 520px);
+  width: min(100%, 48%);
 }
 
 .site-band__name {
@@ -78,18 +81,27 @@
 
 .site-band__art {
   position: absolute;
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(52%, 420px);
   z-index: 4;
+  overflow: hidden;
   pointer-events: none;
 }
 
-/* Band fields — same family as landing panels / hero paper. */
+.site-band:hover,
+.site-band:focus-visible {
+  filter: brightness(1.04);
+}
+
+/* Band fields — landing palette, each a closed composition. */
 .site-band--fr {
   background: var(--paper);
 }
 
 .site-band--es {
-  background: linear-gradient(180deg, var(--blue), var(--blue-deep));
+  background: linear-gradient(165deg, var(--blue) 0%, var(--blue-deep) 100%);
   color: var(--paper);
 }
 
@@ -98,7 +110,7 @@
 }
 
 .site-band--es .site-band__hint {
-  color: rgba(243, 239, 229, 0.88);
+  color: rgba(243, 239, 229, 0.9);
 }
 
 .site-band--en {
@@ -111,51 +123,35 @@
 }
 
 .site-band--en .site-band__hint {
-  color: rgba(243, 239, 229, 0.88);
+  color: rgba(243, 239, 229, 0.9);
 }
 
-.site-band--fr:hover,
-.site-band--fr:focus-visible {
-  background: #ebe4d6;
-}
-
-.site-band--es:hover,
-.site-band--es:focus-visible {
-  background: linear-gradient(180deg, #8aa4ad, #5f7b84);
-}
-
-.site-band--en:hover,
-.site-band--en:focus-visible {
-  background: #1f4543;
-}
-
-/* Bubbles — landing-adjacent motif, scaled to band height. */
+/* Bubbles live only inside .site-band__art (clipped). */
 .band-bubble {
   position: absolute;
   border-radius: 50%;
   opacity: var(--band-spread);
-  transform: scale(calc(0.9 + 0.1 * var(--band-spread)));
-  transition: transform 220ms ease, opacity 220ms ease;
+  transition: transform 220ms ease;
 }
 
 .site-band:hover .band-bubble,
 .site-band:focus-visible .band-bubble {
-  transform: scale(calc(0.94 + 0.12 * var(--band-spread)));
+  transform: scale(1.04);
 }
 
 .band-bubble--ink {
-  width: min(38vw, 210px);
-  height: min(38vw, 210px);
-  top: -18%;
-  right: 8%;
+  width: 58%;
+  height: 58%;
+  top: 6%;
+  right: 10%;
   background: var(--ink);
 }
 
 .band-bubble--cream {
-  width: min(36vw, 200px);
-  height: min(36vw, 200px);
-  top: 22%;
-  right: 18%;
+  width: 52%;
+  height: 52%;
+  top: 28%;
+  right: 28%;
   background: var(--paper-deep);
 }
 
@@ -163,56 +159,68 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
-  width: min(32vw, 180px);
-  height: min(32vw, 180px);
-  right: 6%;
-  bottom: -22%;
+  gap: 12px;
+  width: 48%;
+  height: 48%;
+  right: 8%;
+  bottom: 4%;
   background: var(--blue);
 }
 
 .band-bubble--paper {
-  width: min(36vw, 200px);
-  height: min(36vw, 200px);
-  top: -20%;
-  right: 12%;
-  background: rgba(243, 239, 229, 0.92);
+  width: 56%;
+  height: 56%;
+  top: 8%;
+  right: 14%;
+  background: rgba(243, 239, 229, 0.94);
 }
 
 .band-bubble--sand {
-  width: min(28vw, 150px);
-  height: min(28vw, 150px);
-  top: 34%;
-  right: 28%;
-  background: rgba(185, 157, 98, 0.55);
+  width: 40%;
+  height: 40%;
+  top: 38%;
+  right: 36%;
+  background: rgba(214, 196, 160, 0.85);
 }
 
 .band-bubble--ink-soft {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
-  width: min(30vw, 168px);
-  height: min(30vw, 168px);
-  right: 4%;
-  bottom: -26%;
-  background: rgba(15, 36, 35, 0.55);
+  gap: 12px;
+  width: 46%;
+  height: 46%;
+  right: 6%;
+  bottom: 6%;
+  background: rgba(15, 36, 35, 0.5);
 }
 
 .band-bubble--blue-deep {
-  width: min(34vw, 190px);
-  height: min(34vw, 190px);
-  top: -16%;
-  right: 10%;
+  width: 54%;
+  height: 54%;
+  top: 8%;
+  right: 12%;
   background: var(--blue-deep);
 }
 
 .band-bubble--cream-shift {
-  width: min(32vw, 175px);
-  height: min(32vw, 175px);
-  top: 28%;
-  right: 22%;
-  background: rgba(233, 225, 210, 0.9);
+  width: 48%;
+  height: 48%;
+  top: 30%;
+  right: 30%;
+  background: rgba(233, 225, 210, 0.92);
+}
+
+.band-bubble--ink-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 50%;
+  height: 50%;
+  right: 8%;
+  bottom: 4%;
+  background: var(--ink-deep);
 }
 
 .band-line {
@@ -229,11 +237,11 @@
   background: var(--line-on-dark);
 }
 
-.band-line--a { top: 28%; right: 18%; width: 42%; }
-.band-line--b { top: 40%; right: 14%; width: 58%; }
-.band-line--c { top: 52%; right: 20%; width: 48%; }
-.band-line--d { top: 36%; left: 18%; width: 48%; }
-.band-line--e { top: 48%; left: 18%; width: 38%; }
+.band-line--a { top: 30%; right: 16%; width: 44%; }
+.band-line--b { top: 42%; right: 12%; width: 56%; }
+.band-line--c { top: 54%; right: 18%; width: 48%; }
+.band-line--d { top: 36%; left: 16%; width: 48%; }
+.band-line--e { top: 48%; left: 16%; width: 38%; }
 .band-line--f { top: 34%; left: 16%; width: 50%; }
 .band-line--g { top: 46%; left: 16%; width: 40%; }
 .band-line--h { top: 58%; left: 16%; width: 46%; }
@@ -244,8 +252,8 @@
 .band-line--m { top: 56%; left: 16%; width: 46%; }
 
 .band-dot {
-  width: 12px;
-  height: 12px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
   background: var(--ink);
 }
@@ -259,17 +267,20 @@
 }
 
 @media (max-width: 720px) {
-  .site-band {
-    min-height: clamp(180px, 30vh, 260px);
+  .site-band__copy {
+    width: min(100%, 58%);
   }
 
   .site-band__art {
-    opacity: 0.85;
+    width: 46%;
+    opacity: 0.9;
   }
 
-  .band-bubble--cream,
-  .band-bubble--sand,
-  .band-bubble--cream-shift {
-    right: 2%;
+  .site-band__name {
+    font-size: clamp(2.6rem, 11vw, 3.6rem);
+  }
+
+  .site-band__hint {
+    font-size: clamp(1.05rem, 3.6vw, 1.3rem);
   }
 }
