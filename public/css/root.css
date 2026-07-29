@@ -46,8 +46,7 @@ a {
   gap: 15px;
 }
 
-.brand h1 {
-  margin: 0;
+.brand strong {
   font-size: clamp(1.15rem, 2vw, 1.75rem);
   font-weight: 500;
   letter-spacing: -0.035em;
@@ -58,25 +57,35 @@ a {
   display: grid;
   grid-template-columns: 1fr 0.85fr;
   align-items: center;
-  min-height: 440px;
-  padding: 56px 12px 34px;
+  min-height: 280px;
+  padding: 36px 12px 28px;
 }
 
-.hero-accent {
-  display: flex;
-  align-items: center;
+.hero-welcome {
+  display: grid;
+  gap: 0.12em;
+  margin: 0;
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-weight: 500;
+  letter-spacing: -0.06em;
+  line-height: 1;
 }
 
-.hero-accent i {
+.hero-welcome span {
+  display: block;
+}
+
+.hero i {
   display: block;
   width: 35px;
   height: 3px;
+  margin-top: 22px;
   background: var(--accent);
 }
 
 .bubbles {
   position: relative;
-  min-height: 320px;
+  min-height: 220px;
 }
 
 .bubbles span {
@@ -97,26 +106,26 @@ a {
 }
 
 .b1 {
-  width: 210px;
-  height: 210px;
-  top: 10px;
-  left: 20px;
+  width: 160px;
+  height: 160px;
+  top: 8px;
+  left: 28px;
   background: rgba(236, 226, 209, 0.86);
 }
 
 .b2 {
-  width: 218px;
-  height: 218px;
-  right: 7px;
-  top: 88px;
+  width: 168px;
+  height: 168px;
+  right: 10px;
+  top: 62px;
   background: rgba(156, 174, 180, 0.68);
 }
 
 .b3 {
-  width: 115px;
-  height: 115px;
-  left: 110px;
-  bottom: 6px;
+  width: 88px;
+  height: 88px;
+  left: 100px;
+  bottom: 10px;
   background: rgba(109, 127, 132, 0.76);
 }
 
@@ -229,32 +238,33 @@ footer > p {
 
   .hero {
     grid-template-columns: 1fr;
-    padding-top: 70px;
+    min-height: 0;
+    padding-top: 40px;
   }
 
   .bubbles {
     position: absolute;
-    inset: 24px -35px auto auto;
-    width: 250px;
-    min-height: 230px;
+    inset: 16px -35px auto auto;
+    width: 200px;
+    min-height: 180px;
     opacity: 0.72;
   }
 
   .b1 {
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
   }
 
   .b2 {
-    width: 160px;
-    height: 160px;
-    top: 72px;
+    width: 128px;
+    height: 128px;
+    top: 56px;
   }
 
   .b3 {
-    width: 78px;
-    height: 78px;
-    left: 85px;
+    width: 64px;
+    height: 64px;
+    left: 70px;
   }
 
   .card {
@@ -268,11 +278,15 @@ footer > p {
 
 @media (max-width: 580px) {
   .hero {
-    padding: 72px 0 44px;
+    padding: 36px 0 28px;
+  }
+
+  .hero-welcome {
+    font-size: clamp(2.1rem, 11vw, 2.8rem);
   }
 
   .bubbles {
-    inset: 18px -82px auto auto;
+    inset: 12px -70px auto auto;
     transform: scale(0.82);
   }
 
