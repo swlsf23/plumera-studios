@@ -10,88 +10,72 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
   <script defer src="https://cloud.umami.is/script.js" data-website-id="a6e7309a-1696-4e8c-95f3-bd6d0361fb4a" data-domains="plumerastudios.com"></script>
-  <link rel="stylesheet" href="/css/base.css">
-  <link rel="stylesheet" href="/css/root.css?v=bands-7">
+  <link rel="stylesheet" href="/css/root.css?v=index-1">
 </head>
 <body>
   <!--
-    Root entry for three locale sites on one domain (fr, es, en).
-    No hreflang: these are separate sites, not translation pairs.
-    Future locales (ar, pt, …): add another equal .site-band in the stack.
+    Domain root: entry into each locale site (fr → es → en).
+    No hreflang — separate sites on one domain, not translation pairs.
+    Future locales (ar, pt, …): add another .card in .cards.
   -->
-  <div class="page root-page">
-    <header class="root-brand">
-      <p class="root-brand__name">Plumera Studios</p>
+  <main class="shell">
+    <header>
+      <a class="brand" href="/">
+        <span class="mark" aria-hidden="true"><span></span></span>
+        <strong>Plumera Studios</strong>
+      </a>
     </header>
 
-    <main class="site-stack">
-      <a class="site-band site-band--fr" href="/fr/" lang="fr">
-        <span class="site-band__copy">
-          <span class="site-band__name">Français</span>
-          <span class="site-band__rule" aria-hidden="true"></span>
-          <span class="site-band__hint">Outils linguistiques. Jeux de lettres. Apprentissage des langues.</span>
-        </span>
-        <span class="site-band__art" aria-hidden="true">
-          <span class="band-bubble band-bubble--ink">
-            <span class="band-line band-line--on-ink band-line--a"></span>
-            <span class="band-line band-line--on-ink band-line--b"></span>
-            <span class="band-line band-line--on-ink band-line--c"></span>
-          </span>
-          <span class="band-bubble band-bubble--cream">
-            <span class="band-line band-line--mid band-line--d"></span>
-            <span class="band-line band-line--mid band-line--e"></span>
-          </span>
-          <span class="band-bubble band-bubble--blue">
-            <span class="band-dot"></span><span class="band-dot"></span><span class="band-dot"></span>
-          </span>
-        </span>
-      </a>
+    <section class="hero">
+      <div>
+        <h1>Welcome.</h1>
+        <p>Choose your language to continue.</p>
+        <i aria-hidden="true"></i>
+      </div>
+      <div class="bubbles" aria-hidden="true">
+        <span class="b1"></span>
+        <span class="b2"></span>
+        <span class="b3"></span>
+      </div>
+    </section>
 
-      <a class="site-band site-band--es" href="/es/" lang="es">
-        <span class="site-band__copy">
-          <span class="site-band__name">Español</span>
-          <span class="site-band__rule" aria-hidden="true"></span>
-          <span class="site-band__hint">Herramientas lingüísticas. Juegos de palabras. Aprendizaje de idiomas.</span>
-        </span>
-        <span class="site-band__art" aria-hidden="true">
-          <span class="band-bubble band-bubble--paper">
-            <span class="band-line band-line--mid band-line--f"></span>
-            <span class="band-line band-line--mid band-line--g"></span>
-            <span class="band-line band-line--mid band-line--h"></span>
-          </span>
-          <span class="band-bubble band-bubble--sand"></span>
-          <span class="band-bubble band-bubble--ink-soft">
-            <span class="band-dot band-dot--light"></span>
-            <span class="band-dot band-dot--light"></span>
-            <span class="band-dot band-dot--light"></span>
-          </span>
-        </span>
+    <nav class="cards" aria-label="Choose your language">
+      <a class="card" href="/fr/" lang="fr">
+        <div>
+          <small>LANGUE</small>
+          <h2>Français</h2>
+          <p>Outils linguistiques. Jeux de lettres.<br>Apprentissage des langues.</p>
+        </div>
+        <span class="divider" aria-hidden="true"></span>
+        <span class="go" aria-hidden="true">→</span>
       </a>
+      <a class="card" href="/es/" lang="es">
+        <div>
+          <small>IDIOMA</small>
+          <h2>Español</h2>
+          <p>Herramientas lingüísticas.<br>Juegos de palabras. Aprendizaje de idiomas.</p>
+        </div>
+        <span class="divider" aria-hidden="true"></span>
+        <span class="go" aria-hidden="true">→</span>
+      </a>
+      <a class="card" href="/en/" lang="en">
+        <div>
+          <small>LANGUAGE</small>
+          <h2>English</h2>
+          <p>Language tools. Word games.<br>Language learning.</p>
+        </div>
+        <span class="divider" aria-hidden="true"></span>
+        <span class="go" aria-hidden="true">→</span>
+      </a>
+    </nav>
 
-      <a class="site-band site-band--en" href="/en/" lang="en">
-        <span class="site-band__copy">
-          <span class="site-band__name">English</span>
-          <span class="site-band__rule" aria-hidden="true"></span>
-          <span class="site-band__hint">Language tools. Word games. Language learning.</span>
-        </span>
-        <span class="site-band__art" aria-hidden="true">
-          <span class="band-bubble band-bubble--blue-deep">
-            <span class="band-line band-line--on-ink band-line--i"></span>
-            <span class="band-line band-line--on-ink band-line--j"></span>
-          </span>
-          <span class="band-bubble band-bubble--cream-shift">
-            <span class="band-line band-line--mid band-line--k"></span>
-            <span class="band-line band-line--mid band-line--l"></span>
-            <span class="band-line band-line--mid band-line--m"></span>
-          </span>
-          <span class="band-bubble band-bubble--ink-bottom">
-            <span class="band-dot band-dot--sand"></span>
-            <span class="band-dot band-dot--sand"></span>
-            <span class="band-dot band-dot--sand"></span>
-          </span>
-        </span>
-      </a>
-    </main>
-  </div>
+    <footer>
+      <div class="footbrand">
+        <span class="mark foot" aria-hidden="true"><span></span></span>
+        <p>Thoughtful tools.<br>Meaningful learning.</p>
+      </div>
+      <p>© 2026 Plumera Studios</p>
+    </footer>
+  </main>
 </body>
 </html>
