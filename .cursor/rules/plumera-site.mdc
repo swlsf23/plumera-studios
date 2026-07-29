@@ -55,7 +55,7 @@ content/
 - **whats-new** — optional `/{locale}/{target}/whats-new/`; authored intro plus a builder-generated newest-first list of that target’s VOTW lessons and articles.
 - **CEFR on links** — builder-generated links to pages with `level` append it to the label (`Title · A1`): related cards, what’s-new list, VOTW index cards.
 - **Document `<title>`** — template emits `Plumera | {title}` unless frontmatter `title` already starts with `Plumera |` / `Plumera Studios |`. Landings use `Plumera | …` in their hand-authored HTML.
-- The second level is either `core` or a target slug (e.g. `learn-french`, `aprendre-anglais`). Nothing else belongs there.
+- The second level is either `core` or a target slug (e.g. `learn-french`, `apprendre-anglais`). Nothing else belongs there.
 - Grouped by target, not by series: adding a language is one new folder, not a new subfolder inside every series.
 - No required file parity across targets or locales.
 - Future locales include `ar`, `pt`, etc.

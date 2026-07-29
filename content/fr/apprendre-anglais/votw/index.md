@@ -2,7 +2,7 @@
 title: "Plumera | Verbe anglais de la semaine"
 description: Un verbe anglais à la fois, du sens principal aux constructions, expressions et tournures du quotidien, classé par niveau CECR.
 slug: index
-target: aprendre-anglais
+target: apprendre-anglais
 locale: fr
 author:
 date:
@@ -11,7 +11,7 @@ eyebrow: Série
 related:
   - title: Niveaux CECR
     href: /fr/cefr/
-  - href: /fr/aprendre-anglais/votw/votw-take-a2/
+  - href: /fr/apprendre-anglais/votw/votw-take-a2/
 ---
 
 # Verbe anglais de la semaine

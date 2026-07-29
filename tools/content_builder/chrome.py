@@ -81,11 +81,11 @@ VOTW_SERIES: dict[str, dict[str, str]] = {
     },
     "es": {
         "aprender-frances": "Verbo francés de la semana",
-        "aprender-anglais": "Verbo inglés de la semana",
+        "aprender-ingles": "Verbo inglés de la semana",
     },
     "fr": {
-        "aprendre-anglais": "Verbe anglais de la semaine",
-        "aprendre-espagnole": "Verbe espagnol de la semaine",
+        "apprendre-anglais": "Verbe anglais de la semaine",
+        "apprendre-espagnol": "Verbe espagnol de la semaine",
     },
 }
 

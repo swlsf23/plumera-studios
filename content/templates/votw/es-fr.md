@@ -14,14 +14,14 @@ INPUT (filled by the human before or with this prompt)
 
 OUTPUT RULES
 1. Return a complete Markdown file ready to save as
-   content/fr/aprendre-espagnole/votw/{slug}.md
+   content/fr/apprendre-espagnol/votw/{slug}.md
 2. Keep every ## heading exactly as written below and in this order.
    Do not rename, reorder, or add top-level ## sections. Registre et usage is
    the one optional section and may be deleted (see its note).
    Headings in this template are in French and must stay in French.
 3. Set the H1 to the Spanish verb lemma only (e.g. Tomar).
 4. Fill YAML frontmatter: title, description, slug, target, locale, level,
-   author, date. Set target: aprendre-espagnole and locale: fr.
+   author, date. Set target: apprendre-espagnol and locale: fr.
    title is the full document <title>, not just the verb:
    "Verbe espagnol de la semaine : Tomar". The builder uses it as-is.
    Keep draft: true unless the human asks to publish.
@@ -153,14 +153,14 @@ L1 interference (French → Spanish)
 title:          # <title> complet, p. ex. "Plumera | Verbe espagnol de la semaine : Tomar"
 description:    # Méta-description en une phrase (français)
 slug:           # votw-{verbe}-{niveau}, p. ex. votw-tomar-a1
-target: aprendre-espagnole      # Langue enseignée
+target: apprendre-espagnol      # Langue enseignée
 locale: fr      # Langue de l'explication (audience)
 level:          # CECR : A1 | A2 | B1 | B2 | C1 | C2, ou une plage comme A1, A2
 author:
 date:           # AAAA-MM-JJ
 draft: true
 related:        # Cartes « Vous aimerez aussi » (optionnel)
-  - href:       # Chemin du site, p. ex. /fr/aprendre-espagnole/votw/
+  - href:       # Chemin du site, p. ex. /fr/apprendre-espagnol/votw/
     title:      # Remplacement optionnel. Omettre pour utiliser le H1 de la page cible
     meta:       # Sous-titre optionnel (p. ex. date)
 ---
@@ -169,7 +169,7 @@ related:        # Cartes « Vous aimerez aussi » (optionnel)
   AUTHOR NOTES (delete this comment block before publishing)
 
   - Template: Spanish VOTW for French speakers (es-fr)
-  - Copy to content/fr/aprendre-espagnole/votw/{slug}.md
+  - Copy to content/fr/apprendre-espagnol/votw/{slug}.md
   - Keep every ## heading below as written and in this order. Registre et usage
     is optional and may be deleted.
   - Replace the H1 with the verb (same as title).
