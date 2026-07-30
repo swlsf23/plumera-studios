@@ -7,7 +7,7 @@ Dist is wiped each build, so emitted HTML mtimes are not used.
 
 from __future__ import annotations
 
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from pathlib import Path
 from xml.sax.saxutils import escape
 
@@ -35,7 +35,8 @@ def _iso(d: date) -> str:
 
 
 def _mtime_date(path: Path) -> date:
-    return datetime.fromtimestamp(path.stat().st_mtime).date()
+    """UTC calendar date for file mtime (stable across build host timezones)."""
+    return datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc).date()
 
 
 def _frontmatter_date(md_path: Path) -> date | None:
@@ -209,7 +210,7 @@ def write_sitemaps(dist: Path) -> list[str]:
     index_entries: list[tuple[str, str]] = []
     source_lastmods = _source_lastmods()
     # Only if a dist URL has no source mapping (should be rare).
-    today = _iso(date.today())
+    today = _iso(datetime.now(timezone.utc).date())
 
     # Domain root entry page (public/index.html → dist/index.html).
     if (dist / "index.html").is_file():
