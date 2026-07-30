@@ -7,6 +7,7 @@
     "dev": "npm run build:site && npm run serve:site",
     "build": "npm run build:site",
     "build:site": "python3 -m tools.content_builder",
+    "check": "python3 -m tools.ci.check_prohibited_chars && python3 -m tools.content_builder && python3 -m tools.ci.check_internal_links && python3 -m unittest discover -s tests -q",
     "serve:site": "echo 'http://localhost:4173' && python3 -m http.server 4173 --bind 127.0.0.1 --directory dist",
     "dev:app": "vite",
     "build:app": "tsc --noEmit && vite build",

@@ -11,7 +11,9 @@ Monorepo for the Plumera website: static multilingual landings, Markdown content
 
 ## What gets deployed
 
-**`dist/` is the site.** Build it once, then deploy that folder as-is (S3, nginx, etc.). Local preview serves the same `dist/` with a plain static file server, with no special rewrite layer.
+**`dist/` is the site.** Build it once, then deploy that folder as-is (S3 + CloudFront in production). Local preview serves the same `dist/` with a plain static file server, with no special rewrite layer.
+
+CI runs on every PR/`main` push. Production deploys on version tags (`v*`). See [docs/deploy.md](docs/deploy.md) ([MSEO-10](https://plumerastudios.atlassian.net/browse/MSEO-10)).
 
 ```bash
 python3 -m venv .venv
