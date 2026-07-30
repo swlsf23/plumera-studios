@@ -12,6 +12,8 @@ related:
   - href: /en/learn-french/votw/
   - title: CEFR levels
     href: /en/cefr/
+  - title: Language certification exams
+    href: /en/language-certification-exams/
 ---
 
 # New French lessons and articles

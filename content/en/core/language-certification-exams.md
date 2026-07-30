@@ -18,6 +18,23 @@ Most major languages have one or more standardized examinations administered by 
 
 This guide introduces the most widely recognized language certification exams around the world.
 
+<nav class="lang-jump" aria-label="Languages in this guide">
+<p class="lang-jump__label">Languages</p>
+<ul class="lang-jump__list">
+<li><a href="#french">French</a></li>
+<li><a href="#spanish">Spanish</a></li>
+<li><a href="#arabic">Arabic</a></li>
+<li><a href="#chinese">Chinese</a></li>
+<li><a href="#english">English</a></li>
+<li><a href="#german">German</a></li>
+<li><a href="#italian">Italian</a></li>
+<li><a href="#japanese">Japanese</a></li>
+<li><a href="#korean">Korean</a></li>
+<li><a href="#portuguese">Portuguese</a></li>
+<li><a href="#russian">Russian</a></li>
+</ul>
+</nav>
+
 ## French
 
 French has several internationally recognized certification systems, each designed for different purposes.
@@ -45,6 +62,44 @@ It is widely accepted by universities and government agencies, particularly for 
 The **[Test d'évaluation de français (TEF)](https://www.lefrancaisdesaffaires.fr/en/tests-diplomas/test-evaluation-french-tef/)** is another official French proficiency examination, administered by the Paris Île-de-France Chamber of Commerce and Industry.
 
 It is commonly used for Canadian immigration, university admissions, and professional certification. TEF results are valid for two years.
+
+## Spanish
+
+### DELE
+
+The **[Diplomas de Español como Lengua Extranjera (DELE)](https://examenes.cervantes.es/en/dele)** are Spain's official Spanish language diplomas, issued on behalf of the Spanish Ministry of Education.
+
+Each examination certifies a single proficiency level and remains valid for life.
+
+### SIELE
+
+The **[Servicio Internacional de Evaluación de la Lengua Española (SIELE)](https://siele.org/en/)** measures Spanish proficiency across multiple levels with a single examination.
+
+Unlike DELE, SIELE provides a score rather than a permanent diploma. Results are valid for five years.
+
+## Arabic
+
+Unlike many other major world languages, Arabic does not have a single internationally recognized proficiency examination comparable to the DELF, JLPT, or HSK.
+
+Instead, universities, employers, and government agencies typically specify which qualifications they accept, and recognition varies by country.
+
+## Chinese
+
+### HSK
+
+The **[Hanyu Shuiping Kaoshi (HSK)](https://www.chinesetest.cn/)** is the standard proficiency examination for Mandarin Chinese.
+
+It is recognized by universities, employers, and government organizations throughout China.
+
+The current framework is often called **HSK 3.0** (or the “new HSK”). It expands the older six-level system into nine levels grouped in three stages: elementary (levels 1–3), intermediate (levels 4–6), and advanced (levels 7–9). Levels 1–6 remain separate examinations; levels 7–9 are assessed in a single advanced exam, with the score determining which of those three levels is awarded.
+
+Because both the previous and newer frameworks use level numbers, check which version a university, employer, or test center requires before you register.
+
+### HSKK
+
+The **[HSK Speaking Test (HSKK)](https://www.chinesetest.cn/)** is a separate examination that evaluates spoken Mandarin.
+
+It has long complemented the written HSK. Under the newer HSK framework, speaking requirements are tighter at higher levels, so confirm with your test center whether HSKK (or an integrated speaking component) is required for the level you need.
 
 ## English
 
@@ -80,20 +135,6 @@ It is widely used by international companies as evidence of practical business E
 
 PTE Academic scores are generally valid for two years.
 
-## Spanish
-
-### DELE
-
-The **[Diplomas de Español como Lengua Extranjera (DELE)](https://examenes.cervantes.es/en/dele)** are Spain's official Spanish language diplomas, issued on behalf of the Spanish Ministry of Education.
-
-Each examination certifies a single proficiency level and remains valid for life.
-
-### SIELE
-
-The **[Servicio Internacional de Evaluación de la Lengua Española (SIELE)](https://siele.org/en/)** measures Spanish proficiency across multiple levels with a single examination.
-
-Unlike DELE, SIELE provides a score rather than a permanent diploma. Results are valid for five years.
-
 ## German
 
 ### Goethe-Zertifikat
@@ -128,6 +169,24 @@ The **[Certificato di Conoscenza della Lingua Italiana (CELI)](https://cvcl.unis
 
 The **[Progetto Lingua Italiana Dante Alighieri (PLIDA)](https://plida.it/)** is issued by the Società Dante Alighieri and is recognized by the Italian government.
 
+## Japanese
+
+### JLPT
+
+The **[Japanese Language Proficiency Test (JLPT)](https://www.jlpt.jp/e/)** is the standard certification for learners of Japanese.
+
+The examination consists of five levels, from N5 (beginner) to N1 (advanced), and is administered worldwide.
+
+Unlike many European language examinations, the JLPT assesses reading, vocabulary, grammar, and listening, but not speaking.
+
+## Korean
+
+### TOPIK
+
+The **[Test of Proficiency in Korean (TOPIK)](https://www.topik.go.kr/)** is South Korea's official Korean language examination.
+
+It is commonly required for university admissions, scholarships, employment, and immigration.
+
 ## Portuguese
 
 ### CAPLE
@@ -140,38 +199,6 @@ The **[Certificado de Proficiência em Língua Portuguesa para Estrangeiros (CEL
 
 It is recognized by Brazilian universities and government institutions.
 
-## Japanese
-
-### JLPT
-
-The **[Japanese Language Proficiency Test (JLPT)](https://www.jlpt.jp/e/)** is the standard certification for learners of Japanese.
-
-The examination consists of five levels, from N5 (beginner) to N1 (advanced), and is administered worldwide.
-
-Unlike many European language examinations, the JLPT assesses reading, vocabulary, grammar, and listening, but not speaking.
-
-## Chinese
-
-### HSK
-
-The **[Hanyu Shuiping Kaoshi (HSK)](https://www.chinesetest.cn/)** is the standard proficiency examination for Mandarin Chinese.
-
-It is recognized by universities, employers, and government organizations throughout China.
-
-### HSKK
-
-The **[HSK Speaking Test (HSKK)](https://www.chinesetest.cn/)** is a separate examination that evaluates spoken Mandarin.
-
-It complements the written HSK examination.
-
-## Korean
-
-### TOPIK
-
-The **[Test of Proficiency in Korean (TOPIK)](https://www.topik.go.kr/)** is South Korea's official Korean language examination.
-
-It is commonly required for university admissions, scholarships, employment, and immigration.
-
 ## Russian
 
 ### TORFL
@@ -179,12 +206,6 @@ It is commonly required for university admissions, scholarships, employment, and
 The **[Test of Russian as a Foreign Language (TORFL)](https://testingcenter.spbu.ru/en/torfl.html)**, also known by its Russian abbreviation **ТРКИ**, is Russia's official certification system for foreign learners.
 
 It is recognized by universities, employers, and government institutions.
-
-## Arabic
-
-Unlike many other major world languages, Arabic does not have a single internationally recognized proficiency examination comparable to the DELF, JLPT, or HSK.
-
-Instead, universities, employers, and government agencies typically specify which qualifications they accept, and recognition varies by country.
 
 ## Which exam should you take?
 

@@ -6,7 +6,7 @@ target: learn-french
 locale: en
 level: A1
 author:
-date: 2026-08-04
+date: 2026-07-22
 draft: true
 related:
   - href: /en/learn-french/whats-new/
