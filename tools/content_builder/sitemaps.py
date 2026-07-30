@@ -34,17 +34,18 @@ def _urlset(paths: list[str]) -> str:
     return "\n".join(lines)
 
 
-def _sitemap_index(locales: list[str]) -> str:
+def _sitemap_index(entries: list[str]) -> str:
+    """entries are sitemap paths relative to site root, e.g. 'sitemap-root.xml'."""
     lastmod = _lastmod()
     lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',
         '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
     ]
-    for locale in locales:
+    for entry in entries:
         lines.extend(
             [
                 "  <sitemap>",
-                f"    <loc>{escape(f'{SITE_ORIGIN}/{locale}/sitemap.xml')}</loc>",
+                f"    <loc>{escape(f'{SITE_ORIGIN}/{entry}')}</loc>",
                 f"    <lastmod>{lastmod}</lastmod>",
                 "  </sitemap>",
             ]
@@ -75,14 +76,23 @@ def write_sitemaps(dist: Path) -> list[str]:
         if p.is_dir() and p.name not in SKIP_DIR_NAMES and not p.name.startswith(".")
     )
     written: list[str] = []
+    index_entries: list[str] = []
+
+    # Domain root entry page (public/index.html → dist/index.html).
+    if (dist / "index.html").is_file():
+        root_urls = dist / "sitemap-root.xml"
+        root_urls.write_text(_urlset(["/"]), encoding="utf-8")
+        written.append("sitemap-root.xml")
+        index_entries.append("sitemap-root.xml")
 
     for locale in locales:
         locale_dir = dist / locale
         out = locale_dir / "sitemap.xml"
         out.write_text(_urlset(_urls_for_locale(locale, locale_dir)), encoding="utf-8")
         written.append(str(out.relative_to(dist)))
+        index_entries.append(f"{locale}/sitemap.xml")
 
     root = dist / "sitemap.xml"
-    root.write_text(_sitemap_index(locales), encoding="utf-8")
+    root.write_text(_sitemap_index(index_entries), encoding="utf-8")
     written.append("sitemap.xml")
     return written

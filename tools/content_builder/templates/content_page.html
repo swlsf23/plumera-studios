@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
   <script defer src="https://cloud.umami.is/script.js" data-website-id="a6e7309a-1696-4e8c-95f3-bd6d0361fb4a" data-domains="plumerastudios.com"></script>
   <link rel="stylesheet" href="/css/base.css">
-  <link rel="stylesheet" href="/css/content-header.css?v=brand-2">
+  <link rel="stylesheet" href="/css/content-header.css?v=brand-4">
   <link rel="stylesheet" href="/css/content.css?v=art-band-cascade">
 </head>
 <body>
@@ -30,9 +30,6 @@
         <a{% if page.active == 'contact' %} class="active"{% endif %} href="/{{ page.locale }}/contact/">{{ chrome.contact }}</a>
         {% endif %}
         <a{% if page.active == 'privacy' %} class="active"{% endif %} href="/{{ page.locale }}/privacy/">{{ chrome.privacy }}</a>
-      </nav>
-
-      <div class="content-header__actions">
         <details class="content-header__lang">
           <summary aria-label="{{ chrome.choose_language }}" title="{{ chrome.choose_language }}">
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -48,6 +45,9 @@
             {% endfor %}
           </nav>
         </details>
+      </nav>
+
+      <div class="content-header__actions">
         <a class="content-header__subscribe" href="/{{ page.locale }}/contact/">{{ chrome.subscribe }}</a>
         <button class="content-header__menu" type="button" aria-label="{{ chrome.menu }}" aria-expanded="false" data-menu-toggle>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
@@ -64,6 +64,9 @@
         <a{% if page.active == 'contact' %} class="active"{% endif %} href="/{{ page.locale }}/contact/">{{ chrome.contact }}</a>
         {% endif %}
         <a{% if page.active == 'privacy' %} class="active"{% endif %} href="/{{ page.locale }}/privacy/">{{ chrome.privacy }}</a>
+        {% for lang in languages %}
+        <a href="{{ lang.href }}" lang="{{ lang.code }}"{% if lang.current %} aria-current="true"{% endif %}>{{ lang.label }}</a>
+        {% endfor %}
       </nav>
     </header>
 
