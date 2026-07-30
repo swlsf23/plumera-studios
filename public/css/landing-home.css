@@ -455,16 +455,16 @@
 .landing-home .footer-about p {
   margin: 0;
   max-width: 42ch;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.7;
 }
 
-.landing-home .landing-footer blockquote {
+.landing-home .footer-aside {
   margin: 0;
-  padding-left: 64px;
+  padding-left: 48px;
   border-left: 2px solid var(--landing-gold);
-  font-size: 15px;
-  font-style: italic;
+  max-width: 48ch;
+  font-size: 14px;
   line-height: 1.7;
 }
 
@@ -561,7 +561,7 @@
     padding-block: 48px;
   }
 
-  .landing-home .landing-footer blockquote {
+  .landing-home .footer-aside {
     padding-left: 32px;
   }
 }
