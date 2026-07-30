@@ -139,7 +139,7 @@ L1 interference (English → Spanish)
 -->
 
 ---
-title:          # Full <title>, e.g. "Plumera | Spanish Verb of the Week: Tomar"
+title:          # Full <title>, e.g. "Spanish Verb of the Week: Tomar | Plumera"
 description:    # One-sentence meta description (English)
 slug:           # votw-{verb}-{level}, e.g. votw-tomar-a1
 target: learn-spanish      # Language taught

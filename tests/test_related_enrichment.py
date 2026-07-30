@@ -12,17 +12,17 @@ from tools.content_builder.build import _enrich_related, _title_with_level
 PAGES = {
     "/en/learn-french/votw/votw-prendre-a1/": {
         "heading": "Prendre",
-        "title": "Plumera | French Verb of the Week: Prendre",
+        "title": "French Verb of the Week: Prendre | Plumera",
         "level": "A1",
     },
     "/en/learn-french/articles/verb-prendre-b1/": {
         "heading": "Prendre: Idioms and Fixed Expressions",
-        "title": "Plumera | Prendre (French): idioms and fixed expressions",
+        "title": "Prendre (French): idioms and fixed expressions | Plumera",
         "level": "B1",
     },
     "/en/cefr/": {
         "heading": "How we use CEFR levels",
-        "title": "Plumera | How we use CEFR levels",
+        "title": "How we use CEFR levels | Plumera",
         "level": "",
     },
 }

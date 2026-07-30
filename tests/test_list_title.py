@@ -24,7 +24,7 @@ class ListTitleTests(unittest.TestCase):
 
     def test_list_title_prefers_h1(self) -> None:
         post = frontmatter.loads(
-            '---\ntitle: "Plumera | Long document title"\n---\n\n'
+            '---\ntitle: "Long document title | Plumera"\n---\n\n'
             "# Idioms and fixed expressions with *prendre*\n\nBody.\n"
         )
         self.assertEqual(
@@ -39,7 +39,7 @@ class ListTitleTests(unittest.TestCase):
             articles.mkdir(parents=True)
             (articles / "verb-prendre-b1.md").write_text(
                 '---\n'
-                'title: "Plumera | Prendre (French): idioms and fixed expressions"\n'
+                'title: "Prendre (French): idioms and fixed expressions | Plumera"\n'
                 "slug: verb-prendre-b1\n"
                 "target: learn-french\n"
                 "locale: en\n"

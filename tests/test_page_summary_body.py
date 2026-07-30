@@ -12,7 +12,7 @@ from tools.content_builder.parse import parse_votw_page
 class PageSummaryBodyTests(unittest.TestCase):
     def test_description_present_keeps_first_body_paragraph(self) -> None:
         md = """---
-title: "Plumera | French Verb of the Week"
+title: "French Verb of the Week | Plumera"
 description: One French verb at a time.
 slug: index
 target: learn-french
@@ -45,7 +45,7 @@ More prose here.
 
     def test_missing_description_means_no_summary_not_body_extraction(self) -> None:
         md = """---
-title: "Plumera | Test"
+title: "Test | Plumera"
 slug: index
 target: learn-french
 locale: en

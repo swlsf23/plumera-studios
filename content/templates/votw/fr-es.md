@@ -133,7 +133,7 @@ L1 interference (Spanish → French)
 -->
 
 ---
-title:          # <title> completo, p. ej. "Plumera | Verbo francés de la semana: Prendre"
+title:          # <title> completo, p. ej. "Verbo francés de la semana: Prendre | Plumera"
 description:    # Meta descripción en una frase (español)
 slug:           # votw-{verbo}-{nivel}, p. ej. votw-prendre-a1
 target: aprender-frances      # Idioma que se enseña

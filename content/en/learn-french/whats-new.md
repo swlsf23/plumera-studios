@@ -1,5 +1,5 @@
 ---
-title: "Plumera | New content for learning French"
+title: "New content for learning French | Plumera"
 description: Recently added French lessons and articles for English speakers, newest first.
 slug: whats-new
 target: learn-french

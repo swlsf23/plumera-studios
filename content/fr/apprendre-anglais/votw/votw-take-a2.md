@@ -1,5 +1,5 @@
 ---
-title: "Plumera | Verbe anglais de la semaine : To take"
+title: "Verbe anglais de la semaine : To take | Plumera"
 description: Comment l’anglais utilise take, où il recoupe prendre, et où il faut dire have, make ou bring.
 slug: votw-take-a2
 target: apprendre-anglais

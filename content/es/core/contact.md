@@ -1,5 +1,5 @@
 ---
-title: "Plumera | Novedades útiles. Sin ruido en tu bandeja de entrada."
+title: "Novedades útiles. Sin ruido en tu bandeja de entrada. | Plumera"
 description: Infórmate sobre nuevas herramientas lingüísticas, recursos de aprendizaje, juegos de palabras y lanzamientos importantes de Plumera Studios.
 eyebrow: Contacto
 related:

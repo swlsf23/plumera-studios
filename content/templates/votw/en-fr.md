@@ -148,7 +148,7 @@ L1 interference (French → English)
 -->
 
 ---
-title:          # <title> complet, p. ex. "Plumera | Verbe anglais de la semaine : To take"
+title:          # <title> complet, p. ex. "Verbe anglais de la semaine : To take | Plumera"
 description:    # Méta-description en une phrase (français)
 slug:           # votw-{verbe}-{niveau}, p. ex. votw-take-a2
 target: apprendre-anglais      # Langue enseignée
