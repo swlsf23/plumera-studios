@@ -146,7 +146,7 @@ L1 interference (Spanish → English)
 -->
 
 ---
-title:          # <title> completo, p. ej. "Plumera | Verbo inglés de la semana: To take"
+title:          # <title> completo, p. ej. "Verbo inglés de la semana: To take | Plumera"
 description:    # Meta descripción en una frase (español)
 slug:           # votw-{verbo}-{nivel}, p. ej. votw-take-a2
 target: aprender-ingles      # Idioma que se enseña

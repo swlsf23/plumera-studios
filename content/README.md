@@ -30,7 +30,7 @@ content/
 
 **CEFR on links (site standard):** when the builder generates a link to a page that declares `level` in frontmatter (related cards, what’s-new list, VOTW series list), it appends the level to the link label as `Title · A1`. Authors do not need to put the level in the related `title` by hand.
 
-**Document `<title>`:** the template emits `Plumera | {title}` unless frontmatter `title` already starts with `Plumera |` or `Plumera Studios |`.
+**Document `<title>`:** the template emits `{title} | Plumera` unless frontmatter `title` already ends with `| Plumera` or `| Plumera Studios`.
 
 The second level is therefore either `core` or a target slug (e.g. `learn-french`), and nothing else.
 

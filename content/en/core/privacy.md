@@ -1,5 +1,5 @@
 ---
-title: "Plumera | Privacy at Plumera Studios"
+title: "Privacy at Plumera Studios | Plumera"
 description: We collect only the information needed to operate our site, understand how it is used, receive feedback, and send updates people have requested.
 eyebrow: Legal
 related:

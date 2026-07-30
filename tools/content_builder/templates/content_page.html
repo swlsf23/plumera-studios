@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="{{ page.description }}">
-  <title>{% if page.title.startswith('Plumera |') or page.title.startswith('Plumera Studios |') %}{{ page.title }}{% else %}Plumera | {{ page.title }}{% endif %}</title>
+  <title>{% if page.title.endswith('| Plumera') or page.title.endswith('| Plumera Studios') %}{{ page.title }}{% else %}{{ page.title }} | Plumera{% endif %}</title>
   <link rel="canonical" href="{{ canonical_url }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -1,5 +1,5 @@
 ---
-title: "Plumera | Useful updates. No inbox noise."
+title: "Useful updates. No inbox noise. | Plumera"
 description: Hear about new language tools, learning resources, word games, and meaningful Plumera Studios releases.
 eyebrow: Contact
 related:

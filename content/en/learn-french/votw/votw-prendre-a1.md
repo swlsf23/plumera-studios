@@ -1,5 +1,5 @@
 ---
-title: "Plumera | French Verb of the Week: Prendre"
+title: "French Verb of the Week: Prendre | Plumera"
 description: How French uses prendre for taking things, taking transport, and having food, drink, or medicine.
 slug: votw-prendre-a1
 target: learn-french

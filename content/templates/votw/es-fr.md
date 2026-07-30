@@ -150,7 +150,7 @@ L1 interference (French → Spanish)
 -->
 
 ---
-title:          # <title> complet, p. ex. "Plumera | Verbe espagnol de la semaine : Tomar"
+title:          # <title> complet, p. ex. "Verbe espagnol de la semaine : Tomar | Plumera"
 description:    # Méta-description en une phrase (français)
 slug:           # votw-{verbe}-{niveau}, p. ex. votw-tomar-a1
 target: apprendre-espagnol      # Langue enseignée
