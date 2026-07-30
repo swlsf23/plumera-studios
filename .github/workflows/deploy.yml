@@ -1,0 +1,79 @@
+# MSEO-10: deploy dist/ to S3 + CloudFront on version tags (never --drafts).
+name: Deploy
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python package
+        run: pip install -e .
+
+      - name: Prohibited characters in shippable copy
+        run: python -m tools.ci.check_prohibited_chars
+
+      - name: Build static site (no drafts)
+        run: python -m tools.content_builder
+
+      - name: Refuse empty or incomplete dist/
+        run: |
+          set -euo pipefail
+          test -f dist/index.html
+          test -f dist/en/index.html
+          test -f dist/sitemap.xml
+          count=$(find dist -type f | wc -l | tr -d ' ')
+          test "$count" -ge 20
+          echo "dist file count: $count"
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Sync dist/ to S3
+        env:
+          S3_BUCKET: ${{ vars.S3_BUCKET }}
+        run: |
+          set -euo pipefail
+          test -n "${S3_BUCKET}"
+          # Full-site sync. --delete removes paths no longer in dist/.
+          aws s3 sync dist/ "s3://${S3_BUCKET}/" --delete \
+            --cache-control "public,max-age=86400"
+          # Short cache for HTML (CSS is query-busted, not content-hashed).
+          aws s3 sync dist/ "s3://${S3_BUCKET}/" \
+            --exclude "*" \
+            --include "*.html" \
+            --cache-control "public,max-age=300,must-revalidate" \
+            --content-type "text/html; charset=utf-8" \
+            --metadata-directive REPLACE
+
+      - name: Invalidate CloudFront
+        env:
+          DISTRIBUTION_ID: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
+        run: |
+          set -euo pipefail
+          test -n "${DISTRIBUTION_ID}"
+          aws cloudfront create-invalidation \
+            --distribution-id "${DISTRIBUTION_ID}" \
+            --paths "/*"

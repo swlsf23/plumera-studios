@@ -1,0 +1,86 @@
+# MSEO-10: production-shaped build + checks on PRs and main.
+# Never passes --drafts.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  site:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python package
+        run: pip install -e .
+
+      - name: Prohibited characters in shippable copy
+        run: python -m tools.ci.check_prohibited_chars
+
+      - name: Build static site (no drafts)
+        run: python -m tools.content_builder
+
+      - name: Refuse empty or incomplete dist/
+        run: |
+          set -euo pipefail
+          test -f dist/index.html
+          test -f dist/en/index.html
+          test -f dist/es/index.html
+          test -f dist/fr/index.html
+          test -f dist/sitemap.xml
+          test -f dist/sitemap-root.xml
+          test -f dist/en/sitemap.xml
+          test -f dist/robots.txt
+          test -f dist/css/base.css
+          # Draft VOTW must not ship
+          test ! -e dist/es/aprender-frances/votw/votw-prendre-a1/index.html
+          test ! -e dist/fr/apprendre-anglais/votw/votw-take-a2/index.html
+          echo "ok dist shape"
+
+      - name: Baked head tags on content pages
+        run: |
+          set -euo pipefail
+          for path in \
+            dist/en/privacy/index.html \
+            dist/en/cefr/index.html \
+            dist/en/learn-french/votw/votw-prendre-a1/index.html
+          do
+            grep -q '<title>' "$path"
+            grep -q 'name="description"' "$path"
+            grep -q 'rel="canonical"' "$path"
+            echo "meta ok $path"
+          done
+
+      - name: Internal link check
+        run: python -m tools.ci.check_internal_links
+
+      - name: Unit tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Smoke-test served URLs
+        run: |
+          set -euo pipefail
+          python -m http.server 4173 --bind 127.0.0.1 --directory dist >/tmp/site-server.log 2>&1 &
+          pid=$!
+          trap 'kill $pid' EXIT
+          sleep 1
+          for path in \
+            / \
+            /en/ \
+            /es/ \
+            /fr/ \
+            /en/privacy/ \
+            /en/learn-french/votw/votw-prendre-a1/ \
+            /sitemap.xml \
+            /en/sitemap.xml
+          do
+            code=$(curl -s -o /dev/null -w '%{http_code}' "http://127.0.0.1:4173${path}")
+            test "$code" = "200"
+            echo "$code $path"
+          done
