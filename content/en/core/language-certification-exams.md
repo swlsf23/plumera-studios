@@ -2,12 +2,11 @@
 title: "Language Proficiency Certification Exams | Plumera"
 description: Discover the official language certification exams used for university admissions, immigration, employment, and professional qualifications around the world.
 eyebrow: Guide
-draft: true
+draft: false
 related:
   - title: CEFR levels
     href: /en/cefr/
   - href: /en/learn-french/whats-new/
-  - href: /en/contact/
 ---
 
 # Language Proficiency Certification Exams
@@ -91,7 +90,13 @@ The **[Hanyu Shuiping Kaoshi (HSK)](https://www.chinesetest.cn/)** is the standa
 
 It is recognized by universities, employers, and government organizations throughout China.
 
-The current framework is often called **HSK 3.0** (or the “new HSK”). It expands the older six-level system into nine levels grouped in three stages: elementary (levels 1–3), intermediate (levels 4–6), and advanced (levels 7–9). Levels 1–6 remain separate examinations; levels 7–9 are assessed in a single advanced exam, with the score determining which of those three levels is awarded.
+The current framework is often called **HSK 3.0** (or the “new HSK”). It expands the older six-level system into nine levels grouped in three stages: 
+
+- Elementary (levels 1–3)
+- Intermediate (levels 4–6)
+- Advanced (levels 7–9). 
+
+Levels 1–6 remain separate examinations. Levels 7–9 are assessed in a single advanced exam, with the score determining which of those three levels is awarded.
 
 Because both the previous and newer frameworks use level numbers, check which version a university, employer, or test center requires before you register.
 
