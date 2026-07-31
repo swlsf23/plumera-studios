@@ -1,18 +1,20 @@
-import { useEffect } from 'react';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import PracticePage from './pages/PracticePage';
+
+const BASENAME = '/app/flashcard';
 
 /**
- * Placeholder shell for future interactive React apps.
- * Content pages are static HTML from the Python builder (`dist/`), not this SPA.
+ * Flashcard app, served under /app/flashcard/ as part of the static site dist/.
  */
 export default function App() {
-  useEffect(() => {
-    try {
-      window.location.replace('/en/');
-    } catch (error) {
-      // Can throw in sandboxed iframes; leave the user on a blank shell.
-      console.error('Failed to redirect to landing:', error);
-    }
-  }, []);
-
-  return null;
+  return (
+    <BrowserRouter basename={BASENAME}>
+      <Routes>
+        <Route path="/" element={<Navigate to="/tenir/" replace />} />
+        <Route path="/:verb/" element={<PracticePage />} />
+        <Route path="/:verb" element={<PracticePage />} />
+        <Route path="*" element={<Navigate to="/tenir/" replace />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }

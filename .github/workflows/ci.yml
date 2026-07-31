@@ -17,14 +17,25 @@ jobs:
         with:
           python-version: "3.12"
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
       - name: Install Python package
         run: pip install -e .
+
+      - name: Install npm dependencies
+        run: npm ci
 
       - name: Prohibited characters in shippable copy
         run: python -m tools.ci.check_prohibited_chars
 
       - name: Build static site (no drafts)
         run: python -m tools.content_builder
+
+      - name: Build flashcard app into dist/
+        run: npm run build:app
 
       - name: Refuse empty or incomplete dist/
         run: |
@@ -38,6 +49,8 @@ jobs:
           test -f dist/en/sitemap.xml
           test -f dist/robots.txt
           test -f dist/css/base.css
+          test -f dist/app/flashcard/index.html
+          test -f dist/app/flashcard/tenir/index.html
           # Draft VOTW must not ship
           test ! -e dist/es/aprender-frances/votw/votw-prendre-a1/index.html
           test ! -e dist/fr/apprendre-anglais/votw/votw-take-a2/index.html
@@ -77,6 +90,8 @@ jobs:
             /fr/ \
             /en/privacy/ \
             /en/learn-french/votw/votw-prendre-a1/ \
+            /app/flashcard/ \
+            /app/flashcard/tenir/ \
             /sitemap.xml \
             /en/sitemap.xml
           do

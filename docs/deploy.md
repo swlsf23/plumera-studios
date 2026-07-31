@@ -71,5 +71,5 @@ Then confirm the Deploy workflow is green and spot-check View Source on `/`, `/e
 ## Notes
 
 - `aws s3 sync --delete` removes objects that are no longer in `dist/`. An empty or broken build is guarded by the “Refuse empty or incomplete dist/” step.
-- React (`npm run dev:app`) is out of scope for this pipeline.
+- Interactive apps (e.g. `/app/flashcard/`) are included when `npm run build:site` runs Vite into `dist/app/…` after the content builder. Content pages remain full static HTML; apps are SPA shells under `/app/`.
 - Hand-authored landings under `public/` are copied into `dist/` by the builder and deploy with everything else.

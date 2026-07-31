@@ -41,22 +41,34 @@ Useful URLs (same paths in prod: directory indexes, trailing slashes):
 
 View Source on content URLs: title, description, and canonical are in the HTML file.
 
-## React scaffold (future apps)
+## React apps (in `dist/`)
+
+Interactive apps build **into the site** under `/app/…` so header/footer navigation shares one origin with content pages.
 
 ```bash
-npm run dev:app
+npm run build:site    # content builder, then flashcard app → dist/
+npm run serve:site    # http://localhost:4173
 ```
 
-Placeholder only. Not used for content pages.
+### Flashcards (`/app/flashcard/`)
+
+- After build: [http://localhost:4173/app/flashcard/tenir/](http://localhost:4173/app/flashcard/tenir/)
+- `npm run build:site` runs the content builder, then `build:app` into `dist/app/flashcard/` (known verb folders get an `index.html` shell so refresh works on the static server).
+- `npm run dev:app` is Vite HMR only (port 5173); use `build:site` + `serve:site` to exercise real cross-nav with content.
+- v1 session state is **ephemeral**: know / don’t-know progress lives in memory only. Refresh, navigate away, or close the tab resets it. Signup / saved progress comes later.
+- Deck files will live under [`data/{locale}/{target}/`](data/README.md); the UI currently uses an in-module sample for `tenir`.
+
+SEO stays with static VOTW / conjugation HTML; the app is the practice surface.
 
 ## Structure
 
 ```text
 content/                  # Markdown source of truth (except landings)
+data/                     # App datasets (flashcard TSVs later; not built as pages)
 public/                   # Landings + static assets (copied into dist/)
 tools/content_builder/    # Python MD → full HTML (extend/debug here)
 dist/                     # Deployable site output (gitignored)
-src/                      # Reserved for future interactive React apps
+src/                      # Interactive React apps (e.g. flashcards)
 ```
 
 ### Python content builder
