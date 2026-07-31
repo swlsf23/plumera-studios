@@ -39,7 +39,7 @@ class VotwLinksOrderTests(unittest.TestCase):
             )
             # Filename order would put prendre before tenir; dates reverse that.
             _write_votw(votw, stem="votw-prendre-a1", title="Prendre", date="2026-07-20")
-            _write_votw(votw, stem="votw-tenir-a1", title="Tenir", date="2026-07-28")
+            _write_votw(votw, stem="votw-tenir-a2", title="Tenir", date="2026-07-28")
 
             links = votw_links(root, "en", "learn-french")
 
@@ -47,7 +47,7 @@ class VotwLinksOrderTests(unittest.TestCase):
         self.assertEqual(
             [link["href"] for link in links],
             [
-                "/en/learn-french/votw/votw-tenir-a1/",
+                "/en/learn-french/votw/votw-tenir-a2/",
                 "/en/learn-french/votw/votw-prendre-a1/",
             ],
         )
@@ -59,7 +59,7 @@ class VotwLinksOrderTests(unittest.TestCase):
             votw.mkdir(parents=True)
             # Same date: sort key is (date, title) reversed → title Z→A.
             _write_votw(votw, stem="votw-prendre-a1", title="Prendre", date="2026-07-22")
-            _write_votw(votw, stem="votw-tenir-a1", title="Tenir", date="2026-07-22")
+            _write_votw(votw, stem="votw-tenir-a2", title="Tenir", date="2026-07-22")
 
             links = votw_links(root, "en", "learn-french")
 
@@ -73,7 +73,7 @@ class VotwLinksOrderTests(unittest.TestCase):
             _write_votw(votw, stem="votw-prendre-a1", title="Prendre", date="2026-07-20")
             _write_votw(
                 votw,
-                stem="votw-tenir-a1",
+                stem="votw-tenir-a2",
                 title="Tenir",
                 date="2026-07-28",
                 draft=True,

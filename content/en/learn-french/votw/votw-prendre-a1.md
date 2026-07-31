@@ -41,15 +41,14 @@ Learn these patterns and you will be able to use *prendre* in your everyday Fren
 
 The three singular forms sound identical, so spelling matters more in writing than in speech. This conjugation pattern is similar to other verbs like *apprendre* and *comprendre*.
 
-One habit that will keep your sentences correct: keep the article. French says *prendre le bus*, never *prendre bus*.
+One habit that will keep your sentences correct: keep the article. French says *prendre le bus*, not *prendre bus*.
 
 In the past tense, *prendre* uses *avoir*, and the participle is *pris*:
 
 | French | English |
 |--------|---------|
 | J'ai pris le métro ce matin. | I took the metro this morning. |
-| J'ai pris un café dans le restaurant. | I had a coffee in the restaurant. |
-
+| J'ai pris un café au restaurant. | I had a coffee in the restaurant. |
 
 ## How to use prendre
 
@@ -77,7 +76,7 @@ Buses, trains, taxis, the metro, planes. Where English says "go by bus," French 
 
 ### Having food, drink, or medicine
 
-Here *prendre* covers English "have," for meals, drinks, and medicine alike. Ordering in a café almost always uses it.
+Here *prendre* covers English "have," for meals, drinks, and medicine alike. Ordering in a café usually uses it.
 
 | French | English |
 |--------|---------|
@@ -94,9 +93,9 @@ Here *prendre* covers English "have," for meals, drinks, and medicine alike. Ord
 
 *Boire* is the physical act of drinking. *Prendre* is the occasion: ordering a drink, sitting down with it, having one as part of your morning.
 
-*On prend un café ?* is an invitation, the equivalent of "shall we grab a coffee?". *On boit un café ?* doesn't naturally carry that conversational invitation meaning.
+*On prend un café ?* is an invitation, the equivalent of "let's get a coffee?". *On boit un café ?* doesn't naturally carry that conversational invitation meaning.
 
-You may be tempted to over-use *boire* here, because "I'm taking a coffee" in English can suggest taking it away, so "take" never comes to mind.
+Learners often over-use *boire* here. In English, "I'm taking a coffee" can mean takeaway, so "take" does not feel like the right verb for sitting down with a drink.
 
 ## Other common constructions
 
@@ -138,7 +137,7 @@ One of the mistakes below comes from translating an English pattern word for wor
 
 ### Using *avec* for transport
 
-You might reach for "with the bus," following the English pattern "I go to work by bus." French makes the transport the object of *prendre* instead.
+It is tempting to say literally "with the bus," following the English pattern "I go to work by bus." French makes the transport the object of *prendre* instead.
 
 | Incorrect | Correct |
 |-----------|---------|
@@ -159,7 +158,11 @@ The *d* disappears in the *nous*, *vous*, and *ils* forms: *nous prenons*, *vous
 - aller: to go
 - emmener: to take someone somewhere
 
-> *Emmener* is the one to watch. For taking a *person* along, French uses *emmener*, not *prendre*: *je t'emmène à la gare*.
+> *Emmener* is the one to watch. For taking a *person* along, French uses *emmener*, not *prendre*: 
+
+| French | English |
+|--------|---------|
+| *je t'emmène à la gare.* | I'll take you to the station. |
 
 ## Before you go
 

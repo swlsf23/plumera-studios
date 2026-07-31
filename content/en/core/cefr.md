@@ -5,6 +5,8 @@ eyebrow: Levels
 related:
   - href: /en/learn-french/votw/
   - href: /en/learn-french/votw/votw-prendre-a1/
+  - title: Language certification exams
+    href: /en/language-certification-exams/
 ---
 
 # How we use CEFR levels
