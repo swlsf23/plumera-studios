@@ -80,7 +80,9 @@ export function useStudySession(deck: Deck, { enabled }: { enabled: boolean }) {
   const hasExample = Boolean(card?.example?.trim());
 
   const sessionGoal = mode === 'both' ? total * 2 : total;
-  const remaining = queue.length;
+  // Both mode: pass 1 still has a full second pass ahead, so count that too.
+  const remaining =
+    mode === 'both' && pass === 1 ? queue.length + total : queue.length;
 
   const knowPct = useMemo(() => {
     if (sessionGoal === 0) return 0;
