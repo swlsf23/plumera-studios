@@ -8,7 +8,10 @@ Non-page data for interactive apps (flashcard decks, etc.). Not consumed by the 
 data/
   {locale}/           # UI / explanation language (en, es, fr, …)
     {target}/         # language being taught (learn-french, …)
-      prendre.tsv     # example: one deck file per verb (later)
+      prendre.json    # deck meta + cards (en / fr / example)
 ```
 
-v1 of the flashcard app uses an in-module sample deck. Loading from these files comes next; the API will eventually replace or feed the same shape.
+Authoring may move to YAML+Markdown later; **JSON is the runtime contract** for now. The API can emit the same shape later.
+
+Card fields: `en`, `fr`, optional `example` + `exampleTranslation`, plus `type` / `subject` / `id`.
+Study direction (EN→FR, FR→EN, mixed, both passes) is chosen in the app session, not in the JSON.

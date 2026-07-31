@@ -10,7 +10,7 @@
     "check": "python3 -m tools.ci.check_prohibited_chars && npm run build:site && python3 -m tools.ci.check_internal_links && python3 -m unittest discover -s tests -q",
     "serve:site": "echo 'http://localhost:4173' && python3 -m http.server 4173 --bind 127.0.0.1 --directory dist",
     "dev:app": "vite",
-    "build:app": "tsc --noEmit && vite build",
+    "build:app": "python3 -m tools.content_builder --app-header-only && tsc --noEmit && vite build",
     "preview:app": "vite preview --base /app/flashcard/"
   },
   "dependencies": {

@@ -17,58 +17,7 @@
 <body>
   {# One content-page template: single-column lesson chrome for every emitted page. #}
   <div class="page content-page content-page--lesson content-page--{{ page.active }}">
-    <header class="content-header">
-      <a href="/{{ page.locale }}/" class="content-header__brand" aria-label="{{ chrome.brand_home }}">Plumera Studios</a>
-
-      <nav class="content-header__nav" aria-label="Primary navigation">
-        {% if page.locale == 'en' %}
-        {% if votw_href %}<a{% if page.active == 'votw' %} class="active"{% endif %} href="{{ votw_href }}">Verb of the Week</a>{% endif %}
-        <a{% if page.active == 'whats-new' %} class="active"{% endif %} href="/en/learn-french/whats-new/">{{ chrome.whats_new }}</a>
-        {% else %}
-        <a href="/{{ page.locale }}/">{{ chrome.home }}</a>
-        {% if votw_href %}<a{% if page.active == 'votw' %} class="active"{% endif %} href="{{ votw_href }}">{{ chrome.votw }}</a>{% endif %}
-        <a{% if page.active == 'contact' %} class="active"{% endif %} href="/{{ page.locale }}/contact/">{{ chrome.contact }}</a>
-        {% endif %}
-        <a{% if page.active == 'privacy' %} class="active"{% endif %} href="/{{ page.locale }}/privacy/">{{ chrome.privacy }}</a>
-        <details class="content-header__lang">
-          <summary aria-label="{{ chrome.choose_language }}" title="{{ chrome.choose_language }}">
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <circle cx="12" cy="12" r="9"></circle>
-              <path d="M3 12h18"></path>
-              <path d="M12 3a14 14 0 0 1 0 18"></path>
-              <path d="M12 3a14 14 0 0 0 0 18"></path>
-            </svg>
-          </summary>
-          <nav class="content-header__lang-menu" aria-label="{{ chrome.choose_language }}">
-            {% for lang in languages %}
-            <a href="{{ lang.href }}" lang="{{ lang.code }}"{% if lang.current %} aria-current="true"{% endif %}>{{ lang.label }}</a>
-            {% endfor %}
-          </nav>
-        </details>
-      </nav>
-
-      <div class="content-header__actions">
-        <a class="content-header__subscribe" href="/{{ page.locale }}/contact/">{{ chrome.subscribe }}</a>
-        <button class="content-header__menu" type="button" aria-label="{{ chrome.menu }}" aria-expanded="false" data-menu-toggle>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
-        </button>
-      </div>
-
-      <nav class="content-header__mobile" aria-label="Mobile navigation" data-mobile-nav>
-        {% if page.locale == 'en' %}
-        {% if votw_href %}<a{% if page.active == 'votw' %} class="active"{% endif %} href="{{ votw_href }}">Verb of the Week</a>{% endif %}
-        <a{% if page.active == 'whats-new' %} class="active"{% endif %} href="/en/learn-french/whats-new/">{{ chrome.whats_new }}</a>
-        {% else %}
-        <a href="/{{ page.locale }}/">{{ chrome.home }}</a>
-        {% if votw_href %}<a{% if page.active == 'votw' %} class="active"{% endif %} href="{{ votw_href }}">{{ chrome.votw }}</a>{% endif %}
-        <a{% if page.active == 'contact' %} class="active"{% endif %} href="/{{ page.locale }}/contact/">{{ chrome.contact }}</a>
-        {% endif %}
-        <a{% if page.active == 'privacy' %} class="active"{% endif %} href="/{{ page.locale }}/privacy/">{{ chrome.privacy }}</a>
-        {% for lang in languages %}
-        <a href="{{ lang.href }}" lang="{{ lang.code }}"{% if lang.current %} aria-current="true"{% endif %}>{{ lang.label }}</a>
-        {% endfor %}
-      </nav>
-    </header>
+    {% include "partials/content_header.html" %}
 
     <main class="page-grid page-grid--lesson">
       <div class="content-column">

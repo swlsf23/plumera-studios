@@ -25,6 +25,8 @@ CHROME: dict[str, dict[str, str]] = {
         "by_author": "By {author}",
         "article": "Article",
         "whats_new": "What's new",
+        "flashcards": "Flashcards",
+        "votw_nav": "Verb of the Week",
         "level_prefix": "Level:",
         "copyright": "© 2026 Plumera Studios",
     },
@@ -43,6 +45,8 @@ CHROME: dict[str, dict[str, str]] = {
         "by_author": "Por {author}",
         "article": "Artículo",
         "whats_new": "Novedades",
+        "flashcards": "Flashcards",
+        "votw_nav": "VOTW",
         "level_prefix": "Nivel:",
         "copyright": "© 2026 Plumera Studios",
     },
@@ -61,10 +65,25 @@ CHROME: dict[str, dict[str, str]] = {
         "by_author": "Par {author}",
         "article": "Article",
         "whats_new": "Nouveautés",
+        "flashcards": "Flashcards",
+        "votw_nav": "VOTW",
         "level_prefix": "Niveau :",
         "copyright": "© 2026 Plumera Studios",
     },
 }
+
+FLASHCARDS_HREF = "/app/flashcard/prendre/"
+
+
+def whats_new_href_for(locale: str) -> str | None:
+    """EN has a learn-french what's-new hub; other locales get none until authored."""
+    if locale == "en":
+        return "/en/learn-french/whats-new/"
+    return None
+
+
+def votw_nav_label_for(locale: str, chrome: dict[str, str]) -> str:
+    return chrome.get("votw_nav") or chrome.get("votw") or "VOTW"
 
 LANGUAGE_LABELS = {
     "en": "English",

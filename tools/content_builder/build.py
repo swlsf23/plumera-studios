@@ -11,7 +11,13 @@ from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
-from tools.content_builder.chrome import chrome_for, language_menu
+from tools.content_builder.chrome import (
+    FLASHCARDS_HREF,
+    chrome_for,
+    language_menu,
+    votw_nav_label_for,
+    whats_new_href_for,
+)
 from tools.content_builder.parse import (
     ARTICLES_DIR,
     SITE_ORIGIN,
@@ -37,6 +43,8 @@ CONTENT = ROOT / "content"
 PUBLIC = ROOT / "public"
 DIST = ROOT / "dist"
 TEMPLATES = Path(__file__).resolve().parent / "templates"
+GENERATED_APP_HEADER = ROOT / "src" / "generated" / "content-header.html"
+HEADER_MARKER = "<!-- CONTENT_HEADER -->"
 
 
 def _env() -> Environment:
@@ -146,6 +154,67 @@ def _enrich_related(
     return enriched
 
 
+def _header_context(
+    locale: str,
+    *,
+    active: str = "",
+    votw_href: str | None = None,
+) -> dict:
+    chrome = chrome_for(locale)
+    return {
+        "locale": locale,
+        "active": active,
+        "chrome": chrome,
+        "languages": _lang_hrefs(locale),
+        "votw_href": votw_href,
+        "votw_nav_label": votw_nav_label_for(locale, chrome),
+        "whats_new_href": whats_new_href_for(locale),
+        "flashcards_href": FLASHCARDS_HREF,
+        "subscribe_title": "Verb of the Week by email" if locale == "en" else "",
+    }
+
+
+def _render_header(env: Environment, locale: str, *, active: str = "", votw_href: str | None = None) -> str:
+    return env.get_template("partials/content_header.html").render(
+        **_header_context(locale, active=active, votw_href=votw_href)
+    )
+
+
+def _inject_landing_headers(dist: Path, env: Environment, votw_nav: dict[str, str]) -> None:
+    """Replace <!-- CONTENT_HEADER --> in copied locale landings."""
+    for locale in ("en", "es", "fr"):
+        path = dist / locale / "index.html"
+        if not path.is_file():
+            continue
+        html = path.read_text(encoding="utf-8")
+        if HEADER_MARKER not in html:
+            print(
+                f"warning: {path.relative_to(dist)} missing {HEADER_MARKER}; "
+                f"landing header not updated from partial",
+                file=sys.stderr,
+            )
+            continue
+        header = _render_header(
+            env,
+            locale,
+            active="" if locale == "en" else "home",
+            votw_href=votw_nav.get(locale),
+        )
+        path.write_text(html.replace(HEADER_MARKER, header), encoding="utf-8")
+
+
+def _write_app_header(env: Environment, votw_nav: dict[str, str]) -> None:
+    """Emit the EN header (Flashcards active) for the React practice app."""
+    html = _render_header(
+        env,
+        "en",
+        active="flashcards",
+        votw_href=votw_nav.get("en"),
+    )
+    GENERATED_APP_HEADER.parent.mkdir(parents=True, exist_ok=True)
+    GENERATED_APP_HEADER.write_text(html + "\n", encoding="utf-8")
+
+
 def _render_page(
     template,
     page,
@@ -168,13 +237,15 @@ def _render_page(
     page.tail_body_html = _expand_art_bands(page.tail_body_html)
     return template.render(
         page=page,
-        chrome=chrome_for(locale),
         site_origin=SITE_ORIGIN,
-        languages=_lang_hrefs(locale),
         canonical_url=_canonical_url(page.canonical_path),
         related=related,
         social_links=SOCIAL_LINKS,
-        votw_href=votw_nav.get(locale),
+        **_header_context(
+            locale,
+            active=getattr(page, "active", "") or "",
+            votw_href=votw_nav.get(locale),
+        ),
     )
 
 
@@ -413,6 +484,8 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
             if path.stem == VOTW_INDEX_STEM
         ]
     )
+    _inject_landing_headers(dist, env, votw_nav)
+    _write_app_header(env, votw_nav)
     pages_by_href: dict[str, dict[str, str]] = {}
     for page in (
         *[p for p, _path in core_pages],
@@ -539,6 +612,17 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
     return 0
 
 
+def emit_app_header() -> None:
+    """Write src/generated/content-header.html for the practice app (no full site build)."""
+    env = _env()
+    series = [
+        (locale, target)
+        for _path, locale, target in discover_votw_pages(CONTENT)
+        if _path.stem == VOTW_INDEX_STEM and not is_draft(_path)
+    ]
+    _write_app_header(env, _votw_nav_hrefs(series))
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(prog="python -m tools.content_builder")
     parser.add_argument(
@@ -546,7 +630,15 @@ def main() -> int:
         action="store_true",
         help="also emit pages marked draft: true (local builds only)",
     )
+    parser.add_argument(
+        "--app-header-only",
+        action="store_true",
+        help="only emit src/generated/content-header.html for the practice app",
+    )
     args = parser.parse_args()
+    if args.app_header_only:
+        emit_app_header()
+        return 0
     return build(include_drafts=args.drafts)
 
 

@@ -1,0 +1,125 @@
+{
+  "verb": "prendre",
+  "gloss": "to take",
+  "level": "A1",
+  "locale": "en",
+  "target": "learn-french",
+  "lessonHref": "/en/learn-french/votw/votw-prendre-a1/",
+  "about": "Practice the conjugations and expressions featured in this week's Verb of the Week article.",
+  "related": [
+    {
+      "href": "/en/learn-french/votw/votw-prendre-a1/",
+      "title": "prendre",
+      "meta": "Verb of the Week lesson"
+    },
+    {
+      "href": "/en/learn-french/votw/",
+      "title": "Verb of the Week",
+      "meta": "Series index"
+    }
+  ],
+  "cards": [
+    {
+      "id": "prendre-je",
+      "type": "conjugation",
+      "subject": "je",
+      "en": "I take",
+      "fr": "Je prends",
+      "example": "Je prends mon sac.",
+      "exampleTranslation": "I'm taking my bag."
+    },
+    {
+      "id": "prendre-tu",
+      "type": "conjugation",
+      "subject": "tu",
+      "en": "you take",
+      "fr": "Tu prends",
+      "example": "Prends ton téléphone.",
+      "exampleTranslation": "Take your phone."
+    },
+    {
+      "id": "prendre-il",
+      "type": "conjugation",
+      "subject": "il / elle / on",
+      "en": "he / she / one takes",
+      "fr": "Il / elle / on prend",
+      "example": "Elle prend un livre.",
+      "exampleTranslation": "She takes a book."
+    },
+    {
+      "id": "prendre-nous",
+      "type": "conjugation",
+      "subject": "nous",
+      "en": "we take",
+      "fr": "Nous prenons",
+      "example": "Nous prenons le train.",
+      "exampleTranslation": "We take the train."
+    },
+    {
+      "id": "prendre-vous",
+      "type": "conjugation",
+      "subject": "vous",
+      "en": "you take (formal / plural)",
+      "fr": "Vous prenez",
+      "example": "Vous prenez un café ?",
+      "exampleTranslation": "Are you having a coffee?"
+    },
+    {
+      "id": "prendre-ils",
+      "type": "conjugation",
+      "subject": "ils / elles",
+      "en": "they take",
+      "fr": "Ils / elles prennent",
+      "example": "Ils prennent le bus.",
+      "exampleTranslation": "They take the bus."
+    },
+    {
+      "id": "prendre-bus",
+      "type": "expression",
+      "en": "take the bus",
+      "fr": "prendre le bus",
+      "example": "J'ai pris le bus.",
+      "exampleTranslation": "I took the bus. / I went by bus."
+    },
+    {
+      "id": "prendre-cafe",
+      "type": "expression",
+      "en": "have a coffee",
+      "fr": "prendre un café",
+      "example": "J'ai pris un café dans le restaurant.",
+      "exampleTranslation": "I had a coffee in the restaurant."
+    },
+    {
+      "id": "prendre-photo",
+      "type": "expression",
+      "en": "take a photo",
+      "fr": "prendre une photo",
+      "example": "Je prends une photo.",
+      "exampleTranslation": "I'm taking a photo."
+    },
+    {
+      "id": "prendre-rdv",
+      "type": "expression",
+      "en": "make an appointment",
+      "fr": "prendre rendez-vous",
+      "example": "Je prends rendez-vous demain.",
+      "exampleTranslation": "I'm making an appointment tomorrow."
+    },
+    {
+      "id": "prendre-decision",
+      "type": "expression",
+      "en": "make a decision",
+      "fr": "prendre une décision",
+      "example": "Elle prend une décision.",
+      "exampleTranslation": "She makes a decision."
+    },
+    {
+      "id": "prendre-froid",
+      "type": "expression",
+      "en": "catch a chill / get cold",
+      "fr": "prendre froid",
+      "example": "Mets ton manteau, tu vas prendre froid.",
+      "exampleTranslation": "Put on your coat or you'll catch a chill."
+    }
+  ]
+}

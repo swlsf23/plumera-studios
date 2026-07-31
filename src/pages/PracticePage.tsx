@@ -1,12 +1,11 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import ContentHeader from '../components/ContentHeader';
 import Flashcard from '../components/Flashcard';
 import SiteFooter from '../components/SiteFooter';
-import { getDeck } from '../practice/sampleDeck';
+import { getDeck } from '../practice/loadDeck';
 import { useStudySession } from '../practice/useStudySession';
-
-type PracticeTab = 'flashcards' | 'about' | 'definition';
+import type { Deck } from '../practice/types';
 
 export default function PracticePage() {
   const { verb = '' } = useParams();
@@ -28,24 +27,103 @@ export default function PracticePage() {
     );
   }
 
-  return <PracticeSession deck={deck} />;
+  return <PracticeSession key={deck.verb} deck={deck} />;
 }
 
-function PracticeSession({ deck }: { deck: NonNullable<ReturnType<typeof getDeck>> }) {
-  const session = useStudySession(deck);
-  const [tab, setTab] = useState<PracticeTab>('flashcards');
+function PracticeSession({ deck }: { deck: Deck }) {
+  const session = useStudySession(deck, { enabled: true });
   const conjugationCount = deck.cards.filter((c) => c.type === 'conjugation').length;
   const expressionCount = deck.cards.filter((c) => c.type === 'expression').length;
+  const related = deck.related?.length
+    ? deck.related
+    : [
+        {
+          href: deck.lessonHref,
+          title: deck.verb,
+          meta: 'Verb of the Week lesson',
+        },
+      ];
+  const about =
+    deck.about ??
+    "Practice the conjugations and expressions featured in this week's Verb of the Week article.";
 
   return (
     <div className="page practice-app">
       <ContentHeader />
 
       <main className="practice-shell">
+        <section className="workspace">
+          <header className="page-heading">
+            <div className="page-heading__meta">
+              <p className="page-heading__eyebrow">Practice</p>
+              {deck.level ? (
+                <span className="page-heading__level">
+                  <span className="page-heading__level-prefix">Level</span>
+                  <a className="page-heading__level-badge" href="/en/cefr/">
+                    {deck.level}
+                  </a>
+                </span>
+              ) : null}
+            </div>
+            <h1>
+              <em>{deck.verb}</em>
+            </h1>
+            <p className="page-summary">
+              Browse the deck with the arrow keys. Know / don&apos;t know comes next.
+            </p>
+          </header>
+
+          {session.card ? (
+            <Flashcard
+              card={session.card}
+              index={session.index}
+              total={session.total}
+              face={session.face}
+              mode={session.mode}
+              pass={session.pass}
+              showingLang={session.showingLang}
+              promptText={session.promptText}
+              answerText={session.answerText}
+              progressPct={session.progressPct}
+              canPrev={session.canPrev}
+              canNext={session.canNext}
+              onPrev={session.prevCard}
+              onNext={session.nextCard}
+              onFlipUp={session.flipUp}
+              onFlipDown={session.flipDown}
+              onModeChange={session.setStudyMode}
+            />
+          ) : null}
+        </section>
+
         <aside className="sidebar">
+          <section className="panel definition-panel">
+            <p className="eyebrow">Definition</p>
+            <p className="sidebar-verb">
+              <em>{deck.verb}</em>
+            </p>
+            <p className="sidebar-level">{deck.level}</p>
+            <p className="sidebar-gloss">{deck.gloss}</p>
+          </section>
+
+          <section className="panel about-panel">
+            <p className="eyebrow">About this deck</p>
+            <p className="sidebar-about">{about}</p>
+            <ul className="sidebar-deck-stats">
+              <li>
+                <strong>{conjugationCount}</strong>
+                <span>conjugations</span>
+              </li>
+              <li>
+                <strong>{expressionCount}</strong>
+                <span>expressions</span>
+              </li>
+            </ul>
+          </section>
+
           <section className="panel progress-panel">
-            <p className="eyebrow">Practice progress</p>
-            <div className="progress-overview">
+            <p className="eyebrow">Deck position</p>
+            <div className="progress-overview progress-overview--solo">
               <div
                 className="progress-ring"
                 style={{ ['--value' as string]: session.progressPct }}
@@ -55,29 +133,9 @@ function PracticeSession({ deck }: { deck: NonNullable<ReturnType<typeof getDeck
               </div>
               <div>
                 <strong>
-                  {session.completed} of {session.total}
+                  {session.index + 1} of {session.total}
                 </strong>
-                <span>cards completed</span>
-              </div>
-            </div>
-            <div className="score-grid">
-              <div className="score">
-                <span className="score__icon score__icon--correct" aria-hidden="true">
-                  ✓
-                </span>
-                <div>
-                  <strong>{session.knowCount}</strong>
-                  <span>Correct</span>
-                </div>
-              </div>
-              <div className="score">
-                <span className="score__icon score__icon--incorrect" aria-hidden="true">
-                  ×
-                </span>
-                <div>
-                  <strong>{session.dontKnowCount}</strong>
-                  <span>Incorrect</span>
-                </div>
+                <span>current card</span>
               </div>
             </div>
           </section>
@@ -85,165 +143,15 @@ function PracticeSession({ deck }: { deck: NonNullable<ReturnType<typeof getDeck
           <section className="panel related-panel">
             <p className="eyebrow">Related</p>
             <nav className="related-links" aria-label="Related pages">
-              <a href={deck.lessonHref}>
-                <em>{deck.verb}</em>
-                <span>Verb of the Week lesson</span>
-              </a>
-              <a href="/en/learn-french/votw/">
-                Verb of the Week
-                <span>Series index</span>
-              </a>
+              {related.map((item) => (
+                <a key={item.href} href={item.href}>
+                  {item.title === deck.verb ? <em>{item.title}</em> : item.title}
+                  {item.meta ? <span>{item.meta}</span> : null}
+                </a>
+              ))}
             </nav>
           </section>
-
-          <section className="panel tip-panel">
-            <div className="tip-heading">
-              <span aria-hidden="true">⌁</span>
-              <p className="eyebrow">Tip</p>
-            </div>
-            <p>Focus on accuracy, not speed. Review any cards you miss at the end.</p>
-          </section>
         </aside>
-
-        <section className="workspace">
-          <header className="page-heading">
-            <h1>
-              Practice: <em>{deck.verb}</em>
-            </h1>
-            <p>Practice the conjugations and expressions from this week&apos;s verb.</p>
-          </header>
-
-          <nav className="tabs" aria-label="Practice sections">
-            <button
-              className={tab === 'flashcards' ? 'tab is-active' : 'tab'}
-              type="button"
-              onClick={() => setTab('flashcards')}
-            >
-              Flashcards
-            </button>
-            <button
-              className={tab === 'about' ? 'tab is-active' : 'tab'}
-              type="button"
-              onClick={() => setTab('about')}
-            >
-              About this deck
-            </button>
-            <button
-              className={tab === 'definition' ? 'tab is-active' : 'tab'}
-              type="button"
-              onClick={() => setTab('definition')}
-            >
-              Definition
-            </button>
-          </nav>
-
-          {tab === 'flashcards' ? (
-            <>
-              {session.finished || !session.card ? (
-                <section className="flashcard flashcard--done">
-                  <div className="card-content">
-                    <p className="card-kicker">Session complete</p>
-                    <h2>Nice work</h2>
-                    <p className="done-copy">
-                      You graded {session.completed} of {session.total} cards this session. Progress
-                      is not saved yet — refresh or leave and it resets.
-                    </p>
-                  </div>
-                </section>
-              ) : (
-                <Flashcard
-                  card={session.card}
-                  index={session.index}
-                  total={session.total}
-                  face={session.face}
-                  progressPct={session.progressPct}
-                  onReveal={session.reveal}
-                  onGrade={session.grade}
-                  onBack={session.back}
-                />
-              )}
-
-              <section className="session-summary">
-                <div className="session-intro">
-                  <span className="trophy" aria-hidden="true">
-                    ⌁
-                  </span>
-                  <div>
-                    <strong>Session progress</strong>
-                    <span>
-                      {session.completed} of {session.total} cards completed
-                    </span>
-                  </div>
-                </div>
-                <div className="session-score">
-                  <div className="score">
-                    <span className="score__icon score__icon--correct" aria-hidden="true">
-                      ✓
-                    </span>
-                    <div>
-                      <strong>{session.knowCount}</strong>
-                      <span>Correct</span>
-                    </div>
-                  </div>
-                  <div className="score">
-                    <span className="score__icon score__icon--incorrect" aria-hidden="true">
-                      ×
-                    </span>
-                    <div>
-                      <strong>{session.dontKnowCount}</strong>
-                      <span>Incorrect</span>
-                    </div>
-                  </div>
-                </div>
-                <button className="button button--sand-outline" type="button" disabled>
-                  Review missed cards
-                </button>
-              </section>
-            </>
-          ) : null}
-
-          {tab === 'about' ? (
-            <section className="tab-panel">
-              <h2>About this deck</h2>
-              <p>
-                Practice the conjugations and expressions featured in this week&apos;s Verb of the
-                Week article.
-              </p>
-              <div className="deck-summary-grid">
-                <div className="deck-summary-item">
-                  <span className="round-icon round-icon--large" aria-hidden="true">
-                    ◇
-                  </span>
-                  <div>
-                    <strong>Conjugations ({conjugationCount})</strong>
-                    <p>
-                      Practice the forms of <em>{deck.verb}</em> for the subjects in this deck.
-                    </p>
-                  </div>
-                </div>
-                <div className="deck-summary-item">
-                  <span className="round-icon round-icon--large" aria-hidden="true">
-                    ●
-                  </span>
-                  <div>
-                    <strong>Expressions ({expressionCount})</strong>
-                    <p>Learn key expressions and their meanings.</p>
-                  </div>
-                </div>
-              </div>
-            </section>
-          ) : null}
-
-          {tab === 'definition' ? (
-            <section className="tab-panel">
-              <h2>
-                <em>{deck.verb}</em>
-              </h2>
-              <p className="definition-level">{deck.level}</p>
-              <p className="definition-gloss">{deck.gloss}</p>
-            </section>
-          ) : null}
-        </section>
       </main>
 
       <SiteFooter />
