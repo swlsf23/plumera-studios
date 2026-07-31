@@ -1,5 +1,14 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  emitCardGraded,
+  emitKey,
+  emitPlayedAudio,
+  emitStudyEvent,
+  newSessionId,
+  setActiveStudySession,
+} from './events';
 import { loadStudySession, saveStudySession } from './sessionStorage';
+import { STUDY_DEFAULTS } from './studyDefaults';
 import {
   answerLang,
   promptLang,
@@ -32,13 +41,18 @@ export function useStudySession(deck: Deck, { enabled }: { enabled: boolean }) {
   const verb = deck.verb;
 
   const restored = useMemo(() => loadStudySession(verb, total), [verb, total]);
+  const sessionIdRef = useRef(newSessionId());
+  const startedModeRef = useRef<StudyMode>(restored?.mode ?? STUDY_DEFAULTS.defaultMode);
+  const startedEmitted = useRef(false);
 
   const [queue, setQueue] = useState<number[]>(() => restored?.queue ?? fullQueue(total));
   const [queuePos, setQueuePos] = useState(() => restored?.queuePos ?? 0);
   const [cleared, setCleared] = useState(() => restored?.cleared ?? 0);
   const [done, setDone] = useState(() => restored?.done ?? false);
   const [face, setFace] = useState<CardFace>(() => restored?.face ?? 'prompt');
-  const [mode, setMode] = useState<StudyMode>(() => restored?.mode ?? 'mixed');
+  const [mode, setMode] = useState<StudyMode>(
+    () => restored?.mode ?? STUDY_DEFAULTS.defaultMode,
+  );
   /** Pass 1 = EN→FR, pass 2 = FR→EN (both mode only). */
   const [pass, setPass] = useState<1 | 2>(() => restored?.pass ?? 1);
   const [mixedDirections, setMixedDirections] = useState<StudyDirection[]>(
@@ -110,6 +124,32 @@ export function useStudySession(deck: Deck, { enabled }: { enabled: boolean }) {
   const promptText = card ? textForLang(card, promptLang(direction)) : '';
   const answerText = card ? textForLang(card, answerLang(direction)) : '';
 
+  useEffect(() => {
+    setActiveStudySession({
+      session_id: sessionIdRef.current,
+      verb,
+      locale: deck.locale,
+      target: deck.target,
+      started_mode: startedModeRef.current,
+      mode,
+      pass,
+      face,
+      direction,
+      card,
+    });
+    return () => setActiveStudySession(null);
+  }, [verb, deck.locale, deck.target, mode, pass, face, direction, card]);
+
+  useEffect(() => {
+    if (!enabled || startedEmitted.current) return;
+    startedEmitted.current = true;
+    emitStudyEvent('session_started', {
+      defaults: { ...STUDY_DEFAULTS },
+      restored: Boolean(restored),
+      card_count: total,
+    });
+  }, [enabled, restored, total]);
+
   const resetFace = useCallback(() => {
     setFace('prompt');
     setReturnFace('prompt');
@@ -136,6 +176,7 @@ export function useStudySession(deck: Deck, { enabled }: { enabled: boolean }) {
 
   const markKnow = useCallback(() => {
     if (done || queue.length === 0) return;
+    if (card) emitCardGraded('know', card, direction);
 
     const nextQueue = queue.filter((_, i) => i !== queuePos);
     const nextCleared = cleared + 1;
@@ -153,6 +194,10 @@ export function useStudySession(deck: Deck, { enabled }: { enabled: boolean }) {
       setQueuePos(0);
       setCleared(nextCleared);
       setDone(true);
+      emitStudyEvent('session_completed', {
+        cleared: nextCleared,
+        session_goal: mode === 'both' ? total * 2 : total,
+      });
       return;
     }
 
@@ -160,12 +205,15 @@ export function useStudySession(deck: Deck, { enabled }: { enabled: boolean }) {
     setQueuePos(Math.min(queuePos, nextQueue.length - 1));
     setCleared(nextCleared);
     resetFace();
-  }, [cleared, done, mode, pass, queue, queuePos, resetFace, total]);
+  }, [card, cleared, direction, done, mode, pass, queue, queuePos, resetFace, total]);
 
   const markDontKnow = useCallback(() => {
-    if (done || queue.length <= 1) {
+    if (done || queue.length === 0) return;
+    if (card) emitCardGraded('dont_know', card, direction);
+
+    if (queue.length <= 1) {
       // Single card left: send to back is a no-op positionally; still reset face.
-      if (!done && queue.length === 1) resetFace();
+      resetFace();
       return;
     }
 
@@ -178,9 +226,11 @@ export function useStudySession(deck: Deck, { enabled }: { enabled: boolean }) {
     setQueue(nextQueue);
     setQueuePos(nextPos);
     resetFace();
-  }, [done, queue, queuePos, resetFace]);
+  }, [card, direction, done, queue, queuePos, resetFace]);
 
   const restartSession = useCallback(() => {
+    sessionIdRef.current = newSessionId();
+    startedModeRef.current = mode;
     setQueue(fullQueue(total));
     setQueuePos(0);
     setCleared(0);
@@ -190,6 +240,13 @@ export function useStudySession(deck: Deck, { enabled }: { enabled: boolean }) {
       setMixedDirections(randomDirections(total));
     }
     resetFace();
+    emitStudyEvent('session_started', {
+      defaults: { ...STUDY_DEFAULTS },
+      restored: false,
+      restarted: true,
+      card_count: total,
+      mode,
+    });
   }, [mode, resetFace, total]);
 
   /** ↑ / ↓ cycle prompt ↔ answer only (wrap). Example is not in this cycle. */
@@ -233,7 +290,10 @@ export function useStudySession(deck: Deck, { enabled }: { enabled: boolean }) {
   /** Temp: mode change resets the queue. Revisit later. */
   const setStudyMode = useCallback(
     (next: StudyMode) => {
+      const previous = mode;
       setMode(next);
+      startedModeRef.current = next;
+      sessionIdRef.current = newSessionId();
       setQueue(fullQueue(total));
       setQueuePos(0);
       setCleared(0);
@@ -243,8 +303,23 @@ export function useStudySession(deck: Deck, { enabled }: { enabled: boolean }) {
       }
       setPass(1);
       resetFace();
+      emitStudyEvent('mode_changed', { from: previous, to: next });
+      emitStudyEvent('session_started', {
+        defaults: { ...STUDY_DEFAULTS },
+        restored: false,
+        mode_reset: true,
+        card_count: total,
+        mode: next,
+      });
     },
-    [resetFace, total],
+    [mode, resetFace, total],
+  );
+
+  const trackPlayedAudio = useCallback(
+    (audioUrl: string | null) => {
+      emitPlayedAudio(card, audioUrl);
+    },
+    [card],
   );
 
   useEffect(() => {
@@ -268,35 +343,43 @@ export function useStudySession(deck: Deck, { enabled }: { enabled: boolean }) {
         case ' ':
         case 'Spacebar':
           event.preventDefault();
+          emitKey('Space');
           flipDown();
           break;
         case 'ArrowUp':
           event.preventDefault();
+          emitKey('ArrowUp');
           flipUp();
           break;
         case 'ArrowDown':
           event.preventDefault();
+          emitKey('ArrowDown');
           flipDown();
           break;
         case 'ArrowLeft':
           event.preventDefault();
+          emitKey('ArrowLeft');
           prevCard();
           break;
         case 'ArrowRight':
           event.preventDefault();
+          emitKey('ArrowRight');
           nextCard();
           break;
         case 'e':
         case 'E':
           event.preventDefault();
+          emitKey('e');
           jumpExample();
           break;
         case '3':
           event.preventDefault();
+          emitKey('3');
           markDontKnow();
           break;
         case '4':
           event.preventDefault();
+          emitKey('4');
           markKnow();
           break;
         default:
@@ -346,5 +429,6 @@ export function useStudySession(deck: Deck, { enabled }: { enabled: boolean }) {
     markDontKnow,
     restartSession,
     setStudyMode,
+    trackPlayedAudio,
   };
 }

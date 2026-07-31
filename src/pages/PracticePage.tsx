@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import Flashcard from '../components/Flashcard';
 import SiteFooter from '../components/SiteFooter';
 import { getDeck } from '../practice/loadDeck';
+import { resolveAudioUrl } from '../practice/resolveAudioUrl';
 import { useStudySession } from '../practice/useStudySession';
 import type { Deck } from '../practice/types';
 
@@ -90,6 +91,12 @@ function PracticeSession({ deck }: { deck: Deck }) {
             onDontKnow={session.markDontKnow}
             onRestart={session.restartSession}
             onModeChange={session.setStudyMode}
+            audioUrl={resolveAudioUrl(session.card?.audio, deck.locale, deck.target)}
+            onPlayedAudio={() =>
+              session.trackPlayedAudio(
+                resolveAudioUrl(session.card?.audio, deck.locale, deck.target),
+              )
+            }
           />
 
           <section className="related-band">

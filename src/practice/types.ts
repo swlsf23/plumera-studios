@@ -31,6 +31,8 @@ export interface Flashcard {
   fr: string;
   example?: string;
   exampleTranslation?: string;
+  /** Path relative to `data/{locale}/{target}/` (e.g. `prendre/prendre_je_prends.mp3`). */
+  audio?: string;
 }
 
 export interface Deck {

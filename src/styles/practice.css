@@ -609,6 +609,36 @@
   border-color: rgba(185, 157, 98, 0.34);
 }
 
+.audio-button {
+  margin-top: 24px;
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border: 2px solid #7f99a2;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.72);
+  color: #5f7a84;
+  font: inherit;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(127, 153, 162, 0.28);
+}
+
+.audio-button:hover {
+  background: #7f99a2;
+  border-color: #7f99a2;
+  color: #fff;
+}
+
+.audio-button.is-playing {
+  background: #7f99a2;
+  border-color: #7f99a2;
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(127, 153, 162, 0.38);
+}
+
 .pref-fieldset {
   margin: 28px 0 0;
   padding: 0;

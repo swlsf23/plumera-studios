@@ -41,6 +41,7 @@ from tools.content_builder.sitemaps import write_sitemaps
 ROOT = Path(__file__).resolve().parents[2]
 CONTENT = ROOT / "content"
 PUBLIC = ROOT / "public"
+DATA = ROOT / "data"
 DIST = ROOT / "dist"
 TEMPLATES = Path(__file__).resolve().parent / "templates"
 GENERATED_APP_HEADER = ROOT / "src" / "generated" / "content-header.html"
@@ -62,6 +63,20 @@ def _copy_public(dist: Path) -> None:
         dist,
         ignore=shutil.ignore_patterns("sitemap.xml"),
     )
+
+
+def _copy_data_audio(dist: Path) -> None:
+    """Emit dataset mp3s into dist/data/… Source of truth stays under data/."""
+    if not DATA.is_dir():
+        return
+    copied = 0
+    for src in DATA.rglob("*.mp3"):
+        dest = dist / "data" / src.relative_to(DATA)
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(src, dest)
+        copied += 1
+    if copied:
+        print(f"Copied {copied} audio files into {dist / 'data'}")
 
 
 def _lang_hrefs(locale: str) -> list[dict[str, str | bool]]:
@@ -432,6 +447,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
     env = _env()
     template = env.get_template("content_page.html")
     _copy_public(dist)
+    _copy_data_audio(dist)
 
     core_pages = [(parse_core_page(p, loc), p) for p, loc in discover_core_pages(CONTENT)]
 

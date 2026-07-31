@@ -609,6 +609,32 @@
   font-weight: 400;
 }
 
+/* Inline play control after French example text (does not navigate). */
+button.inline-audio {
+  display: inline-grid;
+  place-items: center;
+  width: 1.55em;
+  height: 1.55em;
+  margin: 0 0 0 0.35em;
+  padding: 0;
+  vertical-align: -0.15em;
+  border: 1px solid #7f99a2;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.72);
+  color: #5f7a84;
+  font: inherit;
+  font-size: 0.78em;
+  line-height: 1;
+  cursor: pointer;
+}
+
+button.inline-audio:hover,
+button.inline-audio.is-playing {
+  background: #7f99a2;
+  border-color: #7f99a2;
+  color: #fff;
+}
+
 /* Incorrect | Correct: light red panel; fix wins the eye. */
 .content-page--votw .article-body table.pair-table--correction,
 .content-page--articles .article-body table.pair-table--correction {

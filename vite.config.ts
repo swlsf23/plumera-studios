@@ -1,4 +1,4 @@
-import { cpSync, mkdirSync, readFileSync, existsSync } from 'node:fs';
+import { appendFileSync, cpSync, mkdirSync, readFileSync, existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { defineConfig, type Plugin, type Connect } from 'vite';
 import react from '@vitejs/plugin-react';
@@ -9,6 +9,8 @@ const VERB_SHELLS = ['prendre'] as const;
 const HEADER_MARKER = '<!-- CONTENT_HEADER -->';
 const GENERATED_HEADER = resolve(__dirname, 'src/generated/content-header.html');
 const PUBLIC_DIR = resolve(__dirname, 'public');
+const DATA_DIR = resolve(__dirname, 'data');
+const LOCAL_EVENTS_FILE = resolve(__dirname, 'tmp/study-events.jsonl');
 
 /**
  * Inject the builder-emitted header fragment into the app HTML shell.
@@ -51,34 +53,87 @@ function keepSiteChromeRootPaths(): Plugin {
   };
 }
 
-/** For `npm run dev:app`, serve /css and /js from public/ like the static site. */
+/** For `npm run dev:app`, serve site chrome + dataset audio from disk (no copies). */
 function serveSiteChrome(): Plugin {
   return {
     name: 'serve-site-chrome',
     configureServer(server) {
       const chrome: Connect.NextHandleFunction = (req, res, next) => {
         const url = req.url ?? '';
-        if (!url.startsWith('/css/') && !url.startsWith('/js/')) {
-          next();
-          return;
-        }
         const pathOnly = url.split('?')[0] ?? url;
-        const file = resolve(PUBLIC_DIR, pathOnly.slice(1));
-        if (!file.startsWith(PUBLIC_DIR) || !existsSync(file)) {
-          next();
+
+        if (pathOnly.startsWith('/css/') || pathOnly.startsWith('/js/')) {
+          const file = resolve(PUBLIC_DIR, pathOnly.slice(1));
+          if (!file.startsWith(PUBLIC_DIR) || !existsSync(file)) {
+            next();
+            return;
+          }
+          try {
+            const body = readFileSync(file);
+            if (file.endsWith('.css')) res.setHeader('Content-Type', 'text/css; charset=utf-8');
+            else if (file.endsWith('.js'))
+              res.setHeader('Content-Type', 'text/javascript; charset=utf-8');
+            res.end(body);
+          } catch {
+            next();
+          }
           return;
         }
-        try {
-          const body = readFileSync(file);
-          if (file.endsWith('.css')) res.setHeader('Content-Type', 'text/css; charset=utf-8');
-          else if (file.endsWith('.js'))
-            res.setHeader('Content-Type', 'text/javascript; charset=utf-8');
-          res.end(body);
-        } catch {
-          next();
+
+        if (pathOnly.startsWith('/data/') && pathOnly.endsWith('.mp3')) {
+          const file = resolve(DATA_DIR, pathOnly.slice('/data/'.length));
+          if (!file.startsWith(DATA_DIR) || !existsSync(file)) {
+            next();
+            return;
+          }
+          try {
+            res.setHeader('Content-Type', 'audio/mpeg');
+            res.end(readFileSync(file));
+          } catch {
+            next();
+          }
+          return;
         }
+
+        next();
       };
       server.middlewares.use(chrome);
+
+      server.middlewares.use((req, res, next) => {
+        const pathOnly = (req.url ?? '').split('?')[0] ?? '';
+        if (pathOnly !== '/__local/study-events') {
+          next();
+          return;
+        }
+        if (req.method === 'OPTIONS') {
+          res.statusCode = 204;
+          res.setHeader('Access-Control-Allow-Origin', '*');
+          res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+          res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+          res.end();
+          return;
+        }
+        if (req.method !== 'POST') {
+          next();
+          return;
+        }
+        const chunks: Buffer[] = [];
+        req.on('data', (chunk) => chunks.push(Buffer.from(chunk)));
+        req.on('end', () => {
+          try {
+            const raw = Buffer.concat(chunks).toString('utf8') || '{}';
+            JSON.parse(raw);
+            mkdirSync(resolve(__dirname, 'tmp'), { recursive: true });
+            appendFileSync(LOCAL_EVENTS_FILE, `${raw.trim()}\n`, 'utf8');
+            res.statusCode = 204;
+            res.setHeader('Access-Control-Allow-Origin', '*');
+            res.end();
+          } catch {
+            res.statusCode = 400;
+            res.end('Invalid JSON');
+          }
+        });
+      });
     },
   };
 }

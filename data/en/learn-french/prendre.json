@@ -26,7 +26,8 @@
       "en": "I take",
       "fr": "Je prends",
       "example": "Je prends mon sac.",
-      "exampleTranslation": "I'm taking my bag."
+      "exampleTranslation": "I'm taking my bag.",
+      "audio": "prendre/prendre_je_prends.mp3"
     },
     {
       "id": "prendre-tu",
@@ -35,7 +36,8 @@
       "en": "you take",
       "fr": "Tu prends",
       "example": "Prends ton téléphone.",
-      "exampleTranslation": "Take your phone."
+      "exampleTranslation": "Take your phone.",
+      "audio": "prendre/prendre_tu_prends.mp3"
     },
     {
       "id": "prendre-il",
@@ -44,7 +46,8 @@
       "en": "he / she / one takes",
       "fr": "Il / elle / on prend",
       "example": "Elle prend un livre.",
-      "exampleTranslation": "She takes a book."
+      "exampleTranslation": "She takes a book.",
+      "audio": "prendre/prendre_ieo_prends.mp3"
     },
     {
       "id": "prendre-nous",
@@ -53,7 +56,8 @@
       "en": "we take",
       "fr": "Nous prenons",
       "example": "Nous prenons le train.",
-      "exampleTranslation": "We take the train."
+      "exampleTranslation": "We take the train.",
+      "audio": "prendre/prendre_nous_prenons.mp3"
     },
     {
       "id": "prendre-vous",
@@ -62,7 +66,8 @@
       "en": "you take (formal / plural)",
       "fr": "Vous prenez",
       "example": "Vous prenez un café ?",
-      "exampleTranslation": "Are you having a coffee?"
+      "exampleTranslation": "Are you having a coffee?",
+      "audio": "prendre/vous_prenez.mp3"
     },
     {
       "id": "prendre-ils",
@@ -71,7 +76,8 @@
       "en": "they take",
       "fr": "Ils / elles prennent",
       "example": "Ils prennent le bus.",
-      "exampleTranslation": "They take the bus."
+      "exampleTranslation": "They take the bus.",
+      "audio": "prendre/ie_prennent.mp3"
     },
     {
       "id": "prendre-bus",
@@ -79,7 +85,8 @@
       "en": "take the bus",
       "fr": "prendre le bus",
       "example": "J'ai pris le bus.",
-      "exampleTranslation": "I took the bus. / I went by bus."
+      "exampleTranslation": "I took the bus. / I went by bus.",
+      "audio": "prendre/prendre_le_bus.mp3"
     },
     {
       "id": "prendre-cafe",
@@ -87,7 +94,8 @@
       "en": "have a coffee",
       "fr": "prendre un café",
       "example": "J'ai pris un café dans le restaurant.",
-      "exampleTranslation": "I had a coffee in the restaurant."
+      "exampleTranslation": "I had a coffee in the restaurant.",
+      "audio": "prendre/prendre_un_cafe.mp3"
     },
     {
       "id": "prendre-photo",
@@ -95,7 +103,8 @@
       "en": "take a photo",
       "fr": "prendre une photo",
       "example": "Je prends une photo.",
-      "exampleTranslation": "I'm taking a photo."
+      "exampleTranslation": "I'm taking a photo.",
+      "audio": "prendre/prendre_une_photo.mp3"
     },
     {
       "id": "prendre-rdv",
@@ -103,7 +112,8 @@
       "en": "make an appointment",
       "fr": "prendre rendez-vous",
       "example": "Je prends rendez-vous demain.",
-      "exampleTranslation": "I'm making an appointment tomorrow."
+      "exampleTranslation": "I'm making an appointment tomorrow.",
+      "audio": "prendre/prendre_rendez_vous.mp3"
     },
     {
       "id": "prendre-decision",
@@ -111,7 +121,8 @@
       "en": "make a decision",
       "fr": "prendre une décision",
       "example": "Elle prend une décision.",
-      "exampleTranslation": "She makes a decision."
+      "exampleTranslation": "She makes a decision.",
+      "audio": "prendre/prendre_une_decision.mp3"
     },
     {
       "id": "prendre-froid",
@@ -119,7 +130,8 @@
       "en": "catch a chill / get cold",
       "fr": "prendre froid",
       "example": "Mets ton manteau, tu vas prendre froid.",
-      "exampleTranslation": "Put on your coat or you'll catch a chill."
+      "exampleTranslation": "Put on your coat or you'll catch a chill.",
+      "audio": "prendre/prendre_froid.mp3"
     }
   ]
 }

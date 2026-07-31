@@ -35,13 +35,13 @@ Learn these patterns and you will be able to use *prendre* in your everyday Fren
 
 | Singular | Plural |
 |----------|--------|
-| je prends | nous prenons |
-| tu prends | vous prenez |
-| il / elle prend | ils / elles prennent |
+| je prends <button type="button" class="inline-audio" data-src="/data/en/learn-french/prendre/prendre_je_prends.mp3" aria-label="Play audio"><span aria-hidden="true">♪</span></button> | nous prenons <button type="button" class="inline-audio" data-src="/data/en/learn-french/prendre/prendre_nous_prenons.mp3" aria-label="Play audio"><span aria-hidden="true">♪</span></button> |
+| tu prends <button type="button" class="inline-audio" data-src="/data/en/learn-french/prendre/prendre_tu_prends.mp3" aria-label="Play audio"><span aria-hidden="true">♪</span></button> | vous prenez <button type="button" class="inline-audio" data-src="/data/en/learn-french/prendre/vous_prenez.mp3" aria-label="Play audio"><span aria-hidden="true">♪</span></button> |
+| il / elle prend <button type="button" class="inline-audio" data-src="/data/en/learn-french/prendre/prendre_ieo_prends.mp3" aria-label="Play audio"><span aria-hidden="true">♪</span></button> | ils / elles prennent <button type="button" class="inline-audio" data-src="/data/en/learn-french/prendre/ie_prennent.mp3" aria-label="Play audio"><span aria-hidden="true">♪</span></button> |
 
 The three singular forms sound identical, so spelling matters more in writing than in speech. This conjugation pattern is similar to other verbs like *apprendre* and *comprendre*.
 
-One habit that will keep your sentences correct: keep the article. French says *prendre le bus*, never *prendre bus*.
+One habit that will keep your sentences correct: keep the article. French says *prendre le bus* <button type="button" class="inline-audio" data-src="/data/en/learn-french/prendre/prendre_le_bus.mp3" aria-label="Play audio"><span aria-hidden="true">♪</span></button>, never *prendre bus*.
 
 In the past tense, *prendre* uses *avoir*, and the participle is *pris*:
 
@@ -71,8 +71,8 @@ Buses, trains, taxis, the metro, planes. Where English says "go by bus," French 
 
 | French | English |
 |--------|---------|
-| J'ai pris le bus. | I took the bus. / I went by bus. |
-| Nous prenons le train. | We take the train. |
+| J'ai pris le bus. <button type="button" class="inline-audio" data-src="/data/en/learn-french/prendre/prendre_le_bus.mp3" aria-label="Play audio"><span aria-hidden="true">♪</span></button> | I took the bus. / I went by bus. |
+| Nous prenons le train. <button type="button" class="inline-audio" data-src="/data/en/learn-french/prendre/prendre_nous_prenons.mp3" aria-label="Play audio"><span aria-hidden="true">♪</span></button> | We take the train. |
 | Elle prend un taxi. | She takes a taxi. |
 
 ### Having food, drink, or medicine
@@ -81,7 +81,7 @@ Here *prendre* covers English "have," for meals, drinks, and medicine alike. Ord
 
 | French | English |
 |--------|---------|
-| Je prends un café. | I'm having a coffee. |
+| Je prends un café. <button type="button" class="inline-audio" data-src="/data/en/learn-french/prendre/prendre_un_cafe.mp3" aria-label="Play audio"><span aria-hidden="true">♪</span></button> | I'm having a coffee. |
 | Nous prenons le petit-déjeuner à huit heures. | We have breakfast at eight o'clock. |
 | Il prend un médicament. | He takes medicine. |
 
@@ -90,7 +90,7 @@ Here *prendre* covers English "have," for meals, drinks, and medicine alike. Ord
 | French | English |
 |--------|---------|
 | Je bois un café. | I drink a coffee. |
-| Je prends un café. | I'm having a coffee. |
+| Je prends un café. <button type="button" class="inline-audio" data-src="/data/en/learn-french/prendre/prendre_un_cafe.mp3" aria-label="Play audio"><span aria-hidden="true">♪</span></button> | I'm having a coffee. |
 
 *Boire* is the physical act of drinking. *Prendre* is the occasion: ordering a drink, sitting down with it, having one as part of your morning.
 
@@ -104,9 +104,9 @@ Here are three more combinations using *prendre* that fall outside the senses ab
 
 | French | English |
 |--------|---------|
-| prendre une photo | to take a photo |
-| prendre rendez-vous | to make an appointment |
-| prendre une décision | to make a decision |
+| prendre une photo <button type="button" class="inline-audio" data-src="/data/en/learn-french/prendre/prendre_une_photo.mp3" aria-label="Play audio"><span aria-hidden="true">♪</span></button> | to take a photo |
+| prendre rendez-vous <button type="button" class="inline-audio" data-src="/data/en/learn-french/prendre/prendre_rendez_vous.mp3" aria-label="Play audio"><span aria-hidden="true">♪</span></button> | to make an appointment |
+| prendre une décision <button type="button" class="inline-audio" data-src="/data/en/learn-french/prendre/prendre_une_decision.mp3" aria-label="Play audio"><span aria-hidden="true">♪</span></button> | to make a decision |
 
 The last two are worth a second look. In English, we *make* an appointment and *make* a decision. French uses *prendre* for both.
 
@@ -130,7 +130,7 @@ To catch a chill.
 
 | French | English |
 |--------|---------|
-| Mets ton manteau, tu vas prendre froid. | Put on your coat or you'll catch a chill. |
+| Mets ton manteau, tu vas prendre froid. <button type="button" class="inline-audio" data-src="/data/en/learn-french/prendre/prendre_froid.mp3" aria-label="Play audio"><span aria-hidden="true">♪</span></button> | Put on your coat or you'll catch a chill. |
 
 ## Common mistakes
 

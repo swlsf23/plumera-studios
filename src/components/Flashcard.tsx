@@ -1,9 +1,11 @@
 import { useEffect, useId, useRef, useState } from 'react';
+import { emitKey } from '../practice/events';
 import type {
   CardFace,
   Flashcard as FlashcardData,
   StudyMode,
 } from '../practice/types';
+import AudioButton, { type AudioButtonHandle } from './AudioButton';
 
 const MODES: { id: StudyMode; label: string; description: string }[] = [
   {
@@ -32,6 +34,7 @@ const NAV_KEYS: { key: string; action: string }[] = [
   { key: '3', action: 'Don’t know — keep in queue, next card' },
   { key: '4', action: 'Know — clear from queue, next card' },
   { key: 'Space', action: 'Flip front ↔ back' },
+  { key: 'a', action: 'Play French audio' },
   { key: 'E', action: 'Show or hide the example' },
   { key: '↑', action: 'Cycle front ↔ back' },
   { key: '↓', action: 'Cycle front ↔ back' },
@@ -62,6 +65,9 @@ interface FlashcardProps {
   onDontKnow: () => void;
   onRestart: () => void;
   onModeChange: (mode: StudyMode) => void;
+  /** Resolved site URL for French-face audio, if any. */
+  audioUrl?: string | null;
+  onPlayedAudio?: () => void;
 }
 
 function modeLabel(mode: StudyMode): string {
@@ -92,11 +98,16 @@ export default function Flashcard({
   onDontKnow,
   onRestart,
   onModeChange,
+  audioUrl: audioUrlProp = null,
+  onPlayedAudio,
 }: FlashcardProps) {
   const [openMenu, setOpenMenu] = useState<OpenMenu>(null);
   const controlsRef = useRef<HTMLDivElement>(null);
+  const audioButtonRef = useRef<AudioButtonHandle>(null);
   const modeMenuId = useId();
   const helpMenuId = useId();
+
+  const audioUrl = showingLang === 'fr' ? audioUrlProp : null;
 
   useEffect(() => {
     if (!openMenu) return;
@@ -118,6 +129,30 @@ export default function Flashcard({
       document.removeEventListener('keydown', onKeyDown);
     };
   }, [openMenu]);
+
+  useEffect(() => {
+    if (!audioUrl) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.metaKey || event.ctrlKey || event.altKey) return;
+      const target = event.target as HTMLElement | null;
+      if (
+        target &&
+        (target.tagName === 'INPUT' ||
+          target.tagName === 'TEXTAREA' ||
+          target.isContentEditable)
+      ) {
+        return;
+      }
+      if (event.key !== 'a' && event.key !== 'A') return;
+      event.preventDefault();
+      emitKey('a');
+      audioButtonRef.current?.play();
+    };
+
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [audioUrl]);
 
   return (
     <section className="flashcard" aria-live="polite">
@@ -243,6 +278,15 @@ export default function Flashcard({
                 <p className="translation">( {card.exampleTranslation} )</p>
               ) : null}
             </>
+          ) : null}
+
+          {audioUrl ? (
+            <AudioButton
+              ref={audioButtonRef}
+              src={audioUrl}
+              label={card.fr}
+              onPlayed={onPlayedAudio}
+            />
           ) : null}
         </div>
       ) : null}
