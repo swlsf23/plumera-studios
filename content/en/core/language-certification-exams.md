@@ -78,9 +78,9 @@ Unlike DELE, SIELE provides a score rather than a permanent diploma. Results are
 
 ## Arabic
 
-Unlike many other major world languages, Arabic does not have a single internationally recognized proficiency examination comparable to the DELF, JLPT, or HSK.
+Arabic has several standardized proficiency examinations, including the Saudi government's Hamza Academic Test (aligned with the CEFR), the ALPT, and other systems. None currently has the same level of global dominance and uniform recognition as DELF/DALF, JLPT, or HSK.
 
-Instead, universities, employers, and government agencies typically specify which qualifications they accept, and recognition varies by country.
+Institutions therefore specify which examination or proficiency framework they accept, and recognition varies by country.
 
 ## Chinese
 
@@ -90,21 +90,19 @@ The **[Hanyu Shuiping Kaoshi (HSK)](https://www.chinesetest.cn/)** is the standa
 
 It is recognized by universities, employers, and government organizations throughout China.
 
-The current framework is often called **HSK 3.0** (or the “new HSK”). It expands the older six-level system into nine levels grouped in three stages: 
+The newer HSK framework (sometimes called **HSK 3.0**) expands the older six-level system into nine levels grouped in three stages. Official materials now often refer simply to the new HSK. Implementation has been gradual, so check which version a university, employer, or test center requires before you register.
 
 - Elementary (levels 1–3)
 - Intermediate (levels 4–6)
-- Advanced (levels 7–9). 
+- Advanced (levels 7–9)
 
-Levels 1–6 remain separate examinations. Levels 7–9 are assessed in a single advanced exam, with the score determining which of those three levels is awarded.
-
-Because both the previous and newer frameworks use level numbers, check which version a university, employer, or test center requires before you register.
+Levels 1–6 remain separate examinations. Levels 7–9 are assessed in a single advanced exam that includes listening, reading, writing, translation, and speaking. The score determines which of those three advanced levels is awarded.
 
 ### HSKK
 
-The **[HSK Speaking Test (HSKK)](https://www.chinesetest.cn/)** is a separate examination that evaluates spoken Mandarin.
+The **[HSK Speaking Test (HSKK)](https://www.chinesetest.cn/)** remains a separate examination for spoken Mandarin at lower and intermediate levels.
 
-It has long complemented the written HSK. Under the newer HSK framework, speaking requirements are tighter at higher levels, so confirm with your test center whether HSKK (or an integrated speaking component) is required for the level you need.
+Speaking is integrated directly into the Levels 7–9 examination. Confirm with your test center what is required for the level you need.
 
 ## English
 
@@ -120,13 +118,13 @@ It is primarily used for university admissions, particularly in North America. T
 
 The **[International English Language Testing System (IELTS)](https://www.ielts.org/)** is accepted by universities, employers, and immigration authorities around the world.
 
-Two versions are available: Academic and General Training. IELTS results are valid for two years.
+Two versions are available: Academic and General Training. IELTS recommends that results be accepted for two years, although individual organizations may accept older results.
 
 ### Cambridge English Qualifications
 
 [Cambridge English Qualifications](https://www.cambridgeenglish.org/) are awarded by Cambridge English and include examinations such as **B2 First**, **C1 Advanced**, and **C2 Proficiency**.
 
-Unlike TOEFL and IELTS, Cambridge qualifications do not expire.
+Cambridge English certificates do not expire, although individual institutions may require evidence obtained within a specified period.
 
 ### TOEIC
 
@@ -146,13 +144,13 @@ PTE Academic scores are generally valid for two years.
 
 The **[Goethe-Zertifikat](https://www.goethe.de/en/spr/kup/prf.html)** is the best-known German language certification worldwide.
 
-Separate examinations are offered for different proficiency levels, and certificates remain valid for life.
+Separate examinations are offered for different proficiency levels. Certificates remain valid indefinitely, although receiving institutions may require a more recent certificate.
 
 ### TestDaF
 
 The **[Test Deutsch als Fremdsprache (TestDaF)](https://www.testdaf.de/)** is intended primarily for students seeking admission to German universities.
 
-It is recognized by higher education institutions throughout Germany.
+It is recognized by higher education institutions throughout Germany, and the certificate is valid indefinitely.
 
 ### telc Deutsch
 
@@ -182,7 +180,7 @@ The **[Japanese Language Proficiency Test (JLPT)](https://www.jlpt.jp/e/)** is t
 
 The examination consists of five levels, from N5 (beginner) to N1 (advanced), and is administered worldwide.
 
-Unlike many European language examinations, the JLPT assesses reading, vocabulary, grammar, and listening, but not speaking.
+Unlike many European language examinations, the JLPT assesses vocabulary and grammar, reading, and listening. It does not directly test speaking or writing.
 
 ## Korean
 
@@ -196,13 +194,13 @@ It is commonly required for university admissions, scholarships, employment, and
 
 ### CAPLE
 
-The **[Centro de Avaliação de Português Língua Estrangeira (CAPLE)](https://caple.letras.ulisboa.pt/)** administers Portugal's official Portuguese language certification examinations through the University of Lisbon.
+The **[Centro de Avaliação e Certificação de Português Língua Estrangeira (CAPLE)](https://caple.letras.ulisboa.pt/)** administers Portugal's official Portuguese language certification examinations through the University of Lisbon's Faculty of Letters.
 
-### CELPE-Bras
+### Celpe-Bras
 
-The **[Certificado de Proficiência em Língua Portuguesa para Estrangeiros (CELPE-Bras)](https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/celpe-bras)** is Brazil's official Portuguese proficiency examination.
+The **[Certificado de Proficiência em Língua Portuguesa para Estrangeiros (Celpe-Bras)](https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/celpe-bras)** is Brazil's official Portuguese proficiency certificate.
 
-It is recognized by Brazilian universities and government institutions.
+It is used for university entry, postgraduate study, diploma validation, and other official purposes recognized by Brazilian institutions and government bodies.
 
 ## Russian
 
@@ -210,7 +208,7 @@ It is recognized by Brazilian universities and government institutions.
 
 The **[Test of Russian as a Foreign Language (TORFL)](https://testingcenter.spbu.ru/en/torfl.html)**, also known by its Russian abbreviation **ТРКИ**, is Russia's official certification system for foreign learners.
 
-It is recognized by universities, employers, and government institutions.
+It covers six proficiency levels and is recognized by universities, employers, and government institutions.
 
 ## Which exam should you take?
 
