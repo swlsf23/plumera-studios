@@ -20,7 +20,7 @@ related:
 
 At [A1](/en/cefr/), *prendre* usually means to take: a bus, a coffee, medicine. That core is covered in the [French Verb of the Week lesson on *prendre*](/en/learn-french/votw/votw-prendre-a1/).
 
-Around [B1](/en/cefr/), you start meeting *prendre* in expressions where a word-for-word take no longer helps. Some use pronominal forms, some are fixed phrases, and some only share a vague idea of catching or starting something. Learn them as whole patterns. The same shapes show up again and again.
+Around [B1](/en/cefr/), you start meeting *prendre* in expressions where a word-for-word "take" no longer helps. Some of these expressions use pronominal forms, some are fixed phrases, and some only share a vague idea of catching or starting something. Learn them as whole patterns. The same shapes show up again and again.
 
 ## Mistaken for, or taking yourself for
 
@@ -33,7 +33,7 @@ Around [B1](/en/cefr/), you start meeting *prendre* in expressions where a word-
 | Il se prend pour le patron. | He thinks he's the boss. |
 | Elle se prend pour une célébrité. | She thinks she's a celebrity. |
 
-*Prendre pour* is mistaking someone for someone else. *Se prendre pour* is mistaking yourself for someone more important. French usually says it to cut you down to size.
+*Prendre pour* is mistaking someone for someone else. *Se prendre pour* is mistaking yourself for someone more important. French often uses it to criticize or to joke.
 
 ## Getting caught, hit, or blamed
 
@@ -41,7 +41,7 @@ You'll hear these uses often in spoken French. Something gets stuck, someone "ta
 
 ### Se prendre dans…
 
-French describes getting tangled or getting stuck with the pronominal form *se prendre*. French treats the stuck thing as catching itself in the obstacle: the sleeve “takes itself” in the door. English usually flips it (*got caught* / *got stuck*).
+French describes getting tangled or getting stuck with the pronominal form *se prendre*. French treats the stuck thing as catching itself in the obstacle: the sleeve "takes itself" in the door. English usually flips it (*got caught* / *got stuck*).
 
 | French | English |
 |--------|---------|
@@ -58,7 +58,7 @@ Here the subject receives something unpleasant: a fine, a slap, or a collision y
 | Je me suis pris une gifle. | I got slapped. |
 | Elle s'est prise un poteau. | She walked into a pole. |
 
-English usually puts the subject as the victim (“I got fined”). French keeps the same person as the subject, but uses *se prendre* + the unpleasant thing.
+English often says what happened to the person ("I got fined"). French keeps the same person as the subject, but uses *se prendre* + the unpleasant thing.
 
 ### S'en prendre à…
 
@@ -69,7 +69,7 @@ When the target is a person, *s'en prendre à* means to pick on, blame, or attac
 | Pourquoi tu t'en prends à moi ? | Why are you picking on me? |
 | Ils s'en sont pris aux journalistes. | They attacked the journalists. |
 
-The anger or blame has a clear target. English splits this across *pick on*, *blame*, and *attack*. French keeps one pattern aimed *à* someone. Learn *s'en prendre à* as a chunk, similar to expressions in the same family like *s'en aller*.
+The anger or blame has a clear target. English splits this across *pick on*, *blame*, and *attack*. French keeps one pattern aimed *à* someone. Learn *s'en prendre à* as a whole phrase.
 
 ## Starting to feel or do something
 
@@ -84,7 +84,7 @@ You find yourself doing something, sometimes without planning to. The tone can f
 | Je me suis pris à sourire. | I found myself smiling. |
 | Elle s'est prise à aimer cette ville. | She found herself growing fond of this city. |
 
-This is not deciding to act. The action starts almost on its own, and you notice yourself already doing it, closer to “I found myself…” than “I began to…”
+This is not deciding to act. The action starts almost on its own, and you notice yourself already doing it. This is closer to "I found myself..." than "I began to..."
 
 ### Prendre goût à… and prendre peur
 
@@ -100,7 +100,7 @@ Both mark the moment something takes hold. English often needs a different verb 
 
 ### Qu'est-ce qui te prend ?
 
-When someone's behavior changes suddenly, French asks what has "taken" them. English reaches for "What's gotten into you?"
+When someone's behavior changes suddenly, French asks what has "taken" them. English matches that with "What's gotten into you?"
 
 | French | English |
 |--------|---------|
@@ -123,7 +123,7 @@ French pictures a force that has taken hold of the person. You are not asking wh
 
 These fixed phrases keep a thin link to "taking," but you should learn each one whole. Some are everyday. Others belong more to news, writing, or geography, so they may show up a little later than solid [B1](/en/cefr/) chat.
 
-In each case something “takes” a state or a stage: fire, form, an end, a starting point. The link to physical taking is thin. The chunk is what matters.
+In each case something "takes" a state or a stage: fire, form, an end, a starting point. The link to physical taking is thin. Learn the whole phrase, not each word on its own.
 
 | French | English |
 |--------|---------|
@@ -161,4 +161,4 @@ Noticing the pattern is more useful than forcing every line through the English 
 
 ## Summary
 
-Past the [A1](/en/cefr/) senses in the [VOTW lesson](/en/learn-french/votw/votw-prendre-a1/), *prendre* shows up in whole expressions for mistakes, accidents, feelings, sides, and schedules. Learn those chunks as they are, and everyday French at [B1](/en/cefr/) and beyond gets much easier to follow.
+Past the [A1](/en/cefr/) senses described in the [VOTW lesson](/en/learn-french/votw/votw-prendre-a1/), *prendre* shows up in whole expressions for mistakes, accidents, feelings, sides, and schedules. Learn these expressions as they are, and you will recognize them more easily when they appear at [B1](/en/cefr/) and beyond.
