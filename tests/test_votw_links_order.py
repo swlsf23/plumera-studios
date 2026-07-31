@@ -52,6 +52,19 @@ class VotwLinksOrderTests(unittest.TestCase):
             ],
         )
 
+    def test_votw_links_equal_dates_break_ties_by_title_desc(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            votw = root / "en" / "learn-french" / "votw"
+            votw.mkdir(parents=True)
+            # Same date: sort key is (date, title) reversed → title Z→A.
+            _write_votw(votw, stem="votw-prendre-a1", title="Prendre", date="2026-07-22")
+            _write_votw(votw, stem="votw-tenir-a1", title="Tenir", date="2026-07-22")
+
+            links = votw_links(root, "en", "learn-french")
+
+        self.assertEqual([link["title"] for link in links], ["Tenir", "Prendre"])
+
     def test_votw_links_skips_drafts_unless_requested(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
