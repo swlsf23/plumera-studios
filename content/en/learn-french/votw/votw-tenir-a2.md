@@ -104,9 +104,9 @@ Three more combinations you will hear often. None of them is a simple "hold" in 
 | tenir un restaurant | to run a restaurant |
 | ça tient dans la poche | it fits in the pocket |
 
-The first is the one that trips English speakers. We *keep* someone company. French uses *tenir*. 
+The first is the one that trips English speakers. We *keep* someone company. French uses *tenir*.
 
-The restaurant example means you run the place, tu est le chef, le patron. 
+The restaurant example means you run the place: you're the owner or manager.
 
 *Ça tient dans la poche* is about fitting, not gripping.
 
