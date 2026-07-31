@@ -56,20 +56,15 @@
   font: inherit;
 }
 
+/* Width/margins come from content.css .page-grid--lesson (same as content pages). */
+.practice-shell,
 .practice-missing {
-  width: min(640px, calc(100% - 48px));
-  margin: 64px auto;
+  min-width: 0;
 }
 
 .practice-missing a {
   color: var(--sand);
   text-decoration: underline;
-}
-
-/* Match content .page-grid--lesson: centered single column */
-.practice-shell {
-  width: min(860px, calc(100% - 64px));
-  margin: 38px auto 54px;
 }
 
 .page-heading h1,
@@ -376,11 +371,42 @@
   font-size: 13px;
 }
 
+.card-meta--queue {
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.card-meta--queue .meta-controls {
+  transform: translateY(-6px);
+}
+
 .meta-progress {
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
   gap: 18px;
+}
+
+.meta-progress--dual {
+  grid-template-columns: 1fr;
+  gap: 10px;
+  width: min(480px, 100%);
+  min-width: 0;
+}
+
+.meta-progress__track {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.meta-progress__label {
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 .meta-progress__bar {
@@ -394,6 +420,21 @@
   display: block;
   height: 100%;
   background: var(--green);
+}
+
+.meta-progress__bar--know span {
+  background: var(--success);
+}
+
+.meta-progress__bar--queue span {
+  background: var(--danger);
+}
+
+.card-pass {
+  color: var(--ink-soft);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 .card-type {
@@ -415,38 +456,34 @@
 }
 
 .card-type--btn {
-  min-height: 40px;
-  padding: 0 18px;
+  min-height: 34px;
+  padding: 0 14px;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  border: 1px solid var(--sand);
-  border-radius: 10px;
-  background: var(--sand);
-  color: #fff;
+  gap: 6px;
+  border: 1px solid var(--line-dark);
+  border-radius: 999px;
+  background: #f1efea;
+  color: var(--ink);
   cursor: pointer;
   font: inherit;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.01em;
-  box-shadow: 0 2px 8px rgba(185, 157, 98, 0.28);
+  box-shadow: none;
 }
 
 .card-type__chevron {
-  font-size: 1.35em;
+  font-size: 1.1em;
   line-height: 1;
+  color: var(--ink-soft);
   transform: translateY(-1px);
 }
 
-.card-type--btn:hover {
-  background: #a88c52;
-  border-color: #a88c52;
-}
-
+.card-type--btn:hover,
 .card-type--btn.is-open {
-  background: #a88c52;
-  border-color: #a88c52;
-  box-shadow: none;
+  background: #ebe7df;
+  border-color: var(--line-dark);
 }
 
 .card-help {
@@ -659,8 +696,27 @@
   gap: 28px;
 }
 
-.card-actions--browse {
+.card-actions--grade {
   grid-template-columns: auto 1fr 1fr auto;
+  gap: 12px;
+  margin-top: 8px;
+  align-items: stretch;
+}
+
+.card-actions--grade .button--icon {
+  align-self: stretch;
+  height: auto;
+  min-height: 48px;
+}
+
+.card-content--summary {
+  gap: 18px;
+  background: var(--paper-light);
+  border-color: rgba(24, 49, 55, 0.14);
+}
+
+.card-content--summary .button {
+  margin-top: 8px;
 }
 
 .card-keys {
@@ -716,6 +772,37 @@
 .button--sand-outline {
   border-color: var(--sand);
   background: transparent;
+}
+
+/* After .button so border is not wiped by `border: 1px solid transparent`. */
+.button.button--dont-know,
+.button.button--know {
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  background: transparent;
+  box-shadow: none;
+}
+
+.button.button--dont-know {
+  border: 1px solid rgba(176, 86, 74, 0.55);
+  color: #9a4e44;
+}
+
+.button.button--dont-know:hover:not(:disabled) {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.5), transparent 50%),
+    rgba(176, 86, 74, 0.1);
+}
+
+.button.button--know {
+  border: 1px solid rgba(91, 157, 105, 0.55);
+  color: #2f6b3c;
+}
+
+.button.button--know:hover:not(:disabled) {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.5), transparent 50%),
+    rgba(91, 157, 105, 0.1);
 }
 
 .answer-content {
@@ -881,29 +968,27 @@
 }
 
 @media (max-width: 720px) {
-  .practice-shell {
-    width: min(100% - 32px, 100%);
-    margin: 24px auto 42px;
-  }
-
   .page-heading h1 {
     font-size: clamp(28px, 7.5vw, 38px);
   }
 
-  .card-meta {
-    grid-template-columns: 1fr auto;
+  .card-meta,
+  .card-meta--queue {
+    grid-template-columns: 1fr;
   }
 
-  .meta-progress {
-    grid-column: 1 / -1;
-    grid-row: 2;
+  .meta-progress--dual {
+    grid-template-columns: 1fr;
   }
 
   .card-actions,
-  .card-actions--browse,
   .session-summary,
   .deck-summary-grid {
     grid-template-columns: 1fr;
+  }
+
+  .card-actions--grade {
+    grid-template-columns: auto 1fr 1fr auto;
   }
 
   .tabs {

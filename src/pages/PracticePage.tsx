@@ -13,12 +13,14 @@ export default function PracticePage() {
   if (!deck) {
     return (
       <>
-        <main className="practice-missing">
-          <h1>Deck not found</h1>
-          <p>
-            No flashcard deck for <em>{verb || 'unknown'}</em> yet.
-          </p>
-          <Link to="/prendre/">Practice prendre</Link>
+        <main className="page-grid page-grid--lesson">
+          <div className="content-column practice-missing">
+            <h1>Deck not found</h1>
+            <p>
+              No flashcard deck for <em>{verb || 'unknown'}</em> yet.
+            </p>
+            <Link to="/prendre/">Practice prendre</Link>
+          </div>
         </main>
         <SiteFooter />
       </>
@@ -42,60 +44,66 @@ function PracticeSession({ deck }: { deck: Deck }) {
 
   return (
     <>
-      <main className="practice-shell">
-        <header className="page-heading">
-          <div className="page-heading__meta">
-            <p className="page-heading__eyebrow">Practice</p>
-            {deck.level ? (
-              <span className="page-heading__level">
-                <span className="page-heading__level-prefix">Level</span>
-                <a className="page-heading__level-badge" href="/en/cefr/">
-                  {deck.level}
-                </a>
-              </span>
+      <main className="page-grid page-grid--lesson">
+        <div className="content-column practice-shell">
+          <header className="page-heading article-header">
+            <div className="page-heading__meta article-header__meta-row">
+              <p className="page-heading__eyebrow">Practice</p>
+              {deck.level ? (
+                <span className="page-heading__level article-level">
+                  <span className="page-heading__level-prefix article-level__prefix">
+                    Level
+                  </span>
+                  <a className="page-heading__level-badge article-level__badge" href="/en/cefr/">
+                    {deck.level}
+                  </a>
+                </span>
+              ) : null}
+            </div>
+            <h1>
+              <em>{deck.verb}</em>
+            </h1>
+            {deck.description ? (
+              <p className="page-summary">{deck.description}</p>
             ) : null}
-          </div>
-          <h1>
-            <em>{deck.verb}</em>
-          </h1>
-          <p className="page-summary">
-            Browse the deck with the arrow keys. Know / don&apos;t know comes next.
-          </p>
-        </header>
+          </header>
 
-        {session.card ? (
           <Flashcard
             card={session.card}
-            index={session.index}
-            total={session.total}
             face={session.face}
             mode={session.mode}
             pass={session.pass}
             showingLang={session.showingLang}
             promptText={session.promptText}
             answerText={session.answerText}
-            progressPct={session.progressPct}
+            done={session.done}
+            cleared={session.cleared}
+            remaining={session.remaining}
+            sessionGoal={session.sessionGoal}
+            knowPct={session.knowPct}
+            queuePct={session.queuePct}
             canPrev={session.canPrev}
             canNext={session.canNext}
             onPrev={session.prevCard}
             onNext={session.nextCard}
-            onFlipUp={session.flipUp}
-            onFlipDown={session.flipDown}
+            onKnow={session.markKnow}
+            onDontKnow={session.markDontKnow}
+            onRestart={session.restartSession}
             onModeChange={session.setStudyMode}
           />
-        ) : null}
 
-        <section className="related-band">
-          <p className="eyebrow">Related</p>
-          <nav className="related-links" aria-label="Related pages">
-            {related.map((item) => (
-              <a key={item.href} href={item.href}>
-                {item.title === deck.verb ? <em>{item.title}</em> : item.title}
-                {item.meta ? <span>{item.meta}</span> : null}
-              </a>
-            ))}
-          </nav>
-        </section>
+          <section className="related-band">
+            <p className="eyebrow">Related</p>
+            <nav className="related-links" aria-label="Related pages">
+              {related.map((item) => (
+                <a key={item.href} href={item.href}>
+                  {item.title === deck.verb ? <em>{item.title}</em> : item.title}
+                  {item.meta ? <span>{item.meta}</span> : null}
+                </a>
+              ))}
+            </nav>
+          </section>
+        </div>
       </main>
 
       <SiteFooter />

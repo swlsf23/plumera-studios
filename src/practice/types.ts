@@ -40,7 +40,8 @@ export interface Deck {
   locale?: string;
   target?: string;
   lessonHref: string;
-  about?: string;
+  /** Short intro for the list being studied (not lesson/series chrome). */
+  description?: string;
   related?: RelatedLink[];
   cards: Flashcard[];
 }

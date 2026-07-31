@@ -14,16 +14,17 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <!-- Same site chrome CSS as content/landings — only /css/content-header.css. -->
+    <!-- Same chrome + page shell CSS as content pages. -->
     <link rel="stylesheet" href="/css/base.css" />
     <link rel="stylesheet" href="/css/content-header.css?v=brand-6" />
+    <link rel="stylesheet" href="/css/content.css?v=correction-wash-1" />
   </head>
   <body>
     <!--
       Site header is injected here from tools/content_builder/templates/partials/content_header.html
       (same partial as content pages and locale landings). The React app mounts below it only.
     -->
-    <div class="page practice-app">
+    <div class="page content-page content-page--lesson practice-app">
       <!-- CONTENT_HEADER -->
       <div id="root"></div>
     </div>

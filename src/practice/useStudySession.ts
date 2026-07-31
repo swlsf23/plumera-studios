@@ -11,8 +11,20 @@ import {
   type StudyMode,
 } from './types';
 
+/*
+  Queued for revisit after trying the loop:
+  - Grade only after seeing the answer, or anytime? (temp: anytime)
+  - Exact keys? (3 = don’t know, 4 = know; ←/→ still browse queue)
+  - Persist queue across mode change? (temp: mode change resets queue)
+  - Both-mode pass refill details / bar denom? (temp: refill pass 2; goal = 2× deck)
+*/
+
 function randomDirections(count: number): StudyDirection[] {
   return Array.from({ length: count }, () => (Math.random() < 0.5 ? 'en-fr' : 'fr-en'));
+}
+
+function fullQueue(count: number): number[] {
+  return Array.from({ length: count }, (_, i) => i);
 }
 
 export function useStudySession(deck: Deck, { enabled }: { enabled: boolean }) {
@@ -21,7 +33,10 @@ export function useStudySession(deck: Deck, { enabled }: { enabled: boolean }) {
 
   const restored = useMemo(() => loadStudySession(verb, total), [verb, total]);
 
-  const [index, setIndex] = useState(() => restored?.index ?? 0);
+  const [queue, setQueue] = useState<number[]>(() => restored?.queue ?? fullQueue(total));
+  const [queuePos, setQueuePos] = useState(() => restored?.queuePos ?? 0);
+  const [cleared, setCleared] = useState(() => restored?.cleared ?? 0);
+  const [done, setDone] = useState(() => restored?.done ?? false);
   const [face, setFace] = useState<CardFace>(() => restored?.face ?? 'prompt');
   const [mode, setMode] = useState<StudyMode>(() => restored?.mode ?? 'mixed');
   /** Pass 1 = EN→FR, pass 2 = FR→EN (both mode only). */
@@ -37,17 +52,45 @@ export function useStudySession(deck: Deck, { enabled }: { enabled: boolean }) {
   useEffect(() => {
     saveStudySession({
       verb,
-      index,
+      queue,
+      queuePos,
+      cleared,
+      done,
       face,
       mode,
       pass,
       mixedDirections,
       returnFace,
     });
-  }, [verb, index, face, mode, pass, mixedDirections, returnFace]);
+  }, [
+    verb,
+    queue,
+    queuePos,
+    cleared,
+    done,
+    face,
+    mode,
+    pass,
+    mixedDirections,
+    returnFace,
+  ]);
 
-  const card = deck.cards[index] ?? null;
+  const index = queue.length > 0 ? (queue[queuePos] ?? 0) : 0;
+  const card = !done && queue.length > 0 ? (deck.cards[index] ?? null) : null;
   const hasExample = Boolean(card?.example?.trim());
+
+  const sessionGoal = mode === 'both' ? total * 2 : total;
+  const remaining = queue.length;
+
+  const knowPct = useMemo(() => {
+    if (sessionGoal === 0) return 0;
+    return Math.round((cleared / sessionGoal) * 100);
+  }, [cleared, sessionGoal]);
+
+  const queuePct = useMemo(() => {
+    if (sessionGoal === 0) return 0;
+    return Math.round((remaining / sessionGoal) * 100);
+  }, [remaining, sessionGoal]);
 
   const direction: StudyDirection = useMemo(() => {
     if (mode === 'en-fr') return 'en-fr';
@@ -65,51 +108,91 @@ export function useStudySession(deck: Deck, { enabled }: { enabled: boolean }) {
   const promptText = card ? textForLang(card, promptLang(direction)) : '';
   const answerText = card ? textForLang(card, answerLang(direction)) : '';
 
-  const progressPct = useMemo(() => {
-    if (total === 0) return 0;
-    if (mode === 'both') {
-      const step = (pass - 1) * total + index + 1;
-      return Math.round((step / (total * 2)) * 100);
-    }
-    return Math.round(((index + 1) / total) * 100);
-  }, [index, mode, pass, total]);
-
   const resetFace = useCallback(() => {
     setFace('prompt');
     setReturnFace('prompt');
   }, []);
 
   const prevCard = useCallback(() => {
-    if (mode === 'both' && pass === 2 && index === 0) {
-      setPass(1);
-      setIndex(total - 1);
-      resetFace();
-      return;
-    }
-    if (index > 0) {
-      setIndex(index - 1);
+    if (done || queue.length === 0) return;
+    if (queuePos > 0) {
+      setQueuePos(queuePos - 1);
       resetFace();
     }
-  }, [index, mode, pass, resetFace, total]);
+  }, [done, queue.length, queuePos, resetFace]);
 
   const nextCard = useCallback(() => {
-    if (mode === 'both' && pass === 1 && index >= total - 1) {
-      setPass(2);
-      setIndex(0);
+    if (done || queue.length === 0) return;
+    if (queuePos < queue.length - 1) {
+      setQueuePos(queuePos + 1);
       resetFace();
+    }
+  }, [done, queue.length, queuePos, resetFace]);
+
+  const canPrev = !done && queuePos > 0;
+  const canNext = !done && queuePos < queue.length - 1;
+
+  const markKnow = useCallback(() => {
+    if (done || queue.length === 0) return;
+
+    const nextQueue = queue.filter((_, i) => i !== queuePos);
+    const nextCleared = cleared + 1;
+
+    if (nextQueue.length === 0) {
+      if (mode === 'both' && pass === 1) {
+        setPass(2);
+        setQueue(fullQueue(total));
+        setQueuePos(0);
+        setCleared(nextCleared);
+        resetFace();
+        return;
+      }
+      setQueue([]);
+      setQueuePos(0);
+      setCleared(nextCleared);
+      setDone(true);
       return;
     }
-    if (index < total - 1) {
-      setIndex(index + 1);
-      resetFace();
-    }
-  }, [index, mode, pass, resetFace, total]);
 
-  const canPrev = index > 0 || (mode === 'both' && pass === 2);
-  const canNext = index < total - 1 || (mode === 'both' && pass === 1 && total > 0);
+    setQueue(nextQueue);
+    setQueuePos(Math.min(queuePos, nextQueue.length - 1));
+    setCleared(nextCleared);
+    resetFace();
+  }, [cleared, done, mode, pass, queue, queuePos, resetFace, total]);
+
+  const markDontKnow = useCallback(() => {
+    if (done || queue.length <= 1) {
+      // Single card left: send to back is a no-op positionally; still reset face.
+      if (!done && queue.length === 1) resetFace();
+      return;
+    }
+
+    const current = queue[queuePos];
+    if (current === undefined) return;
+    const without = queue.filter((_, i) => i !== queuePos);
+    const nextQueue = [...without, current];
+    // Stay at queuePos → card that was next; wrap if we removed the last item.
+    const nextPos = queuePos >= nextQueue.length ? 0 : queuePos;
+    setQueue(nextQueue);
+    setQueuePos(nextPos);
+    resetFace();
+  }, [done, queue, queuePos, resetFace]);
+
+  const restartSession = useCallback(() => {
+    setQueue(fullQueue(total));
+    setQueuePos(0);
+    setCleared(0);
+    setDone(false);
+    setPass(1);
+    if (mode === 'mixed') {
+      setMixedDirections(randomDirections(total));
+    }
+    resetFace();
+  }, [mode, resetFace, total]);
 
   /** ↑ / ↓ cycle prompt ↔ answer only (wrap). Example is not in this cycle. */
   const flipDown = useCallback(() => {
+    if (done) return;
     if (face === 'example') {
       setFace('answer');
       setReturnFace('answer');
@@ -118,9 +201,10 @@ export function useStudySession(deck: Deck, { enabled }: { enabled: boolean }) {
     const next = face === 'prompt' ? 'answer' : 'prompt';
     setFace(next);
     setReturnFace(next);
-  }, [face]);
+  }, [done, face]);
 
   const flipUp = useCallback(() => {
+    if (done) return;
     if (face === 'example') {
       setFace('prompt');
       setReturnFace('prompt');
@@ -129,11 +213,11 @@ export function useStudySession(deck: Deck, { enabled }: { enabled: boolean }) {
     const next = face === 'answer' ? 'prompt' : 'answer';
     setFace(next);
     setReturnFace(next);
-  }, [face]);
+  }, [done, face]);
 
   /** E toggles example; restores the prior prompt/answer side. */
   const jumpExample = useCallback(() => {
-    if (!hasExample) return;
+    if (done || !hasExample) return;
     if (face === 'example') {
       setFace(returnFace);
       return;
@@ -142,18 +226,20 @@ export function useStudySession(deck: Deck, { enabled }: { enabled: boolean }) {
       setReturnFace(face);
     }
     setFace('example');
-  }, [face, hasExample, returnFace]);
+  }, [done, face, hasExample, returnFace]);
 
-  /** Stay on the same card; show prompt in the new mode. Feel it out from here. */
+  /** Temp: mode change resets the queue. Revisit later. */
   const setStudyMode = useCallback(
     (next: StudyMode) => {
       setMode(next);
+      setQueue(fullQueue(total));
+      setQueuePos(0);
+      setCleared(0);
+      setDone(false);
       if (next === 'mixed') {
         setMixedDirections(randomDirections(total));
       }
-      if (next === 'both') {
-        setPass(1);
-      }
+      setPass(1);
       resetFace();
     },
     [resetFace, total],
@@ -177,6 +263,11 @@ export function useStudySession(deck: Deck, { enabled }: { enabled: boolean }) {
       }
 
       switch (event.key) {
+        case ' ':
+        case 'Spacebar':
+          event.preventDefault();
+          flipDown();
+          break;
         case 'ArrowUp':
           event.preventDefault();
           flipUp();
@@ -198,6 +289,14 @@ export function useStudySession(deck: Deck, { enabled }: { enabled: boolean }) {
           event.preventDefault();
           jumpExample();
           break;
+        case '3':
+          event.preventDefault();
+          markDontKnow();
+          break;
+        case '4':
+          event.preventDefault();
+          markKnow();
+          break;
         default:
           break;
       }
@@ -205,7 +304,16 @@ export function useStudySession(deck: Deck, { enabled }: { enabled: boolean }) {
 
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [enabled, flipDown, flipUp, jumpExample, nextCard, prevCard]);
+  }, [
+    enabled,
+    flipDown,
+    flipUp,
+    jumpExample,
+    markDontKnow,
+    markKnow,
+    nextCard,
+    prevCard,
+  ]);
 
   return {
     card,
@@ -219,7 +327,12 @@ export function useStudySession(deck: Deck, { enabled }: { enabled: boolean }) {
     promptText,
     answerText,
     hasExample,
-    progressPct,
+    done,
+    cleared,
+    remaining,
+    sessionGoal,
+    knowPct,
+    queuePct,
     canPrev,
     canNext,
     prevCard,
@@ -227,6 +340,9 @@ export function useStudySession(deck: Deck, { enabled }: { enabled: boolean }) {
     flipUp,
     flipDown,
     jumpExample,
+    markKnow,
+    markDontKnow,
+    restartSession,
     setStudyMode,
   };
 }

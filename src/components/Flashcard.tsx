@@ -29,30 +29,38 @@ const MODES: { id: StudyMode; label: string; description: string }[] = [
 ];
 
 const NAV_KEYS: { key: string; action: string }[] = [
+  { key: '3', action: 'Don’t know — keep in queue, next card' },
+  { key: '4', action: 'Know — clear from queue, next card' },
+  { key: 'Space', action: 'Flip front ↔ back' },
   { key: 'E', action: 'Show or hide the example' },
   { key: '↑', action: 'Cycle front ↔ back' },
   { key: '↓', action: 'Cycle front ↔ back' },
-  { key: '←', action: 'Previous card' },
-  { key: '→', action: 'Next card' },
+  { key: '←', action: 'Previous card in queue' },
+  { key: '→', action: 'Next card in queue' },
 ];
 
+
 interface FlashcardProps {
-  card: FlashcardData;
-  index: number;
-  total: number;
+  card: FlashcardData | null;
   face: CardFace;
   mode: StudyMode;
   pass: 1 | 2;
   showingLang: 'en' | 'fr' | 'example';
   promptText: string;
   answerText: string;
-  progressPct: number;
+  done: boolean;
+  cleared: number;
+  remaining: number;
+  sessionGoal: number;
+  knowPct: number;
+  queuePct: number;
   canPrev: boolean;
   canNext: boolean;
   onPrev: () => void;
   onNext: () => void;
-  onFlipUp: () => void;
-  onFlipDown: () => void;
+  onKnow: () => void;
+  onDontKnow: () => void;
+  onRestart: () => void;
   onModeChange: (mode: StudyMode) => void;
 }
 
@@ -64,21 +72,25 @@ type OpenMenu = 'mode' | 'help' | null;
 
 export default function Flashcard({
   card,
-  index,
-  total,
   face,
   mode,
   pass,
   showingLang,
   promptText,
   answerText,
-  progressPct,
+  done,
+  cleared,
+  remaining,
+  sessionGoal,
+  knowPct,
+  queuePct,
   canPrev,
   canNext,
   onPrev,
   onNext,
-  onFlipUp,
-  onFlipDown,
+  onKnow,
+  onDontKnow,
+  onRestart,
   onModeChange,
 }: FlashcardProps) {
   const [openMenu, setOpenMenu] = useState<OpenMenu>(null);
@@ -109,19 +121,30 @@ export default function Flashcard({
 
   return (
     <section className="flashcard" aria-live="polite">
-      <div className="card-meta">
-        <span>
-          Card {index + 1} of {total}
-          {mode === 'both' ? ` · Pass ${pass}` : ''}
-        </span>
-        <div className="meta-progress">
-          <span className="meta-progress__bar" aria-hidden="true">
-            <span style={{ width: `${progressPct}%` }} />
-          </span>
-          <span>{progressPct}%</span>
+      <div className="card-meta card-meta--queue">
+        <div className="meta-progress meta-progress--dual" aria-label="Session progress">
+          <div className="meta-progress__track">
+            <span className="meta-progress__label">
+              Know · {cleared}/{sessionGoal}
+            </span>
+            <span className="meta-progress__bar meta-progress__bar--know" aria-hidden="true">
+              <span style={{ width: `${knowPct}%` }} />
+            </span>
+          </div>
+          <div className="meta-progress__track">
+            <span className="meta-progress__label">
+              Queue · {remaining}/{sessionGoal}
+            </span>
+            <span className="meta-progress__bar meta-progress__bar--queue" aria-hidden="true">
+              <span style={{ width: `${queuePct}%` }} />
+            </span>
+          </div>
         </div>
 
         <div className="meta-controls" ref={controlsRef}>
+          {mode === 'both' && !done ? (
+            <span className="card-pass">Pass {pass}</span>
+          ) : null}
           <div className="meta-menu">
             <button
               type="button"
@@ -177,7 +200,7 @@ export default function Flashcard({
             </button>
             {openMenu === 'help' ? (
               <div id={helpMenuId} className="meta-popover meta-popover--help" role="dialog" aria-label="Navigation">
-                <p className="meta-popover__title">Navigation</p>
+                <p className="meta-popover__title">Keys</p>
                 <ul className="nav-keys nav-keys--compact">
                   {NAV_KEYS.map((item) => (
                     <li key={item.key}>
@@ -192,57 +215,70 @@ export default function Flashcard({
         </div>
       </div>
 
-      <div className={`card-content card-content--${showingLang}`}>
-        {face === 'prompt' ? <h2>{promptText}</h2> : null}
+      {done ? (
+        <div className="card-content card-content--summary">
+          <h2>Session complete</h2>
+          <p className="done-copy">
+            You cleared {cleared} of {sessionGoal}
+            {mode === 'both' ? ' (both passes)' : ''} cards.
+          </p>
+          <button className="button button--solid" type="button" onClick={onRestart}>
+            Practice again
+          </button>
+        </div>
+      ) : card ? (
+        <div className={`card-content card-content--${showingLang}`}>
+          {face === 'prompt' ? <h2>{promptText}</h2> : null}
 
-        {face === 'answer' ? (
-          <h2>
-            <em>{answerText}</em>
-          </h2>
-        ) : null}
+          {face === 'answer' ? (
+            <h2>
+              <em>{answerText}</em>
+            </h2>
+          ) : null}
 
-        {face === 'example' ? (
-          <>
-            <h2>{card.example}</h2>
-            {card.exampleTranslation ? (
-              <p className="translation">( {card.exampleTranslation} )</p>
-            ) : null}
-          </>
-        ) : null}
-      </div>
+          {face === 'example' ? (
+            <>
+              <h2>{card.example}</h2>
+              {card.exampleTranslation ? (
+                <p className="translation">( {card.exampleTranslation} )</p>
+              ) : null}
+            </>
+          ) : null}
+        </div>
+      ) : null}
 
-      <div className="card-actions card-actions--browse">
+      <div className="card-actions card-actions--grade">
         <button
           className="button button--icon"
           type="button"
           onClick={onPrev}
-          disabled={!canPrev}
-          aria-label="Previous card"
+          disabled={done || !canPrev}
+          aria-label="Previous card in queue"
         >
           ←
         </button>
         <button
-          className="button button--outline"
+          className="button button--dont-know"
           type="button"
-          onClick={onFlipDown}
-          aria-label="Cycle faces down"
+          onClick={onDontKnow}
+          disabled={done}
         >
-          ↓ Flip
+          Don’t know
         </button>
         <button
-          className="button button--outline"
+          className="button button--know"
           type="button"
-          onClick={onFlipUp}
-          aria-label="Cycle faces up"
+          onClick={onKnow}
+          disabled={done}
         >
-          ↑ Flip
+          Know
         </button>
         <button
           className="button button--icon"
           type="button"
           onClick={onNext}
-          disabled={!canNext}
-          aria-label="Next card"
+          disabled={done || !canNext}
+          aria-label="Next card in queue"
         >
           →
         </button>
