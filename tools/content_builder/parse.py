@@ -524,12 +524,12 @@ def _list_title_from_post(post, fallback: str) -> str:
 def votw_links(
     content_root: Path, locale: str, target: str, *, include_drafts: bool = False
 ) -> list[dict[str, str]]:
-    """Article links for one series index, in filename order."""
-    links: list[dict[str, str]] = []
+    """Article links for one series index, newest frontmatter date first."""
+    items: list[tuple[date, dict[str, str]]] = []
     votw = content_root / locale / target / "votw"
     if not votw.is_dir():
-        return links
-    for path in sorted(votw.glob("*.md")):
+        return []
+    for path in votw.glob("*.md"):
         if path.stem == VOTW_INDEX_STEM:
             continue
         post = frontmatter.load(path)
@@ -543,16 +543,20 @@ def votw_links(
         date_label = _format_date(meta.get("date"), locale)
         description = str(meta.get("description") or "").strip()
         level = str(meta.get("level") or "").strip()
-        links.append(
-            {
-                "title": list_title,
-                "date": date_label,
-                "description": description,
-                "level": level,
-                "href": f"/{locale}/{target}/votw/{slug}/",
-            }
+        items.append(
+            (
+                _frontmatter_sort_date(meta.get("date")),
+                {
+                    "title": list_title,
+                    "date": date_label,
+                    "description": description,
+                    "level": level,
+                    "href": f"/{locale}/{target}/votw/{slug}/",
+                },
+            )
         )
-    return links
+    items.sort(key=lambda pair: (pair[0], pair[1]["title"]), reverse=True)
+    return [item for _sort_date, item in items]
 
 
 def recent_target_links(
