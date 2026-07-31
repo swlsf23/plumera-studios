@@ -52,11 +52,11 @@ npm run serve:site    # http://localhost:4173
 
 ### Flashcards (`/app/flashcard/`)
 
-- After build: [http://localhost:4173/app/flashcard/tenir/](http://localhost:4173/app/flashcard/tenir/)
+- After build: [http://localhost:4173/app/flashcard/prendre/](http://localhost:4173/app/flashcard/prendre/)
 - `npm run build:site` runs the content builder, then `build:app` into `dist/app/flashcard/` (known verb folders get an `index.html` shell so refresh works on the static server).
 - `npm run dev:app` is Vite HMR only (port 5173); use `build:site` + `serve:site` to exercise real cross-nav with content.
 - v1 session state is **ephemeral**: know / don’t-know progress lives in memory only. Refresh, navigate away, or close the tab resets it. Signup / saved progress comes later.
-- Deck files will live under [`data/{locale}/{target}/`](data/README.md); the UI currently uses an in-module sample for `tenir`.
+- Deck files will live under [`data/{locale}/{target}/`](data/README.md); the UI currently uses an in-module sample for published `prendre` (so Related links resolve in production builds).
 
 SEO stays with static VOTW / conjugation HTML; the app is the practice surface.
 

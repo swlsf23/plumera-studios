@@ -10,10 +10,10 @@ export default function App() {
   return (
     <BrowserRouter basename={BASENAME}>
       <Routes>
-        <Route path="/" element={<Navigate to="/tenir/" replace />} />
+        <Route path="/" element={<Navigate to="/prendre/" replace />} />
         <Route path="/:verb/" element={<PracticePage />} />
         <Route path="/:verb" element={<PracticePage />} />
-        <Route path="*" element={<Navigate to="/tenir/" replace />} />
+        <Route path="*" element={<Navigate to="/prendre/" replace />} />
       </Routes>
     </BrowserRouter>
   );

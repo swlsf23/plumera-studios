@@ -53,7 +53,7 @@ jobs:
           test -f dist/en/index.html
           test -f dist/sitemap.xml
           test -f dist/app/flashcard/index.html
-          test -f dist/app/flashcard/tenir/index.html
+          test -f dist/app/flashcard/prendre/index.html
           count=$(find dist -type f | wc -l | tr -d ' ')
           test "$count" -ge 20
           echo "dist file count: $count"

@@ -50,7 +50,7 @@ jobs:
           test -f dist/robots.txt
           test -f dist/css/base.css
           test -f dist/app/flashcard/index.html
-          test -f dist/app/flashcard/tenir/index.html
+          test -f dist/app/flashcard/prendre/index.html
           # Draft VOTW must not ship
           test ! -e dist/es/aprender-frances/votw/votw-prendre-a1/index.html
           test ! -e dist/fr/apprendre-anglais/votw/votw-take-a2/index.html
@@ -91,7 +91,7 @@ jobs:
             /en/privacy/ \
             /en/learn-french/votw/votw-prendre-a1/ \
             /app/flashcard/ \
-            /app/flashcard/tenir/ \
+            /app/flashcard/prendre/ \
             /sitemap.xml \
             /en/sitemap.xml
           do

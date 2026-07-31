@@ -4,7 +4,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 /** Verbs that get a static directory shell so refresh works without SPA fallback. */
-const VERB_SHELLS = ['tenir'] as const;
+const VERB_SHELLS = ['prendre'] as const;
 
 export default defineConfig({
   base: '/app/flashcard/',
