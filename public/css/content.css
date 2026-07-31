@@ -609,7 +609,21 @@
   font-weight: 400;
 }
 
-/* Incorrect | Correct: fix wins the eye. */
+/* Incorrect | Correct: light red panel; fix wins the eye. */
+.content-page--votw .article-body table.pair-table--correction,
+.content-page--articles .article-body table.pair-table--correction {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.5), transparent 50%),
+    rgba(176, 86, 74, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(176, 86, 74, 0.24);
+}
+
+.content-page--votw .article-body table.pair-table--correction th,
+.content-page--articles .article-body table.pair-table--correction th {
+  border-bottom-color: rgba(176, 86, 74, 0.3);
+  color: #9a4e44;
+}
+
 .content-page--votw .article-body table.pair-table--correction td:first-child,
 .content-page--articles .article-body table.pair-table--correction td:first-child {
   color: var(--muted);
