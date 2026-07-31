@@ -732,10 +732,6 @@
     font-size: 1.5rem;
   }
 
-  .landing-home .hero-tagline br {
-    display: none;
-  }
-
   .landing-home .feature-card,
   .landing-home .weekly-card {
     padding: 26px;
