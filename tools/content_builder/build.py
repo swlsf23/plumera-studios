@@ -204,7 +204,10 @@ def _inject_landing_headers(dist: Path, env: Environment, votw_nav: dict[str, st
 
 
 def _write_app_header(env: Environment, votw_nav: dict[str, str]) -> None:
-    """Emit the EN header (Flashcards active) for the React practice app."""
+    """Emit EN header HTML for injection into the flashcard app shell (vite index.html).
+
+    Same partial as content pages and locale landings. The app must not render its own header.
+    """
     html = _render_header(
         env,
         "en",
@@ -613,7 +616,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
 
 
 def emit_app_header() -> None:
-    """Write src/generated/content-header.html for the practice app (no full site build)."""
+    """Write header fragment for vite to inject into the flashcard HTML shell."""
     env = _env()
     series = [
         (locale, target)
@@ -633,7 +636,7 @@ def main() -> int:
     parser.add_argument(
         "--app-header-only",
         action="store_true",
-        help="only emit src/generated/content-header.html for the practice app",
+        help="only emit src/generated/content-header.html for flashcard HTML injection",
     )
     args = parser.parse_args()
     if args.app_header_only:

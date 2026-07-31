@@ -1,8 +1,8 @@
-/* VOTW flashcard practice — below the shared site content-header.
-   Do not restyle .content-header here; it must match content/landing pages. */
+/* VOTW flashcard practice — below the site content-header in index.html.
+   Do not restyle .content-header here; chrome comes from /css/content-header.css. */
 
-/* Let the injected shared <header> layout as a direct .page child. */
-.practice-app .content-header-root {
+/* Let main + footer lay out as .page children (header is a sibling outside #root). */
+.practice-app > #root {
   display: contents;
 }
 
@@ -28,7 +28,6 @@
   --danger-bg: rgba(176, 86, 74, 0.12);
   --shadow: 0 8px 22px rgba(24, 49, 55, 0.08);
   --radius: 16px;
-  --sidebar-width: 280px;
 
   /* Same shell as landings/content: .page from base.css supplies width. */
   background:
@@ -37,6 +36,12 @@
     linear-gradient(180deg, #f6f1ea 0%, #f3eee6 100%);
   color: var(--ink);
   font-family: Inter, Arial, sans-serif;
+}
+
+/* Body rhythm only — never on .practice-app (header sits inside .page). */
+.practice-shell,
+.practice-missing,
+.practice-app .site-footer {
   line-height: 1.58;
 }
 
@@ -61,29 +66,10 @@
   text-decoration: underline;
 }
 
-/* Same outer rhythm as content .page-grid */
+/* Match content .page-grid--lesson: centered single column */
 .practice-shell {
-  width: min(1310px, calc(100% - 64px));
+  width: min(860px, calc(100% - 64px));
   margin: 38px auto 54px;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) var(--sidebar-width);
-  gap: 48px;
-  align-items: start;
-}
-
-.sidebar {
-  border-left: 1px solid var(--line);
-  padding-left: 40px;
-  background: transparent;
-}
-
-.panel {
-  position: relative;
-  margin-bottom: 16px;
-  padding: 20px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: rgba(255, 253, 248, 0.7);
 }
 
 .page-heading h1,
@@ -107,64 +93,6 @@
   gap: 16px;
   padding-bottom: 18px;
   border-bottom: 1px solid var(--line);
-}
-
-.progress-overview--solo {
-  padding-bottom: 0;
-  border-bottom: 0;
-}
-
-.sidebar-verb {
-  margin: 0 0 6px;
-  font-size: 1.35rem;
-  font-weight: 600;
-  letter-spacing: -0.03em;
-}
-
-.sidebar-verb em {
-  font-style: italic;
-}
-
-.sidebar-level {
-  margin: 0 0 8px;
-  color: var(--sand);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.sidebar-gloss {
-  margin: 0;
-  color: var(--ink-soft);
-  font-size: 14px;
-}
-
-.sidebar-about {
-  margin: 0 0 14px;
-  color: var(--ink-soft);
-  font-size: 13px;
-  line-height: 1.45;
-}
-
-.sidebar-deck-stats {
-  list-style: none;
-  margin: 0;
-  padding: 14px 0 0;
-  border-top: 1px solid var(--line);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.sidebar-deck-stats strong,
-.sidebar-deck-stats span {
-  display: block;
-}
-
-.sidebar-deck-stats span {
-  color: var(--ink-soft);
-  font-size: 12px;
 }
 
 .progress-overview strong,
@@ -238,15 +166,22 @@
   margin: 0;
 }
 
+.related-band {
+  margin-top: 40px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+}
+
 .related-links {
   display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 12px;
 }
 
 .related-links a {
   display: grid;
   gap: 2px;
-  padding: 10px 12px;
+  padding: 12px 14px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: rgba(255, 253, 248, 0.55);
@@ -320,12 +255,6 @@
 .tip-heading .eyebrow {
   margin: 0;
   color: var(--ink);
-}
-
-.workspace {
-  width: 100%;
-  min-width: 0;
-  padding: 0 0 8px;
 }
 
 /* Match content .article-header rhythm: meta row → H1 → summary */
@@ -951,35 +880,10 @@
   font-size: 14px;
 }
 
-@media (max-width: 1050px) {
-  .practice-shell {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-
-  .sidebar {
-    border-left: 0;
-    padding-left: 0;
-    border-top: 1px solid var(--line);
-    padding-top: 28px;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
-  }
-
-  .panel {
-    margin-bottom: 0;
-  }
-}
-
 @media (max-width: 720px) {
   .practice-shell {
     width: min(100% - 32px, 100%);
     margin: 24px auto 42px;
-  }
-
-  .sidebar {
-    grid-template-columns: 1fr;
   }
 
   .page-heading h1 {

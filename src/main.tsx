@@ -1,9 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-/* Same site chrome CSS as content pages (bundled so /app/flashcard/ base does not rewrite paths). */
-import '../public/css/base.css';
-import '../public/css/content-header.css';
+/* Site chrome (base.css, content-header.css) loads from the HTML shell, same as content pages. */
 import './styles/practice.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

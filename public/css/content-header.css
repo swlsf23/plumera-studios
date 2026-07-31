@@ -1,13 +1,21 @@
-/* Content-page style header for static landings (scoped to avoid base.css clashes). */
+/*
+  Site header chrome — sole stylesheet for .content-header on every surface
+  (content pages, locale landings, flashcard app shell).
+
+  Fully self-contained: page CSS (content.css, practice.css, landing-home.css)
+  must not change header metrics. All tokens and typography are local.
+*/
 
 .content-header {
   --ink: #173534;
   --paper: #f3efe5;
+  --sand: #b99d62;
   --blue: #7f99a2;
   --blue-deep: #6f8992;
   --blue-soft: rgba(127, 153, 162, 0.16);
   --line: rgba(23, 53, 52, 0.14);
 
+  box-sizing: border-box;
   width: 100%;
   min-height: 88px;
   padding: 12px clamp(20px, 4vw, 40px);
@@ -19,17 +27,30 @@
   z-index: 20;
   color: var(--ink);
   font-family: Inter, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: normal;
+}
+
+.content-header *,
+.content-header *::before,
+.content-header *::after {
+  box-sizing: border-box;
 }
 
 .content-header a {
   color: inherit;
   text-decoration: none;
+  font: inherit;
+  line-height: inherit;
 }
 
 .content-header__brand {
   justify-self: start;
   font-weight: 650;
   font-size: 25px;
+  line-height: 1.2;
   letter-spacing: -0.035em;
 }
 
@@ -37,6 +58,8 @@
   display: flex;
   gap: 36px;
   font-size: 14px;
+  font-weight: 400;
+  line-height: 1.25;
   align-items: center;
 }
 
@@ -44,6 +67,9 @@
 .content-header__nav > a {
   padding: 12px 0;
   position: relative;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.25;
 }
 
 .content-header__nav > a::after {
@@ -86,6 +112,9 @@
   place-items: center;
   cursor: pointer;
   background: transparent;
+  font: inherit;
+  color: inherit;
+  padding: 0;
 }
 
 .content-header__lang summary::-webkit-details-marker {
@@ -125,6 +154,8 @@
   padding: 10px 12px;
   border-radius: 8px;
   font-size: 14px;
+  font-weight: 400;
+  line-height: 1.25;
 }
 
 .content-header__lang-menu a:hover,
@@ -132,17 +163,28 @@
   background: var(--blue-soft);
 }
 
-.content-header__subscribe {
+/* Locked metrics — page line-height / font stacks must not change this pill. */
+.content-header a.content-header__subscribe {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
   border: 1px solid var(--sand);
   border-radius: 999px;
   padding: 11px 22px;
-  font-size: 14px;
-  transition: 0.2s ease;
   background: var(--sand);
-  color: var(--ink);
+  color: #fff;
+  font-family: Inter, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: normal;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: 0.2s ease;
 }
 
-.content-header__subscribe:hover {
+.content-header a.content-header__subscribe:hover {
   background: var(--ink);
   border-color: var(--ink);
   color: var(--paper);
@@ -158,6 +200,7 @@
   cursor: pointer;
   color: var(--ink);
   padding: 0;
+  font: inherit;
 }
 
 .content-header__menu svg {
@@ -181,7 +224,7 @@
     display: none;
   }
 
-  .content-header__subscribe {
+  .content-header a.content-header__subscribe {
     display: none;
   }
 
@@ -203,6 +246,8 @@
     padding: 12px;
     border-radius: 8px;
     font-size: 15px;
+    font-weight: 400;
+    line-height: 1.25;
   }
 
   .content-header__mobile a:hover,

@@ -1,0 +1,20 @@
+---
+description: Never launch or control apps outside Cursor
+alwaysApply: true
+---
+
+# No apps outside Cursor
+
+**Do not launch, install, control, or automate any application outside Cursor.**
+
+**NO EXCEPTIONS.** Not if the user asks. Not for screenshots. Not for debugging. Not for “just checking.” Not headless. Not ever.
+
+Forbidden examples (not a complete list):
+
+- Chrome, Chromium, Safari, Firefox, Edge, Brave
+- Playwright, Puppeteer, Selenium, or any browser automation
+- `npx playwright`, `playwright install`, or installing browser binaries
+- `open` (macOS) to start a GUI app
+- Any command whose purpose is to run an app outside Cursor
+
+For UI questions: ask the user, or read code/HTML/CSS/build output in the workspace. Nothing else.
