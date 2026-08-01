@@ -255,11 +255,8 @@ The audit should:
 
 ------------------------------------------------------------------------
 
-# Plumera Voice Ledger
+# Plumera voice ledger
 
-Maintain a running list of Plumera Voice explanations across all
-published articles.
-
-Over time, this ledger becomes an internal style guide documenting
-Plumera's recurring teaching patterns, mental models, and distinctive
-voice.
+The running list of distinctive teaching explanations lives in
+[style-guide.md](style-guide.md) (Voice ledger section), alongside the
+shared editorial rules.

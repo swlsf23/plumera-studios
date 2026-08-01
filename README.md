@@ -15,6 +15,8 @@ Monorepo for the Plumera website: static multilingual landings, Markdown content
 
 CI runs on every PR/`main` push. Production deploys on version tags (`v*`). See [docs/deploy.md](docs/deploy.md) ([MSEO-10](https://plumerastudios.atlassian.net/browse/MSEO-10)).
 
+Content voice and editorial rules: [docs/style-guide.md](docs/style-guide.md).
+
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
