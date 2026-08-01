@@ -1,6 +1,6 @@
 ---
 title: "French Verb of the Week: Mettre | Plumera"
-description: How French uses mettre for putting things somewhere, putting on clothes, and saying how long something takes.
+description: How French uses mettre for putting things somewhere, putting on clothes, and expressing time and duration.
 slug: votw-mettre-a2
 target: learn-french
 locale: en
@@ -17,15 +17,15 @@ related:
 
 # Mettre
 
-*Mettre* is a verb you will hear constantly. Learners usually start with "to put," then find the same verb for putting on a coat, setting the table, or saying how long something takes.
+*Mettre* is one of the most useful verbs in French because it appears in dozens of everyday situations. Learners usually meet it with the meaning "to put," but that is only the starting point. French also uses *mettre* when you put on clothes, spend time doing something, or set something into a particular state.
 
-English splits those ideas across *put*, *put on*, *set*, and *take*. French often keeps *mettre*. The shared idea is placement: an object on a table, clothes on a body, or time into an action.
+English often switches between several different verbs such as *put*, *wear*, *take*, *place*, or *set*. French frequently returns to *mettre* instead. That broad range of uses can seem confusing until you notice the common idea: something is being placed somewhere, whether it is an object, a piece of clothing, or even an amount of time.
 
-*Mettre* can cover putting keys on the table, putting on a jacket before you leave, and saying how long a trip takes. The first two feel close to English. The time use is the one that usually surprises learners.
+Once you become familiar with the most common patterns, *mettre* quickly becomes one of the verbs you reach for every day.
 
 ## Forms and grammar
 
-*Mettre* is irregular. The present tense shortens in the singular and doubles the *t* in the plural:
+*Mettre* is irregular, and its present tense changes more than many regular verbs. Learning these forms early will also help when you meet related verbs like *permettre* and *remettre*.
 
 <!-- table: forms -->
 
@@ -35,12 +35,7 @@ English splits those ideas across *put*, *put on*, *set*, and *take*. French oft
 | tu mets | vous mettez |
 | il / elle met | ils / elles mettent |
 
-Notice the split:
-
-- Singular forms stay short: *je mets*, *tu mets*, *il / elle met*.
-- Plural forms double the *t*: *nous mettons*, *vous mettez*, *ils / elles mettent*.
-
-Once the shape feels familiar, related verbs like *permettre* and *remettre* become easier too.
+Notice that the singular forms end in *-s* or *-t*, while the plural forms double the *t*: *nous mettons*, *vous mettez*. The third person plural ends with *-ent*, although that ending is not pronounced.
 
 In the past tense, *mettre* uses *avoir*, and the past participle is *mis*:
 
@@ -51,11 +46,11 @@ In the past tense, *mettre* uses *avoir*, and the past participle is *mis*:
 
 ## How to use mettre
 
-The three uses below move from the most concrete meaning to more abstract ones. Each use keeps the idea of placing something.
+The uses below move from the most concrete meaning to more abstract ones. Each keeps the same central idea of putting or placing something.
 
 ### Putting something somewhere
 
-To put an object into a place.
+This is the literal meaning and the easiest place to start.
 
 | French | English |
 |--------|---------|
@@ -65,7 +60,7 @@ To put an object into a place.
 
 ### Putting on clothes
 
-To put on a piece of clothing or an accessory.
+French uses *mettre* when someone dresses by putting on a piece of clothing or an accessory.
 
 | French | English |
 |--------|---------|
@@ -73,7 +68,7 @@ To put on a piece of clothing or an accessory.
 | Il met son chapeau. | He's putting on his hat. |
 | Nous mettons nos manteaux. | We're putting on our coats. |
 
-*Porter* is different. It describes what you have on after the clothes are already there.
+Compare this with *porter*, which describes wearing something after it is already on.
 
 | French | English |
 |--------|---------|
@@ -82,19 +77,19 @@ To put on a piece of clothing or an accessory.
 
 ### Taking time
 
-To say how long an action takes. The usual pattern is *mettre* + duration + *à* + infinitive.
+French also uses *mettre* to express how long an action takes.
 
 | French | English |
 |--------|---------|
-| Je mets dix minutes à arriver. | It takes me ten minutes to get there. |
+| Je mets dix minutes pour arriver. | It takes me ten minutes to arrive. |
 | Nous avons mis deux heures à finir. | We took two hours to finish. |
-| Tu mets combien de temps à y aller ? | How long does it take you to get there? |
+| Tu mets combien de temps ? | How long do you take? |
 
-English often says "it takes…" with no person as the subject. French commonly puts the person first: *je mets…*, *nous avons mis…*.
+Notice the pattern *mettre du temps à + infinitive*. It is the natural way to talk about the time needed to do something.
 
 ## Other common constructions
 
-Three more combinations you will hear often. English usually changes the verb:
+Some everyday combinations with *mettre* do not translate word for word into English, so they are worth learning as complete expressions.
 
 | French | English |
 |--------|---------|
@@ -102,26 +97,25 @@ Three more combinations you will hear often. English usually changes the verb:
 | mettre de la musique | to put on some music |
 | mettre en ordre | to put in order |
 
-*Mettre la table* is the one that trips English speakers. We *set* the table. French uses *mettre*.
+*Mettre la table* is especially useful because English prefers "set the table," even though French still uses *mettre*.
 
 <!-- art: band -->
 
 ## Expressions and idioms
 
-In fixed expressions, learn the whole phrase. The meaning is hard to guess from *mettre* alone.
+These expressions have meanings that go beyond the basic idea of putting something somewhere, so it is best to learn them as fixed phrases.
 
 ### se mettre à
 
-To start doing something, often suddenly or after a pause.
+Used to describe starting an action.
 
 | French | English |
 |--------|---------|
 | Il se met à rire. | He starts laughing. |
-| Elle s'est mise à travailler. | She started working. |
 
 ### mettre les pieds dans le plat
 
-To say something awkward or embarrassing without meaning to.
+Used when someone says something awkward or embarrassing.
 
 | French | English |
 |--------|---------|
@@ -129,21 +123,19 @@ To say something awkward or embarrassing without meaning to.
 
 ## Common mistakes
 
-One mistake picks the wrong clothing verb. The other drops the preposition after a duration.
+The mistakes below come from translating English too directly or choosing the wrong French verb for clothing.
 
 ### Using *porter* instead of *mettre*
 
-Choosing *porter* when you mean the action of dressing. English "wear" covers both putting clothes on and having them on. French splits the two.
+English often says "I'm wearing" when the action has already happened. French distinguishes between putting clothes on and wearing them.
 
 | Incorrect | Correct |
 |-----------|---------|
-| *Je porte mon manteau.* | *Je mets mon manteau.* |
-
-*Je porte mon manteau* is fine when the coat is already on and you are saying what you have on.
+| *Je porte mon manteau maintenant.* (when you are putting it on) | *Je mets mon manteau maintenant.* |
 
 ### Forgetting *à* after a duration
 
-Leaving out *à* before the infinitive when *mettre* means "to take (time)."
+When *mettre* describes how long something takes, French normally uses *mettre... à + infinitive*.
 
 | Incorrect | Correct |
 |-----------|---------|
@@ -156,8 +148,13 @@ Leaving out *à* before the infinitive when *mettre* means "to take (time)."
 - placer: to place in a particular position
 - enlever: to take off or remove
 
-> *Porter* is the one to watch next to *mettre*. For dressing, French uses *mettre*: *je mets mon pull*. For what you already have on, it uses *porter*: *je porte un pull bleu*.
+> *Porter* is the one learners confuse most often with *mettre*. If the action is dressing, use *mettre*. If the clothes are already on, use *porter*.
+
+| French | English |
+|--------|---------|
+| Je mets mon pull. | I'm putting on my sweater. |
+| Je porte un pull bleu. | I'm wearing a blue sweater. |
 
 ## Before you go
 
-Treat *mettre* as a set of placement patterns, not a translation of a single English verb. At [A2](/en/cefr/), that pays off when you put keys down, put on a coat, or say how long something takes.
+Think of *mettre* as the verb of placing something into a new position or state. At [A2](/en/cefr/), recognising that single idea makes its many everyday uses much easier to remember.
