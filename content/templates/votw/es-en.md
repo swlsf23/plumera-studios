@@ -1,6 +1,6 @@
 <!--
 LLM PROMPT: Spanish Verb of the Week (for English speakers)
-===========================================================
+==========================================================
 You are drafting a Plumera Studios Spanish Verb of the Week article for
 English-speaking learners. Fill this Markdown template. Do not invent a
 different structure.
@@ -22,7 +22,7 @@ OUTPUT RULES
 4. Fill YAML frontmatter: title, description, slug, target, locale, level,
    author, date. Set target: learn-spanish and locale: en.
    title is the full document <title>, not just the verb:
-   "Spanish Verb of the Week: Tomar". The builder uses it as-is.
+   "Spanish Verb of the Week: {Verb} | Plumera". The builder uses it as-is.
    Keep draft: true unless the human asks to publish.
 5. slug must be a URL-safe form of the infinitive, with the level as a suffix
    (e.g. votw-tomar-a1). frontmatter level is the source of truth. The suffix
@@ -30,62 +30,74 @@ OUTPUT RULES
 6. Write all learner-facing prose in English.
 7. For example pairs, use Markdown tables with columns Spanish | English.
    The language being taught goes in the left column. Prefer 2-4 rows.
-8. Order the senses under How to use by a principle you state in that section's
-   opening line, so the reader knows what separates them.
-9. Every ## section opens with at least one sentence before any ### heading.
-   Two headings must never sit next to each other with nothing in between, and
-   that sentence must carry information rather than announce the section.
-10. Do not use bold labels (**Definition**, **Examples**, **Usage Notes**,
+8. For the present-tense conjugation grid in Forms and grammar, put
+   <!-- table: forms --> on the line immediately above a Singular | Plural
+   table (see content/README.md). Example pairs stay Spanish | English without
+   that marker.
+9. Put <!-- art: band --> on its own line after Other common constructions and
+   before Expressions and idioms (slim decorative band; see content/README.md).
+10. Order the senses under How to use by a principle you state in that section's
+    opening line, so the reader knows what separates them.
+11. Every ## section opens with at least one sentence before any ### heading.
+    Two headings must never sit next to each other with nothing in between, and
+    that sentence must carry information rather than announce the section.
+12. Do not use bold labels (**Definition**, **Examples**, **Usage Notes**,
     **Meaning**, **Explanation**). The heading names the item, the prose
     explains it, the table shows it.
-11. Each sense is a heading, one line of guidance, then a table. Nothing else.
-12. Under Common mistakes, the explanation goes before the table.
-13. Use Incorrect / Correct only for genuine errors. A sentence that is
+13. Each sense is a heading, a short guidance line, then a Spanish | English
+    table. After that table you may add a short contrast (prose and/or a second
+    table) when two correct verbs mean different things. Do not put that contrast
+    under Common mistakes.
+14. Under Common mistakes, the explanation goes before the table.
+15. Use Incorrect / Correct only for genuine errors. A sentence that is
     grammatical but says something the learner did not intend still counts, so
     false friends belong here. If both versions are correct and simply mean
     different things, that is a contrast, not a mistake: put it in the relevant
-    sense as a two-row comparison instead.
-14. Do not point forward at items the reader has not reached. "These two" and
+    sense instead.
+16. Do not point forward at items the reader has not reached. "These two" and
     "the first two" need an antecedent, as in "two of the mistakes below".
-15. Do not state a rule in Forms and grammar that Common mistakes also covers.
-16. Sentence case for all headings. A heading that is a Spanish expression keeps
+17. Do not state a rule in Forms and grammar that Common mistakes also covers.
+18. Sentence case for all headings. A heading that is a Spanish expression keeps
     its own capitalization.
-17. Follow the STYLE GUIDE comment below (audience, voice, writing, examples,
+19. Follow the STYLE GUIDE comment below (audience, voice, writing, examples,
     translation, pedagogy, L1 interference). This file is for English-speaking
     learners only. Do not write for French speakers or mix audiences.
-18. Write clear learner-facing prose. No meta commentary, no "as an AI",
+20. Write clear learner-facing prose. No meta commentary, no "as an AI",
     no placeholder text like "TODO" or "fill in".
-19. Before finishing, delete this LLM PROMPT comment, the STYLE GUIDE comment,
+21. Before finishing, delete this LLM PROMPT comment, the STYLE GUIDE comment,
     the AUTHOR NOTES comment, and the SEO CHECKLIST comment from the output.
     The published file must start with the YAML frontmatter (---).
-20. Do not wrap the answer in a code fence unless the human asks for one.
+22. Do not wrap the answer in a code fence unless the human asks for one.
 
 QUALITY BAR
 - Introduction: about 100 to 200 words, why the verb matters, and the central
   idea that ties its uses together.
-- Forms and grammar: only the mechanics the examples below rely on, including
-  stem changes and any irregular preterite.
+- Forms and grammar: only the mechanics the examples below rely on, plus the
+  forms table marker and a short past-tense note when the lesson uses it.
 - Examples: natural, level-appropriate, accurate Spanish with English glosses.
 - Common mistakes: typical for English speakers learning Spanish (see L1).
-- Summary: reinforce the core idea without restating every gloss.
+- Before you go: reinforce the core idea without restating every gloss.
 
 Fill the template that follows (frontmatter, then body).
 -->
 
 <!--
 STYLE GUIDE: Spanish VOTW for English speakers (es-en)
-=====================================================
+====================================================
 Pair: target=es, locale=en. Do not reuse French-audience or Spanish-audience
 guidance.
 
 Audience
-- Native English speakers learning Spanish.
+- Readers using English to learn Spanish. Do not assume they are native English
+  speakers; keep explanation English clear for advanced ESL readers too.
+  See docs/style-guide.md.
 - Explain concepts without assuming prior grammatical knowledge.
 - Do not assume they know French or other Romance languages.
 
 Voice
-- Write like a native English speaker: natural idiom, rhythm, and word choice.
-  Not translated-sounding, not textbook English, not generic AI English.
+- Write clear, natural English with a personal teaching voice. Not
+  translated-sounding, not textbook English, not generic AI English. Prefer
+  concrete scenes and short sentences over culture-bound idiom.
 - Friendly. Confident. Curious. Teacher.
 - Conversational but precise.
 - Never patronizing.
@@ -161,12 +173,14 @@ related:        # Sidebar "You might also like" cards (optional)
   - Copy to content/en/learn-spanish/votw/{slug}.md
   - Keep every ## heading below as written and in this order. Register and usage
     is optional and may be deleted.
-  - Replace the H1 with the verb (same as title).
+  - Replace the H1 with the verb lemma only (e.g. Tomar), not the full title.
   - Add as many senses, expressions, and mistakes as the verb needs. Delete the
     spare blocks.
   - Every ## opens with a sentence before any ###. No stacked headings, and no
     filler sentence either: it has to say something.
-  - Example pairs use | Spanish | English | tables, Spanish on the left.
+  - Present grid: <!-- table: forms --> then | Singular | Plural |.
+  - Example pairs: | Spanish | English |, Spanish on the left.
+  - Keep <!-- art: band --> between Other common constructions and Expressions.
   - Link CEFR level codes in body copy to /en/cefr/ (e.g. [A1](/en/cefr/)).
     Do not put Markdown links in YAML frontmatter.
   - Voice and pedagogy: see STYLE GUIDE comment above (English audience, not FR).
@@ -181,9 +195,20 @@ and the idea that ties its uses together. Do not list every translation.
 
 ## Forms and grammar
 
-The mechanics a learner needs in order to build a correct sentence: stem
-changes, an irregular preterite, the participle, reflexive forms, any
-preposition habit. Keep to what the examples below actually rely on.
+Open with why the forms matter (stem changes, irregular preterite, a habit
+that keeps sentences correct). Then the present grid:
+
+<!-- table: forms -->
+
+| Singular | Plural |
+|----------|--------|
+| | |
+| | |
+| | |
+
+A short note on what to notice in the grid (sound alike, stem split, family
+verbs). Add past-tense forms the lesson relies on (preterite stem, participle) as a
+Spanish | English table when the examples below use them.
 
 ## How to use {verb}
 
@@ -218,14 +243,13 @@ One line of guidance.
 | | |
 | | |
 
-<!-- Where two verbs are both correct but say different things, put the
-     comparison here, in the sense it belongs to, as a two-row table with a
-     paragraph explaining the difference. It is not a mistake. -->
+<!-- Optional: after a sense table, add a short contrast when two correct verbs
+     mean different things (prose + Spanish | English table). Not a mistake. -->
 
-## Common constructions
+## Other common constructions
 
-One sentence introducing the combinations. Prefer collocations where Spanish and
-English diverge over ones that translate predictably.
+One sentence introducing combinations that fall outside the senses above.
+Prefer collocations where Spanish and English diverge.
 
 | Spanish | English |
 |---------|---------|
@@ -234,9 +258,12 @@ English diverge over ones that translate predictably.
 
 A closing note on whichever row is least predictable for an English speaker.
 
+<!-- art: band -->
+
 ## Expressions and idioms
 
-One sentence on what sets these apart from the senses above.
+One sentence on what sets these apart from the senses above (fixed phrases;
+learn the whole unit).
 
 ### expresión española
 
@@ -288,13 +315,20 @@ The explanation.
 Verbs learners confuse with this one, or that cover part of its ground, each
 with a short gloss:
 
--
--
--
+- verb: short gloss
+- verb: short gloss
+- verb: short gloss
 
-A note on whichever one causes English speakers the most trouble.
+Call out the one that causes the most trouble in a blockquote, then optional
+examples:
 
-## Summary
+> *Verb* is the one to watch. …
+
+| Spanish | English |
+|---------|---------|
+| | |
+
+## Before you go
 
 One or two sentences reinforcing the central idea, with the level linked
 (e.g. [A1](/en/cefr/)). Do not recap the glosses.
