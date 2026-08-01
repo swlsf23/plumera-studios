@@ -55,6 +55,17 @@ For Verb of the Week and similar series:
 - **Vary the openers.** A concrete catalog or colon-list beat is strong once or twice. Do not reuse the same intro shape on every VOTW.
 - Keep Forms and grammar parallel in *design* (irregular lead-in → table → one teaching note → past tense) without copying dry reference wording.
 
+## `###` section openers
+
+Every `###` (senses, expressions, common mistakes, and similar) opens with a short meaning gloss before the table or further teaching. Prefer a clear "To…" line, with an optional nuance:
+
+- Good: "To start doing something, often suddenly or after a pause."
+- Good: "To keep going when something is hard."
+- Weak: "Used when…" with no meaning stated
+- Weak: jumping straight to a table
+
+Extra explanation can follow the gloss. The gloss itself should stand alone if the reader only skims headings and first lines. Apply this in new drafts and when revising published lessons.
+
 ## Examples and pedagogy
 
 - Prefer examples someone might actually hear or say. Avoid textbook-only lines where possible.
