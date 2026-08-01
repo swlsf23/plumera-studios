@@ -6,9 +6,11 @@ target: learn-french
 locale: en
 level: A2
 author:
-date: 2026-07-31
+date: 2026-07-15
 draft: true
 related:
+  - title: "Mettre: Idioms and Fixed Expressions"
+    href: /en/learn-french/articles/verb-mettre-b1/
   - href: /en/learn-french/whats-new/
   - href: /en/learn-french/votw/
   - title: CEFR levels
@@ -55,7 +57,7 @@ The three uses below move from the most concrete meaning to more abstract ones. 
 
 ### Putting something somewhere
 
-To put an object into a place.
+Start with the everyday physical use. You move something into a place, and *mettre* names that action.
 
 | French | English |
 |--------|---------|
@@ -65,7 +67,7 @@ To put an object into a place.
 
 ### Putting on clothes
 
-To put on a piece of clothing or an accessory.
+French uses *mettre* for the action of dressing: a jacket, a hat, a coat going on.
 
 | French | English |
 |--------|---------|
@@ -82,7 +84,7 @@ To put on a piece of clothing or an accessory.
 
 ### Taking time
 
-To say how long an action takes. The usual pattern is *mettre* + duration + *à* + infinitive.
+French also uses *mettre* for how long an action takes. The usual pattern is *mettre* + duration + *à* + infinitive.
 
 | French | English |
 |--------|---------|
@@ -117,15 +119,9 @@ To start doing something, often suddenly or after a pause.
 | French | English |
 |--------|---------|
 | Il se met à rire. | He starts laughing. |
-| Elle s'est mise à travailler. | She started working. |
+| Elle se met à travailler. | She starts working. |
 
-### mettre les pieds dans le plat
-
-To say something awkward or embarrassing without meaning to.
-
-| French | English |
-|--------|---------|
-| Il a encore mis les pieds dans le plat. | He put his foot in it again. |
+More pronominal uses and denser idioms with *mettre* are covered in the [B1 companion article](/en/learn-french/articles/verb-mettre-b1/).
 
 ## Common mistakes
 
@@ -143,7 +139,7 @@ Choosing *porter* when you mean the action of dressing. English "wear" covers bo
 
 ### Forgetting *à* after a duration
 
-Leaving out *à* before the infinitive when *mettre* means "to take (time)."
+When *mettre* means "to take (time)," the infinitive usually needs *à*.
 
 | Incorrect | Correct |
 |-----------|---------|
@@ -161,3 +157,5 @@ Leaving out *à* before the infinitive when *mettre* means "to take (time)."
 ## Before you go
 
 Treat *mettre* as a set of placement patterns, not a translation of a single English verb. At [A2](/en/cefr/), that pays off when you put keys down, put on a coat, or say how long something takes.
+
+For denser idioms and pronominal uses, see the [B1 companion on *mettre*](/en/learn-french/articles/verb-mettre-b1/).
