@@ -40,7 +40,7 @@ Notice the past participle agreement with the subject when the reflexive is the 
 
 ### S'y mettre and se remettre à
 
-*S'y mettre* means getting down to a task you have been avoiding. *Se remettre à* means starting again after a break.
+*S'y mettre* means getting down to a task or finally getting started. *Se remettre à* means starting again after a break.
 
 | French | English |
 |--------|---------|
@@ -48,17 +48,17 @@ Notice the past participle agreement with the subject when the reflexive is the 
 | Elle s'y est mise tôt ce matin. | She got started on it early this morning. |
 | Il s'est remis à courir. | He took up running again. |
 
-## Entering a state: *se mettre en…*
+## Entering a state: *se mettre en…* / *se mettre d'accord*
 
-With *en* + a noun, *se mettre* often marks entering an emotional or social state.
+*Se mettre en* + a noun often marks entering an emotional or social state. *Se mettre d'accord* is a related pattern with *d'* instead of *en*.
 
 | French | English |
 |--------|---------|
 | Il s'est mis en colère. | He got angry. |
-| Nous nous sommes mis d'accord. | We reached an agreement. |
 | Elle s'est mise en route. | She set off. |
+| Nous nous sommes mis d'accord. | We reached an agreement. |
 
-English switches verbs (*got*, *reached*, *ended up*). French keeps *se mettre en…* and changes the noun.
+English switches verbs (*got*, *set off*, *reached*). French keeps *se mettre* and changes what follows.
 
 ## Social ease and awkwardness
 
@@ -92,9 +92,9 @@ These uses show up in conversation, news, and work talk. Something is highlighte
 |--------|---------|
 | Le rapport met l'accent sur la sécurité. | The report emphasizes safety. |
 | On a mis en cause le directeur. | The director was called into question. |
-| Je te mets en garde. | I'm warning you. |
+| Je te mets en garde contre cette idée. | I'm warning you against that idea. |
 
-*Mettre l'accent sur* highlights a point. *Mettre en cause* questions someone's role or responsibility. *Mettre en garde* warns before something goes wrong.
+*Mettre l'accent sur* highlights a point. *Mettre en cause* questions someone's role or responsibility. *Mettre en garde* usually takes *contre* before the risk or idea.
 
 ## Plans, delays, and practical setups
 
@@ -115,7 +115,7 @@ Past the core A2 meanings, *mettre* often depends on what follows:
 | French | English |
 |--------|---------|
 | *se mettre à* / *s'y mettre* / *se remettre à* | start, get to it, start again |
-| *se mettre en…* | enter a state |
+| *se mettre en…* / *se mettre d'accord* | enter a state / agree |
 | *mettre à l'aise* / *mettre mal à l'aise* / *mettre les pieds dans le plat* | comfort and awkwardness |
 | *mettre l'accent sur* / *mettre en cause* / *mettre en garde* | emphasis, blame, warning |
 | *mettre au point* / *mettre en place* / *remettre à plus tard* | plans and setups |

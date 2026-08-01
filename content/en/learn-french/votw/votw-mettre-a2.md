@@ -92,7 +92,7 @@ French also uses *mettre* for how long an action takes. The usual pattern is *me
 | Nous avons mis deux heures à finir. | We took two hours to finish. |
 | Tu mets combien de temps à y aller ? | How long does it take you to get there? |
 
-English often says "it takes…" with no person as the subject. French commonly puts the person first: *je mets…*, *nous avons mis…*.
+English often says "it takes…" with no person as the subject. French commonly puts the person first: *je mets…*, *nous avons mis…*. You will also hear *pour* with a duration (*je mets dix minutes pour y aller*), but *à* + infinitive is the pattern to learn first.
 
 ## Other common constructions
 
