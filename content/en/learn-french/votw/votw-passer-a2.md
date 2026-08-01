@@ -1,6 +1,6 @@
 ---
 title: "French Verb of the Week: Passer | Plumera"
-description: How French uses passer for passing, spending time, stopping by, and moving from one place or stage to another.
+description: How French uses passer for going past, spending time, and stopping by.
 slug: votw-passer-a2
 target: learn-french
 locale: en
@@ -9,6 +9,8 @@ author:
 date: 2026-07-31
 draft: true
 related:
+  - title: "Passer: Idioms and Fixed Expressions"
+    href: /en/learn-french/articles/verb-passer-b1/
   - href: /en/learn-french/whats-new/
   - href: /en/learn-french/votw/
   - title: CEFR levels
@@ -17,15 +19,15 @@ related:
 
 # Passer
 
-*Passer* is one of those French verbs that appears in dozens of everyday conversations. It often begins with the simple idea of passing or going past something, but it also describes spending time, stopping by to visit, and moving from one stage to another.
+*Passer* often means going past something. French also uses it for spending time and stopping by for a short visit.
 
-English uses several different verbs for these ideas. French often keeps *passer*. The connection is movement: someone or something passes through a place, a period of time, or a situation.
+English splits those ideas across *pass*, *spend*, *stop by*, and *take*. French often keeps *passer*. The shared idea is movement through a place, a period of time, or a short stop.
 
-Learning the most common patterns will make films, conversations, and everyday French much easier to understand.
+Keep that idea in mind, and combinations like *passer une soirée* or *passer chez toi* start to make sense.
 
 ## Forms and grammar
 
-*Passer* is a regular *-er* verb, but one feature is worth noticing. In the perfect tense, it can take either *avoir* or *être*, depending on the meaning.
+*Passer* is a regular *-er* verb in the present tense, but the perfect tense needs care: it can take *avoir* or *être*, depending on the meaning.
 
 <!-- table: forms -->
 
@@ -35,7 +37,7 @@ Learning the most common patterns will make films, conversations, and everyday F
 | tu passes | vous passez |
 | il / elle passe | ils / elles passent |
 
-When *passer* means simply "to pass" or "to spend time," it usually takes *avoir*. When it means moving past or through somewhere without a direct object, it can take *être*.
+When *passer* means spending time or taking an exam, it usually takes *avoir*. When it means moving past or through somewhere without a direct object, it often takes *être*.
 
 | French | English |
 |--------|---------|
@@ -44,11 +46,11 @@ When *passer* means simply "to pass" or "to spend time," it usually takes *avoir
 
 ## How to use passer
 
-The meanings below move from physical movement to the everyday extensions that grow from it.
+The three uses below move from physical movement to spending time and stopping by.
 
 ### Passing or going past
 
-This is the most literal meaning.
+Start with movement through space. Someone or something goes past a place, and *passer* names that movement.
 
 | French | English |
 |--------|---------|
@@ -58,12 +60,12 @@ This is the most literal meaning.
 
 ### Spending time
 
-French uses *passer* for spending a period of time.
+French uses *passer* for spending a period of time. English often says *spend* or *have*.
 
 | French | English |
 |--------|---------|
 | J'ai passé une bonne soirée. | I had a good evening. |
-| Nous passons les vacances en Bretagne. | We're spending our holidays in Brittany. |
+| Nous passons les vacances en Bretagne. | We're spending our vacation in Brittany. |
 | Elle a passé deux heures à lire. | She spent two hours reading. |
 
 ### Stopping by
@@ -78,7 +80,7 @@ With *chez* or another place, *passer* often means stopping somewhere for a shor
 
 ## Other common constructions
 
-Some combinations with *passer* are especially common and are worth learning together.
+Three combinations you will hear constantly:
 
 | French | English |
 |--------|---------|
@@ -86,13 +88,13 @@ Some combinations with *passer* are especially common and are worth learning tog
 | passer un examen | to take an exam |
 | passer du temps avec | to spend time with |
 
-Notice *passer un examen*. English says "take" an exam, but French uses *passer*.
+*Passer un examen* is the one that trips English speakers. We *take* an exam. French uses *passer*.
 
 <!-- art: band -->
 
 ## Expressions and idioms
 
-These expressions are fixed enough that it helps to learn them as complete units.
+In fixed expressions, learn the whole phrase. The meaning is hard to guess from *passer* alone.
 
 ### ça passe
 
@@ -101,18 +103,13 @@ Used when something is acceptable or good enough.
 | French | English |
 |--------|---------|
 | Ce n'est pas parfait, mais ça passe. | It's not perfect, but it'll do. |
+| Si ça passe, tant mieux. | If that works, so much the better. |
 
-### passer inaperçu
-
-Used when something goes unnoticed.
-
-| French | English |
-|--------|---------|
-| Son erreur est passée inaperçue. | His mistake went unnoticed. |
+Pronominal uses such as *se passer* and *se passer de*, plus denser idioms, are covered in the [B1 companion article](/en/learn-french/articles/verb-passer-b1/).
 
 ## Common mistakes
 
-The mistakes below usually come from translating English too closely.
+One mistake picks the wrong verb for spending time. The other drops *par* for a route.
 
 ### Using *prendre* for spending time
 
@@ -137,7 +134,7 @@ When talking about the route you take, French often uses *passer par*.
 - visiter: to visit
 - aller: to go
 
-> *Visiter* is for visiting places such as museums or cities. For stopping briefly at someone's home, French normally uses *passer chez...*.
+> *Visiter* is for visiting places such as museums or cities. For stopping briefly at someone's home, French normally uses *passer chez…*.
 
 | French | English |
 |--------|---------|
@@ -146,4 +143,6 @@ When talking about the route you take, French often uses *passer par*.
 
 ## Before you go
 
-Think of *passer* as the verb of moving through places, time, and situations. At [A2](/en/cefr/), that one idea explains many of its most common everyday uses.
+Think of *passer* as moving through places, time, and short stops. At [A2](/en/cefr/), that idea connects going past, spending an evening, and stopping by.
+
+For *se passer*, *se passer de*, *passer pour*, and denser fixed expressions, see the [B1 companion on *passer*](/en/learn-french/articles/verb-passer-b1/).

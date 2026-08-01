@@ -1,6 +1,6 @@
 ---
 title: "French Verb of the Week: Tomber | Plumera"
-description: How French uses tomber for falling, becoming, happening unexpectedly, and common everyday expressions.
+description: How French uses tomber for falling, sudden changes, and coming across someone or something.
 slug: votw-tomber-a2
 target: learn-french
 locale: en
@@ -9,6 +9,8 @@ author:
 date: 2026-07-31
 draft: true
 related:
+  - title: "Tomber: Idioms and Fixed Expressions"
+    href: /en/learn-french/articles/verb-tomber-b1/
   - href: /en/learn-french/whats-new/
   - href: /en/learn-french/votw/
   - title: CEFR levels
@@ -17,15 +19,15 @@ related:
 
 # Tomber
 
-*Tomber* usually means "to fall," but French uses it for much more than someone losing their balance. Rain falls, night falls, people fall ill, and you can even come across someone by chance with *tomber sur*.
+*Tomber* usually means "to fall," but French also uses it when someone falls ill, night falls, and you come across someone by chance with *tomber sur*.
 
-English often changes verbs between *fall*, *become*, *happen*, *come across*, or *run into*. French frequently keeps *tomber*. The common idea is that something suddenly moves into a new situation, often without being planned.
+English splits those ideas across *fall*, *become*, *come across*, and *run into*. French often keeps *tomber*. The shared idea is a sudden move into a new situation, often unplanned.
 
-Once you recognise that pattern, many everyday expressions with *tomber* become much easier to understand.
+Keep that idea in mind, and combinations like *tomber en panne* or *tomber amoureux* start to make sense.
 
 ## Forms and grammar
 
-*Tomber* is a regular *-er* verb.
+*Tomber* is a regular *-er* verb in the present tense:
 
 <!-- table: forms -->
 
@@ -35,7 +37,7 @@ Once you recognise that pattern, many everyday expressions with *tomber* become 
 | tu tombes | vous tombez |
 | il / elle tombe | ils / elles tombent |
 
-In the perfect tense, *tomber* uses *être*. The past participle is *tombé*.
+In the perfect tense, *tomber* uses *être*. The past participle is *tombé*, and it agrees with the subject.
 
 | French | English |
 |--------|---------|
@@ -44,11 +46,11 @@ In the perfect tense, *tomber* uses *être*. The past participle is *tombé*.
 
 ## How to use tomber
 
-The meanings below move from physical falls to the most common everyday extensions.
+The three uses below move from a physical fall to sudden changes and chance encounters.
 
 ### Falling
 
-This is the basic meaning.
+Start with the physical sense. Someone or something drops, and *tomber* names that fall.
 
 | French | English |
 |--------|---------|
@@ -58,7 +60,7 @@ This is the basic meaning.
 
 ### Becoming or happening suddenly
 
-French often uses *tomber* for unexpected changes.
+French often uses *tomber* for unexpected changes of state, or for night and rain "falling."
 
 | French | English |
 |--------|---------|
@@ -68,7 +70,7 @@ French often uses *tomber* for unexpected changes.
 
 ### Coming across someone or something: *tomber sur*
 
-With *sur*, *tomber* often means finding something by chance.
+With *sur*, *tomber* often means finding someone or something by chance.
 
 | French | English |
 |--------|---------|
@@ -78,7 +80,7 @@ With *sur*, *tomber* often means finding something by chance.
 
 ## Other common constructions
 
-These combinations appear very often in everyday French.
+Three combinations you will hear constantly:
 
 | French | English |
 |--------|---------|
@@ -86,13 +88,13 @@ These combinations appear very often in everyday French.
 | tomber en panne | to break down |
 | tomber d'accord | to reach an agreement |
 
-Notice that these expressions should be learned as complete units because English usually changes the verb.
+Learn these as complete units. English usually changes the verb.
 
 <!-- art: band -->
 
 ## Expressions and idioms
 
-These expressions are easiest to remember as fixed phrases.
+In fixed expressions, learn the whole phrase. The meaning is hard to guess from *tomber* alone.
 
 ### ça tombe bien
 
@@ -101,18 +103,13 @@ Used when something happens at exactly the right moment.
 | French | English |
 |--------|---------|
 | Ça tombe bien, j'allais t'appeler. | That's good timing. I was just about to call you. |
+| Ça tombe mal, je suis occupé. | Bad timing — I'm busy. |
 
-### tomber à l'eau
-
-Used when a plan fails or is cancelled.
-
-| French | English |
-|--------|---------|
-| Notre projet est tombé à l'eau. | Our project fell through. |
+Denser idioms such as *tomber à l'eau*, *tomber à pic*, and *tomber nez à nez* are covered in the [B1 companion article](/en/learn-french/articles/verb-tomber-b1/).
 
 ## Common mistakes
 
-The mistakes below come from translating English too literally.
+One mistake drops *sur* after a chance encounter. The other picks the wrong auxiliary.
 
 ### Forgetting *sur*
 
@@ -132,12 +129,11 @@ Like many verbs of movement, *tomber* normally uses *être*.
 
 ## Related verbs
 
-- chuter: to fall
-- tomber: to fall
+- chuter: to fall (often more formal or sports-related)
 - rencontrer: to meet
 - trouver: to find
 
-> *Rencontrer* means meeting someone intentionally or simply meeting them. *Tomber sur* adds the idea that the meeting happened by chance.
+> *Rencontrer* means meeting someone, with or without planning. *Tomber sur* adds the idea that the meeting happened by chance.
 
 | French | English |
 |--------|---------|
@@ -146,4 +142,6 @@ Like many verbs of movement, *tomber* normally uses *être*.
 
 ## Before you go
 
-Think of *tomber* as describing sudden changes, whether someone falls, something breaks down, or you unexpectedly meet someone. At [A2](/en/cefr/), that single idea connects its most useful everyday meanings.
+Think of *tomber* as a sudden change: a fall, an illness, a breakdown, or an unexpected meeting. At [A2](/en/cefr/), that idea connects its most useful everyday meanings.
+
+For denser coincidence and failure idioms, see the [B1 companion on *tomber*](/en/learn-french/articles/verb-tomber-b1/).

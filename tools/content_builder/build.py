@@ -56,6 +56,18 @@ def _copy_public(dist: Path) -> None:
     )
 
 
+def _copy_content_images(dist: Path) -> None:
+    """Copy content/{locale}/img/ → dist/{locale}/img/ for Markdown image URLs."""
+    for locale_dir in sorted(CONTENT.iterdir()):
+        if not locale_dir.is_dir() or locale_dir.name == "templates":
+            continue
+        src = locale_dir / "img"
+        if not src.is_dir():
+            continue
+        dest = dist / locale_dir.name / "img"
+        shutil.copytree(src, dest, dirs_exist_ok=True)
+
+
 def _lang_hrefs(locale: str) -> list[dict[str, str | bool]]:
     """Switching language goes to that locale's home. Locales are separate
     audiences, not translations of each other, so pages have no counterparts."""
@@ -358,6 +370,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
     env = _env()
     template = env.get_template("content_page.html")
     _copy_public(dist)
+    _copy_content_images(dist)
 
     core_pages = [(parse_core_page(p, loc), p) for p, loc in discover_core_pages(CONTENT)]
 

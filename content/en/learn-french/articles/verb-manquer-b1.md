@@ -1,6 +1,6 @@
 ---
 title: "Manquer (French): idioms and fixed expressions | Plumera"
-description: How French uses manquer in advanced prepositional constructions, idioms, and patterns you will meet around B1.
+description: How French uses manquer de + infinitive, manquer à, and denser fixed expressions around B1.
 slug: verb-manquer-b1
 target: learn-french
 locale: en
@@ -18,11 +18,13 @@ related:
 
 # Idioms and fixed expressions with *manquer*
 
-At [A2](/en/cefr/), *manquer* means missing transport, lacking something with *manquer de*, and expressing that someone is missed. Around [B1](/en/cefr/), you begin meeting patterns where the preposition changes the meaning completely. These are best learned as complete expressions.
+At [A2](/en/cefr/), *manquer* covers missing transport, lacking something with *manquer de*, and saying you miss someone. That core is covered in the [French Verb of the Week lesson on *manquer*](/en/learn-french/votw/votw-manquer-a2/).
 
-## Failing to do something: *manquer de*
+Around [B1](/en/cefr/), the same verb takes different shapes depending on what follows. The preposition often matters more than a new translation of *manquer*.
 
-Besides expressing a lack, *manquer de* can introduce an infinitive to show that something almost happened.
+## Almost happening: *manquer de* + infinitive
+
+Besides expressing a lack, *manquer de* can introduce an infinitive to show that something nearly happened.
 
 | French | English |
 |--------|---------|
@@ -30,54 +32,52 @@ Besides expressing a lack, *manquer de* can introduce an infinitive to show that
 | Elle a manqué de rire. | She almost laughed. |
 | Nous avons manqué de perdre le match. | We almost lost the match. |
 
-The idea is coming close to an event without actually reaching it.
+The idea is coming close to an event without actually reaching it. Context usually separates this from *manquer de* + noun ("lack").
 
 ## Being missed: *manquer à*
 
-With *à*, the person or thing that is absent becomes the subject.
+With *à*, French can mark who feels the absence. The person or thing that is absent is still the subject.
 
 | French | English |
 |--------|---------|
 | Tu manques à tes parents. | Your parents miss you. |
 | Cette ville me manque. | I miss this city. |
-| Son humour manque à toute l'équipe. | The whole team misses his sense of humour. |
+| Son humour manque à toute l'équipe. | The whole team misses his sense of humor. |
 
-This pattern often feels backwards to English speakers, so it is worth recognising as a whole.
+This is the same "backwards" pattern as *Tu me manques*, expanded beyond a simple object pronoun.
 
-## Never fail to...
+## Being sure to: *ne pas manquer de*
 
-*Ne pas manquer de* promises that something will definitely happen.
+*Ne pas manquer de* promises that something will definitely happen. Despite the negative form, the meaning is positive.
 
 | French | English |
 |--------|---------|
-| Je ne manquerai pas de vous écrire. | I'll be sure to write to you. |
-| N'hésitez pas à nous appeler, nous ne manquerons pas de répondre. | Don't hesitate to call us. We'll be sure to reply. |
-
-Despite the negative form, the meaning is positive.
+| Je ne manquerai pas de t'appeler. | I'll be sure to call you. |
+| Nous ne manquerons pas de répondre. | We'll be sure to reply. |
 
 ## Fixed expressions
 
-Several common expressions have meanings that are hard to guess from *manquer* alone.
+A few denser phrases are worth learning as wholes.
 
 | French | English |
 |--------|---------|
-| manquer à l'appel | to be absent |
-| sans manquer de respect | with all due respect |
-| manquer le coche | to miss the boat |
-
-Learn these as complete units rather than translating each word.
+| Sans manquer de respect, je ne suis pas d'accord. | With all due respect, I don't agree. |
+| Il a manqué le coche. | He missed the boat. / He missed his chance. |
 
 ## A pattern worth noticing
 
-Past the everyday A2 meanings, *manquer* depends heavily on the words that follow:
+Past the everyday [A2](/en/cefr/) meanings, *manquer* depends heavily on what follows:
 
-- *manquer de* + noun (lack)
-- *manquer de* + infinitive (almost)
-- *manquer à* (be missed by)
-- *ne pas manquer de* (be sure to)
+| French | English |
+|--------|---------|
+| *manquer de* + noun | lack / be short of |
+| *manquer de* + infinitive | almost |
+| *manquer à* | be missed by |
+| *ne pas manquer de* | be sure to |
+| *manquer le coche* | miss one's chance |
 
-The preposition often matters more than the verb itself.
+Learning these as complete patterns is more useful than searching for another translation of *manquer*.
 
 ## Summary
 
-At [B1](/en/cefr/), *manquer* becomes a verb of patterns rather than simple translations. Learning those patterns will help you recognise them immediately in everyday French.
+At [B1](/en/cefr/), *manquer* becomes a verb of constructions. Once you recognize how *de*, *à*, and a few fixed phrases reshape it, the verb feels much more predictable.

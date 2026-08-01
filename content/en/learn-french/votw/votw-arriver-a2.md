@@ -1,6 +1,6 @@
 ---
 title: "French Verb of the Week: Arriver | Plumera"
-description: How French uses arriver for arriving, managing to do something, and what happens unexpectedly.
+description: How French uses arriver for arriving, managing to do something, and talking about what happens.
 slug: votw-arriver-a2
 target: learn-french
 locale: en
@@ -9,6 +9,8 @@ author:
 date: 2026-07-31
 draft: true
 related:
+  - title: "Arriver: Idioms and Fixed Expressions"
+    href: /en/learn-french/articles/verb-arriver-b1/
   - href: /en/learn-french/whats-new/
   - href: /en/learn-french/votw/
   - title: CEFR levels
@@ -17,15 +19,15 @@ related:
 
 # Arriver
 
-*Arriver* usually means "to arrive," but French uses it in several other everyday ways. It can describe reaching a place, managing to do something with *arriver à*, or talking about events that happen unexpectedly.
+*Arriver* looks like a travel verb, and that is where most learners meet it: trains, airports, friends at the door. French also uses it when someone finally manages to do something, and when something happens.
 
-English often changes verbs between *arrive*, *manage*, and *happen*. French frequently keeps *arriver*. The common idea is reaching an outcome, whether that is a destination, a goal, or an event.
+The shared idea is reaching an outcome. That outcome might be a place, a goal after some effort, or an event that shows up in your day.
 
-Learning these patterns early will help you understand conversations that go far beyond travel.
+Once you see that link, *arriver* stops feeling like three unrelated English verbs stuck into one French shape.
 
 ## Forms and grammar
 
-*Arriver* is a regular *-er* verb.
+*Arriver* is a regular *-er* verb in the present tense:
 
 <!-- table: forms -->
 
@@ -35,20 +37,22 @@ Learning these patterns early will help you understand conversations that go far
 | tu arrives | vous arrivez |
 | il / elle arrive | ils / elles arrivent |
 
-In the perfect tense, *arriver* normally uses *être*. The past participle is *arrivé*.
+In the perfect tense, when *arriver* means reaching a place, it normally uses *être*. The past participle is *arrivé*, and it agrees with the subject.
 
 | French | English |
 |--------|---------|
 | Je suis arrivé à huit heures. | I arrived at eight o'clock. |
 | Elles sont arrivées en avance. | They arrived early. |
 
+Notice the agreement in the second line: *arrivées* matches *elles*.
+
 ## How to use arriver
 
-The meanings below move from reaching a place to reaching a result.
+The three uses below move from reaching a place to reaching a result.
 
 ### Arriving somewhere
 
-This is the basic meaning.
+Start with the travel sense. Someone or something reaches a place, and *arriver* names that arrival.
 
 | French | English |
 |--------|---------|
@@ -58,7 +62,7 @@ This is the basic meaning.
 
 ### Managing to do something: *arriver à*
 
-With *à* followed by an infinitive, *arriver* means succeeding after some effort.
+Add *à* and an infinitive, and *arriver* means succeeding after some effort. English often says "manage to" or "can" here.
 
 | French | English |
 |--------|---------|
@@ -66,9 +70,11 @@ With *à* followed by an infinitive, *arriver* means succeeding after some effor
 | Elle n'arrive pas à dormir. | She can't manage to sleep. |
 | Nous sommes arrivés à finir le projet. | We managed to finish the project. |
 
+This is not the same as simply being able to do something. *Arriver à* often suggests that it took work, time, or patience.
+
 ### Something happens
 
-French often uses *arriver* when talking about events.
+French also uses *arriver* for events. The "thing that happened" can be the subject, or French can use *il* / *ça* as a placeholder.
 
 | French | English |
 |--------|---------|
@@ -76,43 +82,40 @@ French often uses *arriver* when talking about events.
 | Il m'est arrivé une drôle d'histoire. | A strange thing happened to me. |
 | Ça peut arriver. | It can happen. |
 
+Here you are not talking about travel. You are talking about an event reaching you, or reaching the conversation.
+
 ## Other common constructions
 
-These combinations are especially common.
+Three combinations you will hear constantly with the travel sense:
 
 | French | English |
 |--------|---------|
 | arriver en retard | to arrive late |
 | arriver en avance | to arrive early |
-| arriver au bon moment | to arrive at the right time |
+| arriver à temps | to arrive on time |
 
-Notice that French normally uses *en* with *retard* and *avance*.
+Notice *en* with *retard* and *avance*. English says "late" and "early" as plain adjectives. French builds the phrase with *en*.
 
 <!-- art: band -->
 
 ## Expressions and idioms
 
-These expressions are easiest to learn as complete phrases.
+In fixed expressions, learn the whole phrase. The meaning is hard to guess from *arriver* alone.
 
 ### ça arrive
 
-Used to reassure someone after a mistake.
+Used to reassure someone after a mistake or an awkward moment.
 
 | French | English |
 |--------|---------|
 | Ne t'inquiète pas, ça arrive. | Don't worry, it happens. |
+| Ça arrive à tout le monde. | It happens to everyone. |
 
-### il arrive que...
-
-Introduces something that happens from time to time.
-
-| French | English |
-|--------|---------|
-| Il arrive qu'il oublie ses clés. | Sometimes he forgets his keys. |
+More abstract constructions with *arriver*, including *en arriver à* and *il arrive que*, are covered in the [B1 companion article](/en/learn-french/articles/verb-arriver-b1/).
 
 ## Common mistakes
 
-These mistakes usually come from translating English directly.
+One mistake drops the preposition after *arriver*. The other picks the wrong auxiliary in the perfect tense.
 
 ### Forgetting *à* before an infinitive
 
@@ -124,7 +127,7 @@ When *arriver* means "manage to," it needs *à*.
 
 ### Using *avoir* in the perfect tense
 
-When it means reaching a destination, *arriver* uses *être*.
+When *arriver* means reaching a destination, it uses *être*, not *avoir*.
 
 | Incorrect | Correct |
 |-----------|---------|
@@ -137,7 +140,7 @@ When it means reaching a destination, *arriver* uses *être*.
 - réussir: to succeed
 - partir: to leave
 
-> *Réussir* and *arriver à* both express success. *Arriver à* highlights finally managing to do something after difficulty.
+> *Réussir* and *arriver à* both express success. *Arriver à* highlights finally managing to do something after difficulty. *Réussir* often names a clear success, such as an exam or a project.
 
 | French | English |
 |--------|---------|
@@ -146,4 +149,6 @@ When it means reaching a destination, *arriver* uses *être*.
 
 ## Before you go
 
-Think of *arriver* as the verb of reaching a destination or an outcome. At [A2](/en/cefr/), that single idea connects its most common everyday meanings.
+Think of *arriver* as the verb of reaching an outcome: a place, a goal, or an event. At [A2](/en/cefr/), that single idea connects its most common everyday meanings.
+
+For denser constructions such as *en arriver à* and *il arrive que*, see the [B1 companion on *arriver*](/en/learn-french/articles/verb-arriver-b1/).

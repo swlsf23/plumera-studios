@@ -1,6 +1,6 @@
 ---
 title: "French Verb of the Week: Rendre | Plumera"
-description: How French uses rendre for returning things, making someone feel a certain way, and giving something back.
+description: How French uses rendre for giving something back, handing in work, and making someone feel a certain way.
 slug: votw-rendre-a2
 target: learn-french
 locale: en
@@ -9,6 +9,8 @@ author:
 date: 2026-07-31
 draft: true
 related:
+  - title: "Rendre: Idioms and Fixed Expressions"
+    href: /en/learn-french/articles/verb-rendre-b1/
   - href: /en/learn-french/whats-new/
   - href: /en/learn-french/votw/
   - title: CEFR levels
@@ -17,15 +19,15 @@ related:
 
 # Rendre
 
-*Rendre* is a useful French verb that often starts with the idea of giving something back. From there, it grows into meanings such as returning home, making someone happy, and handing work back to a teacher.
+*Rendre* often means giving something back. French also uses it for handing in homework and making someone happy, nervous, or crazy.
 
-English uses several different verbs for these ideas. French often keeps *rendre*. The common thread is restoring or causing a result: something goes back to its owner, or someone ends up in a new state.
+English splits those ideas across *return*, *give back*, *hand in*, and *make*. French often keeps *rendre*. The shared idea is restoring something or causing a result: an object goes back to its owner, or someone ends up in a new state.
 
-Once you recognise that idea, many everyday expressions with *rendre* become much easier to understand.
+Keep that idea in mind, and combinations like *rendre visite* or *rendre service* start to make sense.
 
 ## Forms and grammar
 
-*Rendre* is a regular *-re* verb.
+*Rendre* is a regular *-re* verb in the present tense:
 
 <!-- table: forms -->
 
@@ -35,7 +37,7 @@ Once you recognise that idea, many everyday expressions with *rendre* become muc
 | tu rends | vous rendez |
 | il / elle rend | ils / elles rendent |
 
-In the past tense, *rendre* uses *avoir* and the past participle is *rendu*.
+In the past tense, *rendre* uses *avoir*. The past participle is *rendu*.
 
 | French | English |
 |--------|---------|
@@ -44,11 +46,11 @@ In the past tense, *rendre* uses *avoir* and the past participle is *rendu*.
 
 ## How to use rendre
 
-The meanings below move from returning something to causing a result.
+The three uses below move from returning an object to handing in work and causing a new state.
 
 ### Giving something back
 
-This is the basic meaning.
+Start with the return sense. Something goes back to its owner, and *rendre* names that action.
 
 | French | English |
 |--------|---------|
@@ -66,7 +68,7 @@ French also uses *rendre* for submitting homework or other work.
 | Les élèves rendent leurs devoirs. | The students hand in their homework. |
 | Il a rendu son rapport lundi. | He submitted his report on Monday. |
 
-### Making someone or something become...
+### Making someone or something become…
 
 With an adjective, *rendre* means making someone or something enter a new state.
 
@@ -78,29 +80,21 @@ With an adjective, *rendre* means making someone or something enter a new state.
 
 ## Other common constructions
 
-Some combinations with *rendre* are especially common in everyday French.
+Three combinations you will hear constantly:
 
 | French | English |
 |--------|---------|
-| rendre visite à | to visit |
-| rendre service à | to do someone a favour |
-| rendre compte | to report or give an account |
+| rendre visite à | to visit (someone) |
+| rendre service à | to do someone a favor |
+| rendre la monnaie | to give change |
 
-Notice *rendre visite à*. English uses the verb "visit," but French uses *rendre*.
+*Rendre visite à* is the one that trips English speakers. We *visit*. French uses *rendre*.
 
 <!-- art: band -->
 
 ## Expressions and idioms
 
-These expressions are worth learning as complete units.
-
-### rendre hommage à
-
-Showing respect or paying tribute.
-
-| French | English |
-|--------|---------|
-| Ils rendent hommage aux bénévoles. | They are paying tribute to the volunteers. |
+In fixed expressions, learn the whole phrase. The meaning is hard to guess from *rendre* alone.
 
 ### rendre la monnaie
 
@@ -109,10 +103,13 @@ Used when giving change after a purchase.
 | French | English |
 |--------|---------|
 | Le vendeur me rend la monnaie. | The shopkeeper gives me my change. |
+| Tu peux me rendre la monnaie sur vingt euros ? | Can you give me change for twenty euros? |
+
+Pronominal uses such as *se rendre compte* and denser fixed expressions are covered in the [B1 companion article](/en/learn-french/articles/verb-rendre-b1/).
 
 ## Common mistakes
 
-The mistakes below come from translating English too directly.
+One mistake drops *à* after *rendre visite*. The other confuses giving with giving back.
 
 ### Forgetting *à* after *rendre visite*
 
@@ -146,4 +143,6 @@ Use *donner* when you give something for the first time. Use *rendre* when it go
 
 ## Before you go
 
-Think of *rendre* as returning something or causing a result. At [A2](/en/cefr/), that single idea connects many of its most useful everyday meanings.
+Think of *rendre* as returning something or causing a result. At [A2](/en/cefr/), that idea connects giving back, handing in work, and making someone feel a certain way.
+
+For *se rendre compte*, *se rendre à*, and denser fixed expressions, see the [B1 companion on *rendre*](/en/learn-french/articles/verb-rendre-b1/).

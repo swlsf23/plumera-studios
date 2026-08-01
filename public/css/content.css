@@ -426,6 +426,16 @@
   max-width: 760px;
 }
 
+.content-page .article-body > p > img,
+.content-page .article-body > img {
+  display: block;
+  width: 100%;
+  max-width: 760px;
+  height: auto;
+  margin: 8px 0 8px;
+  border-radius: 12px;
+}
+
 .content-page .article-body > ul,
 .content-page .article-body > ol {
   margin: 0 0 18px;

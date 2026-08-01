@@ -1,6 +1,6 @@
 ---
 title: "French Verb of the Week: Laisser | Plumera"
-description: How French uses laisser for leaving things, letting people do something, and allowing situations to happen.
+description: How French uses laisser for leaving things behind, letting someone do something, and leaving something in a state.
 slug: votw-laisser-a2
 target: learn-french
 locale: en
@@ -9,6 +9,8 @@ author:
 date: 2026-07-31
 draft: true
 related:
+  - title: "Laisser: Idioms and Fixed Expressions"
+    href: /en/learn-french/articles/verb-laisser-b1/
   - href: /en/learn-french/whats-new/
   - href: /en/learn-french/votw/
   - title: CEFR levels
@@ -17,15 +19,15 @@ related:
 
 # Laisser
 
-*Laisser* is an everyday French verb that usually begins with the idea of leaving something behind. From there, it naturally extends to letting someone do something, allowing a situation to happen, or leaving something in a particular state.
+*Laisser* usually means leaving something behind. French also uses it for letting someone do something, and for leaving a door open, a light on, or a situation as it is.
 
-English uses several different verbs such as *leave*, *let*, *allow*, and sometimes even *keep*. French often uses *laisser* instead. The connection is simple: something is left where it is instead of being changed or stopped.
+English splits those ideas across *leave*, *let*, and *allow*. French often keeps *laisser*. The shared idea is that something stays where it is, or an action is not stopped.
 
-Once you recognise that central idea, many common expressions become much easier to understand.
+Keep that idea in mind, and combinations like *laisser un message* or *laisser tomber* start to make sense.
 
 ## Forms and grammar
 
-*Laisser* is a regular *-er* verb.
+*Laisser* is a regular *-er* verb in the present tense:
 
 <!-- table: forms -->
 
@@ -35,7 +37,7 @@ Once you recognise that central idea, many common expressions become much easier
 | tu laisses | vous laissez |
 | il / elle laisse | ils / elles laissent |
 
-In the past tense, *laisser* uses *avoir* and the past participle is *laissé*.
+In the past tense, *laisser* uses *avoir*. The past participle is *laissé*.
 
 | French | English |
 |--------|---------|
@@ -44,11 +46,11 @@ In the past tense, *laisser* uses *avoir* and the past participle is *laissé*.
 
 ## How to use laisser
 
-The meanings below move from physically leaving something to allowing actions and situations.
+The three uses below move from leaving an object somewhere to letting an action happen and leaving something in a state.
 
 ### Leaving something somewhere
 
-This is the most literal meaning.
+Start with the physical sense. You put something down or leave it behind, and *laisser* names that action.
 
 | French | English |
 |--------|---------|
@@ -58,7 +60,7 @@ This is the most literal meaning.
 
 ### Letting someone do something
 
-French uses *laisser* followed by an infinitive to mean "let."
+Add an infinitive, and *laisser* means "let." Someone is allowed to act; you do not stop them.
 
 | French | English |
 |--------|---------|
@@ -68,31 +70,31 @@ French uses *laisser* followed by an infinitive to mean "let."
 
 ### Leaving something in a state
 
-The verb also describes the result that remains after an action.
+*Laisser* can also describe the state that remains: open, closed, on, off.
 
 | French | English |
 |--------|---------|
 | Tu laisses la lumière allumée. | You're leaving the light on. |
 | Ils ont laissé la porte fermée. | They left the door closed. |
-| Cela me laisse sans voix. | That leaves me speechless. |
+| Ne laisse pas la fenêtre ouverte. | Don't leave the window open. |
 
 ## Other common constructions
 
-These combinations appear frequently in everyday French.
+Three combinations you will hear constantly:
 
 | French | English |
 |--------|---------|
 | laisser un message | to leave a message |
-| laisser passer | to let through |
-| laisser tomber | to give up / forget about it |
+| laisser passer | to let through / let go by |
+| laisser tomber | to drop it / give up on it |
 
-*Laisser tomber* often means "forget it" or "give it up" rather than physically dropping something.
+*Laisser tomber* often means "forget it" or "drop the subject," not only physically dropping something.
 
 <!-- art: band -->
 
 ## Expressions and idioms
 
-These expressions are best learned as complete units.
+In fixed expressions, learn the whole phrase. The meaning is hard to guess from *laisser* alone.
 
 ### laisse-moi tranquille
 
@@ -101,18 +103,13 @@ A common way to ask someone to stop bothering you.
 | French | English |
 |--------|---------|
 | Laisse-moi tranquille ! | Leave me alone! |
+| Laisse-le tranquille. | Leave him alone. |
 
-### ça laisse à désirer
-
-Used when something is not as good as it should be.
-
-| French | English |
-|--------|---------|
-| Le service laisse à désirer. | The service leaves a lot to be desired. |
+Pronominal uses such as *se laisser* and denser expressions are covered in the [B1 companion article](/en/learn-french/articles/verb-laisser-b1/).
 
 ## Common mistakes
 
-The mistakes below usually come from translating English too closely.
+One mistake drops the infinitive after "let." The other confuses *laisser* with *quitter*.
 
 ### Forgetting the infinitive
 
@@ -146,4 +143,6 @@ When *laisser* means "let," it is normally followed by an infinitive.
 
 ## Before you go
 
-Think of *laisser* as leaving something unchanged or allowing it to happen. At [A2](/en/cefr/), that single idea explains most of the verb's everyday uses.
+Think of *laisser* as leaving something as it is, or not stopping an action. At [A2](/en/cefr/), that idea connects leaving an object, letting someone do something, and leaving a door open.
+
+For *se laisser*, implication phrases, and denser fixed expressions, see the [B1 companion on *laisser*](/en/learn-french/articles/verb-laisser-b1/).

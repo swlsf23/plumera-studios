@@ -62,6 +62,39 @@ def _md_to_html(text: str) -> str:
     )
 
 
+def _rewrite_local_images(html: str, md_path: Path, locale: str) -> str:
+    """Turn repo-relative img src into site URLs so MD preview and dist both work.
+
+    Authors can use paths relative to the Markdown file (e.g. ``../../img/x.png``)
+    for Cursor/VS Code preview. The build rewrites those to ``/{locale}/img/...``.
+    """
+    img_root: Path | None = None
+    for parent in md_path.parents:
+        candidate = parent / "img"
+        if parent.name == locale and candidate.is_dir():
+            img_root = candidate.resolve()
+            break
+        if parent.name == "content":
+            break
+    if img_root is None:
+        return html
+
+    def repl(match: re.Match[str]) -> str:
+        src = match.group(1)
+        if not src or src.startswith(("http://", "https://", "data:", "/")):
+            return match.group(0)
+        resolved = (md_path.parent / src).resolve()
+        try:
+            rel = resolved.relative_to(img_root)
+        except ValueError:
+            return match.group(0)
+        if ".." in rel.parts:
+            return match.group(0)
+        return f'src="/{locale}/img/{rel.as_posix()}"'
+
+    return re.sub(r'src="([^"]+)"', repl, html)
+
+
 def _strip_tag(html: str, tag: str) -> tuple[str, str]:
     pattern = re.compile(rf"<{tag}[^>]*>(.*?)</{tag}>", re.I | re.S)
     match = pattern.search(html)
@@ -214,6 +247,7 @@ def parse_core_page(path: Path, locale: str) -> Page:
         body = "\n".join(lines[1:]).lstrip()
 
     html = _md_to_html(body)
+    html = _rewrite_local_images(html, path, locale)
     heading, html = _strip_tag(html, "h1")
     html, toc = _inject_heading_ids(html)
 
@@ -263,6 +297,7 @@ def parse_votw_page(path: Path, locale: str, target: str) -> Page:
     date_label = _format_date(meta.get("date"), locale)
 
     html = _md_to_html(post.content.strip())
+    html = _rewrite_local_images(html, path, locale)
     heading, html = _strip_tag(html, "h1")
     if not heading:
         heading = title
@@ -333,6 +368,7 @@ def parse_article_page(path: Path, locale: str, target: str) -> Page:
     date_label = _format_date(meta.get("date"), locale)
 
     html = _md_to_html(post.content.strip())
+    html = _rewrite_local_images(html, path, locale)
     heading, html = _strip_tag(html, "h1")
     if not heading:
         heading = title
@@ -467,6 +503,7 @@ def parse_whats_new_page(path: Path, locale: str, target: str) -> Page:
     title = str(meta.get("title") or chrome_for(locale)["whats_new"])
     description = str(meta.get("description") or "")
     html = _md_to_html(post.content.strip())
+    html = _rewrite_local_images(html, path, locale)
     heading, html = _strip_tag(html, "h1")
     if not heading:
         heading = title

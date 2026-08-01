@@ -1,6 +1,6 @@
 ---
 title: "French Verb of the Week: Porter | Plumera"
-description: How French uses porter for carrying, wearing, bringing, and common everyday expressions.
+description: How French uses porter for carrying, wearing clothes, and taking something somewhere.
 slug: votw-porter-a2
 target: learn-french
 locale: en
@@ -9,6 +9,8 @@ author:
 date: 2026-07-31
 draft: true
 related:
+  - title: "Porter: Idioms and Fixed Expressions"
+    href: /en/learn-french/articles/verb-porter-b1/
   - href: /en/learn-french/whats-new/
   - href: /en/learn-french/votw/
   - title: CEFR levels
@@ -17,15 +19,15 @@ related:
 
 # Porter
 
-*Porter* is one of those French verbs whose central meaning stays surprisingly consistent. Whether you are carrying a bag, wearing a jacket, bringing food to a table, or carrying responsibility, the same basic idea remains: something is supported or borne.
+*Porter* usually means carrying something. French also uses it for wearing clothes and taking an object from one place to another.
 
-English often switches between verbs like *carry*, *wear*, *bring*, and *bear*. French usually keeps *porter*. Once you see that common thread, many everyday expressions become easier to understand.
+English splits those ideas across *carry*, *wear*, *bring*, and *take*. French often keeps *porter*. The shared idea is that something is supported or borne: a bag in your hands, a jacket on your body, plates to a table.
 
-At [A2](/en/cefr/), learning the most frequent patterns will let you describe clothes, objects, and responsibilities naturally.
+Keep that idea in mind, and the *mettre* / *porter* clothing split starts to feel clearer too.
 
 ## Forms and grammar
 
-*Porter* is a regular *-er* verb.
+*Porter* is a regular *-er* verb in the present tense:
 
 <!-- table: forms -->
 
@@ -44,11 +46,11 @@ In the past tense, *porter* uses *avoir*. The past participle is *porté*.
 
 ## How to use porter
 
-The meanings below move from physically carrying something to the everyday extensions built on the same idea.
+The three uses below move from carrying an object to wearing clothes and taking something somewhere.
 
 ### Carrying something
 
-This is the most literal meaning.
+Start with the physical sense. You support a weight, and *porter* names that action.
 
 | French | English |
 |--------|---------|
@@ -58,7 +60,7 @@ This is the most literal meaning.
 
 ### Wearing clothes or accessories
 
-French uses *porter* for wearing clothes once they are on.
+French uses *porter* for what you have on once the clothes are already there.
 
 | French | English |
 |--------|---------|
@@ -66,16 +68,16 @@ French uses *porter* for wearing clothes once they are on.
 | Je porte des lunettes. | I wear glasses. |
 | Ils portent un uniforme. | They're wearing a uniform. |
 
-Notice the difference between *mettre* and *porter*. You *mets* a jacket when you put it on. You *portes* it while you're wearing it.
+*Mettre* is different. It describes the action of putting clothes on.
 
 | French | English |
 |--------|---------|
 | Je mets mon manteau. | I'm putting on my coat. |
 | Je porte mon manteau. | I'm wearing my coat. |
 
-### Carrying or bringing
+### Taking something somewhere
 
-*Porter* is also used when taking something to another place.
+*Porter* also covers moving an object to another place. English may say *take* or *bring*.
 
 | French | English |
 |--------|---------|
@@ -85,21 +87,21 @@ Notice the difference between *mettre* and *porter*. You *mets* a jacket when yo
 
 ## Other common constructions
 
-Some combinations with *porter* are especially common in everyday French.
+Three combinations you will meet often. The first is more written than spoken; the others are everyday.
 
 | French | English |
 |--------|---------|
 | porter attention à | to pay attention to |
-| porter plainte | to file a complaint |
-| porter secours à | to come to someone's aid |
+| porter chance | to bring luck |
+| porter bien son nom | to live up to one's name |
 
-*Porter attention à* is less common than *faire attention à* in everyday conversation, but you will often meet it in writing and formal speech.
+In conversation, *faire attention à* is more common than *porter attention à*.
 
 <!-- art: band -->
 
 ## Expressions and idioms
 
-These expressions are easiest to remember as complete units.
+In fixed expressions, learn the whole phrase. The meaning is hard to guess from *porter* alone.
 
 ### porter chance
 
@@ -108,18 +110,13 @@ Used when something brings good luck.
 | French | English |
 |--------|---------|
 | Cette pièce me porte chance. | This coin brings me luck. |
+| Ça porte chance. | That brings good luck. |
 
-### bien porter son nom
-
-Used when a name suits someone or something well.
-
-| French | English |
-|--------|---------|
-| Ce restaurant porte bien son nom. | This restaurant lives up to its name. |
+Denser uses such as *porter sur*, formal *porter plainte*, and *se porter* are covered in the [B1 companion article](/en/learn-french/articles/verb-porter-b1/).
 
 ## Common mistakes
 
-The mistakes below usually come from translating English too directly.
+One mistake confuses putting clothes on with wearing them. The other picks the wrong "bring" verb for objects.
 
 ### Confusing *mettre* and *porter*
 
@@ -144,7 +141,7 @@ French distinguishes between putting clothes on and wearing them.
 - emporter: to take away
 - transporter: to transport
 
-> *Mettre* and *porter* are closely connected. *Mettre* describes the action of getting dressed. *Porter* describes the result.
+> *Mettre* and *porter* are closely connected for clothes. *Mettre* describes the action of getting dressed. *Porter* describes the result.
 
 | French | English |
 |--------|---------|
@@ -153,4 +150,6 @@ French distinguishes between putting clothes on and wearing them.
 
 ## Before you go
 
-Think of *porter* as supporting or carrying something. At [A2](/en/cefr/), that single idea explains its most useful everyday meanings, from carrying bags to wearing clothes.
+Think of *porter* as supporting or carrying something: a bag, an outfit, or an object on its way somewhere. At [A2](/en/cefr/), that idea covers the most useful everyday meanings.
+
+For *porter sur*, formal expressions, and *se porter*, see the [B1 companion on *porter*](/en/learn-french/articles/verb-porter-b1/).

@@ -1,6 +1,6 @@
 ---
 title: "French Verb of the Week: Donner | Plumera"
-description: How French uses donner for giving, offering, producing results, and common everyday expressions.
+description: How French uses donner for giving, sharing information or permission, and causing an effect.
 slug: votw-donner-a2
 target: learn-french
 locale: en
@@ -9,6 +9,8 @@ author:
 date: 2026-07-31
 draft: true
 related:
+  - title: "Donner: Idioms and Fixed Expressions"
+    href: /en/learn-french/articles/verb-donner-b1/
   - href: /en/learn-french/whats-new/
   - href: /en/learn-french/votw/
   - title: CEFR levels
@@ -17,15 +19,15 @@ related:
 
 # Donner
 
-*Donner* is one of the first French verbs learners meet, usually with the meaning "to give." It quickly grows beyond that simple idea. French also uses *donner* for giving advice, giving someone permission, producing a result, and expressing many everyday actions.
+*Donner* usually means "to give," but French also uses it for advice, permission, a helping hand, and effects such as sleepiness or desire.
 
-English often changes verbs between *give*, *offer*, *cause*, *show*, or *hold*. French frequently keeps *donner*. The common thread is that something passes from one person or thing to another.
+English splits those ideas across *give*, *make*, *produce*, and sometimes *set*. French often keeps *donner*. The shared idea is that something passes from one person or thing to another: an object, a piece of information, or a result.
 
-Learning the most common patterns will make *donner* feel much more predictable.
+Keep that idea in mind, and combinations like *donner envie* or *donner un coup de main* start to make sense.
 
 ## Forms and grammar
 
-*Donner* is a regular *-er* verb.
+*Donner* is a regular *-er* verb in the present tense:
 
 <!-- table: forms -->
 
@@ -42,13 +44,15 @@ In the past tense, *donner* uses *avoir*. The past participle is *donné*.
 | Je t'ai donné mon adresse. | I gave you my address. |
 | Nous avons donné un cadeau à Léa. | We gave Léa a present. |
 
+With a person as the recipient, French usually marks that person with *à*, or with an object pronoun such as *te* / *lui*.
+
 ## How to use donner
 
-The meanings below move from giving a physical object to giving information or producing a result.
+The three uses below move from giving a physical object to giving information and causing an effect.
 
 ### Giving something
 
-This is the basic meaning.
+Start with the everyday transfer of an object. Someone hands something over, and *donner* names that action.
 
 | French | English |
 |--------|---------|
@@ -58,7 +62,7 @@ This is the basic meaning.
 
 ### Giving information or permission
 
-French uses *donner* with many nouns connected with communication.
+French also uses *donner* with nouns tied to communication. You are still "passing" something, but the thing passed is advice, an answer, or permission.
 
 | French | English |
 |--------|---------|
@@ -66,19 +70,21 @@ French uses *donner* with many nouns connected with communication.
 | Peux-tu me donner une réponse ? | Can you give me an answer? |
 | Mes parents me donnent la permission. | My parents give me permission. |
 
-### Producing a result
+### Causing an effect
 
-*Donner* can also describe something that causes an effect.
+*Donner* can also describe a cause and its effect. English often switches to *make*, *produce*, or *give* in a looser sense.
 
 | French | English |
 |--------|---------|
-| Cette fenêtre donne sur le jardin. | This window looks onto the garden. |
 | Le médicament donne sommeil. | The medicine makes you sleepy. |
 | Ce travail donne de bons résultats. | This work produces good results. |
+| Cette chanson donne envie de danser. | This song makes you want to dance. |
+
+More abstract constructions such as *donner sur* and denser idioms are covered in the [B1 companion article](/en/learn-french/articles/verb-donner-b1/).
 
 ## Other common constructions
 
-Some combinations with *donner* are worth learning as complete expressions.
+Three combinations you will hear constantly:
 
 | French | English |
 |--------|---------|
@@ -86,37 +92,32 @@ Some combinations with *donner* are worth learning as complete expressions.
 | donner envie de | to make someone want to |
 | donner un coup de main | to give someone a hand |
 
-Notice *donner envie de*. French expresses causing a desire rather than simply saying "make someone want."
+*Donner envie de* is the one that often surprises English speakers. French names the desire as the thing that is "given."
 
 <!-- art: band -->
 
 ## Expressions and idioms
 
-These expressions have meanings that are easiest to remember as complete units.
+In fixed expressions, learn the whole phrase. The meaning is hard to guess from *donner* alone.
 
 ### donner raison à
 
-To agree that someone is right.
+To agree that someone is right, or to admit they were right.
 
 | French | English |
 |--------|---------|
 | Je dois te donner raison. | I have to admit you're right. |
+| Les faits lui ont donné raison. | The facts proved him / her right. |
 
-### se donner du mal
-
-To make a big effort.
-
-| French | English |
-|--------|---------|
-| Elle s'est donné du mal pour nous aider. | She went to a lot of trouble to help us. |
+Denser pronominal uses and formal result phrases with *donner* are covered in the [B1 companion article](/en/learn-french/articles/verb-donner-b1/).
 
 ## Common mistakes
 
-These mistakes usually come from translating English too directly.
+One mistake drops the preposition before the recipient. The other confuses giving with giving back.
 
 ### Forgetting *à* with the person
 
-With *donner*, the person receiving something is introduced by *à*.
+With *donner*, the person receiving something is introduced by *à* (unless you already have a pronoun such as *lui* or *te*).
 
 | Incorrect | Correct |
 |-----------|---------|
@@ -137,7 +138,7 @@ Use *donner* for giving. Use *rendre* when something goes back to its owner.
 - prêter: to lend
 - montrer: to show
 
-> *Offrir* is used for gifts. You can *donner* a book to anyone, but you *offres* a birthday present.
+> *Offrir* is the usual verb for gifts. You can *donner* a book to anyone, but you typically *offres* a birthday present.
 
 | French | English |
 |--------|---------|
@@ -146,4 +147,6 @@ Use *donner* for giving. Use *rendre* when something goes back to its owner.
 
 ## Before you go
 
-Think of *donner* as passing something from one place or person to another. At [A2](/en/cefr/), that idea connects its most common everyday meanings.
+Think of *donner* as passing something from one place or person to another: an object, a message, or an effect. At [A2](/en/cefr/), that idea connects its most common everyday meanings.
+
+For *donner sur*, formal result phrases, and denser pronominal expressions, see the [B1 companion on *donner*](/en/learn-french/articles/verb-donner-b1/).

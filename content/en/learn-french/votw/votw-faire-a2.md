@@ -1,6 +1,6 @@
 ---
 title: "French Verb of the Week: Faire | Plumera"
-description: How French uses faire for doing, making, talking about the weather, and many everyday expressions.
+description: How French uses faire for doing, making, talking about the weather, and everyday activities.
 slug: votw-faire-a2
 target: learn-french
 locale: en
@@ -9,6 +9,8 @@ author:
 date: 2026-07-31
 draft: true
 related:
+  - title: "Faire: Idioms and Fixed Expressions"
+    href: /en/learn-french/articles/verb-faire-b1/
   - href: /en/learn-french/whats-new/
   - href: /en/learn-french/votw/
   - title: CEFR levels
@@ -17,15 +19,15 @@ related:
 
 # Faire
 
-*Faire* is one of the most common verbs in French, and one of the hardest to translate with a single English word. Sometimes it means "to do." Sometimes it means "to make." In many everyday expressions, neither translation sounds natural in English.
+*Faire* usually means "to do" or "to make," but neither English verb covers it alone. French also uses *faire* for the weather, sports and chores, and fixed phrases where English switches verbs entirely.
 
-French also uses *faire* where English changes verbs completely. The weather *does* something, people *do* sport, and you *make* someone happy by literally "doing happiness" to them. Rather than memorising one translation, it is more useful to think of *faire* as the verb for creating, causing, or carrying out an action.
+English splits those ideas across *do*, *make*, *be*, *go*, and *pay*. French often keeps *faire*. The shared idea is carrying out an action or bringing something about.
 
-Once you recognise the most common patterns, you'll hear *faire* everywhere in everyday French.
+Keep that idea in mind, and combinations like *faire beau*, *faire du vélo*, or *faire attention* start to make sense.
 
 ## Forms and grammar
 
-*Faire* is irregular in the present tense, especially in the plural.
+*Faire* is irregular in the present tense, especially in the plural:
 
 <!-- table: forms -->
 
@@ -35,22 +37,22 @@ Once you recognise the most common patterns, you'll hear *faire* everywhere in e
 | tu fais | vous faites |
 | il / elle fait | ils / elles font |
 
-Notice that *vous faites* is irregular and does not follow the pattern of the other plural forms.
+Notice *vous faites*: it does not follow the same plural shape as *nous faisons* or *ils font*.
 
-In the past tense, *faire* uses *avoir*, and the past participle is *fait*.
+In the past tense, *faire* uses *avoir*. The past participle is *fait*.
 
 | French | English |
 |--------|---------|
 | J'ai fait un gâteau. | I made a cake. |
-| Nous avons fait du sport. | We did some sport. |
+| Nous avons fait du sport. | We exercised. |
 
 ## How to use faire
 
-The meanings below move from the basic idea of doing something to the everyday expressions that grow from it.
+The three uses below move from doing or making something to weather and everyday activities.
 
 ### Doing or making
 
-This is the broad meaning that covers actions, work, and creating something.
+Start with the broad everyday use. *Faire* covers actions you carry out and things you create.
 
 | French | English |
 |--------|---------|
@@ -58,9 +60,11 @@ This is the broad meaning that covers actions, work, and creating something.
 | Elle fait un gâteau. | She's making a cake. |
 | Nous faisons une liste. | We're making a list. |
 
+English chooses *do* or *make*. French keeps *faire* for both.
+
 ### Talking about the weather
 
-French uses *faire* for many weather expressions.
+French uses *faire* in many common weather expressions. English usually uses *be* instead.
 
 | French | English |
 |--------|---------|
@@ -70,17 +74,17 @@ French uses *faire* for many weather expressions.
 
 ### Doing activities
 
-Many sports and everyday activities use *faire* instead of a more specific verb.
+Many sports, errands, and everyday activities use *faire* where English prefers *go*, *do*, or a more specific verb.
 
 | French | English |
 |--------|---------|
-| Je fais du vélo. | I go cycling. |
-| Nous faisons du sport. | We do sport. |
+| Je fais du vélo. | I go cycling. / I bike. |
+| Nous faisons du sport. | We exercise. / We play sports. |
 | Elle fait les courses. | She's doing the shopping. |
 
 ## Other common constructions
 
-Some combinations with *faire* are worth learning as complete units because English uses different verbs.
+Three combinations you will hear constantly:
 
 | French | English |
 |--------|---------|
@@ -88,13 +92,13 @@ Some combinations with *faire* are worth learning as complete units because Engl
 | faire la cuisine | to do the cooking |
 | faire une promenade | to go for a walk |
 
-Notice *faire attention à*. English uses "pay" here, but French keeps *faire*.
+*Faire attention à* is the one that trips English speakers. We *pay* attention. French uses *faire*.
 
 <!-- art: band -->
 
 ## Expressions and idioms
 
-These expressions are fixed enough that it is best to learn the whole phrase.
+In fixed expressions, learn the whole phrase. The meaning is hard to guess from *faire* alone.
 
 ### faire la connaissance de
 
@@ -102,27 +106,33 @@ Meeting someone for the first time.
 
 | French | English |
 |--------|---------|
-| J'ai fait la connaissance de nos voisins. | I met our neighbours for the first time. |
+| J'ai fait la connaissance de nos voisins. | I met our neighbors for the first time. |
+| Elle a fait la connaissance de son nouveau collègue. | She met her new colleague. |
 
-### Ça fait longtemps.
+### Ça fait longtemps
 
 Used when talking about time that has passed.
 
 | French | English |
 |--------|---------|
 | Ça fait longtemps qu'on ne s'est pas vus. | We haven't seen each other for a long time. |
+| Ça fait deux heures que j'attends. | I've been waiting for two hours. |
+
+Causative uses such as *faire* + infinitive and denser idioms are covered in the [B1 companion article](/en/learn-french/articles/verb-faire-b1/).
 
 ## Common mistakes
 
-The mistakes below come from translating English word for word.
+One mistake picks the wrong weather verb. The other drops the preposition after *faire attention*.
 
 ### Using *être* for the weather
 
-French uses *faire* in many common weather expressions.
+French uses *faire* in many common weather expressions, not *être*.
 
 | Incorrect | Correct |
 |-----------|---------|
 | *Il est chaud aujourd'hui.* | *Il fait chaud aujourd'hui.* |
+
+*Il est chaud* can mean something else entirely (about a person or an object). For the weather, learn *il fait…*.
 
 ### Forgetting *à* after *faire attention*
 
@@ -134,7 +144,6 @@ The expression is fixed and needs the preposition.
 
 ## Related verbs
 
-- faire: to do, to make
 - fabriquer: to manufacture or build
 - créer: to create
 - réaliser: to carry out or achieve
@@ -148,4 +157,6 @@ The expression is fixed and needs the preposition.
 
 ## Before you go
 
-Don't try to give *faire* one English translation. Learn the patterns instead, and you'll recognise one of the most useful verbs in everyday [A2](/en/cefr/) French.
+Don't try to give *faire* one English translation. Learn the patterns instead: do or make, weather with *il fait*, and everyday activities with *faire*. At [A2](/en/cefr/), that covers a huge amount of daily French.
+
+For having something done, *se faire*, and denser fixed expressions, see the [B1 companion on *faire*](/en/learn-french/articles/verb-faire-b1/).

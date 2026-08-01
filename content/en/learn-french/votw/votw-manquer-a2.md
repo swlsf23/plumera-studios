@@ -1,6 +1,6 @@
 ---
 title: "French Verb of the Week: Manquer | Plumera"
-description: How French uses manquer for missing things, running out, being absent, and expressing what someone misses.
+description: How French uses manquer for missing transport, lacking something, and saying you miss someone.
 slug: votw-manquer-a2
 target: learn-french
 locale: en
@@ -9,6 +9,8 @@ author:
 date: 2026-07-31
 draft: true
 related:
+  - title: "Manquer: Idioms and Fixed Expressions"
+    href: /en/learn-french/articles/verb-manquer-b1/
   - href: /en/learn-french/whats-new/
   - href: /en/learn-french/votw/
   - title: CEFR levels
@@ -17,15 +19,15 @@ related:
 
 # Manquer
 
-*Manquer* is a small verb with several meanings that often surprise English speakers. Sometimes it means "to miss" because something is absent. Sometimes it means failing to catch a bus or train. In another common pattern, it means running out of something.
+*Manquer* often means that something needed or expected is absent. You can miss a bus, run short of time, or miss a person.
 
-The biggest surprise is that French reverses the people in one very common expression. English says "I miss you." French says *Tu me manques*, literally "You are missing to me." Once you understand that pattern, the verb becomes much easier to remember.
+English splits those ideas across *miss*, *lack*, and *run out of*. French often keeps *manquer*. The shared idea is absence.
 
-The central idea behind *manquer* is that something needed, expected, or wanted is absent.
+The biggest surprise for English speakers is word order with people: English says "I miss you," but French says *Tu me manques* — literally, you are missing to me.
 
 ## Forms and grammar
 
-*Manquer* is a regular *-er* verb.
+*Manquer* is a regular *-er* verb in the present tense:
 
 <!-- table: forms -->
 
@@ -35,7 +37,7 @@ The central idea behind *manquer* is that something needed, expected, or wanted 
 | tu manques | vous manquez |
 | il / elle manque | ils / elles manquent |
 
-In the past tense, *manquer* uses *avoir* and the past participle is *manqué*.
+In the past tense, *manquer* uses *avoir*. The past participle is *manqué*.
 
 | French | English |
 |--------|---------|
@@ -44,11 +46,11 @@ In the past tense, *manquer* uses *avoir* and the past participle is *manqué*.
 
 ## How to use manquer
 
-The meanings below move from something being absent to the most common everyday constructions.
+The three uses below move from missing an event to lacking something and missing a person.
 
 ### Missing transport, an event, or an opportunity
 
-French uses *manquer* when you fail to catch or attend something.
+French uses *manquer* when you fail to catch, attend, or seize something.
 
 | French | English |
 |--------|---------|
@@ -74,55 +76,50 @@ French makes the person who is missed the subject of the sentence.
 |--------|---------|
 | Tu me manques. | I miss you. |
 | Mes amis nous manquent. | We miss our friends. |
-| Vous lui manquez beaucoup. | He misses you very much. |
+| Vous lui manquez beaucoup. | He / she misses you very much. |
 
-Notice that French focuses on the person who is absent, not the person who feels the emotion.
+French focuses on the person who is absent, not the person who feels the emotion.
 
 ## Other common constructions
 
-Some combinations with *manquer* are especially common in everyday French.
+Three combinations built on *manquer de* with abstract nouns:
 
 | French | English |
 |--------|---------|
-| manquer à l'appel | to be absent |
 | manquer de patience | to lack patience |
 | manquer de chance | to be unlucky |
-
-*Manquer de* appears with many abstract nouns, making it a useful pattern to learn early.
+| manquer à l'appel | to be absent / missing from the roll |
 
 <!-- art: band -->
 
 ## Expressions and idioms
 
-These expressions are easiest to remember as complete phrases.
+In fixed expressions, learn the whole phrase. The meaning is hard to guess from *manquer* alone.
 
-### sans manquer de respect
+### Tu me manques
 
-Used before saying something critical but polite.
-
-| French | English |
-|--------|---------|
-| Sans manquer de respect, je ne suis pas d'accord. | With all due respect, I don't agree. |
-
-### ne pas manquer de
-
-Used to promise that something will definitely happen.
+The everyday "I miss you" pattern, worth drilling until the word order feels natural.
 
 | French | English |
 |--------|---------|
-| Je ne manquerai pas de t'appeler. | I'll be sure to call you. |
+| Tu me manques. | I miss you. |
+| Elle me manque. | I miss her. |
+
+Denser constructions such as *manquer de* + infinitive ("almost") and *ne pas manquer de* are covered in the [B1 companion article](/en/learn-french/articles/verb-manquer-b1/).
 
 ## Common mistakes
 
-The mistakes below come from translating English too directly.
+One mistake reverses the people in *Tu me manques*. The other drops *de* after *manquer*.
 
 ### Reversing *Tu me manques*
 
-English and French organise this idea differently.
+English and French organize this idea differently.
 
 | Incorrect | Correct |
 |-----------|---------|
 | *Je te manque.* | *Tu me manques.* |
+
+*Je te manque* means "you miss me," not "I miss you."
 
 ### Forgetting *de*
 
@@ -137,9 +134,8 @@ When *manquer* means "to lack" or "to run out of," it needs *de*.
 - rater: to miss or fail to catch
 - perdre: to lose
 - oublier: to forget
-- manquer: to be missing or to lack
 
-> *Rater* and *manquer* often overlap for missing a bus, train, or opportunity. *Manquer* is the more general verb and is essential because it also covers *manquer de* and *Tu me manques*.
+> *Rater* and *manquer* often overlap for missing a bus, train, or opportunity. *Manquer* is the broader verb: it also covers *manquer de* and *Tu me manques*.
 
 | French | English |
 |--------|---------|
@@ -148,4 +144,6 @@ When *manquer* means "to lack" or "to run out of," it needs *de*.
 
 ## Before you go
 
-Think of *manquer* as expressing absence. At [A2](/en/cefr/), that single idea connects missing transport, lacking something, and missing someone.
+Think of *manquer* as expressing absence. At [A2](/en/cefr/), that idea connects missing transport, lacking something, and missing someone — once you accept that French reverses the people in *Tu me manques*.
+
+For *manquer de* + infinitive, *manquer à*, and denser fixed phrases, see the [B1 companion on *manquer*](/en/learn-french/articles/verb-manquer-b1/).

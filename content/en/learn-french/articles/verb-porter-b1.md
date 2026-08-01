@@ -1,6 +1,6 @@
 ---
 title: "Porter (French): idioms and fixed expressions | Plumera"
-description: How French uses porter in advanced constructions, fixed expressions, and prepositional patterns you will meet around B1.
+description: How French uses porter sur, formal porter expressions, and se porter around B1.
 slug: verb-porter-b1
 target: learn-french
 locale: en
@@ -18,11 +18,13 @@ related:
 
 # Idioms and fixed expressions with *porter*
 
-At [A2](/en/cefr/), *porter* covers carrying objects, wearing clothes, and taking something somewhere. Around [B1](/en/cefr/), the verb appears in a number of fixed expressions where the object or preposition contributes most of the meaning. These are best learned as complete patterns.
+At [A2](/en/cefr/), *porter* covers carrying objects, wearing clothes, and taking something somewhere. That core is covered in the [French Verb of the Week lesson on *porter*](/en/learn-french/votw/votw-porter-a2/).
+
+Around [B1](/en/cefr/), the verb appears in fixed expressions where the object or preposition carries most of the meaning. Learn those as complete patterns.
 
 ## Focusing on something: *porter sur*
 
-With *sur*, *porter* often introduces the subject or focus of something.
+With *sur*, *porter* often introduces the subject or focus of a discussion, book, or investigation.
 
 | French | English |
 |--------|---------|
@@ -30,55 +32,57 @@ With *sur*, *porter* often introduces the subject or focus of something.
 | L'enquête porte sur trois entreprises. | The investigation concerns three companies. |
 | Son livre porte sur l'histoire de Paris. | His book is about the history of Paris. |
 
-French keeps *porter*, while English usually changes the verb to *be about* or *concern*.
+French keeps *porter*. English usually switches to *be about* or *concern*.
 
 ## Official actions
 
-Several formal expressions use *porter* in legal or administrative contexts.
+Several formal expressions use *porter* in legal, emergency, or administrative contexts.
 
 | French | English |
 |--------|---------|
-| porter plainte | to file a complaint |
-| porter secours à | to come to someone's aid |
-| porter assistance à | to assist someone |
+| Elle a porté plainte. | She filed a complaint. |
+| Les secours ont porté assistance aux victimes. | Rescuers assisted the victims. |
+| Il a porté secours à un voisin. | He came to a neighbor's aid. |
 
-These are common in news reports and formal writing.
+These show up often in news reports and formal writing.
 
 ## Judgments and responsibility
 
-Other fixed combinations describe responsibility or evaluation.
+Other fixed combinations describe evaluation or responsibility. The "carrying" idea is still there, but it has become abstract.
 
 | French | English |
 |--------|---------|
-| porter un jugement sur | to pass judgment on |
-| porter la responsabilité de | to bear responsibility for |
-| porter préjudice à | to cause harm to |
+| Il ne faut pas porter un jugement trop vite. | You shouldn't pass judgment too quickly. |
+| Elle porte la responsabilité du projet. | She bears responsibility for the project. |
+| Cette erreur porte préjudice à l'équipe. | This mistake harms the team. |
 
-The idea of "carrying" is still present, but it has become abstract.
+## How you are: *se porter*
 
-## Pronominal expressions
-
-Although less common than with some high-frequency verbs, *se porter* appears in a few useful patterns.
+*Se porter* appears in a few useful patterns for health and volunteering.
 
 | French | English |
 |--------|---------|
 | Comment vous portez-vous ? | How are you? (formal) |
-| bien se porter | to be in good health |
-| se porter volontaire | to volunteer |
+| Elle se porte bien. | She's in good health. / She's doing well. |
+| Il s'est porté volontaire. | He volunteered. |
 
-These expressions should be learned as complete units.
+Learn these as complete units. They are not about carrying an object.
 
 ## A pattern worth noticing
 
-Beyond the everyday A2 meanings, *porter* often appears with a noun or preposition that determines the meaning:
+Past the everyday [A2](/en/cefr/) meanings, *porter* often appears with a noun or preposition that determines the meaning:
 
-- *porter sur*
-- *porter plainte*
-- *porter secours à*
-- *se porter volontaire*
+| French | English |
+|--------|---------|
+| *porter sur* | be about / concern |
+| *porter plainte* | file a complaint |
+| *porter secours / assistance à* | assist / come to someone's aid |
+| *porter la responsabilité de* | bear responsibility for |
+| *se porter bien* | be in good health |
+| *se porter volontaire* | volunteer |
 
-Recognising the whole construction is much more useful than looking for another translation of *porter*.
+Recognizing the whole construction is more useful than looking for another translation of *porter*.
 
 ## Summary
 
-Past the core ideas of carrying and wearing, *porter* becomes a verb of formal expressions, responsibility, and abstract relationships. Learning these patterns as complete units will help you read and understand authentic French more confidently at [B1](/en/cefr/).
+Past carrying and wearing, *porter* becomes a verb of focus, formal action, and responsibility. Learning those patterns as units will help you read authentic French more confidently at [B1](/en/cefr/).

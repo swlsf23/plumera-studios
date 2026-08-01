@@ -1,6 +1,6 @@
 ---
 title: "Tomber (French): idioms and fixed expressions | Plumera"
-description: How French uses tomber in advanced constructions, fixed expressions, and prepositional patterns you will meet around B1.
+description: How French uses tomber in denser coincidence, timing, and fixed expressions around B1.
 slug: verb-tomber-b1
 target: learn-french
 locale: en
@@ -18,70 +18,70 @@ related:
 
 # Idioms and fixed expressions with *tomber*
 
-At [A2](/en/cefr/), *tomber* covers falling, becoming ill, breaking down with *tomber en panne*, and unexpectedly meeting someone with *tomber sur*. Around [B1](/en/cefr/), you begin meeting a wider family of fixed expressions where the noun or preposition changes the meaning. Rather than translating *tomber* as "fall," it is more useful to recognise the complete pattern.
+At [A2](/en/cefr/), *tomber* covers falling, sudden changes such as falling ill, *tomber en panne*, and chance encounters with *tomber sur*. That core is covered in the [French Verb of the Week lesson on *tomber*](/en/learn-french/votw/votw-tomber-a2/).
+
+Around [B1](/en/cefr/), a wider family of fixed expressions keeps the same "sudden arrival" idea. The noun or preposition usually carries the meaning.
 
 ## Meeting things unexpectedly
 
-The idea of encountering something by chance expands into several useful expressions.
+The chance-encounter idea expands beyond people and photos.
 
 | French | English |
 |--------|---------|
-| tomber sur une idée intéressante | to come across an interesting idea |
-| tomber nez à nez avec quelqu'un | to come face to face with someone |
-| tomber entre de bonnes mains | to end up in good hands |
+| Je suis tombé sur une idée intéressante. | I came across an interesting idea. |
+| Nous sommes tombés nez à nez avec le voisin. | We came face to face with the neighbor. |
+| Le dossier est tombé entre de bonnes mains. | The file ended up in good hands. |
 
-These expressions all keep the idea of arriving somewhere unexpectedly.
+These all keep the sense of arriving somewhere unexpectedly.
 
-## Becoming or ending up
+## Sudden states and outcomes
 
-French often uses *tomber* to describe a sudden change of state.
-
-| French | English |
-|--------|---------|
-| tomber amoureux de | to fall in love with |
-| tomber enceinte | to become pregnant |
-| tomber dans l'oubli | to fall into obscurity |
-
-The movement is metaphorical rather than physical.
-
-## Fixed expressions with prepositions
-
-A change in the preposition often creates a completely different meaning.
+French also uses *tomber* for metaphorical falls into a state or reputation.
 
 | French | English |
 |--------|---------|
-| tomber à pic | to come at exactly the right moment |
-| tomber d'accord | to reach an agreement |
-| tomber sous le charme de | to fall under the spell of |
+| Elle est tombée enceinte. | She became pregnant. |
+| Ce nom est tombé dans l'oubli. | That name fell into obscurity. |
+| Il est tombé sous le charme de la ville. | He fell under the spell of the city. |
 
-These are best learned as complete units rather than word by word.
+*Tomber amoureux de* already appears at [A2](/en/cefr/). These are denser cousins of the same pattern.
 
-## Failure, success, and coincidence
+## Timing: good, bad, perfect
 
-Several everyday expressions use *tomber* in ways that are hard to predict.
+Several everyday expressions use *tomber* for whether something arrives at a good moment.
 
 | French | English |
 |--------|---------|
-| tomber à l'eau | to fall through |
-| ça tombe bien | that's good timing |
-| tomber mal | to come at a bad time |
+| Ça tombe bien. | That's good timing. |
+| Ça tombe mal. | That's bad timing. |
+| Cette nouvelle tombe à pic. | This news comes at exactly the right moment. |
 
-Although they share the same verb, each expression has its own meaning.
+At [A2](/en/cefr/), *ça tombe bien* is already useful. *Tomber à pic* and *tomber mal* extend the same timing idea.
+
+## Plans that fail
+
+When a plan is cancelled or collapses, French often keeps *tomber*.
+
+| French | English |
+|--------|---------|
+| Notre projet est tombé à l'eau. | Our project fell through. |
+| Ses espoirs sont tombés à l'eau. | His / her hopes fell through. |
 
 ## A pattern worth noticing
 
-Beyond the everyday A2 meanings, *tomber* often marks an unexpected result or change.
+Past the everyday [A2](/en/cefr/) meanings, *tomber* often marks an unexpected result or change:
 
-Notice how the meaning depends on what follows:
+| French | English |
+|--------|---------|
+| *tomber sur* | come across / run into |
+| *tomber nez à nez avec* | come face to face with |
+| *tomber à pic* | come at the perfect moment |
+| *tomber mal* | come at a bad time |
+| *tomber à l'eau* | fall through |
+| *tomber sous le charme de* | fall under the spell of |
 
-- *tomber sur*
-- *tomber dans*
-- *tomber sous*
-- *tomber à l'eau*
-- *tomber à pic*
-
-Learning the whole expression is much more useful than searching for another translation of *tomber*.
+Learning the whole expression is more useful than searching for another translation of *tomber*.
 
 ## Summary
 
-Past the core idea of falling, *tomber* becomes a verb of coincidence, sudden change, and fixed expressions. Recognising these patterns will make authentic spoken and written French much easier to follow at [B1](/en/cefr/).
+Past the core idea of falling, *tomber* becomes a verb of coincidence, timing, and sudden change. Recognizing those patterns will make spoken and written French easier to follow at [B1](/en/cefr/).

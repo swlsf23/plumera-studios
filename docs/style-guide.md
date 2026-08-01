@@ -30,6 +30,7 @@ Locale-pair templates may still say "for English speakers." Read that as **reade
 - Assume the reader is curious, not studying for an exam.
 - Prefer "Notice that…" over "Remember that…"
 - Prefer "French uses…" over "French is…"
+- Prefer "after" over "once" for sequencing ("After the house set feels steady…" not "Once the house set feels steady…").
 - Do not exaggerate rules.
 - Avoid "simply," "just," "always," or "never" unless literally true.
 - Prefer active voice and short paragraphs.
@@ -70,6 +71,12 @@ Every `###` (senses, expressions, common mistakes, and similar) opens with a sho
 
 Extra explanation can follow the gloss. The gloss itself should stand alone if the reader only skims headings and first lines. Apply this in new drafts and when revising published lessons.
 
+## Tables
+
+- Do **not** put two tables back to back. Separate them with a short teaching sentence, a note, or a subsection heading.
+- A gloss or list table followed immediately by an example table still counts as two in a row. Bridge them.
+- Incorrect / Correct tables are for genuine errors (including false friends). Two correct sentences that mean different things are a contrast, not a mistake.
+
 ## Examples and pedagogy
 
 - Prefer examples someone might actually hear or say. Avoid textbook-only lines where possible.
@@ -77,7 +84,6 @@ Extra explanation can follow the gloss. The gloss itself should stand alone if t
 - Highlight patterns rather than isolated facts.
 - Compare with English only when it aids understanding.
 - Never use a third language as a bridge between locale and target.
-- Incorrect / Correct tables are for genuine errors (including false friends). Two correct sentences that mean different things are a contrast, not a mistake.
 
 ## What not to edit casually
 
