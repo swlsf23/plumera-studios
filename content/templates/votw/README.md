@@ -31,7 +31,7 @@ Matches published EN VOTW lessons (`votw-prendre-a1`, `votw-tenir-a2`). Every te
 7. Register and usage. **Optional**, delete it unless there is something concrete to say
 8. Common mistakes, with one `###` per mistake
 9. Related verbs — bullets plus a blockquote for the one to watch
-10. Before you go (not “Summary”)
+10. Before you go (not “Summary”). If a companion article exists, link it here after the core takeaway.
 
 Rules that hold across pairs:
 

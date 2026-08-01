@@ -55,6 +55,10 @@ For Verb of the Week and similar series:
 - **Vary the openers.** A concrete catalog or colon-list beat is strong once or twice. Do not reuse the same intro shape on every VOTW.
 - Keep Forms and grammar parallel in *design* (irregular lead-in → table → one teaching note → past tense) without copying dry reference wording.
 
+## Companion links (VOTW)
+
+When a Verb of the Week lesson has a companion article (idioms / fixed expressions), mention it in **Before you go** with a link, after the core takeaway. Also list it in frontmatter `related`. Do not rely on the Expressions section alone to point readers onward.
+
 ## `###` section openers
 
 Every `###` (senses, expressions, common mistakes, and similar) opens with a short meaning gloss before the table or further teaching. Prefer a clear "To…" line, with an optional nuance:
