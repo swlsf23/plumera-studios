@@ -1,6 +1,6 @@
 /* English locale home (public/en/index.html) — new homepage layout.
    ES/FR keep the classic landing.css until those locales have more content.
-   Scoped under .landing-home so content-header / base.css stay untouched. */
+   Scoped under .landing-home. Shared chrome comes from base.css. */
 
 .landing-home {
   --landing-ink: #143b38;
