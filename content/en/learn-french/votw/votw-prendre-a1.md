@@ -1,5 +1,5 @@
 ---
-title: "French Verb of the Week: Prendre | Plumera"
+title: "Prendre: Everyday Uses (A1 French) | Plumera Studios"
 description: How French uses prendre for taking things, taking transport, and having food, drink, or medicine.
 slug: votw-prendre-a1
 target: learn-french
@@ -9,7 +9,7 @@ author:
 date: 2026-07-28
 draft: false
 related:
-  - title: "Prendre: Idioms and Fixed Expressions"
+  - title: "Prendre: Idioms & Fixed Expressions"
     href: /en/learn-french/articles/verb-prendre-b1/
   - href: /en/learn-french/whats-new/
   - href: /en/learn-french/votw/

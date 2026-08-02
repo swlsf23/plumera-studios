@@ -1,5 +1,5 @@
 ---
-title: "French Verb of the Week: Laisser | Plumera"
+title: "Laisser: Everyday Uses (A2 French) | Plumera Studios"
 description: How French uses laisser for leaving things behind, letting someone do something, and leaving something in a state.
 slug: votw-laisser-a2
 target: learn-french
@@ -9,7 +9,7 @@ author:
 date: 2026-07-31
 draft: true
 related:
-  - title: "Laisser: Idioms and Fixed Expressions"
+  - title: "Laisser: Idioms & Fixed Expressions"
     href: /en/learn-french/articles/verb-laisser-b1/
   - href: /en/learn-french/whats-new/
   - href: /en/learn-french/votw/

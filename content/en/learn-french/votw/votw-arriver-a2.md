@@ -1,5 +1,5 @@
 ---
-title: "French Verb of the Week: Arriver | Plumera"
+title: "Arriver: Everyday Uses (A2 French) | Plumera Studios"
 description: How French uses arriver for arriving, managing to do something, and talking about what happens.
 slug: votw-arriver-a2
 target: learn-french
@@ -9,7 +9,7 @@ author:
 date: 2026-07-31
 draft: true
 related:
-  - title: "Arriver: Idioms and Fixed Expressions"
+  - title: "Arriver: Idioms & Fixed Expressions"
     href: /en/learn-french/articles/verb-arriver-b1/
   - href: /en/learn-french/whats-new/
   - href: /en/learn-french/votw/

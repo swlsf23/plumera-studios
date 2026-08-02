@@ -1,5 +1,5 @@
 ---
-title: "Faire (French): idioms and fixed expressions | Plumera"
+title: "Faire: Idioms & Fixed Expressions (B1 French) | Plumera Studios"
 description: How French uses faire for having something done, se faire, and denser fixed expressions around B1.
 slug: verb-faire-b1
 target: learn-french
@@ -9,7 +9,7 @@ author:
 date: 2026-07-31
 draft: true
 related:
-  - title: "French Verb of the Week: Faire"
+  - title: "Faire: Everyday Uses"
     href: /en/learn-french/votw/votw-faire-a2/
   - href: /en/learn-french/whats-new/
   - title: CEFR levels

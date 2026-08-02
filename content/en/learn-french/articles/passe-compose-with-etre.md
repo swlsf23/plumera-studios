@@ -10,9 +10,9 @@ author:
 date: 2026-08-01
 draft: true
 related:
-  - title: "French Verb of the Week: Arriver"
+  - title: "Arriver: Everyday Uses"
     href: /en/learn-french/votw/votw-arriver-a2/
-  - title: "French Verb of the Week: Tomber"
+  - title: "Tomber: Everyday Uses"
     href: /en/learn-french/votw/votw-tomber-a2/
   - href: /en/learn-french/whats-new/
   - title: CEFR levels

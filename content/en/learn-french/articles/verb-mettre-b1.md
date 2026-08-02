@@ -1,5 +1,5 @@
 ---
-title: "Mettre (French): idioms and fixed expressions | Plumera"
+title: "Mettre: Idioms & Fixed Expressions (B1 French) | Plumera Studios"
 description: How French uses mettre in pronominal forms, fixed constructions, and idioms you will meet around B1, after the core A2 senses.
 slug: verb-mettre-b1
 target: learn-french
@@ -9,7 +9,7 @@ author:
 date: 2026-07-15
 draft: true
 related:
-  - title: "French Verb of the Week: Mettre"
+  - title: "Mettre: Everyday Uses"
     href: /en/learn-french/votw/votw-mettre-a2/
   - href: /en/learn-french/whats-new/
   - title: CEFR levels

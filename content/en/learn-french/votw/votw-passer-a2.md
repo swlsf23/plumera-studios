@@ -1,5 +1,5 @@
 ---
-title: "French Verb of the Week: Passer | Plumera"
+title: "Passer: Everyday Uses (A2 French) | Plumera Studios"
 description: How French uses passer for going past, spending time, and stopping by.
 slug: votw-passer-a2
 target: learn-french
@@ -9,7 +9,7 @@ author:
 date: 2026-07-31
 draft: true
 related:
-  - title: "Passer: Idioms and Fixed Expressions"
+  - title: "Passer: Idioms & Fixed Expressions"
     href: /en/learn-french/articles/verb-passer-b1/
   - href: /en/learn-french/whats-new/
   - href: /en/learn-french/votw/

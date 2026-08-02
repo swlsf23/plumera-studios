@@ -1,5 +1,5 @@
 ---
-title: "Rendre (French): idioms and fixed expressions | Plumera"
+title: "Rendre: Idioms & Fixed Expressions (B1 French) | Plumera Studios"
 description: How French uses se rendre compte, se rendre à, and denser fixed expressions with rendre around B1.
 slug: verb-rendre-b1
 target: learn-french
@@ -9,7 +9,7 @@ author:
 date: 2026-07-31
 draft: true
 related:
-  - title: "French Verb of the Week: Rendre"
+  - title: "Rendre: Everyday Uses"
     href: /en/learn-french/votw/votw-rendre-a2/
   - href: /en/learn-french/whats-new/
   - title: CEFR levels

@@ -1,5 +1,5 @@
 ---
-title: "French Verb of the Week: Rendre | Plumera"
+title: "Rendre: Everyday Uses (A2 French) | Plumera Studios"
 description: How French uses rendre for giving something back, handing in work, and making someone feel a certain way.
 slug: votw-rendre-a2
 target: learn-french
@@ -9,7 +9,7 @@ author:
 date: 2026-07-31
 draft: true
 related:
-  - title: "Rendre: Idioms and Fixed Expressions"
+  - title: "Rendre: Idioms & Fixed Expressions"
     href: /en/learn-french/articles/verb-rendre-b1/
   - href: /en/learn-french/whats-new/
   - href: /en/learn-french/votw/

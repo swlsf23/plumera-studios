@@ -48,6 +48,24 @@ Treat these as AI tells. They are banned in shippable site copy:
 
 CI fails the build if `;` or `—` appear in locale Markdown or landing prose.
 
+## Document `<title>` (EN French verbs)
+
+Frontmatter `title` is the full document `<title>` (include the brand suffix). Prefer `| Plumera Studios`.
+
+For English explanations of French verbs:
+
+- **VOTW / everyday-uses lesson:** `{Verb}: Everyday Uses ({Level} French) | Plumera Studios`
+  - Example: `Prendre: Everyday Uses (A1 French) | Plumera Studios`
+- **B1 idioms companion:** `{Verb}: Idioms & Fixed Expressions ({Level} French) | Plumera Studios`
+  - Example: `Prendre: Idioms & Fixed Expressions (B1 French) | Plumera Studios`
+
+Rules:
+
+- `{Level}` must match frontmatter `level`.
+- H1 stays short (lemma for VOTW; idioms heading for companions). Series signal stays in the eyebrow.
+- Do not put "Conjugation" in the VOTW title unless the page is actually a conjugation page.
+- Other locale pairs may keep localized title shapes in their templates until those series get the same SEO pass.
+
 ## Series consistency vs variety
 
 For Verb of the Week and similar series:

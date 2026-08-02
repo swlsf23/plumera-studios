@@ -1,5 +1,5 @@
 ---
-title: "French Verb of the Week: Manquer | Plumera"
+title: "Manquer: Everyday Uses (A2 French) | Plumera Studios"
 description: How French uses manquer for missing transport, lacking something, and saying you miss someone.
 slug: votw-manquer-a2
 target: learn-french
@@ -9,7 +9,7 @@ author:
 date: 2026-07-31
 draft: true
 related:
-  - title: "Manquer: Idioms and Fixed Expressions"
+  - title: "Manquer: Idioms & Fixed Expressions"
     href: /en/learn-french/articles/verb-manquer-b1/
   - href: /en/learn-french/whats-new/
   - href: /en/learn-french/votw/

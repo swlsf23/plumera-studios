@@ -1,5 +1,5 @@
 ---
-title: "French Verb of the Week: Mettre | Plumera"
+title: "Mettre: Everyday Uses (A2 French) | Plumera Studios"
 description: How French uses mettre for putting things somewhere, putting on clothes, and saying how long something takes.
 slug: votw-mettre-a2
 target: learn-french
@@ -9,7 +9,7 @@ author:
 date: 2026-07-15
 draft: true
 related:
-  - title: "Mettre: Idioms and Fixed Expressions"
+  - title: "Mettre: Idioms & Fixed Expressions"
     href: /en/learn-french/articles/verb-mettre-b1/
   - href: /en/learn-french/whats-new/
   - href: /en/learn-french/votw/

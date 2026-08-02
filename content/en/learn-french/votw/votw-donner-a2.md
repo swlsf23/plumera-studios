@@ -1,5 +1,5 @@
 ---
-title: "French Verb of the Week: Donner | Plumera"
+title: "Donner: Everyday Uses (A2 French) | Plumera Studios"
 description: How French uses donner for giving, sharing information or permission, and causing an effect.
 slug: votw-donner-a2
 target: learn-french
@@ -9,7 +9,7 @@ author:
 date: 2026-07-31
 draft: true
 related:
-  - title: "Donner: Idioms and Fixed Expressions"
+  - title: "Donner: Idioms & Fixed Expressions"
     href: /en/learn-french/articles/verb-donner-b1/
   - href: /en/learn-french/whats-new/
   - href: /en/learn-french/votw/

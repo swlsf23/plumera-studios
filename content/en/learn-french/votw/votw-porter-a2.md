@@ -1,5 +1,5 @@
 ---
-title: "French Verb of the Week: Porter | Plumera"
+title: "Porter: Everyday Uses (A2 French) | Plumera Studios"
 description: How French uses porter for carrying, wearing clothes, and taking something somewhere.
 slug: votw-porter-a2
 target: learn-french
@@ -9,7 +9,7 @@ author:
 date: 2026-07-31
 draft: true
 related:
-  - title: "Porter: Idioms and Fixed Expressions"
+  - title: "Porter: Idioms & Fixed Expressions"
     href: /en/learn-french/articles/verb-porter-b1/
   - href: /en/learn-french/whats-new/
   - href: /en/learn-french/votw/

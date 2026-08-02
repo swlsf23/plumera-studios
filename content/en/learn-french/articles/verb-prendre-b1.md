@@ -1,5 +1,5 @@
 ---
-title: "Prendre (French): idioms and fixed expressions | Plumera"
+title: "Prendre: Idioms & Fixed Expressions (B1 French) | Plumera Studios"
 description: How French uses prendre in reflexive forms, fixed constructions, and idioms you will meet around B1, after the core A1 senses.
 slug: verb-prendre-b1
 target: learn-french
@@ -9,7 +9,7 @@ author:
 date: 2026-07-28
 draft: false
 related:
-  - title: "French Verb of the Week: Prendre"
+  - title: "Prendre: Everyday Uses"
     href: /en/learn-french/votw/votw-prendre-a1/
   - href: /en/learn-french/whats-new/
   - title: CEFR levels

@@ -1,5 +1,5 @@
 ---
-title: "Laisser (French): idioms and fixed expressions | Plumera"
+title: "Laisser: Idioms & Fixed Expressions (B1 French) | Plumera Studios"
 description: How French uses se laisser, laisser entendre, and denser fixed expressions with laisser around B1.
 slug: verb-laisser-b1
 target: learn-french
@@ -9,7 +9,7 @@ author:
 date: 2026-07-31
 draft: true
 related:
-  - title: "French Verb of the Week: Laisser"
+  - title: "Laisser: Everyday Uses"
     href: /en/learn-french/votw/votw-laisser-a2/
   - href: /en/learn-french/whats-new/
   - title: CEFR levels
