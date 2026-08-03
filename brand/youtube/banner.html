@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap");
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 2560px;
+      height: 1440px;
+      overflow: hidden;
+      background: #f3efe5;
+      color: #173534;
+      font-family: Inter, Arial, sans-serif;
+    }
+
+    .banner {
+      position: relative;
+      width: 2560px;
+      height: 1440px;
+      background: #f3efe5;
+      overflow: hidden;
+    }
+
+    /*
+      Hard constraint: everything must fit in YouTube "all devices"
+      safe area — center 1546 × 423 on a 2560 × 1440 canvas.
+    */
+    .safe {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 1546px;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      overflow: hidden;
+    }
+
+    .brand {
+      flex: 0 1 auto;
+      min-width: 0;
+      width: max-content;
+      max-width: calc(1546px - 48px - 168px);
+      text-align: left;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 148px;
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: -0.075em;
+      white-space: nowrap;
+    }
+
+    .rule {
+      display: block;
+      width: 72px;
+      height: 6px;
+      margin-top: 24px;
+      background: #b99d62;
+    }
+
+    /* One composed bubble mark — stays inside .safe */
+    .mark {
+      position: relative;
+      flex: 0 0 168px;
+      width: 168px;
+      height: 168px;
+    }
+
+    .bubble {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .bubble::after {
+      content: "";
+      position: absolute;
+    }
+
+    /* Single icon: tight stack with overlap
+           ● dark
+        ◐ cream
+           ◯ blue
+    */
+    .bubble--dark {
+      width: 100px;
+      height: 100px;
+      top: 4px;
+      left: 60px;
+      background: #173534;
+      z-index: 1;
+    }
+
+    .bubble--dark::after {
+      right: -2px;
+      bottom: 4px;
+      width: 29px;
+      height: 34px;
+      background: #173534;
+      clip-path: polygon(0 0, 100% 100%, 15% 72%);
+    }
+
+    .bubble--cream {
+      width: 106px;
+      height: 106px;
+      top: 36px;
+      left: 0;
+      background: #e9e1d2;
+      z-index: 2;
+    }
+
+    .bubble--cream::after {
+      left: -8px;
+      bottom: -6px;
+      width: 29px;
+      height: 36px;
+      background: #e9e1d2;
+      clip-path: polygon(100% 0, 57% 100%, 0 84%);
+    }
+
+    .bubble--blue {
+      width: 96px;
+      height: 96px;
+      top: 70px;
+      left: 56px;
+      background: #7f99a2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      z-index: 3;
+    }
+
+    .bubble--blue::after {
+      left: 4px;
+      bottom: -8px;
+      width: 29px;
+      height: 34px;
+      background: #7f99a2;
+      clip-path: polygon(100% 0, 55% 100%, 0 85%);
+    }
+
+    .line {
+      position: absolute;
+      left: 22px;
+      height: 2px;
+      background: #9c8c6f;
+    }
+
+    .line--one { width: 50px; top: 40px; }
+    .line--two { width: 40px; top: 49px; }
+    .line--three { width: 50px; top: 58px; }
+
+    .line--dark {
+      left: auto;
+      right: 18px;
+      height: 4px;
+      background: rgba(243, 239, 229, 0.35);
+    }
+
+    .line--dark-a { top: 36px; width: 36px; }
+    .line--dark-b { top: 44px; width: 55px; }
+    .line--dark-c { top: 52px; width: 44px; }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #ead9b4;
+    }
+  </style>
+</head>
+<body>
+  <div class="banner">
+    <div class="safe">
+      <div class="brand">
+        <h1>Plumera Studios</h1>
+        <span class="rule" aria-hidden="true"></span>
+      </div>
+
+      <div class="mark" aria-hidden="true">
+        <div class="bubble bubble--dark">
+          <span class="line line--dark line--dark-a"></span>
+          <span class="line line--dark line--dark-b"></span>
+          <span class="line line--dark line--dark-c"></span>
+        </div>
+        <div class="bubble bubble--cream">
+          <span class="line line--one"></span>
+          <span class="line line--two"></span>
+          <span class="line line--three"></span>
+        </div>
+        <div class="bubble bubble--blue">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
