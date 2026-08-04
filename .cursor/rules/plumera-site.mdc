@@ -17,7 +17,7 @@ alwaysApply: true
 - Do **not** use a React SPA / `#root` client router for content pages (local or production).
 - Do **not** set title, meta description, or canonical at runtime for content pages.
 - **`dist/` is the deployable site.** Local preview serves that same folder as static files; do not add a separate preview rewrite layer.
-- Build with the **Python** content builder (`npm run build:site` / `python -m tools.content_builder`). `package.json` scripts are thin wrappers; no npm app dependencies until `/app/…` lands.
+- Build with the **Python** content builder (`python -m tools.content_builder`). No npm/Vite toolchain until an `/app/…` surface is wired in.
 - Source of truth for copy is Markdown under `content/`.
 
 
@@ -64,8 +64,8 @@ content/
 
 ## Build / deploy
 
-- Build: `npm run build:site` or `python -m tools.content_builder` (after `.venv` + `pip install -e .`) → `dist/`.
-- Local: serve `dist/` with a plain static server (`npm run serve:site` = `http://localhost:4173`).
+- Build: `python -m tools.content_builder` (after `.venv` + `pip install -e .`) → `dist/`.
+- Local: serve `dist/` with a plain static server (`python -m http.server 4173 --bind 127.0.0.1 --directory dist`).
 - Deploy: upload/sync `dist/` as-is.
 - Sitemaps: root index pointing to per-locale sitemaps, generated from files that exist in `dist/`.
 

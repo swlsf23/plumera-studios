@@ -30,19 +30,16 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -e .
 
-npm run build:site    # → dist/  (wrapper around the Python builder)
-npm run serve:site    # http://localhost:4173 serves dist/
+python -m tools.content_builder                          # → dist/
+python -m http.server 4173 --bind 127.0.0.1 --directory dist   # http://localhost:4173
 ```
-
-`package.json` scripts call Python only; there are no npm dependencies.
 
 Pages with `draft: true` are left out. To build them locally for review:
 
 ```bash
-python3 -m tools.content_builder --drafts
+python -m tools.content_builder --drafts
 ```
 
-Or `npm run dev` (= build + serve `dist/`) at [http://localhost:4173](http://localhost:4173).
 
 Useful URLs (directory indexes, trailing slashes):
 
@@ -74,6 +71,6 @@ Source: [`tools/content_builder/`](tools/content_builder/).
 | `templates/content_page.html` | Full HTML document template |
 | `sitemaps.py` | Root + per-locale sitemaps from `dist/` |
 
-To extend (new page types, chrome strings, templates), change that package and re-run `npm run build:site`.
+To extend (new page types, chrome strings, templates), change that package and re-run `python -m tools.content_builder`.
 
 See [content/README.md](content/README.md) for content conventions.
