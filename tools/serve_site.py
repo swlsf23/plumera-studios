@@ -19,6 +19,12 @@ DIST = ROOT / "dist"
 class DistHandler(SimpleHTTPRequestHandler):
     """Mirror deploy.yml cache classes: short HTML, long CSS/JS/fonts."""
 
+    # Do not rely on host mimetypes for .woff2 (can be application/octet-stream).
+    extensions_map = {
+        **SimpleHTTPRequestHandler.extensions_map,
+        ".woff2": "font/woff2",
+    }
+
     def end_headers(self) -> None:
         path = unquote(urlparse(self.path).path)
         if path.endswith(".html") or path.endswith("/"):

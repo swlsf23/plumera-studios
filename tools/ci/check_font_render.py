@@ -80,9 +80,11 @@ def main() -> int:
         with sync_playwright() as p:
             browser = p.chromium.launch()
             page = browser.new_page()
+            # Umami is third-party analytics; do not wait on it for networkidle.
+            page.route("**/cloud.umami.is/**", lambda route: route.abort())
             for path, selector, _ in PAGES:
                 url = f"http://127.0.0.1:{port}{path}"
-                page.goto(url, wait_until="networkidle")
+                page.goto(url, wait_until="load")
                 page.wait_for_function("() => document.fonts.status === 'loaded'")
                 family = page.evaluate(
                     """(sel) => {
