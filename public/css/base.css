@@ -1,24 +1,13 @@
 /* Tokens / reset / shell */
 
 /* Self-hosted Inter 4.1 variable (full glyph set from rsms/inter — not a latin subset).
-   Proven prod issue: Google Fonts swap resized .content-header__nav (~16px) and
-   shifted header/actions. Metric-matched fallback keeps that layout stable. */
+   font-display: optional — never swap fonts after first paint (avoids header/nav jolt). */
 @font-face {
   font-family: "Inter";
   font-style: normal;
   font-weight: 100 900;
-  font-display: swap;
+  font-display: optional;
   src: url("/fonts/InterVariable.woff2") format("woff2");
-}
-
-/* Arial shaped to Inter metrics so swap cannot reflow the header/nav. */
-@font-face {
-  font-family: "Inter Fallback";
-  src: local("Arial");
-  ascent-override: 90.49%;
-  descent-override: 22.56%;
-  line-gap-override: 0%;
-  size-adjust: 107.64%;
 }
 
 :root {
@@ -57,7 +46,7 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  font-family: "Inter", "Inter Fallback", Arial, sans-serif;
+  font-family: "Inter", Arial, sans-serif;
   background: var(--surround);
   -webkit-font-smoothing: antialiased;
 }
@@ -238,7 +227,7 @@ body {
   position: relative;
   z-index: 20;
   color: var(--ink);
-  font-family: "Inter", "Inter Fallback", Arial, sans-serif;
+  font-family: "Inter", Arial, sans-serif;
 }
 
 .content-header a {
