@@ -321,7 +321,14 @@ def parse_votw_page(path: Path, locale: str, target: str) -> Page:
 
     heading_html = heading.replace(" — ", "<br>") if " — " in heading else heading
     series = f"/{locale}/{target}/votw/"
-    canonical_path = series if stem == VOTW_INDEX_STEM else f"{series}{slug}/"
+    if stem == VOTW_INDEX_STEM:
+        canonical_path = series
+    elif path.parent.name != "votw":
+        # content/.../votw/{lemma}/{job}.md → /.../votw/{lemma}/{job}/
+        lemma = path.parent.name
+        canonical_path = f"{series}{lemma}/{slug}/"
+    else:
+        canonical_path = f"{series}{slug}/"
 
     return Page(
         locale=locale,
@@ -452,7 +459,7 @@ def is_draft(path: Path) -> bool:
 
 
 def discover_votw_pages(content_root: Path) -> list[tuple[Path, str, str]]:
-    """Find content/{locale}/{target}/votw/*.md, series index.md included."""
+    """Find votw/*.md and votw/{lemma}/*.md under each locale/target."""
     pages: list[tuple[Path, str, str]] = []
     for locale_dir in _locale_dirs(content_root):
         for target_dir in _target_dirs(locale_dir):
@@ -460,6 +467,8 @@ def discover_votw_pages(content_root: Path) -> list[tuple[Path, str, str]]:
             if not votw.is_dir():
                 continue
             for path in sorted(votw.glob("*.md")):
+                pages.append((path, locale_dir.name, target_dir.name))
+            for path in sorted(votw.glob("*/*.md")):
                 pages.append((path, locale_dir.name, target_dir.name))
     return pages
 
@@ -558,6 +567,19 @@ def _list_title_from_post(post, fallback: str) -> str:
     return _plain_list_title(list_title)
 
 
+def _votw_lesson_paths(votw: Path) -> list[Path]:
+    """Flat votw/*.md lessons plus nested votw/{lemma}/*.md (index excluded)."""
+    paths = [p for p in votw.glob("*.md") if p.stem != VOTW_INDEX_STEM]
+    paths.extend(votw.glob("*/*.md"))
+    return sorted(paths)
+
+
+def _votw_href(locale: str, target: str, path: Path, slug: str) -> str:
+    if path.parent.name == "votw":
+        return f"/{locale}/{target}/votw/{slug}/"
+    return f"/{locale}/{target}/votw/{path.parent.name}/{slug}/"
+
+
 def votw_links(
     content_root: Path, locale: str, target: str, *, include_drafts: bool = False
 ) -> list[dict[str, str]]:
@@ -566,9 +588,7 @@ def votw_links(
     votw = content_root / locale / target / "votw"
     if not votw.is_dir():
         return []
-    for path in votw.glob("*.md"):
-        if path.stem == VOTW_INDEX_STEM:
-            continue
+    for path in _votw_lesson_paths(votw):
         post = frontmatter.load(path)
         meta = post.metadata
         if meta.get("draft") and not include_drafts:
@@ -588,7 +608,7 @@ def votw_links(
                     "date": date_label,
                     "description": description,
                     "level": level,
-                    "href": f"/{locale}/{target}/votw/{slug}/",
+                    "href": _votw_href(locale, target, path, slug),
                 },
             )
         )
@@ -606,9 +626,7 @@ def recent_target_links(
 
     votw = content_root / locale / target / "votw"
     if votw.is_dir():
-        for path in votw.glob("*.md"):
-            if path.stem == VOTW_INDEX_STEM:
-                continue
+        for path in _votw_lesson_paths(votw):
             post = frontmatter.load(path)
             meta = post.metadata
             if meta.get("draft") and not include_drafts:
@@ -623,7 +641,7 @@ def recent_target_links(
                         "description": str(meta.get("description") or "").strip(),
                         "level": str(meta.get("level") or "").strip(),
                         "kind": series_name,
-                        "href": f"/{locale}/{target}/votw/{slug}/",
+                        "href": _votw_href(locale, target, path, slug),
                     },
                 )
             )

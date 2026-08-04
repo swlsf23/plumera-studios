@@ -195,6 +195,9 @@ def _render_page(
     )
     page.body_html = _expand_art_bands(page.body_html)
     page.tail_body_html = _expand_art_bands(page.tail_body_html)
+    if page.show_hero_art:
+        page.body_html = _inject_hero_after_first_paragraph(page.body_html)
+        page.show_hero_art = False
     return template.render(
         page=page,
         chrome=chrome_for(locale),
@@ -224,6 +227,27 @@ def _write_redirect(path: Path, target: str) -> None:
 
 
 _ART_BAND_MARKER_RE = re.compile(r"<!--\s*art:\s*band\s*-->", re.I)
+_FIRST_P_CLOSE_RE = re.compile(r"</p\s*>", re.I)
+
+# Title hero band (injected after the first body paragraph).
+_HERO_ART_HTML = """\
+<div class="hero-art-slot" aria-hidden="true">
+  <div class="hero-art">
+    <div class="hero-art__arc"></div>
+    <svg class="hero-art__flourish" viewBox="0 0 800 30" preserveAspectRatio="none" focusable="false">
+      <path class="hero-art__stroke hero-art__stroke--warm" d="M-30 22 C 90 2, 190 34, 320 10 S 520 -2, 860 20"></path>
+      <path class="hero-art__stroke hero-art__stroke--cool" d="M-20 14 C 150 32, 280 -2, 430 18 S 650 30, 860 6"></path>
+      <circle class="hero-art__ring hero-art__ring--left" cx="110" cy="2" r="20"></circle>
+      <circle class="hero-art__ring hero-art__ring--right" cx="670" cy="16" r="14"></circle>
+      <path class="hero-art__stroke hero-art__stroke--fine" d="M 240 26 L 360 4 M 520 24 L 620 8"></path>
+    </svg>
+    <div class="hero-art__panel">
+      <span class="hero-art__shape hero-art__shape--circle"></span>
+      <span class="hero-art__shape hero-art__shape--bar"></span>
+      <span class="hero-art__shape hero-art__shape--dot"></span>
+    </div>
+  </div>
+</div>"""
 
 # Mid-article decorative band (same language as the title hero, different marks).
 _ART_BAND_HTML = """\
@@ -246,6 +270,17 @@ def _expand_art_bands(html: str) -> str:
     if not html or "art:" not in html.lower():
         return html
     return _ART_BAND_MARKER_RE.sub(_ART_BAND_HTML, html)
+
+
+def _inject_hero_after_first_paragraph(html: str) -> str:
+    """Place the title hero band after the first <p>, or at the top if none."""
+    if not html:
+        return _HERO_ART_HTML
+    match = _FIRST_P_CLOSE_RE.search(html)
+    if not match:
+        return f"{_HERO_ART_HTML}\n{html}"
+    at = match.end()
+    return f"{html[:at]}\n{_HERO_ART_HTML}\n{html[at:]}"
 
 
 def _list_marker_re(kind: str) -> re.Pattern[str]:
@@ -498,9 +533,10 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
                 page.after_body_html = lesson_list
             out = series / "index.html"
         else:
-            # /en/learn-french/votw/slug/ → en/learn-french/votw/slug/index.html
-            slug = page.canonical_path.rstrip("/").split("/")[-1]
-            out = series / slug / "index.html"
+            # Flat: …/votw/slug/ → votw/slug/index.html
+            # Nested: …/votw/lemma/job/ → votw/lemma/job/index.html
+            under_votw = page.canonical_path.rstrip("/").split("/votw/", 1)[-1]
+            out = series.joinpath(*under_votw.split("/")) / "index.html"
         _write(
             out,
             _render_page(
