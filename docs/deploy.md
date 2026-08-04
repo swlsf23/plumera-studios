@@ -23,16 +23,19 @@ Workflow: [`.github/workflows/ci.yml`](../.github/workflows/ci.yml)
 - Head-tag smoke on sample content pages
 - Internal link check against `dist/`
 - `python -m unittest discover -s tests`
-- Local HTTP smoke on key URLs
+- Playwright smoke: `/en/` hero computed `font-family` includes `Plumera Sans`
+- Local HTTP smoke on key URLs (via `tools.serve_site`, including `font/woff2` MIME)
 
 Run the same checks locally:
 
 ```bash
 source .venv/bin/activate
-pip install -e .
+pip install -e ".[dev]"
+playwright install chromium
 python -m tools.ci.check_prohibited_chars
 python -m tools.content_builder
 python -m tools.ci.check_font_stack
+python -m tools.ci.check_font_render
 python -m tools.ci.check_internal_links
 python -m unittest discover -s tests -v
 ```
