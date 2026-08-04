@@ -1,15 +1,5 @@
 /* Tokens / reset / shell */
 
-/* Self-hosted Inter 4.1 variable (full glyph set from rsms/inter — not a latin subset).
-   font-display: optional — never swap fonts after first paint (avoids header/nav jolt). */
-@font-face {
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: optional;
-  src: url("/fonts/InterVariable.woff2") format("woff2");
-}
-
 :root {
   --paper: #f3efe5;
   --paper-deep: #e9e1d2;
@@ -227,7 +217,7 @@ body {
   position: relative;
   z-index: 20;
   color: var(--ink);
-  font-family: "Inter", Arial, sans-serif;
+  font-family: Inter, Arial, sans-serif;
 }
 
 .content-header a {

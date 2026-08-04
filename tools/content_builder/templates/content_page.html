@@ -7,10 +7,12 @@
   <title>{% if page.title.endswith('| Plumera') or page.title.endswith('| Plumera Studios') %}{{ page.title }}{% else %}{{ page.title }} | Plumera{% endif %}</title>
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="canonical" href="{{ canonical_url }}">
-  <link rel="preload" href="/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
   <script defer src="https://cloud.umami.is/script.js" data-website-id="a6e7309a-1696-4e8c-95f3-bd6d0361fb4a" data-domains="plumerastudios.com"></script>
-  <link rel="stylesheet" href="/css/base.css?v=css-arch-5">
-  <link rel="stylesheet" href="/css/content.css?v=css-arch-5">
+  <link rel="stylesheet" href="/css/base.css?v=css-arch-1">
+  <link rel="stylesheet" href="/css/content.css?v=css-arch-1">
 </head>
 <body>
   {# One content-page template: single-column lesson chrome for every emitted page. #}
