@@ -15,7 +15,9 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = []
+dev = [
+  "playwright>=1.49",
+]
 
 [project.scripts]
 plumera-build = "tools.content_builder.build:main"
