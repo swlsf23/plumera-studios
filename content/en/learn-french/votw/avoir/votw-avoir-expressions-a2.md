@@ -16,7 +16,7 @@ related:
 
 # Avoir - expressions
 
-Once the everyday uses of *avoir* are in place, the next job is the fixed phrases and the places where English *be* still tempts you toward *être*. For the basic forms and senses, start with [Avoir - basics](/en/learn-french/votw/avoir/votw-avoir-basics-a1/).
+After you've learned the basic uses of *avoir*, the next step is learning common expressions and recognizing when English *be* still tempts you toward *être*. For the core uses, see [Avoir - basics](/en/learn-french/votw/avoir/votw-avoir-basics-a1/).
 
 ## Expressions and idioms
 
@@ -24,7 +24,7 @@ These are fixed phrases. Learn each one as a whole unit rather than word by word
 
 ### avoir raison / avoir tort
 
-To be right / to be wrong.
+Use *avoir raison* and *avoir tort* to say that someone is right or wrong.
 
 | French | English |
 |--------|---------|
@@ -33,7 +33,7 @@ To be right / to be wrong.
 
 ### avoir envie de
 
-To want something, or to feel like doing something.
+Use *avoir envie de* to want something or to feel like doing something.
 
 | French | English |
 |--------|---------|
@@ -42,7 +42,7 @@ To want something, or to feel like doing something.
 
 ### avoir besoin de
 
-To need something, or to need to do something.
+Use *avoir besoin de* to need something or to need to do something.
 
 | French | English |
 |--------|---------|
@@ -51,26 +51,29 @@ To need something, or to need to do something.
 
 ### avoir de la chance
 
-To be lucky.
+Use *avoir de la chance* to say that someone is lucky.
 
 | French | English |
 |--------|---------|
 | Tu as de la chance. | You are lucky. |
+| Elle a de la chance. | She is lucky. |
+| Nous avons de la chance aujourd'hui. | We are lucky today. |
 
 <!-- art: band -->
 
 ## Common mistakes
 
-The mistakes below share the same slip: using *être* (or another English-shaped line) where French wants *avoir*.
+The mistakes below share the same type of error: using *être* (or another English-shaped line) where French wants *avoir*.
 
 ### Using *être* for age
 
-To express your age, use *avoir*. Do not use être.
+Use *avoir* to express your age. Do not use *être*.
 
 | Incorrect | Correct |
 |-----------|---------|
 | *Je suis 20 ans.* | *J'ai 20 ans.* |
 | *Je suis 20.* | *J'ai 20 ans.* |
+| *Elle est 8 ans.* | *Elle a 8 ans.* |
 
 ### Using *être* for hunger, thirst, and similar states
 
@@ -86,4 +89,4 @@ These states are nouns after *avoir*, not adjectives after *être*.
 
 ## Before you go
 
-Treat the phrases above as whole units, and keep the *être* / *avoir* split in view when English offers *be*. For the core *avoir* uses, go back to [Avoir - basics](/en/learn-french/votw/avoir/votw-avoir-basics-a1/). For the core *être* uses, see [Être - basics](/en/learn-french/votw/etre/votw-etre-basics-a1/).
+Treat the phrases above as whole units, and keep the differences between *être* / *avoir* in mind when English uses *be*.
