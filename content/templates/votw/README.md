@@ -31,14 +31,16 @@ Matches published EN VOTW lessons (`votw-prendre-a1`, `votw-tenir-a2`). Every te
 7. Register and usage. **Optional**, delete it unless there is something concrete to say
 8. Common mistakes, with one `###` per mistake
 9. Related verbs — bullets plus a blockquote for the one to watch
-10. Before you go (not “Summary”)
+10. Before you go (not “Summary”). If a companion article exists, link it here after the core takeaway.
 
 Rules that hold across pairs:
 
 - Every `##` opens with a sentence before any `###`. No two headings in a row, and the sentence has to carry information rather than announce the section.
+- Every `###` opens with a full sentence before the table (not a bare "To…" gloss). See [docs/style-guide.md](../../../docs/style-guide.md) (`###` section openers).
 - No bold labels. The heading names the item, the prose explains it, the table shows it.
+- Do not put two tables back to back (bridge with a short sentence or heading). See [docs/style-guide.md](../../../docs/style-guide.md) (Tables).
 - The language being taught goes in the left column of every example table.
 - Incorrect/Correct is for genuine errors, including a false friend that makes a grammatical sentence say the wrong thing. Two correct sentences that mean different things are a contrast, and belong in the relevant sense (not under Common mistakes).
-- Title frontmatter is `… | Plumera` (full document `<title>`). H1 is the lemma only.
+- Title frontmatter is the full document `<title>`. For EN→French VOTW: `{Verb}: Everyday Uses ({Level} French) | Plumera Studios`. Companion articles: `{Verb}: Idioms & Fixed Expressions ({Level} French) | Plumera Studios`. See [docs/style-guide.md](../../../docs/style-guide.md) (Document `<title>`). H1 is the lemma only.
 
 Level lives in frontmatter and is the source of truth. The level suffix in a filename only keeps two articles about the same verb apart (`votw-prendre-a1`, `votw-prendre-b2`).

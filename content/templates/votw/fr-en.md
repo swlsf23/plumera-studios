@@ -104,6 +104,7 @@ Voice
 - Assume the reader is curious, not studying for an exam.
 - Prefer "Notice that..." over "Remember that..."
 - Prefer "French uses..." over "French is..."
+- Do not use "Once…" for sequencing. Use "After…"
 - Do not exaggerate rules.
 - Avoid saying "simply", "just", "always", or "never" unless literally true.
 
@@ -140,7 +141,7 @@ L1 interference (English → French)
 -->
 
 ---
-title:          # Full <title>, e.g. "French Verb of the Week: Prendre | Plumera"
+title:          # Full <title>, e.g. "Prendre: Everyday Uses (A1 French) | Plumera Studios"
 description:    # One-sentence meta description (English)
 slug:           # votw-{verb}-{level}, e.g. votw-prendre-a1
 target: learn-french      # Language taught
@@ -256,7 +257,7 @@ learn the whole unit).
 
 ### french expression
 
-Short gloss.
+Use this expression to [full sentence that states the meaning].
 
 | French | English |
 |--------|---------|
@@ -264,7 +265,7 @@ Short gloss.
 
 ### second expression
 
-Short gloss.
+Use this expression when [full sentence that states the meaning].
 
 | French | English |
 |--------|---------|

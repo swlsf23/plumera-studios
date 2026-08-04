@@ -30,6 +30,7 @@ Locale-pair templates may still say "for English speakers." Read that as **reade
 - Assume the reader is curious, not studying for an exam.
 - Prefer "Notice that…" over "Remember that…"
 - Prefer "French uses…" over "French is…"
+- Do not use "Once…" for sequencing. Use "After…" ("After you've learned the basic uses…" not "Once you've learned…").
 - Do not exaggerate rules.
 - Avoid "simply," "just," "always," or "never" unless literally true.
 - Prefer active voice and short paragraphs.
@@ -47,6 +48,24 @@ Treat these as AI tells. They are banned in shippable site copy:
 
 CI fails the build if `;` or `—` appear in locale Markdown or landing prose.
 
+## Document `<title>` (EN French verbs)
+
+Frontmatter `title` is the full document `<title>` (include the brand suffix). Prefer `| Plumera Studios`.
+
+For English explanations of French verbs:
+
+- **VOTW / everyday-uses lesson:** `{Verb}: Everyday Uses ({Level} French) | Plumera Studios`
+  - Example: `Prendre: Everyday Uses (A1 French) | Plumera Studios`
+- **B1 idioms companion:** `{Verb}: Idioms & Fixed Expressions ({Level} French) | Plumera Studios`
+  - Example: `Prendre: Idioms & Fixed Expressions (B1 French) | Plumera Studios`
+
+Rules:
+
+- `{Level}` must match frontmatter `level`.
+- H1 stays short (lemma for VOTW; idioms heading for companions). Series signal stays in the eyebrow.
+- Do not put "Conjugation" in the VOTW title unless the page is actually a conjugation page.
+- Other locale pairs may keep localized title shapes in their templates until those series get the same SEO pass.
+
 ## Series consistency vs variety
 
 For Verb of the Week and similar series:
@@ -55,6 +74,46 @@ For Verb of the Week and similar series:
 - **Vary the openers.** A concrete catalog or colon-list beat is strong once or twice. Do not reuse the same intro shape on every VOTW.
 - Keep Forms and grammar parallel in *design* (irregular lead-in → table → one teaching note → past tense) without copying dry reference wording.
 
+## Related links (VOTW)
+
+Frontmatter `related` drives the end-of-page cards. Keep the list short and purposeful.
+
+**Include**
+
+- The VOTW index (`/{locale}/{target}/votw/`) on every lesson
+- One or two related verb lessons when they exist as real pages (prefer other VOTW URLs over bare names)
+- At most one tightly tied article when it exists: idioms companion, or a grammar page that continues the same thread (e.g. *être* / *avoir* → passé composé with *avoir* and *être*)
+
+**Usually omit**
+
+- What’s new (nav already covers discovery)
+- CEFR as a default card (every body mention of a level code already links to `/{locale}/cefr/`, so the page is not an orphan if it leaves `related`)
+
+**Optional**
+
+- A CEFR card when you want an explicit levels entry from that lesson’s end band
+
+### Companion articles
+
+When a Verb of the Week lesson has an idioms / fixed-expressions companion, mention it in **Before you go** with a link, after the core takeaway. Also list it in frontmatter `related` (counts as the one tied article). Do not rely on the Expressions section alone to point readers onward.
+
+## `###` section openers
+
+Every `###` (senses, expressions, common mistakes, and similar) opens with a full sentence before the table or further teaching. Do not use bare "To…" gloss fragments ("To agree.").
+
+- Good: "Use *être d'accord* to say that you agree with someone."
+- Good: "Use *prendre* when you take a bus, a drink, or medicine."
+- Weak: "To agree."
+- Weak: jumping straight to a table
+
+Extra explanation can follow that opener. The first sentence should still make sense if the reader only skims headings and lead-ins. Apply this in new drafts and when revising published lessons.
+
+## Tables
+
+- Do **not** put two tables back to back. Separate them with a short teaching sentence, a note, or a subsection heading.
+- A gloss or list table followed immediately by an example table still counts as two in a row. Bridge them.
+- Incorrect / Correct tables are for genuine errors (including false friends). Two correct sentences that mean different things are a contrast, not a mistake.
+
 ## Examples and pedagogy
 
 - Prefer examples someone might actually hear or say. Avoid textbook-only lines where possible.
@@ -62,7 +121,6 @@ For Verb of the Week and similar series:
 - Highlight patterns rather than isolated facts.
 - Compare with English only when it aids understanding.
 - Never use a third language as a bridge between locale and target.
-- Incorrect / Correct tables are for genuine errors (including false friends). Two correct sentences that mean different things are a contrast, not a mistake.
 
 ## What not to edit casually
 

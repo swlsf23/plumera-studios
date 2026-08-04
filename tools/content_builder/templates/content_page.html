@@ -100,29 +100,8 @@
           </div>
           {% endif %}
           <h1>{{ page.heading_html | safe }}</h1>
-          {% if page.description %}<p class="page-summary">{{ page.description }}</p>{% endif %}
           {% if page.meta_line %}<p class="meta-line">{{ page.meta_line }}</p>{% endif %}
         </header>
-
-        {% if page.show_hero_art %}
-        <div class="hero-art-slot" aria-hidden="true">
-          <div class="hero-art">
-            <div class="hero-art__arc"></div>
-            <svg class="hero-art__flourish" viewBox="0 0 800 30" preserveAspectRatio="none" focusable="false">
-              <path class="hero-art__stroke hero-art__stroke--warm" d="M-30 22 C 90 2, 190 34, 320 10 S 520 -2, 860 20"></path>
-              <path class="hero-art__stroke hero-art__stroke--cool" d="M-20 14 C 150 32, 280 -2, 430 18 S 650 30, 860 6"></path>
-              <circle class="hero-art__ring hero-art__ring--left" cx="110" cy="2" r="20"></circle>
-              <circle class="hero-art__ring hero-art__ring--right" cx="670" cy="16" r="14"></circle>
-              <path class="hero-art__stroke hero-art__stroke--fine" d="M 240 26 L 360 4 M 520 24 L 620 8"></path>
-            </svg>
-            <div class="hero-art__panel">
-              <span class="hero-art__shape hero-art__shape--circle"></span>
-              <span class="hero-art__shape hero-art__shape--bar"></span>
-              <span class="hero-art__shape hero-art__shape--dot"></span>
-            </div>
-          </div>
-        </div>
-        {% endif %}
 
         {% if page.body_html %}
         <article class="article-body">

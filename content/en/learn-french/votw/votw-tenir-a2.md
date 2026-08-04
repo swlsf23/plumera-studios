@@ -1,5 +1,5 @@
 ---
-title: "French Verb of the Week: Tenir | Plumera"
+title: "Tenir: Everyday Uses (A2 French) | Plumera Studios"
 description: How French uses tenir for holding things, keeping promises, and expressing what matters to you.
 slug: votw-tenir-a2
 target: learn-french
