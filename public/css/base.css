@@ -1,5 +1,15 @@
 /* Tokens / reset / shell */
 
+/* Fix: Google Fonts display=swap resized .content-header__nav (~+16px) on load.
+   Self-host Inter; font-display:optional never swaps fonts after first paint. */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: optional;
+  src: url("/fonts/InterVariable.woff2") format("woff2");
+}
+
 :root {
   --paper: #f3efe5;
   --paper-deep: #e9e1d2;
