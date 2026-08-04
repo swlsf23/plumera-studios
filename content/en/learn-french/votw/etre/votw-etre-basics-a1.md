@@ -9,7 +9,7 @@ author:
 date: 2026-08-03
 related:
   - href: /en/learn-french/votw/etre/votw-etre-expressions-a2/
-  - href: /en/learn-french/votw/avoir/basics-a1/
+  - href: /en/learn-french/votw/avoir/votw-avoir-basics-a1/
   - title: "Passé composé with avoir and être"
     href: /en/learn-french/articles/passe-compose-avoir-etre/
   - href: /en/learn-french/votw/
@@ -130,12 +130,12 @@ Here are a few high-frequency lines that use *être* outside the uses described 
 
 ## Related verbs
 
-- [avoir](/en/learn-french/votw/avoir/basics-a1/): to have (age, possession, many body states)
+- [avoir](/en/learn-french/votw/avoir/votw-avoir-basics-a1/): to have (age, possession, many body states)
 - aller: to go
 - devenir: to become
 - sembler: to seem
 
-> *Avoir* is the one to watch. English *be* often maps to *avoir* in French, especially with age and feelings like hunger or cold. See [Avoir - basics](/en/learn-french/votw/avoir/basics-a1/):
+> *Avoir* is the one to watch. English *be* often maps to *avoir* in French, especially with age and feelings like hunger or cold. See [Avoir - basics](/en/learn-french/votw/avoir/votw-avoir-basics-a1/):
 
 | French | English |
 |--------|---------|

@@ -10,7 +10,7 @@ date: 2026-08-03
 draft: true
 related:
   - href: /en/learn-french/votw/etre/votw-etre-basics-a1/
-  - href: /en/learn-french/votw/avoir/basics-a1/
+  - href: /en/learn-french/votw/avoir/votw-avoir-basics-a1/
   - href: /en/learn-french/votw/
 ---
 
@@ -103,7 +103,7 @@ The following examples demonstrate a common error when *c'est* should introduce 
 
 ### Using *il est* for "there is"
 
-To express existence and presence, French usually starts with *il y a*, not *il est*. For more on *il y a*, see [Avoir - basics](/en/learn-french/votw/avoir/basics-a1/).
+To express existence and presence, French usually starts with *il y a*, not *il est*. For more on *il y a*, see [Avoir - basics](/en/learn-french/votw/avoir/votw-avoir-basics-a1/).
 
 | Incorrect | Correct |
 |-----------|---------|
@@ -112,4 +112,4 @@ To express existence and presence, French usually starts with *il y a*, not *il 
 
 ## Before you go
 
-Treat the phrases above as whole units, and keep the differences between *être* and *avoir* in mind in situations where English expresses *be*. For the core uses of *être*, take a look at [Être - basics](/en/learn-french/votw/etre/votw-etre-basics-a1/). To understand *avoir*, see [Avoir - basics](/en/learn-french/votw/avoir/basics-a1/).
+Treat the phrases above as whole units, and keep the differences between *être* and *avoir* in mind in situations where English expresses *be*. For the core uses of *être*, take a look at [Être - basics](/en/learn-french/votw/etre/votw-etre-basics-a1/). To understand *avoir*, see [Avoir - basics](/en/learn-french/votw/avoir/votw-avoir-basics-a1/).

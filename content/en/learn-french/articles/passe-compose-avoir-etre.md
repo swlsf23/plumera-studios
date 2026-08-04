@@ -10,8 +10,8 @@ author:
 date: 2026-08-01
 draft: true
 related:
-  - href: /en/learn-french/votw/votw-avoir-a1/
-  - href: /en/learn-french/votw/votw-etre-a1/
+  - href: /en/learn-french/votw/avoir/votw-avoir-basics-a1/
+  - href: /en/learn-french/votw/etre/votw-etre-basics-a1/
   - href: /en/learn-french/votw/
 ---
 
@@ -23,7 +23,7 @@ Most verbs take *avoir* as that helper: *j'ai mangé*, *tu as parlé*, *nous avo
 
 The useful skill at [A1](/en/cefr/) is hearing which helper belongs. Start with *avoir* as the default. Then learn the *être* set well enough that *j'ai arrivé* and *j'ai allé* start to sound wrong.
 
-For the verbs themselves, see [Avoir: Everyday Uses](/en/learn-french/votw/votw-avoir-a1/) and [Être: Everyday Uses](/en/learn-french/votw/votw-etre-a1/).
+For the verbs themselves, see [Avoir - basics](/en/learn-french/votw/avoir/votw-avoir-basics-a1/) and [Être - basics](/en/learn-french/votw/etre/votw-etre-basics-a1/).
 
 ## Start with *avoir*
 
