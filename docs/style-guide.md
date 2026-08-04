@@ -74,9 +74,28 @@ For Verb of the Week and similar series:
 - **Vary the openers.** A concrete catalog or colon-list beat is strong once or twice. Do not reuse the same intro shape on every VOTW.
 - Keep Forms and grammar parallel in *design* (irregular lead-in → table → one teaching note → past tense) without copying dry reference wording.
 
-## Companion links (VOTW)
+## Related links (VOTW)
 
-When a Verb of the Week lesson has a companion article (idioms / fixed expressions), mention it in **Before you go** with a link, after the core takeaway. Also list it in frontmatter `related`. Do not rely on the Expressions section alone to point readers onward.
+Frontmatter `related` drives the end-of-page cards. Keep the list short and purposeful.
+
+**Include**
+
+- The VOTW index (`/{locale}/{target}/votw/`) on every lesson
+- One or two related verb lessons when they exist as real pages (prefer other VOTW URLs over bare names)
+- At most one tightly tied article when it exists: idioms companion, or a grammar page that continues the same thread (e.g. *être* / *avoir* → passé composé with *avoir* and *être*)
+
+**Usually omit**
+
+- What’s new (nav already covers discovery)
+- CEFR as a default card (every body mention of a level code already links to `/{locale}/cefr/`, so the page is not an orphan if it leaves `related`)
+
+**Optional**
+
+- A CEFR card when you want an explicit levels entry from that lesson’s end band
+
+### Companion articles
+
+When a Verb of the Week lesson has an idioms / fixed-expressions companion, mention it in **Before you go** with a link, after the core takeaway. Also list it in frontmatter `related` (counts as the one tied article). Do not rely on the Expressions section alone to point readers onward.
 
 ## `###` section openers
 
