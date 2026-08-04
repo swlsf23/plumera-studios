@@ -57,10 +57,25 @@ jobs:
         run: |
           set -euo pipefail
           test -n "${S3_BUCKET}"
-          # Full-site sync. --delete removes paths no longer in dist/.
+          # Full sync first (--delete). Do not --exclude HTML here: that would
+          # delete remote HTML. Overlay Cache-Control by type after.
           aws s3 sync dist/ "s3://${S3_BUCKET}/" --delete \
             --cache-control "public,max-age=86400"
-          # Short cache for HTML (CSS is query-busted, not content-hashed).
+          # Query-busted CSS/JS: long cache; URL changes when we bump ?v=.
+          aws s3 sync dist/ "s3://${S3_BUCKET}/" \
+            --exclude "*" \
+            --include "css/*" \
+            --include "js/*" \
+            --cache-control "public,max-age=31536000,immutable" \
+            --metadata-directive REPLACE
+          # Fingerprinted fonts (?v= on @font-face URL): long cache.
+          aws s3 sync dist/ "s3://${S3_BUCKET}/" \
+            --exclude "*" \
+            --include "fonts/*.woff2" \
+            --cache-control "public,max-age=31536000,immutable" \
+            --content-type "font/woff2" \
+            --metadata-directive REPLACE
+          # HTML last: short cache so warm Brave cannot keep an old document.
           aws s3 sync dist/ "s3://${S3_BUCKET}/" \
             --exclude "*" \
             --include "*.html" \

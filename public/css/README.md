@@ -31,7 +31,7 @@ The builder concatenates sources into **one** stylesheet per surface in `dist/cs
 | FR / ES home | `site-landing.css` | `base.css` + `landing.css` |
 | Content pages | `site-content.css` | `base.css` + `content.css` |
 
-Do not load Google Fonts or other webfonts on content/landing pages — a second face causes mid-paint swaps. Site type uses the system UI stack in `base.css`.
+UI type is self-hosted Inter (`public/fonts/InterVariable.woff2`), registered as CSS family **`Plumera Sans`** (not `Inter`) so extension `@font-face` rules named Inter cannot hijack the stack. Metric-matched `Plumera Sans Fallback` (local Arial + size-adjust) and `@font-face` live in the inline `<head>` only — not repeated in `base.css`. `font-display: swap`. No font preload. No Google Fonts on live pages. Font URL carries `?v=` (bump with the file); see `docs/deploy.md` for Cache-Control.
 
 Bump `?v=` on every live CSS link you change in the same commit so caches do not mix old and new sheets.
 

@@ -31,7 +31,7 @@ source .venv/bin/activate
 pip install -e .
 
 python -m tools.content_builder                          # → dist/
-python -m http.server 4173 --bind 127.0.0.1 --directory dist   # http://localhost:4173
+python -m tools.serve_site   # http://127.0.0.1:4173 (deploy-like Cache-Control)
 ```
 
 Pages with `draft: true` are left out. To build them locally for review:

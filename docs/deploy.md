@@ -68,6 +68,26 @@ git push origin vYYYY.MM.DD
 
 Then confirm the Deploy workflow is green and spot-check View Source on `/`, `/en/`, and a content URL (title / description / canonical present in the HTML file).
 
+## Cache-Control (S3)
+
+Deploy overlays headers by asset class (same classes as `python -m tools.serve_site` for local Brave warm-cache testing):
+
+| Class | Cache-Control | Notes |
+| --- | --- | --- |
+| `*.html` | `public,max-age=300,must-revalidate` | Short so warm browsers revalidate the document |
+| `css/*`, `js/*` | `public,max-age=31536000,immutable` | Bump `?v=` on live links when sheets change |
+| `fonts/*.woff2` | `public,max-age=31536000,immutable` + `font/woff2` | Bump `?v=` on `@font-face` `src` when the file changes. Live CSS family is `Plumera Sans` (file remains InterVariable). |
+| everything else | `public,max-age=86400` | Default from the full-site sync |
+
+CloudFront still gets a `/*` invalidation after each deploy. Query-bust CSS/JS/fonts so a warm Brave profile cannot keep an old sheet or font against new HTML after a release.
+
+Local preview with matching headers:
+
+```bash
+python -m tools.content_builder
+python -m tools.serve_site   # http://127.0.0.1:4173
+```
+
 ## Notes
 
 - `aws s3 sync --delete` removes objects that are no longer in `dist/`. An empty or broken build is guarded by the “Refuse empty or incomplete dist/” step.
