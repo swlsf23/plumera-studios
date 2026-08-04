@@ -1,5 +1,13 @@
 /* Tokens / reset / shell */
 
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/InterVariable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: optional;
+}
+
 :root {
   --paper: #f3efe5;
   --paper-deep: #e9e1d2;
