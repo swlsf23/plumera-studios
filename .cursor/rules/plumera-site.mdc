@@ -7,9 +7,9 @@ alwaysApply: true
 
 ## Language split
 
-- **Python** — content builder, APIs (e.g. Corpus), sitemaps, generators, and other non-app tooling.
-- **TypeScript / React** — interactive apps only (`npm run dev:app`). Do **not** deliver content pages via the SPA.
-- Local Python env: `.venv/` (gitignored). App deps stay on npm.
+- **Python** — content builder, APIs (e.g. Corpus), sitemaps, generators, and other non-app tooling. Local env: `.venv/` (gitignored).
+- **TypeScript / React** — future app surfaces only (e.g. Practice at `/app/practice`), in parallel with the static site. Not present in this repo until an app is wired. Product code for Practice lives in `plumera-flashcard` and is consumed as a GitHub package.
+- Do **not** wrap content pages in a React shell. Static HTML and `/app/…` apps coexist on one origin.
 
 ## Content delivery
 
@@ -17,8 +17,9 @@ alwaysApply: true
 - Do **not** use a React SPA / `#root` client router for content pages (local or production).
 - Do **not** set title, meta description, or canonical at runtime for content pages.
 - **`dist/` is the deployable site.** Local preview serves that same folder as static files; do not add a separate preview rewrite layer.
-- Build with the **Python** content builder (`npm run build:site` / `python -m tools.content_builder`).
+- Build with the **Python** content builder (`npm run build:site` / `python -m tools.content_builder`). `package.json` scripts are thin wrappers; no npm app dependencies until `/app/…` lands.
 - Source of truth for copy is Markdown under `content/`.
+
 
 ## Landings vs content pages
 

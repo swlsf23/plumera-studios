@@ -71,5 +71,6 @@ Then confirm the Deploy workflow is green and spot-check View Source on `/`, `/e
 ## Notes
 
 - `aws s3 sync --delete` removes objects that are no longer in `dist/`. An empty or broken build is guarded by the “Refuse empty or incomplete dist/” step.
-- React (`npm run dev:app`) is out of scope for this pipeline.
+- The pipeline builds and deploys the static site only. Future `/app/…` React surfaces (e.g. Practice) are out of scope until wired in.
 - Hand-authored landings under `public/` are copied into `dist/` by the builder and deploy with everything else.
+

@@ -15,12 +15,6 @@ __pycache__/
 dist/
 build/
 
-# Vite / tooling caches
-.vite/
-*.tsbuildinfo
-vite.config.js
-vite.config.d.ts
-
 # Logs and debug
 logs/
 *.log
