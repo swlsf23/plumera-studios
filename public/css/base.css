@@ -1,31 +1,16 @@
 /* Tokens / reset / shell */
 
-/* Self-hosted Inter 4.1 (full web fonts from rsms/inter — not a latin subset). */
+/* Self-hosted Inter 4.1 variable (full glyph set from rsms/inter — not a latin subset).
+   font-display: optional — use Inter when ready at first paint; never swap mid-page. */
 @font-face {
   font-family: "Inter";
   font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("/fonts/Inter-Regular.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: optional;
+  src: url("/fonts/InterVariable.woff2") format("woff2");
 }
 
-@font-face {
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("/fonts/Inter-Medium.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("/fonts/Inter-SemiBold.woff2") format("woff2");
-}
-
-/* Metric-matched Arial so swap does not reflow the page. */
+/* Metric-matched Arial while Inter is unavailable for this navigation. */
 @font-face {
   font-family: "Inter Fallback";
   src: local("Arial");
@@ -65,6 +50,8 @@
 html {
   background: var(--surround);
   color: var(--ink);
+  /* Reserve vertical scrollbar space so the centered .page does not jump. */
+  overflow-y: scroll;
   scrollbar-gutter: stable;
 }
 
