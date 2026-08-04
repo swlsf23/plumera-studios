@@ -113,6 +113,16 @@ For same-language forms (e.g. conjugation), put this HTML comment on the line im
 
 `conjugation` is accepted as an alias for `forms`. You can also force `example` or `correction` with the same comment shape.
 
+## Pattern lines (grammar shapes)
+
+To pull a one-line form forward (e.g. *avoir* + past participle), put this HTML comment on the line immediately above it:
+
+```markdown
+<!-- pattern -->
+*avoir* + past participle
+```
+
+
 ## Chrome / locales
 
 Nav and footer labels for emitted pages live in `tools/content_builder/chrome.py`. If a locale is missing there, the builder falls back to English and prints a warning.
