@@ -1,16 +1,17 @@
 /* Tokens / reset / shell */
 
 /* Self-hosted Inter 4.1 variable (full glyph set from rsms/inter — not a latin subset).
-   font-display: optional — use Inter when ready at first paint; never swap mid-page. */
+   Proven prod issue: Google Fonts swap resized .content-header__nav (~16px) and
+   shifted header/actions. Metric-matched fallback keeps that layout stable. */
 @font-face {
   font-family: "Inter";
   font-style: normal;
   font-weight: 100 900;
-  font-display: optional;
+  font-display: swap;
   src: url("/fonts/InterVariable.woff2") format("woff2");
 }
 
-/* Metric-matched Arial while Inter is unavailable for this navigation. */
+/* Arial shaped to Inter metrics so swap cannot reflow the header/nav. */
 @font-face {
   font-family: "Inter Fallback";
   src: local("Arial");
@@ -50,8 +51,6 @@
 html {
   background: var(--surround);
   color: var(--ink);
-  /* Reserve vertical scrollbar space so the centered .page does not jump. */
-  overflow-y: scroll;
   scrollbar-gutter: stable;
 }
 
