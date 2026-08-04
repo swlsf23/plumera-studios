@@ -23,15 +23,19 @@ Workflow: [`.github/workflows/ci.yml`](../.github/workflows/ci.yml)
 - Head-tag smoke on sample content pages
 - Internal link check against `dist/`
 - `python -m unittest discover -s tests`
-- Local HTTP smoke on key URLs
+- Playwright smoke: `/en/`, `/fr/`, and `/en/privacy/` computed `font-family` includes `Plumera Sans`
+- Local HTTP smoke on key URLs (via `tools.serve_site`, including `font/woff2` MIME)
 
 Run the same checks locally:
 
 ```bash
 source .venv/bin/activate
-pip install -e .
+pip install -e ".[dev]"
+playwright install chromium
 python -m tools.ci.check_prohibited_chars
 python -m tools.content_builder
+python -m tools.ci.check_font_stack
+python -m tools.ci.check_font_render
 python -m tools.ci.check_internal_links
 python -m unittest discover -s tests -v
 ```
@@ -68,8 +72,31 @@ git push origin vYYYY.MM.DD
 
 Then confirm the Deploy workflow is green and spot-check View Source on `/`, `/en/`, and a content URL (title / description / canonical present in the HTML file).
 
+## Cache-Control (S3)
+
+Deploy overlays headers by asset class (same classes as `python -m tools.serve_site` for local Brave warm-cache testing):
+
+| Class | Cache-Control | Notes |
+| --- | --- | --- |
+| `*.html` | `public,max-age=300,must-revalidate` | Short so warm browsers revalidate the document |
+| `css/*`, `js/*` | `public,max-age=31536000,immutable` | Bump `?v=` on live links when sheets change |
+| `fonts/*.woff2` | `public,max-age=31536000,immutable` + `font/woff2` | Bump `?v=` on `@font-face` `src` when the file changes. Live CSS family is `Plumera Sans` (file remains InterVariable). |
+| everything else | `public,max-age=86400` | Default from the full-site sync |
+
+**MIME / CORS:** Deploy sets `Content-Type: font/woff2` on `fonts/*.woff2`. Fonts are same-origin (`/fonts/…` on the site host), so no cross-origin font CORS header is required. Do not serve the WOFF2 as `application/octet-stream` from the CDN.
+
+CloudFront still gets a `/*` invalidation after each deploy. Query-bust CSS/JS/fonts so a warm Brave profile cannot keep an old sheet or font against new HTML after a release. CI fails if shipped HTML/CSS uses CSS family `Inter` or an `InterVariable.woff2` URL without `?v=`.
+
+Local preview with matching headers:
+
+```bash
+python -m tools.content_builder
+python -m tools.serve_site   # http://127.0.0.1:4173
+```
+
 ## Notes
 
 - `aws s3 sync --delete` removes objects that are no longer in `dist/`. An empty or broken build is guarded by the “Refuse empty or incomplete dist/” step.
-- React (`npm run dev:app`) is out of scope for this pipeline.
+- The pipeline builds and deploys the static site only. Future `/app/…` React surfaces (e.g. Practice) are out of scope until wired in.
 - Hand-authored landings under `public/` are copied into `dist/` by the builder and deploy with everything else.
+

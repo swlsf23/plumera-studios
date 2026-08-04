@@ -18,13 +18,22 @@ jobs:
           python-version: "3.12"
 
       - name: Install Python package
-        run: pip install -e .
+        run: pip install -e ".[dev]"
+
+      - name: Install Playwright Chromium
+        run: playwright install chromium --with-deps
 
       - name: Prohibited characters in shippable copy
         run: python -m tools.ci.check_prohibited_chars
 
       - name: Build static site (no drafts)
         run: python -m tools.content_builder
+
+      - name: Font stack (Plumera Sans; fingerprinted InterVariable)
+        run: python -m tools.ci.check_font_stack
+
+      - name: Font render smoke (/en/ computed Plumera Sans)
+        run: python -m tools.ci.check_font_render
 
       - name: Refuse empty or incomplete dist/
         run: |
@@ -66,7 +75,7 @@ jobs:
       - name: Smoke-test served URLs
         run: |
           set -euo pipefail
-          python -m http.server 4173 --bind 127.0.0.1 --directory dist >/tmp/site-server.log 2>&1 &
+          python -m tools.serve_site --port 4173 >/tmp/site-server.log 2>&1 &
           pid=$!
           trap 'kill $pid' EXIT
           sleep 1
@@ -84,3 +93,8 @@ jobs:
             test "$code" = "200"
             echo "$code $path"
           done
+          # Same-origin font MIME (deploy sets font/woff2 on S3; local serve mirrors it).
+          ctype=$(curl -sI "http://127.0.0.1:4173/fonts/InterVariable.woff2?v=inter-2" \
+            | tr -d '\r' | awk -F': ' 'tolower($1)=="content-type"{print tolower($2); exit}')
+          echo "font content-type: $ctype"
+          test "$ctype" = "font/woff2"

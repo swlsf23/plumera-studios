@@ -1,5 +1,11 @@
 /* Tokens / reset / shell */
 
+/*
+  @font-face for Plumera Sans (+ metric fallback) lives only in the inline <head>
+  (landings + content_page.html). Do not redeclare here. Family is not named
+  "Inter" so extension faces registered as Inter cannot hijack the stack.
+*/
+
 :root {
   --paper: #f3efe5;
   --paper-deep: #e9e1d2;
@@ -30,13 +36,12 @@
 html {
   background: var(--surround);
   color: var(--ink);
-  scrollbar-gutter: stable;
 }
 
 body {
   margin: 0;
   min-width: 320px;
-  font-family: "Inter", Arial, sans-serif;
+  font-family: "Plumera Sans", "Plumera Sans Fallback", sans-serif;
   background: var(--surround);
   -webkit-font-smoothing: antialiased;
 }
@@ -217,7 +222,7 @@ body {
   position: relative;
   z-index: 20;
   color: var(--ink);
-  font-family: Inter, Arial, sans-serif;
+  font-family: "Plumera Sans", "Plumera Sans Fallback", sans-serif;
 }
 
 .content-header a {

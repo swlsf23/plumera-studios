@@ -7,12 +7,27 @@
   <title>{% if page.title.endswith('| Plumera') or page.title.endswith('| Plumera Studios') %}{{ page.title }}{% else %}{{ page.title }} | Plumera{% endif %}</title>
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="canonical" href="{{ canonical_url }}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+    /* Family name is not "Inter" so extension @font-face { Inter } cannot hijack. File remains InterVariable (OFL). */
+    @font-face {
+      font-family: "Plumera Sans";
+      src: url("/fonts/InterVariable.woff2?v=inter-2") format("woff2");
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Plumera Sans Fallback";
+      src: local("Arial");
+      size-adjust: 107.89%;
+      ascent-override: 89.79%;
+      descent-override: 22.36%;
+      line-gap-override: 0%;
+    }
+    body { font-family: "Plumera Sans", "Plumera Sans Fallback", sans-serif; }
+  </style>
+  <link rel="stylesheet" href="/css/site-content.css?v=css-arch-15">
   <script defer src="https://cloud.umami.is/script.js" data-website-id="a6e7309a-1696-4e8c-95f3-bd6d0361fb4a" data-domains="plumerastudios.com"></script>
-  <link rel="stylesheet" href="/css/base.css?v=css-arch-1">
-  <link rel="stylesheet" href="/css/content.css?v=css-arch-1">
 </head>
 <body>
   {# One content-page template: single-column lesson chrome for every emitted page. #}
