@@ -767,42 +767,9 @@
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .landing-home .bubble--dark {
-    animation: landing-bubble-drift 14s ease-in-out infinite;
-  }
-
-  .landing-home .bubble--cream {
-    animation: landing-bubble-drift 16s ease-in-out infinite reverse;
-    animation-delay: -3s;
-  }
-
-  .landing-home .bubble--blue {
-    animation: landing-bubble-drift 18s ease-in-out infinite;
-    animation-delay: -6s;
-  }
-}
-
-@keyframes landing-bubble-drift {
-  0%,
-  100% {
-    transform: scale(calc(0.86 + 0.14 * var(--hero-spread))) translateY(0);
-  }
-
-  50% {
-    transform: scale(calc(0.86 + 0.14 * var(--hero-spread))) translateY(-10px);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .landing-home .button,
   .landing-home .feature-card--nav {
     transition: none;
-  }
-
-  .landing-home .bubble--dark,
-  .landing-home .bubble--cream,
-  .landing-home .bubble--blue {
-    animation: none;
   }
 }
