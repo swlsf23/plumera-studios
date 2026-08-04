@@ -13,19 +13,25 @@ Four runtime files. Do not add more without a strong reason.
 | `landing.css` | Classic FR/ES locale landings (`.landing-classic`) |
 | `landing-home.css` | English locale home (`.landing-home`) |
 
-### Hard import order
+### Hard import order (sources)
 
 1. `base.css` first  
 2. At most one page sheet second  
 
-Never load a page sheet before `base.css`.
+Never author a page sheet that assumes it loads before `base.css`.
 
-| Surface | Links |
-| --- | --- |
-| Domain root `/` (`public/index.html`) | `base.css` only |
-| EN home (`public/en/index.html`) | `base.css` → `landing-home.css` |
-| FR / ES home | `base.css` → `landing.css` |
-| Content pages (`tools/content_builder/templates/content_page.html`) | `base.css` → `content.css` |
+### What the browser loads
+
+The builder concatenates sources into **one** stylesheet per surface in `dist/css/`:
+
+| Surface | Live link | Sources |
+| --- | --- | --- |
+| Domain root `/` | `site-root.css` | `base.css` |
+| EN home | `site-landing-home.css` | `base.css` + `landing-home.css` |
+| FR / ES home | `site-landing.css` | `base.css` + `landing.css` |
+| Content pages | `site-content.css` | `base.css` + `content.css` |
+
+Do not load Google Fonts or other webfonts on content/landing pages — a second face causes mid-paint swaps. Site type uses the system UI stack in `base.css`.
 
 Bump `?v=` on every live CSS link you change in the same commit so caches do not mix old and new sheets.
 
