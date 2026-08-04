@@ -18,6 +18,19 @@ SCAN_ROOTS = (
     ROOT / "dist",
 )
 
+# Non-shipped / fixture trees that must never trip this check if they appear
+# under a scan root (e.g. future snapshots copied into public/ or dist/).
+_SKIP_DIR_NAMES = frozenset(
+    {
+        "snapshots",
+        "fixtures",
+        "__snapshots__",
+        "__fixtures__",
+        "testdata",
+        "test_fixtures",
+    }
+)
+
 # font-family: …Inter… as a family token (not InterVariable in urls).
 _FONT_FAMILY_RE = re.compile(r"font-family\s*:\s*([^;{}]+)", re.IGNORECASE)
 _FAMILY_TOKEN_RE = re.compile(r"^[\"']?([^\"',]+)[\"']?$")
@@ -43,6 +56,14 @@ def _family_tokens(value: str) -> list[str]:
         if m:
             tokens.append(m.group(1).strip())
     return tokens
+
+
+def _is_skipped(path: Path) -> bool:
+    try:
+        parts = path.resolve().relative_to(ROOT).parts
+    except ValueError:
+        parts = path.parts
+    return any(part in _SKIP_DIR_NAMES for part in parts)
 
 
 def _scan_text(path: Path, text: str) -> list[str]:
@@ -75,9 +96,11 @@ def _iter_shipped_files() -> list[Path]:
     for root in SCAN_ROOTS:
         if not root.is_dir():
             continue
-        files.extend(sorted(root.rglob("*.html")))
-        files.extend(sorted(root.rglob("*.css")))
-    # brand/ and docs/snapshots are not live ship paths; public/ is.
+        for pattern in ("*.html", "*.css"):
+            for path in sorted(root.rglob(pattern)):
+                if _is_skipped(path):
+                    continue
+                files.append(path)
     return files
 
 

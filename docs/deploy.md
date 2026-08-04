@@ -23,7 +23,7 @@ Workflow: [`.github/workflows/ci.yml`](../.github/workflows/ci.yml)
 - Head-tag smoke on sample content pages
 - Internal link check against `dist/`
 - `python -m unittest discover -s tests`
-- Playwright smoke: `/en/` hero computed `font-family` includes `Plumera Sans`
+- Playwright smoke: `/en/`, `/fr/`, and `/en/privacy/` computed `font-family` includes `Plumera Sans`
 - Local HTTP smoke on key URLs (via `tools.serve_site`, including `font/woff2` MIME)
 
 Run the same checks locally:

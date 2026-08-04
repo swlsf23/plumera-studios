@@ -5,7 +5,7 @@ from __future__ import annotations
 import unittest
 from pathlib import Path
 
-from tools.ci.check_font_stack import _scan_text
+from tools.ci.check_font_stack import _is_skipped, _scan_text
 
 
 class CheckFontStackTests(unittest.TestCase):
@@ -49,6 +49,13 @@ class CheckFontStackTests(unittest.TestCase):
         )
         self.assertEqual(hits, [])
 
+    def test_skips_snapshot_and_fixture_dirs(self) -> None:
+        self.assertTrue(_is_skipped(Path("public/snapshots/old.html")))
+        self.assertTrue(_is_skipped(Path("dist/fixtures/x.css")))
+        self.assertTrue(_is_skipped(Path("public/__snapshots__/a.html")))
+        self.assertFalse(_is_skipped(Path("public/en/index.html")))
+
 
 if __name__ == "__main__":
     unittest.main()
+

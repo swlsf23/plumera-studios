@@ -1,5 +1,6 @@
-"""Playwright smoke: /en/ hero computed font-family includes Plumera Sans.
+"""Playwright smoke: key pages' computed font-family includes Plumera Sans.
 
+Covers EN home, one classic landing (FR), and one content page.
 Requires: pip install -e '.[dev]' && playwright install chromium
 Serves dist/ via tools.serve_site on an ephemeral port.
 """
@@ -14,7 +15,17 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 DIST = ROOT / "dist"
-EN = DIST / "en" / "index.html"
+
+# path → CSS selector for a primary text node on that surface
+PAGES: tuple[tuple[str, str, Path], ...] = (
+    ("/en/", ".landing-home .hero h1", DIST / "en" / "index.html"),
+    ("/fr/", ".landing-classic .hero h1", DIST / "fr" / "index.html"),
+    (
+        "/en/privacy/",
+        ".content-page .article-header h1",
+        DIST / "en" / "privacy" / "index.html",
+    ),
+)
 
 
 def _free_port() -> int:
@@ -24,8 +35,13 @@ def _free_port() -> int:
 
 
 def main() -> int:
-    if not EN.is_file():
-        print(f"missing {EN}; run: python -m tools.content_builder", file=sys.stderr)
+    missing = [str(p.relative_to(ROOT)) for _, _, p in PAGES if not p.is_file()]
+    if missing:
+        print(
+            "missing build outputs; run: python -m tools.content_builder\n  "
+            + "\n  ".join(missing),
+            file=sys.stderr,
+        )
         return 1
 
     try:
@@ -60,29 +76,37 @@ def main() -> int:
             print("serve_site did not become ready", file=sys.stderr)
             return 1
 
-        url = f"http://127.0.0.1:{port}/en/"
+        failures: list[str] = []
         with sync_playwright() as p:
             browser = p.chromium.launch()
             page = browser.new_page()
-            page.goto(url, wait_until="networkidle")
-            page.wait_for_function("() => document.fonts.status === 'loaded'")
-            family = page.evaluate(
-                """() => {
-                  const el = document.querySelector('.landing-home .hero h1');
-                  if (!el) return '';
-                  return getComputedStyle(el).fontFamily;
-                }"""
-            )
+            for path, selector, _ in PAGES:
+                url = f"http://127.0.0.1:{port}{path}"
+                page.goto(url, wait_until="networkidle")
+                page.wait_for_function("() => document.fonts.status === 'loaded'")
+                family = page.evaluate(
+                    """(sel) => {
+                      const el = document.querySelector(sel);
+                      if (!el) return '';
+                      return getComputedStyle(el).fontFamily;
+                    }""",
+                    selector,
+                )
+                if "Plumera Sans" not in family:
+                    failures.append(
+                        f"{path} ({selector}): expected Plumera Sans; got {family!r}"
+                    )
+                else:
+                    print(f"ok {path}: {family}")
             browser.close()
 
-        if "Plumera Sans" not in family:
-            print(
-                f"expected computed font-family to include Plumera Sans; got: {family!r}",
-                file=sys.stderr,
-            )
+        if failures:
+            print("Font render check failed:", file=sys.stderr)
+            for line in failures:
+                print(f"  {line}", file=sys.stderr)
             return 1
 
-        print(f"Font render check ok: {family}")
+        print("Font render check ok")
         return 0
     finally:
         server.terminate()
