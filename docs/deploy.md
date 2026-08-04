@@ -32,6 +32,7 @@ source .venv/bin/activate
 pip install -e .
 python -m tools.ci.check_prohibited_chars
 python -m tools.content_builder
+python -m tools.ci.check_font_stack
 python -m tools.ci.check_internal_links
 python -m unittest discover -s tests -v
 ```
@@ -79,7 +80,9 @@ Deploy overlays headers by asset class (same classes as `python -m tools.serve_s
 | `fonts/*.woff2` | `public,max-age=31536000,immutable` + `font/woff2` | Bump `?v=` on `@font-face` `src` when the file changes. Live CSS family is `Plumera Sans` (file remains InterVariable). |
 | everything else | `public,max-age=86400` | Default from the full-site sync |
 
-CloudFront still gets a `/*` invalidation after each deploy. Query-bust CSS/JS/fonts so a warm Brave profile cannot keep an old sheet or font against new HTML after a release.
+**MIME / CORS:** Deploy sets `Content-Type: font/woff2` on `fonts/*.woff2`. Fonts are same-origin (`/fonts/…` on the site host), so no cross-origin font CORS header is required. Do not serve the WOFF2 as `application/octet-stream` from the CDN.
+
+CloudFront still gets a `/*` invalidation after each deploy. Query-bust CSS/JS/fonts so a warm Brave profile cannot keep an old sheet or font against new HTML after a release. CI fails if shipped HTML/CSS uses CSS family `Inter` or an `InterVariable.woff2` URL without `?v=`.
 
 Local preview with matching headers:
 
