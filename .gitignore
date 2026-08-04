@@ -1,6 +1,3 @@
-# Dependencies
-node_modules/
-
 # Python
 .venv/
 venv/
@@ -14,12 +11,6 @@ __pycache__/
 # Build output
 dist/
 build/
-
-# Vite / tooling caches
-.vite/
-*.tsbuildinfo
-vite.config.js
-vite.config.d.ts
 
 # Logs and debug
 logs/
