@@ -5,7 +5,17 @@
   src: url("/fonts/InterVariable.woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
-  font-display: optional;
+  font-display: swap;
+}
+
+/* Arial tuned to Inter metrics so the swap does not reflow layout. */
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial");
+  size-adjust: 105.27%;
+  ascent-override: 96.88%;
+  descent-override: 24.12%;
+  line-gap-override: 0%;
 }
 
 :root {
@@ -44,7 +54,7 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  font-family: "Inter", Arial, sans-serif;
+  font-family: "Inter", "Inter Fallback", Arial, sans-serif;
   background: var(--surround);
   -webkit-font-smoothing: antialiased;
 }
@@ -225,7 +235,7 @@ body {
   position: relative;
   z-index: 20;
   color: var(--ink);
-  font-family: Inter, Arial, sans-serif;
+  font-family: Inter, "Inter Fallback", Arial, sans-serif;
 }
 
 .content-header a {
