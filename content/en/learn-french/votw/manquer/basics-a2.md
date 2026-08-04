@@ -1,7 +1,7 @@
 ---
-title: "Manquer: Everyday Uses (A2 French) | Plumera Studios"
+title: "Manquer - basics (A2 French) | Plumera Studios"
 description: How French uses manquer for missing transport, lacking something, and saying you miss someone.
-slug: votw-manquer-a2
+slug: basics-a2
 target: learn-french
 locale: en
 level: A2
@@ -9,15 +9,15 @@ author:
 date: 2026-07-31
 draft: true
 related:
-  - title: "Manquer: Idioms & Fixed Expressions"
-    href: /en/learn-french/articles/verb-manquer-b1/
+  - href: /en/learn-french/votw/manquer/expressions-a2/
+  - href: /en/learn-french/votw/manquer/votw-manquer-advanced-b1/
   - href: /en/learn-french/whats-new/
   - href: /en/learn-french/votw/
-  - title: CEFR levels
+  - title: "CEFR levels"
     href: /en/cefr/
 ---
 
-# Manquer
+# Manquer - basics
 
 *Manquer* often means that something needed or expected is absent. You can miss a bus, run short of time, or miss a person.
 
@@ -92,43 +92,6 @@ Three combinations built on *manquer de* with abstract nouns:
 
 <!-- art: band -->
 
-## Expressions and idioms
-
-In fixed expressions, learn the whole phrase. The meaning is hard to guess from *manquer* alone.
-
-### Tu me manques
-
-The everyday "I miss you" pattern, worth drilling until the word order feels natural.
-
-| French | English |
-|--------|---------|
-| Tu me manques. | I miss you. |
-| Elle me manque. | I miss her. |
-
-Denser constructions such as *manquer de* + infinitive ("almost") and *ne pas manquer de* are covered in the [B1 companion article](/en/learn-french/articles/verb-manquer-b1/).
-
-## Common mistakes
-
-One mistake reverses the people in *Tu me manques*. The other drops *de* after *manquer*.
-
-### Reversing *Tu me manques*
-
-English and French organize this idea differently.
-
-| Incorrect | Correct |
-|-----------|---------|
-| *Je te manque.* | *Tu me manques.* |
-
-*Je te manque* means "you miss me," not "I miss you."
-
-### Forgetting *de*
-
-When *manquer* means "to lack" or "to run out of," it needs *de*.
-
-| Incorrect | Correct |
-|-----------|---------|
-| *Nous manquons temps.* | *Nous manquons de temps.* |
-
 ## Related verbs
 
 - rater: to miss or fail to catch
@@ -146,4 +109,6 @@ When *manquer* means "to lack" or "to run out of," it needs *de*.
 
 Think of *manquer* as expressing absence. At [A2](/en/cefr/), that idea connects missing transport, lacking something, and missing someone — once you accept that French reverses the people in *Tu me manques*.
 
-For *manquer de* + infinitive, *manquer à*, and denser fixed phrases, see the [B1 companion on *manquer*](/en/learn-french/articles/verb-manquer-b1/).
+For *manquer de* + infinitive, *manquer à*, and denser fixed phrases, see the [B1 companion on *manquer*](/en/learn-french/votw/manquer/votw-manquer-advanced-b1/).
+
+For expressions and common mistakes with *manquer*, continue with [Manquer - expressions](/en/learn-french/votw/manquer/expressions-a2/).

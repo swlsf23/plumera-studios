@@ -30,7 +30,7 @@ Locale-pair templates may still say "for English speakers." Read that as **reade
 - Assume the reader is curious, not studying for an exam.
 - Prefer "Notice that…" over "Remember that…"
 - Prefer "French uses…" over "French is…"
-- Prefer "after" over "once" for sequencing ("After the house set feels steady…" not "Once the house set feels steady…").
+- Do not use "Once…" for sequencing. Use "After…" ("After you've learned the basic uses…" not "Once you've learned…").
 - Do not exaggerate rules.
 - Avoid "simply," "just," "always," or "never" unless literally true.
 - Prefer active voice and short paragraphs.
@@ -99,14 +99,14 @@ When a Verb of the Week lesson has an idioms / fixed-expressions companion, ment
 
 ## `###` section openers
 
-Every `###` (senses, expressions, common mistakes, and similar) opens with a short meaning gloss before the table or further teaching. Prefer a clear "To…" line, with an optional nuance:
+Every `###` (senses, expressions, common mistakes, and similar) opens with a full sentence before the table or further teaching. Do not use bare "To…" gloss fragments ("To agree.").
 
-- Good: "To start doing something, often suddenly or after a pause."
-- Good: "To keep going when something is hard."
-- Weak: "Used when…" with no meaning stated
+- Good: "Use *être d'accord* to say that you agree with someone."
+- Good: "Use *prendre* when you take a bus, a drink, or medicine."
+- Weak: "To agree."
 - Weak: jumping straight to a table
 
-Extra explanation can follow the gloss. The gloss itself should stand alone if the reader only skims headings and first lines. Apply this in new drafts and when revising published lessons.
+Extra explanation can follow that opener. The first sentence should still make sense if the reader only skims headings and lead-ins. Apply this in new drafts and when revising published lessons.
 
 ## Tables
 

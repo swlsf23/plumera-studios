@@ -1,7 +1,7 @@
 ---
-title: "Rendre: Everyday Uses (A2 French) | Plumera Studios"
+title: "Rendre - basics (A2 French) | Plumera Studios"
 description: How French uses rendre for giving something back, handing in work, and making someone feel a certain way.
-slug: votw-rendre-a2
+slug: basics-a2
 target: learn-french
 locale: en
 level: A2
@@ -9,15 +9,15 @@ author:
 date: 2026-07-31
 draft: true
 related:
-  - title: "Rendre: Idioms & Fixed Expressions"
-    href: /en/learn-french/articles/verb-rendre-b1/
+  - href: /en/learn-french/votw/rendre/expressions-a2/
+  - href: /en/learn-french/votw/rendre/votw-rendre-advanced-b1/
   - href: /en/learn-french/whats-new/
   - href: /en/learn-french/votw/
-  - title: CEFR levels
+  - title: "CEFR levels"
     href: /en/cefr/
 ---
 
-# Rendre
+# Rendre - basics
 
 *Rendre* often means giving something back. French also uses it for handing in homework and making someone happy, nervous, or crazy.
 
@@ -92,41 +92,6 @@ Three combinations you will hear constantly:
 
 <!-- art: band -->
 
-## Expressions and idioms
-
-In fixed expressions, learn the whole phrase. The meaning is hard to guess from *rendre* alone.
-
-### rendre la monnaie
-
-Used when giving change after a purchase.
-
-| French | English |
-|--------|---------|
-| Le vendeur me rend la monnaie. | The shopkeeper gives me my change. |
-| Tu peux me rendre la monnaie sur vingt euros ? | Can you give me change for twenty euros? |
-
-Pronominal uses such as *se rendre compte* and denser fixed expressions are covered in the [B1 companion article](/en/learn-french/articles/verb-rendre-b1/).
-
-## Common mistakes
-
-One mistake drops *à* after *rendre visite*. The other confuses giving with giving back.
-
-### Forgetting *à* after *rendre visite*
-
-The expression always takes *à* before the person.
-
-| Incorrect | Correct |
-|-----------|---------|
-| *Je rends visite mes grands-parents.* | *Je rends visite à mes grands-parents.* |
-
-### Using *donner* instead of *rendre*
-
-Use *donner* when you give something for the first time. Use *rendre* when it goes back to its owner.
-
-| Incorrect | Correct |
-|-----------|---------|
-| *Je te donne ton livre.* (when returning it) | *Je te rends ton livre.* |
-
 ## Related verbs
 
 - donner: to give
@@ -145,4 +110,6 @@ Use *donner* when you give something for the first time. Use *rendre* when it go
 
 Think of *rendre* as returning something or causing a result. At [A2](/en/cefr/), that idea connects giving back, handing in work, and making someone feel a certain way.
 
-For *se rendre compte*, *se rendre à*, and denser fixed expressions, see the [B1 companion on *rendre*](/en/learn-french/articles/verb-rendre-b1/).
+For *se rendre compte*, *se rendre à*, and denser fixed expressions, see the [B1 companion on *rendre*](/en/learn-french/votw/rendre/votw-rendre-advanced-b1/).
+
+For expressions and common mistakes with *rendre*, continue with [Rendre - expressions](/en/learn-french/votw/rendre/expressions-a2/).

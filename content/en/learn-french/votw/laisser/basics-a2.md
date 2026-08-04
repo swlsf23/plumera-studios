@@ -1,7 +1,7 @@
 ---
-title: "Laisser: Everyday Uses (A2 French) | Plumera Studios"
+title: "Laisser - basics (A2 French) | Plumera Studios"
 description: How French uses laisser for leaving things behind, letting someone do something, and leaving something in a state.
-slug: votw-laisser-a2
+slug: basics-a2
 target: learn-french
 locale: en
 level: A2
@@ -9,15 +9,15 @@ author:
 date: 2026-07-31
 draft: true
 related:
-  - title: "Laisser: Idioms & Fixed Expressions"
-    href: /en/learn-french/articles/verb-laisser-b1/
+  - href: /en/learn-french/votw/laisser/expressions-a2/
+  - href: /en/learn-french/votw/laisser/votw-laisser-advanced-b1/
   - href: /en/learn-french/whats-new/
   - href: /en/learn-french/votw/
-  - title: CEFR levels
+  - title: "CEFR levels"
     href: /en/cefr/
 ---
 
-# Laisser
+# Laisser - basics
 
 *Laisser* usually means leaving something behind. French also uses it for letting someone do something, and for leaving a door open, a light on, or a situation as it is.
 
@@ -92,41 +92,6 @@ Three combinations you will hear constantly:
 
 <!-- art: band -->
 
-## Expressions and idioms
-
-In fixed expressions, learn the whole phrase. The meaning is hard to guess from *laisser* alone.
-
-### laisse-moi tranquille
-
-A common way to ask someone to stop bothering you.
-
-| French | English |
-|--------|---------|
-| Laisse-moi tranquille ! | Leave me alone! |
-| Laisse-le tranquille. | Leave him alone. |
-
-Pronominal uses such as *se laisser* and denser expressions are covered in the [B1 companion article](/en/learn-french/articles/verb-laisser-b1/).
-
-## Common mistakes
-
-One mistake drops the infinitive after "let." The other confuses *laisser* with *quitter*.
-
-### Forgetting the infinitive
-
-When *laisser* means "let," it is normally followed by an infinitive.
-
-| Incorrect | Correct |
-|-----------|---------|
-| *Laisse-moi je parle.* | *Laisse-moi parler.* |
-
-### Using *quitter* instead of *laisser*
-
-*Quitter* means leaving a place or person. *Laisser* means leaving something behind.
-
-| Incorrect | Correct |
-|-----------|---------|
-| *Je quitte mes clés ici.* | *Je laisse mes clés ici.* |
-
 ## Related verbs
 
 - quitter: to leave a place or person
@@ -145,4 +110,6 @@ When *laisser* means "let," it is normally followed by an infinitive.
 
 Think of *laisser* as leaving something as it is, or not stopping an action. At [A2](/en/cefr/), that idea connects leaving an object, letting someone do something, and leaving a door open.
 
-For *se laisser*, implication phrases, and denser fixed expressions, see the [B1 companion on *laisser*](/en/learn-french/articles/verb-laisser-b1/).
+For *se laisser*, implication phrases, and denser fixed expressions, see the [B1 companion on *laisser*](/en/learn-french/votw/laisser/votw-laisser-advanced-b1/).
+
+For expressions and common mistakes with *laisser*, continue with [Laisser - expressions](/en/learn-french/votw/laisser/expressions-a2/).

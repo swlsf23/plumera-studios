@@ -1,7 +1,7 @@
 ---
-title: "Passer: Idioms & Fixed Expressions (B1 French) | Plumera Studios"
+title: "Passer - advanced (B1 French) | Plumera Studios"
 description: How French uses se passer, se passer de, passer pour, and denser fixed expressions around B1.
-slug: verb-passer-b1
+slug: votw-passer-advanced-b1
 target: learn-french
 locale: en
 level: B1
@@ -9,16 +9,14 @@ author:
 date: 2026-07-31
 draft: true
 related:
-  - title: "Passer: Everyday Uses"
-    href: /en/learn-french/votw/votw-passer-a2/
-  - href: /en/learn-french/whats-new/
-  - title: CEFR levels
-    href: /en/cefr/
+  - href: /en/learn-french/votw/passer/basics-a2/
+  - href: /en/learn-french/votw/passer/expressions-a2/
+  - href: /en/learn-french/votw/
 ---
 
-# Idioms and fixed expressions with *passer*
+# Passer - advanced
 
-At [A2](/en/cefr/), *passer* covers going past, spending time, and stopping by. That core is covered in the [French Verb of the Week lesson on *passer*](/en/learn-french/votw/votw-passer-a2/).
+At [A2](/en/cefr/), *passer* covers going past, spending time, and stopping by. That core is covered in the [French Verb of the Week lesson on *passer*](/en/learn-french/votw/passer/basics-a2/).
 
 Around [B1](/en/cefr/), prepositions and pronominal forms reshape the verb. Learn those constructions as wholes rather than hunting for another translation of *passer*.
 

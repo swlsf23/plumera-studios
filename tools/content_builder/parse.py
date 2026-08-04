@@ -157,6 +157,29 @@ def _classify_votw_tables(html: str) -> str:
     )
 
 
+def _tag_grammar_patterns(html: str) -> str:
+    """Optional Markdown hint above a pattern line: <!-- pattern -->."""
+
+    def repl(match: re.Match[str]) -> str:
+        paragraph = match.group(1)
+        if re.search(r'\bclass="', paragraph[:48], flags=re.I):
+            return paragraph
+        return re.sub(
+            r"<p\b",
+            '<p class="grammar-pattern"',
+            paragraph,
+            count=1,
+            flags=re.I,
+        )
+
+    return re.sub(
+        r"<!--\s*pattern\s*-->\s*(<p\b[^>]*>.*?</p>)",
+        repl,
+        html,
+        flags=re.I | re.S,
+    )
+
+
 def _inject_heading_ids(html: str) -> tuple[str, list[TocItem]]:
     toc: list[TocItem] = []
     used: dict[str, int] = {}
@@ -303,6 +326,7 @@ def parse_votw_page(path: Path, locale: str, target: str) -> Page:
         heading = title
     html, toc = _inject_heading_ids(html)
     html = _classify_votw_tables(html)
+    html = _tag_grammar_patterns(html)
 
     # Eyebrow: frontmatter override, else series name (+ date on articles).
     series_name = str(meta.get("category") or votw_series_label(locale, target))
@@ -381,6 +405,7 @@ def parse_article_page(path: Path, locale: str, target: str) -> Page:
         heading = title
     html, toc = _inject_heading_ids(html)
     html = _classify_votw_tables(html)
+    html = _tag_grammar_patterns(html)
 
     eyebrow_override = str(meta.get("eyebrow") or "").strip()
     if eyebrow_override:

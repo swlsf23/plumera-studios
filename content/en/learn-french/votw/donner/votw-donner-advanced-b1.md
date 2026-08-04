@@ -1,7 +1,7 @@
 ---
-title: "Donner: Idioms & Fixed Expressions (B1 French) | Plumera Studios"
+title: "Donner - advanced (B1 French) | Plumera Studios"
 description: How French uses donner in donner sur, formal result phrases, impressions, and denser pronominal expressions around B1.
-slug: verb-donner-b1
+slug: votw-donner-advanced-b1
 target: learn-french
 locale: en
 level: B1
@@ -9,16 +9,14 @@ author:
 date: 2026-07-31
 draft: true
 related:
-  - title: "Donner: Everyday Uses"
-    href: /en/learn-french/votw/votw-donner-a2/
-  - href: /en/learn-french/whats-new/
-  - title: CEFR levels
-    href: /en/cefr/
+  - href: /en/learn-french/votw/donner/basics-a2/
+  - href: /en/learn-french/votw/donner/expressions-a2/
+  - href: /en/learn-french/votw/
 ---
 
-# Idioms and fixed expressions with *donner*
+# Donner - advanced
 
-At [A2](/en/cefr/), *donner* covers giving objects, sharing information or permission, and light cause-and-effect uses. That core is covered in the [French Verb of the Week lesson on *donner*](/en/learn-french/votw/votw-donner-a2/).
+At [A2](/en/cefr/), *donner* covers giving objects, sharing information or permission, and light cause-and-effect uses. That core is covered in the [French Verb of the Week lesson on *donner*](/en/learn-french/votw/donner/basics-a2/).
 
 Around [B1](/en/cefr/), you meet constructions where the noun or preposition carries most of the meaning. "Give" stops helping much. Learn these as whole patterns.
 

@@ -21,7 +21,10 @@ Like *être*, *avoir* is one of the most important French verbs. The closest Eng
 
 The surprise for English speakers is how often French uses *avoir* where English uses *be*.
 
-You have years, hunger, thirst, cold, and fear. French packages those ideas with *avoir* + a noun:
+You have years, hunger, thirst, cold, and fear. French packages those ideas with a noun after *avoir*:
+
+<!-- pattern -->
+*avoir* + noun
 
 | French | English |
 |--------|---------|
@@ -31,7 +34,10 @@ You have years, hunger, thirst, cold, and fear. French packages those ideas with
 | J'ai froid. | I am cold. |
 | J'ai peur. | I am scared. |
 
-You will also meet *avoir* early as the usual helper in the past tense (*j'ai mangé*).
+You will also meet *avoir* early as the usual helper in the past tense:
+
+<!-- pattern -->
+*avoir* + past participle
 
 ## Forms and grammar
 
@@ -47,7 +53,12 @@ You will also meet *avoir* early as the usual helper in the past tense (*j'ai ma
 
 Notice the spelling splits: *ai*, *as*, *a*, then *avons*, *avez*, *ont*. Practice each form with its subject pronoun (*je* becomes *j'* before *ai*).
 
-In the past tense, *avoir* is the most common helper (*j'ai mangé*). Some verbs use *être* instead. For that split, see [Passé composé with avoir and être](/en/learn-french/articles/passe-compose-avoir-etre/).
+In the past tense, *avoir* is the most common helper:
+
+<!-- pattern -->
+*avoir* + past participle
+
+Some verbs use *être* instead. For that split, see [Passé composé with avoir and être](/en/learn-french/articles/passe-compose-avoir-etre/).
 
 ## How to use avoir
 
@@ -99,7 +110,10 @@ Use *avoir* to express age. French expresses your age as something you have.
 
 ### Expressing common states
 
-Use *avoir* + a noun for hunger, thirst, cold, heat, fear, and similar states. Many English *be* expressions use *avoir* here. 
+Use *avoir* with a noun for hunger, thirst, cold, heat, fear, and similar states. Many English *be* expressions use *avoir* here.
+
+<!-- pattern -->
+*avoir* + noun
 
 Learn each line as a whole phrase (*avoir faim*, *avoir soif*, and the rest).
 

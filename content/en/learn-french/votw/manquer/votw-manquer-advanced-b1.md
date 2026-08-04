@@ -1,7 +1,7 @@
 ---
-title: "Manquer: Idioms & Fixed Expressions (B1 French) | Plumera Studios"
+title: "Manquer - advanced (B1 French) | Plumera Studios"
 description: How French uses manquer de + infinitive, manquer à, and denser fixed expressions around B1.
-slug: verb-manquer-b1
+slug: votw-manquer-advanced-b1
 target: learn-french
 locale: en
 level: B1
@@ -9,16 +9,14 @@ author:
 date: 2026-07-31
 draft: true
 related:
-  - title: "Manquer: Everyday Uses"
-    href: /en/learn-french/votw/votw-manquer-a2/
-  - href: /en/learn-french/whats-new/
-  - title: CEFR levels
-    href: /en/cefr/
+  - href: /en/learn-french/votw/manquer/basics-a2/
+  - href: /en/learn-french/votw/manquer/expressions-a2/
+  - href: /en/learn-french/votw/
 ---
 
-# Idioms and fixed expressions with *manquer*
+# Manquer - advanced
 
-At [A2](/en/cefr/), *manquer* covers missing transport, lacking something with *manquer de*, and saying you miss someone. That core is covered in the [French Verb of the Week lesson on *manquer*](/en/learn-french/votw/votw-manquer-a2/).
+At [A2](/en/cefr/), *manquer* covers missing transport, lacking something with *manquer de*, and saying you miss someone. That core is covered in the [French Verb of the Week lesson on *manquer*](/en/learn-french/votw/manquer/basics-a2/).
 
 Around [B1](/en/cefr/), the same verb takes different shapes depending on what follows. The preposition often matters more than a new translation of *manquer*.
 

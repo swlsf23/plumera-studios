@@ -1,7 +1,7 @@
 ---
-title: "Donner: Everyday Uses (A2 French) | Plumera Studios"
+title: "Donner - basics (A2 French) | Plumera Studios"
 description: How French uses donner for giving, sharing information or permission, and causing an effect.
-slug: votw-donner-a2
+slug: basics-a2
 target: learn-french
 locale: en
 level: A2
@@ -9,15 +9,15 @@ author:
 date: 2026-07-31
 draft: true
 related:
-  - title: "Donner: Idioms & Fixed Expressions"
-    href: /en/learn-french/articles/verb-donner-b1/
+  - href: /en/learn-french/votw/donner/expressions-a2/
+  - href: /en/learn-french/votw/donner/votw-donner-advanced-b1/
   - href: /en/learn-french/whats-new/
   - href: /en/learn-french/votw/
-  - title: CEFR levels
+  - title: "CEFR levels"
     href: /en/cefr/
 ---
 
-# Donner
+# Donner - basics
 
 *Donner* usually means "to give," but French also uses it for advice, permission, a helping hand, and effects such as sleepiness or desire.
 
@@ -80,7 +80,7 @@ French also uses *donner* with nouns tied to communication. You are still "passi
 | Ce travail donne de bons résultats. | This work produces good results. |
 | Cette chanson donne envie de danser. | This song makes you want to dance. |
 
-More abstract constructions such as *donner sur* and denser idioms are covered in the [B1 companion article](/en/learn-french/articles/verb-donner-b1/).
+More abstract constructions such as *donner sur* and denser idioms are covered in the [B1 companion article](/en/learn-french/votw/donner/votw-donner-advanced-b1/).
 
 ## Other common constructions
 
@@ -95,41 +95,6 @@ Three combinations you will hear constantly:
 *Donner envie de* is the one that often surprises English speakers. French names the desire as the thing that is "given."
 
 <!-- art: band -->
-
-## Expressions and idioms
-
-In fixed expressions, learn the whole phrase. The meaning is hard to guess from *donner* alone.
-
-### donner raison à
-
-To agree that someone is right, or to admit they were right.
-
-| French | English |
-|--------|---------|
-| Je dois te donner raison. | I have to admit you're right. |
-| Les faits lui ont donné raison. | The facts proved him / her right. |
-
-Denser pronominal uses and formal result phrases with *donner* are covered in the [B1 companion article](/en/learn-french/articles/verb-donner-b1/).
-
-## Common mistakes
-
-One mistake drops the preposition before the recipient. The other confuses giving with giving back.
-
-### Forgetting *à* with the person
-
-With *donner*, the person receiving something is introduced by *à* (unless you already have a pronoun such as *lui* or *te*).
-
-| Incorrect | Correct |
-|-----------|---------|
-| *Je donne un cadeau Marie.* | *Je donne un cadeau à Marie.* |
-
-### Confusing *donner* and *rendre*
-
-Use *donner* for giving. Use *rendre* when something goes back to its owner.
-
-| Incorrect | Correct |
-|-----------|---------|
-| *Je te donne ton stylo.* (when returning it) | *Je te rends ton stylo.* |
 
 ## Related verbs
 
@@ -149,4 +114,6 @@ Use *donner* for giving. Use *rendre* when something goes back to its owner.
 
 Think of *donner* as passing something from one place or person to another: an object, a message, or an effect. At [A2](/en/cefr/), that idea connects its most common everyday meanings.
 
-For *donner sur*, formal result phrases, and denser pronominal expressions, see the [B1 companion on *donner*](/en/learn-french/articles/verb-donner-b1/).
+For *donner sur*, formal result phrases, and denser pronominal expressions, see the [B1 companion on *donner*](/en/learn-french/votw/donner/votw-donner-advanced-b1/).
+
+For expressions and common mistakes with *donner*, continue with [Donner - expressions](/en/learn-french/votw/donner/expressions-a2/).

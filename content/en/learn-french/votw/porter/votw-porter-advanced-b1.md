@@ -1,7 +1,7 @@
 ---
-title: "Porter: Idioms & Fixed Expressions (B1 French) | Plumera Studios"
+title: "Porter - advanced (B1 French) | Plumera Studios"
 description: How French uses porter sur, formal porter expressions, and se porter around B1.
-slug: verb-porter-b1
+slug: votw-porter-advanced-b1
 target: learn-french
 locale: en
 level: B1
@@ -9,16 +9,14 @@ author:
 date: 2026-07-31
 draft: true
 related:
-  - title: "Porter: Everyday Uses"
-    href: /en/learn-french/votw/votw-porter-a2/
-  - href: /en/learn-french/whats-new/
-  - title: CEFR levels
-    href: /en/cefr/
+  - href: /en/learn-french/votw/porter/basics-a2/
+  - href: /en/learn-french/votw/porter/expressions-a2/
+  - href: /en/learn-french/votw/
 ---
 
-# Idioms and fixed expressions with *porter*
+# Porter - advanced
 
-At [A2](/en/cefr/), *porter* covers carrying objects, wearing clothes, and taking something somewhere. That core is covered in the [French Verb of the Week lesson on *porter*](/en/learn-french/votw/votw-porter-a2/).
+At [A2](/en/cefr/), *porter* covers carrying objects, wearing clothes, and taking something somewhere. That core is covered in the [French Verb of the Week lesson on *porter*](/en/learn-french/votw/porter/basics-a2/).
 
 Around [B1](/en/cefr/), the verb appears in fixed expressions where the object or preposition carries most of the meaning. Learn those as complete patterns.
 

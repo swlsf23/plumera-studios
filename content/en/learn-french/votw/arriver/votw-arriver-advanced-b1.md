@@ -1,7 +1,7 @@
 ---
-title: "Arriver: Idioms & Fixed Expressions (B1 French) | Plumera Studios"
+title: "Arriver - advanced (B1 French) | Plumera Studios"
 description: How French uses arriver in en arriver à, il arrive que, and abstract arriver à constructions around B1.
-slug: verb-arriver-b1
+slug: votw-arriver-advanced-b1
 target: learn-french
 locale: en
 level: B1
@@ -9,16 +9,14 @@ author:
 date: 2026-07-31
 draft: true
 related:
-  - title: "Arriver: Everyday Uses"
-    href: /en/learn-french/votw/votw-arriver-a2/
-  - href: /en/learn-french/whats-new/
-  - title: CEFR levels
-    href: /en/cefr/
+  - href: /en/learn-french/votw/arriver/basics-a2/
+  - href: /en/learn-french/votw/arriver/expressions-a2/
+  - href: /en/learn-french/votw/
 ---
 
-# Idioms and fixed expressions with *arriver*
+# Arriver - advanced
 
-At [A2](/en/cefr/), *arriver* covers arriving somewhere, managing to do something with *arriver à*, and talking about events that happen. That core is covered in the [French Verb of the Week lesson on *arriver*](/en/learn-french/votw/votw-arriver-a2/).
+At [A2](/en/cefr/), *arriver* covers arriving somewhere, managing to do something with *arriver à*, and talking about events that happen. That core is covered in the [French Verb of the Week lesson on *arriver*](/en/learn-french/votw/arriver/basics-a2/).
 
 Around [B1](/en/cefr/), *arriver* does not expand into dozens of colorful idioms the way some verbs do. Instead, a few constructions push the same idea of "reaching" into more abstract territory. Learn those patterns as wholes.
 

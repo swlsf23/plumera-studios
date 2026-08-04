@@ -1,7 +1,7 @@
 ---
-title: "Rendre: Idioms & Fixed Expressions (B1 French) | Plumera Studios"
+title: "Rendre - advanced (B1 French) | Plumera Studios"
 description: How French uses se rendre compte, se rendre à, and denser fixed expressions with rendre around B1.
-slug: verb-rendre-b1
+slug: votw-rendre-advanced-b1
 target: learn-french
 locale: en
 level: B1
@@ -9,16 +9,14 @@ author:
 date: 2026-07-31
 draft: true
 related:
-  - title: "Rendre: Everyday Uses"
-    href: /en/learn-french/votw/votw-rendre-a2/
-  - href: /en/learn-french/whats-new/
-  - title: CEFR levels
-    href: /en/cefr/
+  - href: /en/learn-french/votw/rendre/basics-a2/
+  - href: /en/learn-french/votw/rendre/expressions-a2/
+  - href: /en/learn-french/votw/
 ---
 
-# Idioms and fixed expressions with *rendre*
+# Rendre - advanced
 
-At [A2](/en/cefr/), *rendre* covers giving something back, handing work in, and making someone become a certain way. That core is covered in the [French Verb of the Week lesson on *rendre*](/en/learn-french/votw/votw-rendre-a2/).
+At [A2](/en/cefr/), *rendre* covers giving something back, handing work in, and making someone become a certain way. That core is covered in the [French Verb of the Week lesson on *rendre*](/en/learn-french/votw/rendre/basics-a2/).
 
 Around [B1](/en/cefr/), pronominal forms and fixed constructions take over. The meaning belongs to the whole expression, not to *rendre* alone.
 

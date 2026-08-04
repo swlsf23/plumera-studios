@@ -1,7 +1,7 @@
 ---
-title: "Laisser: Idioms & Fixed Expressions (B1 French) | Plumera Studios"
+title: "Laisser - advanced (B1 French) | Plumera Studios"
 description: How French uses se laisser, laisser entendre, and denser fixed expressions with laisser around B1.
-slug: verb-laisser-b1
+slug: votw-laisser-advanced-b1
 target: learn-french
 locale: en
 level: B1
@@ -9,16 +9,14 @@ author:
 date: 2026-07-31
 draft: true
 related:
-  - title: "Laisser: Everyday Uses"
-    href: /en/learn-french/votw/votw-laisser-a2/
-  - href: /en/learn-french/whats-new/
-  - title: CEFR levels
-    href: /en/cefr/
+  - href: /en/learn-french/votw/laisser/basics-a2/
+  - href: /en/learn-french/votw/laisser/expressions-a2/
+  - href: /en/learn-french/votw/
 ---
 
-# Idioms and fixed expressions with *laisser*
+# Laisser - advanced
 
-At [A2](/en/cefr/), *laisser* covers leaving things behind, letting someone do something, and leaving something in a state. That core is covered in the [French Verb of the Week lesson on *laisser*](/en/learn-french/votw/votw-laisser-a2/).
+At [A2](/en/cefr/), *laisser* covers leaving things behind, letting someone do something, and leaving something in a state. That core is covered in the [French Verb of the Week lesson on *laisser*](/en/learn-french/votw/laisser/basics-a2/).
 
 Around [B1](/en/cefr/), you meet pronominal forms and fixed phrases where the whole construction carries the meaning. "Leave" and "let" still help a little, but less than before.
 

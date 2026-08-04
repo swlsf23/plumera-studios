@@ -52,14 +52,17 @@ Use *Ça y est* when something is done, ready, or finally happening.
 
 ### être en train de
 
-Use *être en train de* + infinitive to emphasize that something is happening right now.
+Use *être en train de* with an infinitive to emphasize that something is happening right now.
+
+<!-- pattern -->
+*être en train de* + infinitive
 
 | French | English |
 |--------|---------|
 | Je suis en train de lire. | I am reading (right now). |
 | Nous sommes en train de manger. | We are eating (right now). |
 
-*Être en train de* + infinitive is stronger than the plain present *je lis*, which can mean "I read" or "I am reading."
+That shape is stronger than the plain present *je lis*, which can mean "I read" or "I am reading."
 
 <!-- art: band -->
 
@@ -77,7 +80,10 @@ French uses *avoir* for age. You "have" the years. You do not "be" them.
 
 ### Using *être* for hunger, thirst, and similar states
 
-Many common physical states use *avoir* + a noun: *faim*, *soif*, *froid*, *chaud*, *peur*.
+Many common physical states use *avoir* with a noun: *faim*, *soif*, *froid*, *chaud*, *peur*.
+
+<!-- pattern -->
+*avoir* + noun
 
 | Incorrect | Correct |
 |-----------|---------|

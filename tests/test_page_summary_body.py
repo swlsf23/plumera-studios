@@ -110,5 +110,24 @@ class ArtBandMarkerTests(unittest.TestCase):
         self.assertEqual(_expand_art_bands(html), html)
 
 
+class HeroAfterFirstParagraphTests(unittest.TestCase):
+    def test_injects_after_first_paragraph(self) -> None:
+        from tools.content_builder.build import _inject_hero_after_first_paragraph
+
+        html = "<p>Lead.</p>\n<p>Second.</p>"
+        out = _inject_hero_after_first_paragraph(html)
+        self.assertRegex(out, r"<p>Lead\.</p>\s*<div class=\"hero-art-slot\"")
+        self.assertIn("<p>Second.</p>", out)
+        self.assertNotIn("hero-art--inline", out)
+
+    def test_prepends_when_no_paragraph(self) -> None:
+        from tools.content_builder.build import _inject_hero_after_first_paragraph
+
+        html = "<h2>Forms</h2>"
+        out = _inject_hero_after_first_paragraph(html)
+        self.assertTrue(out.startswith('<div class="hero-art-slot"'))
+        self.assertIn("<h2>Forms</h2>", out)
+
+
 if __name__ == "__main__":
     unittest.main()

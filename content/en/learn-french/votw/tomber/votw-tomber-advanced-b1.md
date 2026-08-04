@@ -1,7 +1,7 @@
 ---
-title: "Tomber: Idioms & Fixed Expressions (B1 French) | Plumera Studios"
+title: "Tomber - advanced (B1 French) | Plumera Studios"
 description: How French uses tomber in denser coincidence, timing, and fixed expressions around B1.
-slug: verb-tomber-b1
+slug: votw-tomber-advanced-b1
 target: learn-french
 locale: en
 level: B1
@@ -9,16 +9,14 @@ author:
 date: 2026-07-31
 draft: true
 related:
-  - title: "Tomber: Everyday Uses"
-    href: /en/learn-french/votw/votw-tomber-a2/
-  - href: /en/learn-french/whats-new/
-  - title: CEFR levels
-    href: /en/cefr/
+  - href: /en/learn-french/votw/tomber/basics-a2/
+  - href: /en/learn-french/votw/tomber/expressions-a2/
+  - href: /en/learn-french/votw/
 ---
 
-# Idioms and fixed expressions with *tomber*
+# Tomber - advanced
 
-At [A2](/en/cefr/), *tomber* covers falling, sudden changes such as falling ill, *tomber en panne*, and chance encounters with *tomber sur*. That core is covered in the [French Verb of the Week lesson on *tomber*](/en/learn-french/votw/votw-tomber-a2/).
+At [A2](/en/cefr/), *tomber* covers falling, sudden changes such as falling ill, *tomber en panne*, and chance encounters with *tomber sur*. That core is covered in the [French Verb of the Week lesson on *tomber*](/en/learn-french/votw/tomber/basics-a2/).
 
 Around [B1](/en/cefr/), a wider family of fixed expressions keeps the same "sudden arrival" idea. The noun or preposition usually carries the meaning.
 

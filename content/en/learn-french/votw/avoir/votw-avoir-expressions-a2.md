@@ -35,6 +35,9 @@ Use *avoir raison* and *avoir tort* to say that someone is right or wrong.
 
 Use *avoir envie de* to want something or to feel like doing something.
 
+<!-- pattern -->
+*avoir envie de* + noun / infinitive
+
 | French | English |
 |--------|---------|
 | J'ai envie d'un café. | I feel like a coffee. / I want a coffee. |
@@ -43,6 +46,9 @@ Use *avoir envie de* to want something or to feel like doing something.
 ### avoir besoin de
 
 Use *avoir besoin de* to need something or to need to do something.
+
+<!-- pattern -->
+*avoir besoin de* + noun / infinitive
 
 | French | English |
 |--------|---------|
@@ -78,6 +84,9 @@ Use *avoir* to express your age. Do not use *être*.
 ### Using *être* for hunger, thirst, and similar states
 
 These states are nouns after *avoir*, not adjectives after *être*.
+
+<!-- pattern -->
+*avoir* + noun
 
 | Incorrect | Correct |
 |-----------|---------|

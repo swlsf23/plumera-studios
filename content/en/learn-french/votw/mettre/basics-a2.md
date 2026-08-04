@@ -1,7 +1,7 @@
 ---
-title: "Mettre: Everyday Uses (A2 French) | Plumera Studios"
+title: "Mettre - basics (A2 French) | Plumera Studios"
 description: How French uses mettre for putting things somewhere, putting on clothes, and saying how long something takes.
-slug: votw-mettre-a2
+slug: basics-a2
 target: learn-french
 locale: en
 level: A2
@@ -9,15 +9,15 @@ author:
 date: 2026-07-15
 draft: true
 related:
-  - title: "Mettre: Idioms & Fixed Expressions"
-    href: /en/learn-french/articles/verb-mettre-b1/
+  - href: /en/learn-french/votw/mettre/expressions-a2/
+  - href: /en/learn-french/votw/mettre/votw-mettre-advanced-b1/
   - href: /en/learn-french/whats-new/
   - href: /en/learn-french/votw/
-  - title: CEFR levels
+  - title: "CEFR levels"
     href: /en/cefr/
 ---
 
-# Mettre
+# Mettre - basics
 
 *Mettre* is a verb you will hear constantly. Learners usually start with "to put," then find the same verb for putting on a coat, setting the table, or saying how long something takes.
 
@@ -108,43 +108,6 @@ Three more combinations you will hear often. English usually changes the verb:
 
 <!-- art: band -->
 
-## Expressions and idioms
-
-In fixed expressions, learn the whole phrase. The meaning is hard to guess from *mettre* alone.
-
-### se mettre à
-
-To start doing something, often suddenly or after a pause.
-
-| French | English |
-|--------|---------|
-| Il se met à rire. | He starts laughing. |
-| Elle se met à travailler. | She starts working. |
-
-More pronominal uses and denser idioms with *mettre* are covered in the [B1 companion article](/en/learn-french/articles/verb-mettre-b1/).
-
-## Common mistakes
-
-One mistake picks the wrong clothing verb. The other drops the preposition after a duration.
-
-### Using *porter* instead of *mettre*
-
-Choosing *porter* when you mean the action of dressing. English "wear" covers both putting clothes on and having them on. French splits the two.
-
-| Incorrect | Correct |
-|-----------|---------|
-| *Je porte mon manteau.* | *Je mets mon manteau.* |
-
-*Je porte mon manteau* is fine when the coat is already on and you are saying what you have on.
-
-### Forgetting *à* after a duration
-
-When *mettre* means "to take (time)," the infinitive usually needs *à*.
-
-| Incorrect | Correct |
-|-----------|---------|
-| *J'ai mis une heure finir.* | *J'ai mis une heure à finir.* |
-
 ## Related verbs
 
 - porter: to wear or carry
@@ -158,4 +121,6 @@ When *mettre* means "to take (time)," the infinitive usually needs *à*.
 
 Treat *mettre* as a set of placement patterns, not a translation of a single English verb. At [A2](/en/cefr/), that pays off when you put keys down, put on a coat, or say how long something takes.
 
-For denser idioms and pronominal uses, see the [B1 companion on *mettre*](/en/learn-french/articles/verb-mettre-b1/).
+For denser idioms and pronominal uses, see the [B1 companion on *mettre*](/en/learn-french/votw/mettre/votw-mettre-advanced-b1/).
+
+For expressions and common mistakes with *mettre*, continue with [Mettre - expressions](/en/learn-french/votw/mettre/expressions-a2/).

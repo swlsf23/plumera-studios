@@ -27,7 +27,7 @@ alwaysApply: true
 - The builder **copies** landings and other `public/` assets into `dist/`; it does **not** emit index pages from Markdown.
 - `content/{locale}/core/index.md` may exist for editing reference text only; it is **not** a build input.
 - All other pages (for now: contact, privacy, votw, …) **must** have Markdown under `content/` and are **emitted** as full HTML.
-- **Content page template** is the single-column lesson chrome in `tools/content_builder/templates/content_page.html` (eyebrow, H1, frontmatter description as summary, slim hero band, body, end band with optional `related` + Follow us). Do not pull the first body paragraph out for that summary. Do not reintroduce a docs-style right-rail TOC for content pages. VOTW-only table styling uses `content-page--votw`.
+- **Content page template** is the single-column lesson chrome in `tools/content_builder/templates/content_page.html` (eyebrow, H1, body with slim hero band after the first paragraph when `show_hero_art`, end band with optional `related` + Follow us). Frontmatter `description` is meta-only (SEO); do not render it as an on-page summary under the H1. Do not reintroduce a docs-style right-rail TOC for content pages. VOTW-only table styling uses `content-page--votw`.
 
 ## SEO / localization
 
@@ -96,3 +96,4 @@ content/
 - Add SPA meta-patching for SEO on content pages.
 - Emit landing `index.html` from Markdown.
 - Rewrite content delivery in TypeScript when Python tooling should own it.
+- **DO NOT MOVE PUBLISHED URLS.** If a page has shipped (not `draft: true` on the deployed/main site), keep its path and slug. Split or extend with new files alongside; do not relocate or rename the live URL. Drafts may move freely before first publish.

@@ -47,7 +47,7 @@ Example: English explanation of French VOTW → `content/en/learn-french/votw/�
 
 ## Content page template
 
-Every emitted content page uses one layout (not landings): short **eyebrow**, **H1**, frontmatter **description** as the summary under the title (omit `description` → no summary line), slim decorative **hero** band, article body, then an end band with optional **You might also like** cards and **Follow us**. The body is left intact; the first paragraph is never pulled out for that summary.
+Every emitted content page uses one layout (not landings): short **eyebrow**, **H1**, article body (slim decorative **hero** band after the first paragraph when the page uses hero art), then an end band with optional **You might also like** cards and **Follow us**. Frontmatter **description** is for the meta description only; it is not shown under the title.
 
 Author that shape in Markdown + YAML. Do not add a right-rail “On this page” TOC for content pages.
 
@@ -112,6 +112,15 @@ For same-language forms (e.g. conjugation), put this HTML comment on the line im
 ```
 
 `conjugation` is accepted as an alias for `forms`. You can also force `example` or `correction` with the same comment shape.
+
+## Pattern lines (grammar shapes)
+
+To pull a one-line form forward (e.g. *avoir* + past participle), put this HTML comment on the line immediately above it:
+
+```markdown
+<!-- pattern -->
+*avoir* + past participle
+```
 
 ## Chrome / locales
 

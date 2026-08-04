@@ -1,7 +1,7 @@
 ---
-title: "Passer: Everyday Uses (A2 French) | Plumera Studios"
+title: "Passer - basics (A2 French) | Plumera Studios"
 description: How French uses passer for going past, spending time, and stopping by.
-slug: votw-passer-a2
+slug: basics-a2
 target: learn-french
 locale: en
 level: A2
@@ -9,15 +9,15 @@ author:
 date: 2026-07-31
 draft: true
 related:
-  - title: "Passer: Idioms & Fixed Expressions"
-    href: /en/learn-french/articles/verb-passer-b1/
+  - href: /en/learn-french/votw/passer/expressions-a2/
+  - href: /en/learn-french/votw/passer/votw-passer-advanced-b1/
   - href: /en/learn-french/whats-new/
   - href: /en/learn-french/votw/
-  - title: CEFR levels
+  - title: "CEFR levels"
     href: /en/cefr/
 ---
 
-# Passer
+# Passer - basics
 
 *Passer* often means going past something. French also uses it for spending time and stopping by for a short visit.
 
@@ -92,41 +92,6 @@ Three combinations you will hear constantly:
 
 <!-- art: band -->
 
-## Expressions and idioms
-
-In fixed expressions, learn the whole phrase. The meaning is hard to guess from *passer* alone.
-
-### ça passe
-
-Used when something is acceptable or good enough.
-
-| French | English |
-|--------|---------|
-| Ce n'est pas parfait, mais ça passe. | It's not perfect, but it'll do. |
-| Si ça passe, tant mieux. | If that works, so much the better. |
-
-Pronominal uses such as *se passer* and *se passer de*, plus denser idioms, are covered in the [B1 companion article](/en/learn-french/articles/verb-passer-b1/).
-
-## Common mistakes
-
-One mistake picks the wrong verb for spending time. The other drops *par* for a route.
-
-### Using *prendre* for spending time
-
-French uses *passer* with periods of time.
-
-| Incorrect | Correct |
-|-----------|---------|
-| *J'ai pris une bonne journée.* | *J'ai passé une bonne journée.* |
-
-### Forgetting *par* for a route
-
-When talking about the route you take, French often uses *passer par*.
-
-| Incorrect | Correct |
-|-----------|---------|
-| *Nous passons le parc.* | *Nous passons par le parc.* |
-
 ## Related verbs
 
 - traverser: to cross
@@ -145,4 +110,6 @@ When talking about the route you take, French often uses *passer par*.
 
 Think of *passer* as moving through places, time, and short stops. At [A2](/en/cefr/), that idea connects going past, spending an evening, and stopping by.
 
-For *se passer*, *se passer de*, *passer pour*, and denser fixed expressions, see the [B1 companion on *passer*](/en/learn-french/articles/verb-passer-b1/).
+For *se passer*, *se passer de*, *passer pour*, and denser fixed expressions, see the [B1 companion on *passer*](/en/learn-french/votw/passer/votw-passer-advanced-b1/).
+
+For expressions and common mistakes with *passer*, continue with [Passer - expressions](/en/learn-french/votw/passer/expressions-a2/).

@@ -267,7 +267,7 @@ learn the whole unit).
 
 ### expresión española
 
-Short gloss.
+Use this expression to [full sentence that states the meaning].
 
 | Spanish | English |
 |---------|---------|
@@ -275,7 +275,7 @@ Short gloss.
 
 ### second expression
 
-Short gloss.
+Use this expression when [full sentence that states the meaning].
 
 | Spanish | English |
 |---------|---------|

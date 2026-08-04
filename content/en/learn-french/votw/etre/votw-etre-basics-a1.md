@@ -37,14 +37,20 @@ Start by learning the core uses of *être*. Then you will be able to recognize w
 
 Notice how little the forms share with the infinitive *être*. *Je suis* and *nous sommes* do not look like the infinitive form at all, so learn these forms as a set. Practice each form with its subject pronoun.
 
-When *être* is the main verb in the passé composé, it uses *avoir* as its auxiliary. The participle is *été*:
+When *être* is the main verb in the passé composé, it uses *avoir* as its helper. The past participle is *été*:
+
+<!-- pattern -->
+*avoir* + *été*
 
 | French | English |
 |--------|---------|
 | J'ai été malade hier. | I was sick yesterday. |
 | Elle a été très claire. | She was very clear. |
 
-For uses of *être* as a past-tense helper with other verbs, see [Passé composé with avoir and être](/en/learn-french/articles/passe-compose-avoir-etre/).
+For uses of *être* as a past-tense helper with other verbs, see [Passé composé with avoir and être](/en/learn-french/articles/passe-compose-avoir-etre/):
+
+<!-- pattern -->
+*être* + past participle
 
 ## How to use être
 
@@ -104,7 +110,10 @@ French usually omits the article after *être* when simply stating someone's pro
 | Elle est étudiante. | She is a student. |
 | Je suis professeur. | I am a teacher. |
 
-*C'est un / une* + job is the identification pattern. It tends to introduce or identify someone, not just state their role.
+The identification pattern tends to introduce or identify someone, not just state their role:
+
+<!-- pattern -->
+*c'est un / une* + job
 
 | French | English |
 |--------|---------|

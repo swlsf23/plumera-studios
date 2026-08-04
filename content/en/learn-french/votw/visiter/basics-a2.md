@@ -1,7 +1,7 @@
 ---
-title: "Visiter: Everyday Uses (A2 French) | Plumera Studios"
+title: "Visiter - basics (A2 French) | Plumera Studios"
 description: How French uses visiter for places, and why visiting people usually takes rendre visite à instead.
-slug: votw-visiter-a2
+slug: basics-a2
 target: learn-french
 locale: en
 level: A2
@@ -9,14 +9,15 @@ author:
 date: 2026-08-02
 draft: true
 related:
-  - href: /en/learn-french/votw/votw-rendre-a2/
+  - href: /en/learn-french/votw/visiter/expressions-a2/
+  - href: /en/learn-french/votw/rendre/basics-a2/
   - href: /en/learn-french/whats-new/
   - href: /en/learn-french/votw/
-  - title: CEFR levels
+  - title: "CEFR levels"
     href: /en/cefr/
 ---
 
-# Visiter
+# Visiter - basics
 
 English *visit* covers museums and friends with the same verb. French splits the job. You *visitez* a museum. You *rendez visite* to a friend.
 
@@ -65,7 +66,7 @@ For people in everyday social life, French uses *rendre visite à*, not *visiter
 | Elle a rendu visite à son ami. | She visited her friend. |
 | Nous allons rendre visite à Léa. | We're going to visit Léa. |
 
-*Rendre visite* takes *à* before the person. The verb that changes is *rendre*, and *visite* stays in that fixed shape. For more on *rendre* itself, see the [Verb of the Week lesson on *rendre*](/en/learn-french/votw/votw-rendre-a2/).
+*Rendre visite* takes *à* before the person. The verb that changes is *rendre*, and *visite* stays in that fixed shape. For more on *rendre* itself, see the [Verb of the Week lesson on *rendre*](/en/learn-french/votw/rendre/basics-a2/).
 
 ### Looking a place over
 
@@ -103,65 +104,6 @@ Three combinations that sit next to *visiter* when you talk about people or guid
 
 <!-- art: band -->
 
-## Expressions and idioms
-
-These are whole phrases to learn as units. The first two help you talk about people without misusing *visiter*.
-
-### aller voir
-
-To go see someone, often more casual than *rendre visite à*.
-
-| French | English |
-|--------|---------|
-| Je vais voir mes parents ce weekend. | I'm going to see my parents this weekend. |
-| On est allés voir Paul à l'hôpital. | We went to see Paul at the hospital. |
-
-### passer voir
-
-To stop by and see someone briefly.
-
-| French | English |
-|--------|---------|
-| Je passe voir Marie ce soir. | I'll stop by to see Marie tonight. |
-| Passe me voir demain. | Stop by and see me tomorrow. |
-
-### visite guidée
-
-A guided tour of a place.
-
-| French | English |
-|--------|---------|
-| Il y a une visite guidée à 14 h. | There's a guided tour at 2 p.m. |
-| Nous avons fait une visite guidée du château. | We took a guided tour of the castle. |
-
-## Register and usage
-
-For friends and family, standard European French prefers *rendre visite à* or spoken *aller voir*. *Visiter* plus a person can sound odd in that setting, as if the person were a tourist stop.
-
-There is a real exception: professional or caring visits. A doctor, a social worker, or a volunteer may *visiter* patients, clients, or people in need. That use is about the role, not a casual social call.
-
-In Canadian French, *visiter* with a person for an ordinary social visit is more common than in France. Both *visiter* and *rendre visite* are heard there. If you are aiming for French as spoken in France, keep the place / person split above for everyday conversation.
-
-## Common mistakes
-
-Both mistakes below come from treating French *visiter* like English *visit* in every situation.
-
-### Using *visiter* for friends or family
-
-For an ordinary social visit to a person, French uses *rendre visite à* (or *aller voir*).
-
-| Incorrect | Correct |
-|-----------|---------|
-| *Je visite ma grand-mère.* | *Je rends visite à ma grand-mère.* |
-
-### Using *rendre visite* for a place
-
-*Rendre visite à* is for people. Places take *visiter*.
-
-| Incorrect | Correct |
-|-----------|---------|
-| *Je rends visite au musée.* | *Je visite le musée.* |
-
 ## Related verbs
 
 - rendre: to give back, and in *rendre visite à*, to visit someone
@@ -180,4 +122,6 @@ For an ordinary social visit to a person, French uses *rendre visite à* (or *al
 
 Think of *visiter* as going through a place to see or check it. At [A2](/en/cefr/), that covers museums, cities, apartments, and websites, while everyday visits to people usually take *rendre visite à* or *aller voir*.
 
-For the wider verb *rendre*, including why *rendre visite* fits its pattern, see the [Verb of the Week lesson on *rendre*](/en/learn-french/votw/votw-rendre-a2/).
+For the wider verb *rendre*, including why *rendre visite* fits its pattern, see the [Verb of the Week lesson on *rendre*](/en/learn-french/votw/rendre/basics-a2/).
+
+For expressions and common mistakes with *visiter*, continue with [Visiter - expressions](/en/learn-french/votw/visiter/expressions-a2/).

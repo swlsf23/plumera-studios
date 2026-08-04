@@ -1,7 +1,7 @@
 ---
-title: "Mettre: Idioms & Fixed Expressions (B1 French) | Plumera Studios"
+title: "Mettre - advanced (B1 French) | Plumera Studios"
 description: How French uses mettre in pronominal forms, fixed constructions, and idioms you will meet around B1, after the core A2 senses.
-slug: verb-mettre-b1
+slug: votw-mettre-advanced-b1
 target: learn-french
 locale: en
 level: B1
@@ -9,16 +9,14 @@ author:
 date: 2026-07-15
 draft: true
 related:
-  - title: "Mettre: Everyday Uses"
-    href: /en/learn-french/votw/votw-mettre-a2/
-  - href: /en/learn-french/whats-new/
-  - title: CEFR levels
-    href: /en/cefr/
+  - href: /en/learn-french/votw/mettre/basics-a2/
+  - href: /en/learn-french/votw/mettre/expressions-a2/
+  - href: /en/learn-french/votw/
 ---
 
-# Idioms and fixed expressions with *mettre*
+# Mettre - advanced
 
-At [A2](/en/cefr/), *mettre* covers putting something somewhere, putting on clothes, and saying how long something takes. That core is covered in the [French Verb of the Week lesson on *mettre*](/en/learn-french/votw/votw-mettre-a2/).
+At [A2](/en/cefr/), *mettre* covers putting something somewhere, putting on clothes, and saying how long something takes. That core is covered in the [French Verb of the Week lesson on *mettre*](/en/learn-french/votw/mettre/basics-a2/).
 
 Around [B1](/en/cefr/), you meet *mettre* in expressions where "put" no longer helps much. Some uses are pronominal. Others are fixed phrases for states, plans, blame, or social awkwardness. Learn them as whole patterns. The same shapes show up again and again.
 
@@ -124,4 +122,4 @@ These are better learned as complete expressions than as separate translations o
 
 ## Summary
 
-Beyond the everyday [A2](/en/cefr/) uses in the [VOTW lesson](/en/learn-french/votw/votw-mettre-a2/), *mettre* shows up in whole expressions for starting, states, social awkwardness, emphasis, and plans. Learn these as patterns, and you will recognize them more easily at [B1](/en/cefr/) and beyond.
+Beyond the everyday [A2](/en/cefr/) uses in the [VOTW lesson](/en/learn-french/votw/mettre/basics-a2/), *mettre* shows up in whole expressions for starting, states, social awkwardness, emphasis, and plans. Learn these as patterns, and you will recognize them more easily at [B1](/en/cefr/) and beyond.
