@@ -5,6 +5,7 @@ slug: votw-take-a2
 target: apprendre-anglais
 locale: fr
 level: A2
+type: verb
 author:
 date:
 draft: true

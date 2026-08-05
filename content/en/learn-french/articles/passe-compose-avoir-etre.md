@@ -5,6 +5,7 @@ slug: passe-compose-avoir-etre
 target: learn-french
 locale: en
 level: A1
+type: grammar
 eyebrow: Grammar
 hero: false
 author:

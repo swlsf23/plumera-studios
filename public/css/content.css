@@ -1032,3 +1032,99 @@
     font-size: 24px;
   }
 }
+
+/* Catalog browse controls (filter / sort) */
+.content-page .catalog-controls {
+  margin: 28px 0 8px;
+  max-width: 760px;
+  padding: 18px 20px 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--paper) 92%, var(--moss) 8%);
+}
+
+.content-page .catalog-controls__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 18px;
+  align-items: end;
+}
+
+.content-page .catalog-controls__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 140px;
+  flex: 1 1 140px;
+}
+
+.content-page .catalog-controls__field--date {
+  flex: 1 1 160px;
+}
+
+.content-page .catalog-controls__field--q {
+  flex: 1 1 220px;
+  min-width: 180px;
+}
+
+.content-page .catalog-controls__label,
+.content-page .catalog-controls__sublabel {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
+.content-page .catalog-controls__dates {
+  margin: 16px 0 0;
+  padding: 0;
+  border: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 18px;
+  align-items: end;
+}
+
+.content-page .catalog-controls__dates legend {
+  padding: 0;
+  margin: 0 0 8px;
+  width: 100%;
+}
+
+.content-page .catalog-controls__hint {
+  margin: 0;
+  flex: 1 1 100%;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.content-page .catalog-controls select,
+.content-page .catalog-controls input[type="date"],
+.content-page .catalog-controls input[type="search"] {
+  font: inherit;
+  font-size: 15px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.content-page .catalog-controls select:focus-visible,
+.content-page .catalog-controls input[type="date"]:focus-visible,
+.content-page .catalog-controls input[type="search"]:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.content-page .catalog-empty {
+  margin: 20px 0 0;
+  max-width: 760px;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.content-page .catalog-list {
+  margin-top: 12px;
+}

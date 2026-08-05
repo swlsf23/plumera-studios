@@ -5,6 +5,7 @@ slug: verb-prendre-b1
 target: learn-french
 locale: en
 level: B1
+type: verb
 author:
 date: 2026-07-28
 draft: false
