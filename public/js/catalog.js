@@ -1,3 +1,14 @@
+/**
+ * Catalog filter/sort enhancement only.
+ *
+ * SEO / delivery contract (do not break):
+ * - The catalog URL is a full static HTML document (title, description, canonical
+ *   are baked in at build time). This script must not mutate them.
+ * - Result rows are plain <a href> links to other static HTML pages. No SPA/MPA
+ *   client routing, fetch-and-replace, or intercepting navigation.
+ * - history.replaceState may sync the filter query string on this same document;
+ *   it must not change the document title or load a different page body.
+ */
 (() => {
   const form = document.querySelector("[data-catalog-controls]");
   const list = document.querySelector("[data-catalog-list]");

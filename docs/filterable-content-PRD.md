@@ -22,6 +22,7 @@ CONT-31 relates to MSEO-25. CONT-32 blocks MSEO-26 (metadata before catalog ship
 - Ship a small static version now (~20 items) on an architecture that can move the list to a backend later (tens → hundreds → thousands).
 - Complement the catalog later with **site search** (free text), sharing the same content pipeline and metadata.
 - Keep SEO honest: catalog discovery pages are real HTML documents; each result opens a static content page.
+- **Static delivery lock:** the catalog page loads as builder-emitted HTML. Client JS may filter/sort the in-page list and sync the query string, but must **not** patch `<title>`, meta description, or canonical. Clicks on results are normal full-page navigations to other static HTML URLs — no SPA/MPA shell, no client router, no fetch-and-replace of page documents.
 
 ## Non-goals
 
@@ -30,6 +31,7 @@ Explicitly out of scope unless a later PRD says otherwise — prevents feature d
 | Out of scope | Notes |
 |--------------|--------|
 | React/SPA lesson or article reader | Results stay static HTML |
+| Client-side title / meta / canonical patching on catalog (or results) | SEO fields are build-time only |
 | Dynamically rendered article bodies | Builder-emitted pages only |
 | Semantic / embedding ranking | Keyword + structured filters only |
 | Personalization / “for you” ranking | No per-user catalogs |
@@ -335,7 +337,8 @@ Qualitative bar still applies: authoring stays frontmatter + Markdown; result UR
 - Query string sync (`q`, level, type, sort, date).
 - Reuse content-list presentation; controls above the list.
 - Full list in HTML for SEO / no-JS; JS filters and sorts in place. Without JS, filter controls stay hidden and a noscript note explains that filtering needs JavaScript.
-- Text filter uses Unicode case folding on both sides (Python `str.casefold()` in the index blob; matching JS helper for the query).
+- Text filter uses Unicode case folding on both sides (Python `str.casefold()` in the index blob; matching JS helper generated at build time into `dist/js/unicode-casefold.js` from that same interpreter).
+- Catalog `<title>` / description / canonical are emitted in HTML; result `href`s are ordinary links to static pages (no SPA navigation).
 - Sitemap entry for the catalog URL.
 - Backfill `type` / `level` / `date` on every listable page; authoring docs updated. No `topic` field.
 

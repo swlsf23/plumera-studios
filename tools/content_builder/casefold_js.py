@@ -2,6 +2,10 @@
 
 Catalog search blobs are folded in Python; the client must fold the query the
 same way so multilingual text filters agree (ß/ẞ → ss, etc.).
+
+The content builder writes dist/js/unicode-casefold.js on every build from the
+same interpreter that builds the index, so macOS/Linux Unicode-data differences
+cannot desync a committed snapshot from CI.
 """
 
 from __future__ import annotations

@@ -11,6 +11,7 @@ from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
+from tools.content_builder.casefold_js import write_casefold_js
 from tools.content_builder.catalog import (
     CATALOG_STEM,
     build_catalog_entries,
@@ -449,6 +450,9 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
     _copy_public(dist)
     _copy_content_images(dist)
     _write_css_bundles(dist)
+    # Same Python casefold as CatalogEntry.search_blob() — emit per build so the
+    # client helper always matches this interpreter’s Unicode tables.
+    write_casefold_js(dist / "js" / "unicode-casefold.js")
 
     core_pages = [(parse_core_page(p, loc), p) for p, loc in discover_core_pages(CONTENT)]
 

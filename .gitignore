@@ -12,6 +12,10 @@ __pycache__/
 dist/
 build/
 
+# Generated to match the local Python Unicode tables; site build writes
+# dist/js/unicode-casefold.js from the same interpreter as search_blob().
+public/js/unicode-casefold.js
+
 # Logs and debug
 logs/
 *.log

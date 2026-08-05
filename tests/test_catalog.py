@@ -145,6 +145,63 @@ class CatalogIndexTests(unittest.TestCase):
             validate_types(["idiom"], source="x.md")
 
 
+class CatalogStaticSeoContractTests(unittest.TestCase):
+    """Catalog stays static HTML for SEO; JS only enhances the in-page list."""
+
+    def test_catalog_js_does_not_patch_seo_or_spa_navigate(self) -> None:
+        src = (ROOT / "public" / "js" / "catalog.js").read_text(encoding="utf-8")
+        forbidden = (
+            "document.title",
+            "querySelector('meta",
+            'querySelector("meta',
+            "rel=\"canonical\"",
+            "rel='canonical'",
+            "pushState",
+            "fetch(",
+            "XMLHttpRequest",
+            "location.assign",
+            "location.replace",
+        )
+        for needle in forbidden:
+            with self.subTest(needle=needle):
+                self.assertNotIn(needle, src)
+        # Query-string sync on the same document is allowed; title must stay put.
+        self.assertIn("history.replaceState", src)
+
+    def test_list_links_are_static_anchors_resolving_in_dist(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            dist = Path(tmp) / "dist"
+            self.assertEqual(build(dist), 0)
+            html = (dist / "en" / "learn-french" / "catalog" / "index.html").read_text(
+                encoding="utf-8"
+            )
+            self.assertIn("<title>All lessons | Plumera</title>", html)
+            self.assertIn(
+                'rel="canonical" href="https://plumerastudios.com/en/learn-french/catalog/"',
+                html,
+            )
+            self.assertIn(
+                '<meta name="description" content="Browse lessons and articles by level, type, and date.">',
+                html,
+            )
+            # Plain anchors — not buttons / data-router hooks.
+            self.assertIn('class="content-list__link" href="/', html)
+            self.assertNotIn("data-router", html)
+            self.assertNotIn('href="#"', html)
+
+            payload = json.loads(
+                (dist / "en" / "learn-french" / "catalog" / "index.json").read_text(
+                    encoding="utf-8"
+                )
+            )
+            for entry in payload["entries"]:
+                href = entry["href"]
+                self.assertTrue(href.startswith("/"), href)
+                self.assertTrue(href.endswith("/"), href)
+                page = dist / href.strip("/") / "index.html"
+                self.assertTrue(page.is_file(), f"missing static page for {href}")
+
+
 class CatalogBuildTests(unittest.TestCase):
     def test_build_emits_catalog_json_and_html(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
