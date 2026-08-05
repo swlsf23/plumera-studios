@@ -46,10 +46,12 @@ For the verbs themselves, see [Avoir - basics](/en/learn-french/votw/avoir/votw-
 
 ## Start with *avoir*
 
+Build the past with a present form of *avoir* plus a past participle.
+
 <!-- pattern -->
 *avoir* + past participle
 
-Build the past with a present form of *avoir* plus a past participle.
+Here are some common examples:
 
 | French | English |
 |--------|---------|
@@ -61,6 +63,8 @@ Build the past with a present form of *avoir* plus a past participle.
 That is the pattern you will use most often. If you are unsure, *avoir* is the safer first guess for many common verbs (*manger*, *parler*, *finir*, *prendre*, *faire*, *avoir*, *être* as *j'ai été*).
 
 ## Then learn the *être* house set
+
+Build the past with a present form of *être* plus a past participle:
 
 <!-- pattern -->
 *être* + past participle
@@ -105,7 +109,7 @@ With *avoir*, you can ignore agreement for now in basic A1 lines. Focus first on
 
 Later you'll discover that a few movement verbs can use *avoir* when they take a direct object.
 
-## Fix the forms that sound off
+## Common mistakes
 
 These mistakes usually come from English "I have…" landing on *avoir* by habit, or from missing agreement after *être*.
 

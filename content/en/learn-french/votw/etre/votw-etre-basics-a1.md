@@ -150,14 +150,6 @@ Here are a few high-frequency lines that use *être* outside the uses described 
 
 > *Avoir* is the one to watch. English *be* often maps to *avoir* in French, especially with age and feelings like hunger or cold. See [Avoir - basics](/en/learn-french/votw/avoir/votw-avoir-basics-a1/).
 
-A few everyday lines:
-
-| French | English |
-|--------|---------|
-| J'ai 30 ans. | I am 30. |
-| J'ai froid. | I am cold. |
-| J'ai peur. | I am scared. |
-
 ## Before you go
 
 Use *être* when you say who someone is, what they do, where they are, or how they are. Do not assume every context where English uses *be* maps to *être* in French. Age, hunger, and similar states usually take *avoir*. 
