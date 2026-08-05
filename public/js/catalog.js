@@ -93,9 +93,28 @@
   function matchesDate(entryDate, from, to) {
     if (!from && !to) return true;
     if (!entryDate) return false;
-    if (from && entryDate < from) return false;
-    if (to && entryDate > to) return false;
+    // One field only → that exact day (range needs both ends).
+    if (from && !to) return entryDate === from;
+    if (to && !from) return entryDate === to;
+    if (entryDate < from) return false;
+    if (entryDate > to) return false;
     return true;
+  }
+
+  function refreshDateLabels() {
+    let prev = null;
+    for (const item of list.querySelectorAll(".content-list__item")) {
+      const label = item.querySelector(".content-list__date");
+      if (!label) continue;
+      if (item.hidden) {
+        label.hidden = true;
+        continue;
+      }
+      const d = item.dataset.date || "";
+      const show = Boolean(d) && d !== prev;
+      label.hidden = !show;
+      if (d) prev = d;
+    }
   }
 
   function normalizeQuery(q) {
@@ -145,6 +164,7 @@
     const shown = items.filter((item) => !item.hidden);
     shown.sort((a, b) => compare(a, b, state.sort));
     for (const item of shown) list.appendChild(item);
+    refreshDateLabels();
 
     if (empty) empty.hidden = visible !== 0;
   }
@@ -159,6 +179,10 @@
   writeControls(initial);
   apply(initial);
 
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    onChange();
+  });
   form.addEventListener("change", onChange);
   form.addEventListener("input", onChange);
 })();

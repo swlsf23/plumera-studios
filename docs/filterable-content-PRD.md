@@ -135,7 +135,7 @@ Phase 1 is not a prototype with missing controls. What ships must fully work.
   - **Contains** — free-text substring over **title + summary** (`description`); case-insensitive; not body. Empty = no text restriction.
   - **Level** — one value or “all”; match = level list includes value.
   - **Type** — one value or “all”; match = type list includes value.
-  - **Date** — “all”, **on a specific day**, or **inclusive range** (`dateFrom` / `dateTo`; single day = from == to).
+  - **Date** — “all”; **one field only** = that exact day; **both fields** = inclusive range (`dateFrom` / `dateTo`).
   - Facet options for level/type are **data-driven** (see above).
   - Empty-state copy when nothing matches.
 - **Sort:** date, level, or type, each with a defined direction. Default: **date newest first** (`date-desc`).

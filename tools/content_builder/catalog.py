@@ -339,17 +339,18 @@ def catalog_list_html(
         show_date = bool(raw_date) and raw_date != prev_date
         if raw_date:
             prev_date = raw_date
-        date_label = ""
-        if show_date and raw_date:
+        date_html = ""
+        if raw_date:
             try:
                 date_label = format_date(date.fromisoformat(raw_date), locale)
             except ValueError:
                 date_label = raw_date
-        date_html = (
-            f'\n      <span class="content-list__date">{escape(date_label)}</span>'
-            if date_label
-            else ""
-        )
+            # Always emit a label node so JS can reveal it after filter/sort.
+            hidden_attr = "" if show_date else " hidden"
+            date_html = (
+                f'\n      <span class="content-list__date"{hidden_attr}>'
+                f"{escape(date_label)}</span>"
+            )
         kind_html = (
             f'\n      <p class="content-list__kind">{escape(entry.kind)}</p>'
             if entry.kind

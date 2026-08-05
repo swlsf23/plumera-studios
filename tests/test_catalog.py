@@ -28,6 +28,36 @@ class NormalizeListTests(unittest.TestCase):
         self.assertEqual(normalize_str_list("verb, grammar"), ["verb", "grammar"])
 
 
+class CatalogDateMatchDocTests(unittest.TestCase):
+    """Document the client date-filter contract (mirrored in catalog.js)."""
+
+    @staticmethod
+    def matches_date(entry_date: str, date_from: str, date_to: str) -> bool:
+        if not date_from and not date_to:
+            return True
+        if not entry_date:
+            return False
+        if date_from and not date_to:
+            return entry_date == date_from
+        if date_to and not date_from:
+            return entry_date == date_to
+        if entry_date < date_from:
+            return False
+        if entry_date > date_to:
+            return False
+        return True
+
+    def test_single_field_is_exact_day(self) -> None:
+        self.assertTrue(self.matches_date("2026-07-28", "2026-07-28", ""))
+        self.assertFalse(self.matches_date("2026-08-01", "2026-07-28", ""))
+        self.assertTrue(self.matches_date("2026-07-28", "", "2026-07-28"))
+
+    def test_both_fields_are_inclusive_range(self) -> None:
+        self.assertTrue(self.matches_date("2026-07-15", "2026-07-10", "2026-07-20"))
+        self.assertFalse(self.matches_date("2026-07-08", "2026-07-10", "2026-07-20"))
+        self.assertTrue(self.matches_date("2026-07-28", "2026-07-28", "2026-07-28"))
+
+
 class CatalogIndexTests(unittest.TestCase):
     def test_en_learn_french_entries(self) -> None:
         entries = build_catalog_entries(CONTENT, "en", "learn-french")
