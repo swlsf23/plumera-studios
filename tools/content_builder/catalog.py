@@ -300,7 +300,6 @@ def make_catalog_page(
 ) -> Page:
     chrome = chrome_for(locale)
     title = chrome["catalog"]
-    intro = chrome["catalog_intro"]
     related: list[dict[str, str]] = [
         {"href": f"/{locale}/{target}/votw/"},
     ]
@@ -315,7 +314,8 @@ def make_catalog_page(
         canonical_path=f"/{locale}/{target}/{CATALOG_STEM}/",
         eyebrow=chrome["catalog_eyebrow"],
         heading_html=escape(title),
-        body_html=f"<p>{escape(intro)}</p>",
+        # Intro sits on the filters toolbar row (see catalog_controls_html).
+        body_html="",
         related=related,
         active=CATALOG_STEM,
         show_hero_art=False,
@@ -464,52 +464,68 @@ def catalog_controls_html(locale: str, entries: list[CatalogEntry]) -> str:
       data-chip-date="{escape(chrome["catalog_chip_date"])}"
       data-count-all="{escape(chrome["catalog_results_count"])}"
       data-count-filtered="{escape(chrome["catalog_results_count_filtered"])}">
-  <label class="catalog-controls__field catalog-controls__field--q">
-    <span class="catalog-controls__label">{escape(chrome["catalog_filter_q"])}</span>
-    <input type="search" name="q" data-catalog-q autocomplete="off"
-           placeholder="{escape(chrome["catalog_filter_q_placeholder"])}">
-  </label>
-  <div class="catalog-controls__grid">
-    <label class="catalog-controls__field catalog-controls__field--level">
-      <span class="catalog-controls__label">{escape(chrome["catalog_filter_level"])}</span>
-      <select name="level" data-catalog-level>
-        {_level_options(levels_present)}
-      </select>
-    </label>
-    <label class="catalog-controls__field catalog-controls__field--sort">
-      <span class="catalog-controls__label">{escape(chrome["catalog_sort"])}</span>
-      <select name="sort" data-catalog-sort>
-        {sort_options}
-      </select>
-    </label>
-    <fieldset class="catalog-controls__content">
-      <legend class="catalog-controls__label">{escape(chrome["catalog_filter_type"])}</legend>
-      <div class="catalog-controls__pills" role="radiogroup" aria-label="{escape(chrome["catalog_filter_type"])}">
-        {type_pills_html}
-      </div>
-    </fieldset>
-    <fieldset class="catalog-controls__dates" title="{escape(chrome["catalog_date_hint"])}"
-              aria-label="{escape(chrome["catalog_filter_date"])}">
-      <div class="catalog-controls__dates-row">
-        <label class="catalog-controls__field catalog-controls__field--date">
-          <span class="catalog-controls__sublabel">{escape(chrome["catalog_date_from"])}</span>
-          <input type="date" name="dateFrom" data-catalog-date-from>
+  <div class="catalog-refine">
+    <p class="catalog-intro">{escape(chrome["catalog_intro"])}</p>
+    <details class="catalog-controls__filters" data-catalog-filters>
+      <summary class="catalog-controls__filters-summary">
+        <span class="catalog-controls__filters-show">{escape(chrome["catalog_filters_show"])}</span>
+        <span class="catalog-controls__filters-hide">{escape(chrome["catalog_filters_hide"])}</span>
+        <span class="catalog-controls__filters-badge" data-catalog-filters-badge hidden></span>
+      </summary>
+      <div class="catalog-controls__panel">
+        <label class="catalog-controls__field catalog-controls__field--q">
+          <span class="catalog-controls__label">{escape(chrome["catalog_filter_q"])}</span>
+          <input type="search" name="q" data-catalog-q autocomplete="off"
+                 placeholder="{escape(chrome["catalog_filter_q_placeholder"])}">
         </label>
-        <label class="catalog-controls__field catalog-controls__field--date">
-          <span class="catalog-controls__sublabel">{escape(chrome["catalog_date_to"])}</span>
-          <input type="date" name="dateTo" data-catalog-date-to>
-        </label>
-        <div class="catalog-controls__date-actions">
-          <button type="button" class="catalog-controls__clear-dates" data-catalog-date-clear>
-            {escape(chrome["catalog_date_clear"])}
-          </button>
+        <div class="catalog-controls__grid">
+          <label class="catalog-controls__field catalog-controls__field--level">
+            <span class="catalog-controls__label">{escape(chrome["catalog_filter_level"])}</span>
+            <select name="level" data-catalog-level>
+              {_level_options(levels_present)}
+            </select>
+          </label>
+          <label class="catalog-controls__field catalog-controls__field--sort">
+            <span class="catalog-controls__label">{escape(chrome["catalog_sort"])}</span>
+            <select name="sort" data-catalog-sort>
+              {sort_options}
+            </select>
+          </label>
+          <fieldset class="catalog-controls__content">
+            <legend class="catalog-controls__label">{escape(chrome["catalog_filter_type"])}</legend>
+            <div class="catalog-controls__pills" role="radiogroup" aria-label="{escape(chrome["catalog_filter_type"])}">
+              {type_pills_html}
+            </div>
+          </fieldset>
+          <fieldset class="catalog-controls__dates" title="{escape(chrome["catalog_date_hint"])}"
+                    aria-label="{escape(chrome["catalog_filter_date"])}">
+            <div class="catalog-controls__dates-row">
+              <label class="catalog-controls__field catalog-controls__field--date">
+                <span class="catalog-controls__sublabel">{escape(chrome["catalog_date_from"])}</span>
+                <input type="date" name="dateFrom" data-catalog-date-from>
+              </label>
+              <label class="catalog-controls__field catalog-controls__field--date">
+                <span class="catalog-controls__sublabel">{escape(chrome["catalog_date_to"])}</span>
+                <input type="date" name="dateTo" data-catalog-date-to>
+              </label>
+              <div class="catalog-controls__date-actions">
+                <button type="button" class="catalog-controls__clear-dates" data-catalog-date-clear>
+                  {escape(chrome["catalog_date_clear"])}
+                </button>
+              </div>
+            </div>
+          </fieldset>
         </div>
       </div>
-    </fieldset>
+    </details>
+    <div class="catalog-chips" data-catalog-chips>
+      <span class="catalog-chip catalog-chip--idle" data-catalog-chips-empty>
+        {escape(chrome["catalog_chips_empty"])}
+      </span>
+    </div>
   </div>
 </form>
 <div class="catalog-meta">
-  <div class="catalog-chips" data-catalog-chips hidden></div>
   <p class="catalog-count" data-catalog-count>{escape(count_default)}</p>
 </div>
 <p class="catalog-empty" data-catalog-empty hidden>{escape(chrome["catalog_empty"])}</p>

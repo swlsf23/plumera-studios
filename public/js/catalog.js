@@ -13,6 +13,8 @@
   const dateFromInput = form.querySelector("[data-catalog-date-from]");
   const dateToInput = form.querySelector("[data-catalog-date-to]");
   const dateClearBtn = form.querySelector("[data-catalog-date-clear]");
+  const filtersDetails = form.querySelector("[data-catalog-filters]");
+  const filtersBadge = form.querySelector("[data-catalog-filters-badge]");
 
   const LEVEL_RANK = { A1: 0, A2: 1, B1: 2, B2: 3, C1: 4, C2: 5 };
   const TYPE_RANK = {
@@ -176,6 +178,32 @@
     return Boolean(state.q || state.level || state.type || state.dateFrom || state.dateTo);
   }
 
+  function activeFilterCount(state) {
+    let n = 0;
+    if (state.q) n += 1;
+    if (state.level) n += 1;
+    if (state.type) n += 1;
+    if (state.dateFrom || state.dateTo) n += 1;
+    if (state.sort && state.sort !== "date-desc") n += 1;
+    return n;
+  }
+
+  function syncFiltersPanel(state, { openIfActive = false } = {}) {
+    const count = activeFilterCount(state);
+    if (filtersBadge) {
+      if (count > 0) {
+        filtersBadge.hidden = false;
+        filtersBadge.textContent = String(count);
+      } else {
+        filtersBadge.hidden = true;
+        filtersBadge.textContent = "";
+      }
+    }
+    if (openIfActive && filtersDetails && count > 0) {
+      filtersDetails.open = true;
+    }
+  }
+
   function formatCount(template, n) {
     return template.replace(/\{n\}/g, String(n));
   }
@@ -194,6 +222,7 @@
 
   function renderChips(state) {
     if (!chipsEl) return;
+    const emptyChip = chipsEl.querySelector("[data-catalog-chips-empty]");
     const chips = [];
     if (state.q) {
       chips.push({ key: "q", label: chipSearchTpl.replace(/\{q\}/g, state.q) });
@@ -209,19 +238,23 @@
       chips.push({ key: "date", label: dateLabel });
     }
 
-    chipsEl.hidden = chips.length === 0;
-    chipsEl.replaceChildren(
-      ...chips.map((chip) => {
-        const btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "catalog-chip";
-        btn.dataset.clear = chip.key;
-        btn.setAttribute("aria-label", `Clear ${chip.label}`);
-        btn.innerHTML = `<span class="catalog-chip__label"></span><span class="catalog-chip__x" aria-hidden="true">×</span>`;
-        btn.querySelector(".catalog-chip__label").textContent = chip.label;
-        return btn;
-      })
-    );
+    // Keep the idle placeholder node; swap only the active filter chips.
+    for (const node of [...chipsEl.children]) {
+      if (node !== emptyChip) node.remove();
+    }
+
+    if (emptyChip) emptyChip.hidden = chips.length > 0;
+
+    for (const chip of chips) {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "catalog-chip";
+      btn.dataset.clear = chip.key;
+      btn.setAttribute("aria-label", `Clear ${chip.label}`);
+      btn.innerHTML = `<span class="catalog-chip__label"></span><span class="catalog-chip__x" aria-hidden="true">×</span>`;
+      btn.querySelector(".catalog-chip__label").textContent = chip.label;
+      chipsEl.appendChild(btn);
+    }
   }
 
   function renderCount(state, visible) {
@@ -253,6 +286,7 @@
     refreshDateLabels();
     renderChips(state);
     renderCount(state, visible);
+    syncFiltersPanel(state);
 
     if (empty) empty.hidden = visible !== 0;
   }
@@ -276,6 +310,7 @@
 
   const initial = readState();
   writeControls(initial);
+  syncFiltersPanel(initial, { openIfActive: true });
   apply(initial);
 
   form.addEventListener("submit", (event) => {
