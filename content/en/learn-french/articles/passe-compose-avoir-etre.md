@@ -6,6 +6,7 @@ target: learn-french
 locale: en
 level: A1
 eyebrow: Grammar
+hero: false
 author:
 date: 2026-08-01
 related:

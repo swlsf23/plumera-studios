@@ -257,6 +257,13 @@ def _parse_related(meta: dict, path: Path) -> list[dict[str, str]]:
     return items
 
 
+def _show_hero_art(meta: dict) -> bool:
+    """Title hero on by default; set frontmatter ``hero: false`` to omit it."""
+    if "hero" not in meta or meta["hero"] is None:
+        return True
+    return bool(meta["hero"])
+
+
 def parse_core_page(path: Path, locale: str) -> Page:
     raw = path.read_text(encoding="utf-8")
     post = frontmatter.loads(raw)
@@ -289,7 +296,7 @@ def parse_core_page(path: Path, locale: str) -> Page:
         toc=toc,
         related=_parse_related(meta, path),
         active=stem,
-        show_hero_art=True,
+        show_hero_art=_show_hero_art(meta),
     )
 
 
@@ -366,7 +373,7 @@ def parse_votw_page(path: Path, locale: str, target: str) -> Page:
         toc=toc,
         related=_parse_related(meta, path),
         active="votw",
-        show_hero_art=True,
+        show_hero_art=_show_hero_art(meta),
         level=str(meta.get("level") or "").strip(),
     )
 
@@ -435,7 +442,7 @@ def parse_article_page(path: Path, locale: str, target: str) -> Page:
         toc=toc,
         related=_parse_related(meta, path),
         active="articles",
-        show_hero_art=True,
+        show_hero_art=_show_hero_art(meta),
         level=str(meta.get("level") or "").strip(),
     )
 
@@ -557,7 +564,7 @@ def parse_whats_new_page(path: Path, locale: str, target: str) -> Page:
         toc=toc,
         related=_parse_related(meta, path),
         active=WHATS_NEW_STEM,
-        show_hero_art=True,
+        show_hero_art=_show_hero_art(meta),
     )
 
 

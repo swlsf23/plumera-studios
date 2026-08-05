@@ -47,7 +47,7 @@ Example: English explanation of French VOTW → `content/en/learn-french/votw/�
 
 ## Content page template
 
-Every emitted content page uses one layout (not landings): short **eyebrow**, **H1**, frontmatter **description** as the summary under the title (omit `description` → no summary line), slim decorative **hero** band, article body, then an end band with optional **You might also like** cards and **Follow us**. The body is left intact; the first paragraph is never pulled out for that summary.
+Every emitted content page uses one layout (not landings): short **eyebrow**, **H1**, article body (slim decorative **hero** band after the first paragraph by default), then an end band with optional **You might also like** cards and **Follow us**. Frontmatter **description** is for the meta description only; it is not shown under the title.
 
 Author that shape in Markdown + YAML. Do not add a right-rail “On this page” TOC for content pages.
 
@@ -82,9 +82,12 @@ Put an HTML comment where the shared content list should appear:
 <!-- votw: list -->        # VOTW series index.md
 <!-- whats-new: list -->   # what’s-new.md
 <!-- art: band -->         # slim decorative band (any content page; repeatable)
+<!-- art: hero -->         # title hero band (optional manual placement)
 ```
 
 List markers are replaced with the shared content list (title · level, date, kind when relevant, summary) outside the article body. Move the comment to reorder prose around the list.
+
+The title **hero** band is injected after the first body paragraph by default. Put `<!-- art: hero -->` on its own line to place it somewhere else instead (no automatic injection when the marker is present). Set frontmatter `hero: false` to omit the title hero entirely.
 
 `<!-- art: band -->` is replaced in place with a slim curved accent band (related to the title hero, not identical). Use as many as you want; each comment becomes one band.
 

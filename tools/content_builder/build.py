@@ -196,7 +196,7 @@ def _render_page(
     page.body_html = _expand_art_bands(page.body_html)
     page.tail_body_html = _expand_art_bands(page.tail_body_html)
     if page.show_hero_art:
-        page.body_html = _inject_hero_after_first_paragraph(page.body_html)
+        page.body_html = _place_title_hero(page.body_html, source=source or "")
         page.show_hero_art = False
     return template.render(
         page=page,
@@ -227,9 +227,10 @@ def _write_redirect(path: Path, target: str) -> None:
 
 
 _ART_BAND_MARKER_RE = re.compile(r"<!--\s*art:\s*band\s*-->", re.I)
+_ART_HERO_MARKER_RE = re.compile(r"<!--\s*art:\s*hero\s*-->", re.I)
 _FIRST_P_CLOSE_RE = re.compile(r"</p\s*>", re.I)
 
-# Title hero band (injected after the first body paragraph).
+# Title hero band (default: after the first body paragraph).
 _HERO_ART_HTML = """\
 <div class="hero-art-slot" aria-hidden="true">
   <div class="hero-art">
@@ -281,6 +282,21 @@ def _inject_hero_after_first_paragraph(html: str) -> str:
         return f"{_HERO_ART_HTML}\n{html}"
     at = match.end()
     return f"{html[:at]}\n{_HERO_ART_HTML}\n{html[at:]}"
+
+
+def _place_title_hero(html: str, *, source: str = "") -> str:
+    """Default: after the first <p>. Override with <!-- art: hero --> in the body."""
+    if not html:
+        return _HERO_ART_HTML
+    markers = list(_ART_HERO_MARKER_RE.finditer(html))
+    if not markers:
+        return _inject_hero_after_first_paragraph(html)
+    if len(markers) > 1 and source:
+        print(
+            f"warning: multiple <!-- art: hero --> in {source}; using the first",
+            file=sys.stderr,
+        )
+    return _ART_HERO_MARKER_RE.sub(_HERO_ART_HTML, html, count=1)
 
 
 def _list_marker_re(kind: str) -> re.Pattern[str]:

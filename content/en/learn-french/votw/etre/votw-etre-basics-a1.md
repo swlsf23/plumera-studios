@@ -6,7 +6,7 @@ target: learn-french
 locale: en
 level: A1
 author:
-date: 2026-08-03
+date: 2026-07-08
 related:
   - href: /en/learn-french/votw/etre/votw-etre-expressions-a2/
   - href: /en/learn-french/votw/avoir/votw-avoir-basics-a1/
