@@ -74,9 +74,15 @@ class CatalogIndexTests(unittest.TestCase):
             for code in entry.type:
                 self.assertIn(code, CATALOG_TYPES)
 
+    def test_phase1_only_en_learn_french(self) -> None:
+        from tools.content_builder.catalog import discover_catalog_targets
+
+        self.assertEqual(discover_catalog_targets(CONTENT), [("en", "learn-french")])
+
     def test_drafts_excluded_by_default(self) -> None:
+        # Helper still lists es core guides if called; phase-1 emit never builds
+        # an es/fr catalog (see discover_catalog_targets).
         entries = build_catalog_entries(CONTENT, "es", "aprender-frances")
-        # Draft VOTW lessons stay out; locale core guides may still appear.
         hrefs = {e.href for e in entries}
         self.assertEqual(hrefs, {"/es/cefr/"})
         self.assertTrue(all("/votw/" not in e.href for e in entries))
@@ -134,6 +140,9 @@ class CatalogBuildTests(unittest.TestCase):
             # Sitemap should mention the catalog URL.
             sitemap = (dist / "en" / "sitemap.xml").read_text(encoding="utf-8")
             self.assertIn("/en/learn-french/catalog/", sitemap)
+            # Phase 1: no es/fr catalogs (would link draft VOTW hubs).
+            self.assertFalse((dist / "es" / "aprender-frances" / "catalog").exists())
+            self.assertFalse((dist / "fr" / "apprendre-anglais" / "catalog").exists())
 
 
 if __name__ == "__main__":

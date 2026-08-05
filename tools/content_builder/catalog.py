@@ -27,6 +27,11 @@ from tools.content_builder.parse import (
 CATALOG_STEM = "catalog"
 SCHEMA_VERSION = 1
 
+# Phase 1: only the English → French learning path. Locale-wide en/core guides
+# (CEFR, exams) still appear in that catalog via catalog: true; es/fr catalogs
+# are not emitted.
+CATALOG_TARGETS: frozenset[tuple[str, str]] = frozenset({("en", "learn-french")})
+
 CEFR_LEVELS: tuple[str, ...] = ("A1", "A2", "B1", "B2", "C1", "C2")
 CATALOG_TYPES: tuple[str, ...] = (
     "verb",
@@ -139,23 +144,12 @@ def _default_types_for_path(path: Path, meta: dict) -> list[str]:
 
 
 def discover_catalog_targets(content_root: Path) -> list[tuple[str, str]]:
-    """Locale/target pairs that have at least one listable VOTW lesson or article."""
-    found: set[tuple[str, str]] = set()
-    for locale_dir in sorted(content_root.iterdir()):
-        if not locale_dir.is_dir() or locale_dir.name == "templates":
-            continue
-        locale = locale_dir.name
-        for target_dir in sorted(locale_dir.iterdir()):
-            if not target_dir.is_dir() or target_dir.name == "core":
-                continue
-            target = target_dir.name
-            votw = target_dir / "votw"
-            articles = target_dir / ARTICLES_DIR
-            has_votw = votw.is_dir() and any(_votw_lesson_paths(votw))
-            has_articles = articles.is_dir() and any(articles.glob("*.md"))
-            if has_votw or has_articles:
-                found.add((locale, target))
-    return sorted(found)
+    """Locale/target pairs that get a catalog page (phase 1: en/learn-french only)."""
+    return [
+        (locale, target)
+        for locale, target in sorted(CATALOG_TARGETS)
+        if (content_root / locale / target).is_dir()
+    ]
 
 
 def build_catalog_entries(
@@ -363,12 +357,16 @@ def make_catalog_page(
 ) -> Page:
     chrome = chrome_for(locale)
     title = chrome["catalog"]
-    related: list[dict[str, str]] = [
-        {"href": f"/{locale}/{target}/votw/"},
-    ]
-    if content_root is None or (
-        content_root / locale / target / f"{WHATS_NEW_STEM}.md"
-    ).is_file():
+    related: list[dict[str, str]] = []
+    if content_root is not None:
+        votw_index = content_root / locale / target / "votw" / "index.md"
+        if votw_index.is_file() and not is_draft(votw_index):
+            related.append({"href": f"/{locale}/{target}/votw/"})
+        whats_new = content_root / locale / target / f"{WHATS_NEW_STEM}.md"
+        if whats_new.is_file() and not is_draft(whats_new):
+            related.append({"href": f"/{locale}/{target}/{WHATS_NEW_STEM}/"})
+    else:
+        related.append({"href": f"/{locale}/{target}/votw/"})
         related.append({"href": f"/{locale}/{target}/{WHATS_NEW_STEM}/"})
     return Page(
         locale=locale,
