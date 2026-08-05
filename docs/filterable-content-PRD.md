@@ -18,7 +18,7 @@ CONT-31 relates to MSEO-25. CONT-32 blocks MSEO-26 (metadata before catalog ship
 ## Goals
 
 - Give learners one place per locale + target to explore all listable content.
-- Support filter/sort without a React lesson reader.
+- Support **filtering** (only matching rows) and **sorting** (reorder the current set) without a React lesson reader.
 - Ship a small static version now (~20 items) on an architecture that can move the list to a backend later (tens → hundreds → thousands).
 - Complement the catalog later with **site search** (free text), sharing the same content pipeline and metadata.
 - Keep SEO honest: catalog discovery pages are real HTML documents; each result opens a static content page.
@@ -47,38 +47,48 @@ Explicitly out of scope unless a later PRD says otherwise — prevents feature d
 
 | Concept | Role |
 |---------|------|
-| **Catalog** | Structured browse: filter and sort over a target’s listable pages. |
+| **Catalog** | Structured browse: filter (restrict) and sort (reorder) over a target’s listable pages. |
 | **Search** | Free-text find. Complements catalog; does not replace it. |
 | **Catalog index** | Builder-emitted structured list of card fields. Build-time source of truth for the catalog UI (and later Postgres load). |
 | **Static result pages** | Existing content URLs under `dist/` — full HTML documents. |
 
 **Scope:** one catalog per `locale` + `target` (e.g. English UI teaching French → `/en/learn-french/…`).
 
-## What “filterable” means
+## Filter vs sort (definitions)
 
-A catalog is **filterable** when the learner can narrow the visible set using **canonical dimensions** below. Dimensions are either:
+These are different operations. Do not conflate them.
 
-- **UI filter** — control on the catalog page,
-- **Sort** — order of the list,
-- **Scope** — fixed by which catalog URL you are on,
-- **System** — applied at index build / API load (not a learner control),
-- **Deferred** — in the data contract for later UI, not phase 1 controls.
+| Term | Meaning | Example |
+|------|---------|---------|
+| **Filter** | Show **only** entries that match a chosen characteristic. Everything else is hidden. | Only `level=A1`; only `type=verb`; both together → only A1 verb pages |
+| **Sort** | **Reorder** the current result set (after filters, or the full catalog if unfiltered). Does not hide rows. | Among visible rows: newest date first; or by level A1→C2; or by type |
 
-### Canonical dimensions
+Same idea applies later to **search**: filters restrict which hits appear; sort orders those hits (by date, level, type, relevance, etc.).
 
-| Dimension | Maps to | Phase 1 learner UI | Required on each entry | Notes |
-|-----------|---------|--------------------|------------------------|--------|
-| **Locale** | `locale` | Scope (URL) | yes | Separate locale sites; no hreflang blending |
-| **Target** | `target` | Scope (URL) | yes | Language being taught |
-| **Level** | `level` | **Filter** (required) | yes | CEFR: `A1` … `C2` (exact code; no ranges in v1) |
-| **Content type** | `type` | **Filter** (required) | yes | Controlled: start `verb` \| `grammar` |
-| **Topic** | `topic` | Deferred (optional field) | no | e.g. verb lemma; group/filter later |
-| **Freshness** | `date` | **Sort** (required); date-range filter deferred | yes | ISO date in index; locale-formatted label optional in UI |
-| **Publish state** | `draft` | System only | n/a | Production index omits drafts; not a learner filter |
-| **Series / kind** | path / chrome | Display only | no | “VOTW” vs “Article” label ≠ `type` taxonomy |
-| **Audience** | — | Out of scope | — | Use **level**, not a separate audience field |
+### How dimensions are used
 
-Phase 1 UI minimum: **filter level**, **filter type**, **sort by date** (newest / oldest). Optional: sync to `?level=&type=&sort=`.
+A field may support **filter**, **sort**, both, or neither in the UI. Separately, some dimensions are only **scope** (which catalog URL) or **system** (build-time), not learner controls.
+
+| Dimension | Maps to | Filter? | Sort? | Phase 1 learner UI | Required on each entry | Notes |
+|-----------|---------|---------|-------|--------------------|------------------------|--------|
+| **Locale** | `locale` | — | — | Scope (URL) | yes | Separate locale sites; no hreflang blending |
+| **Target** | `target` | — | — | Scope (URL) | yes | Language being taught |
+| **Level** | `level` | yes | yes | **Filter** required; **sort by level** optional | yes | CEFR: `A1` … `C2` (exact code; no ranges in v1) |
+| **Content type** | `type` | yes | yes | **Filter** required; **sort by type** optional | yes | Controlled: start `verb` \| `grammar` |
+| **Topic** | `topic` | later | later | Deferred (optional field) | no | e.g. verb lemma |
+| **Date / freshness** | `date` | later (range) | yes | **Sort by date** required (newest / oldest); date-range **filter** deferred | yes | ISO `YYYY-MM-DD` in index |
+| **Publish state** | `draft` | system | — | System only | n/a | Production index omits drafts; not a learner filter |
+| **Series / kind** | path / chrome | no | no | Display only | no | “VOTW” vs “Article” label ≠ `type` taxonomy |
+| **Audience** | — | — | — | Out of scope | — | Use **level**, not a separate audience field |
+| **Relevance** | search score | — | phase 3 | N/A until search | — | Sort key for search hits only |
+
+**Phase 1 UI minimum**
+
+- **Filters:** level, type (including “all” = no restriction on that dimension).
+- **Sort:** date (newest / oldest) required; level and type as additional sort keys are in scope for phase 1 if cheap to ship, otherwise phase 1.1.
+- Optional query sync: `?level=&type=&sort=`.
+
+Filters apply first; sort applies to whatever remains.
 
 ## Data contract (v1)
 
@@ -211,7 +221,8 @@ Qualitative bar still applies: authoring stays frontmatter + Markdown; result UR
 |-----|--------|
 | **Index coverage** | 100% of non-draft listable pages for the shipped target(s) appear in the catalog index with required fields |
 | **Metadata completeness** | 100% of those entries have non-empty `level`, `type`, `date`, `title`, `href` |
-| **Filter correctness** | Manual/automated checks: each level/type control shows only matching rows; “all” shows full index |
+| **Filter correctness** | Each level/type filter shows **only** matching rows; “all” shows the unfiltered index |
+| **Sort correctness** | Changing sort reorders the current (filtered) set without changing which rows are included |
 | **Draft exclusion** | 0 drafts in production index / production catalog HTML |
 | **Result integrity** | 100% of catalog `href`s resolve to emitted static HTML in `dist/` (internal link check) |
 | **Page weight (sanity)** | Full inlined list acceptable at ≤ ~50 entries; revisit phase 2 trigger if HTML list payload becomes a measured LCP problem |
@@ -244,8 +255,8 @@ Qualitative bar still applies: authoring stays frontmatter + Markdown; result UR
 
 - One generated catalog page per target that has listable content (start with `en/learn-french`).
 - Builder always emits the **catalog index JSON** and builds the page list **from that index** (one code path).
-- Page UI: filter by level and type; sort by date (newest/oldest; title optional).
-- Optional shareable query string: `?level=A1&type=verb`.
+- Page UI: **filter** to only matching level and/or type; **sort** the remaining rows (date required; level/type sort optional in phase 1).
+- Optional shareable query string: `?level=A1&type=verb&sort=date-desc`.
 - Reuse existing content-list presentation where it fits; filters sit above the list.
 - ~20 rows inlined in HTML is acceptable.
 
