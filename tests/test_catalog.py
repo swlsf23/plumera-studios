@@ -32,7 +32,14 @@ class CatalogDateMatchDocTests(unittest.TestCase):
     """Document the client date-filter contract (mirrored in catalog.js)."""
 
     @staticmethod
-    def matches_date(entry_date: str, date_from: str, date_to: str) -> bool:
+    def normalize_date_range(date_from: str, date_to: str) -> tuple[str, str]:
+        if date_from and date_to and date_from > date_to:
+            return date_to, date_from
+        return date_from, date_to
+
+    @classmethod
+    def matches_date(cls, entry_date: str, date_from: str, date_to: str) -> bool:
+        date_from, date_to = cls.normalize_date_range(date_from, date_to)
         if not date_from and not date_to:
             return True
         if not entry_date:
@@ -56,6 +63,13 @@ class CatalogDateMatchDocTests(unittest.TestCase):
         self.assertTrue(self.matches_date("2026-07-15", "2026-07-10", "2026-07-20"))
         self.assertFalse(self.matches_date("2026-07-08", "2026-07-10", "2026-07-20"))
         self.assertTrue(self.matches_date("2026-07-28", "2026-07-28", "2026-07-28"))
+
+    def test_inverted_range_is_swapped(self) -> None:
+        self.assertEqual(
+            self.normalize_date_range("2026-07-20", "2026-07-10"),
+            ("2026-07-10", "2026-07-20"),
+        )
+        self.assertTrue(self.matches_date("2026-07-15", "2026-07-20", "2026-07-10"))
 
 
 class CatalogIndexTests(unittest.TestCase):
@@ -91,6 +105,9 @@ class CatalogIndexTests(unittest.TestCase):
         entries = build_catalog_entries(CONTENT, "en", "learn-french")
         html = catalog_controls_html("en", entries)
         self.assertIn("data-catalog-q", html)
+        self.assertIn('data-catalog-enhance hidden', html)
+        self.assertIn("<noscript>", html)
+        self.assertIn("catalog-noscript", html)
         self.assertIn("data-catalog-date-clear", html)
         self.assertIn('value="A1"', html)
         self.assertIn('value="verb"', html)
@@ -132,6 +149,9 @@ class CatalogBuildTests(unittest.TestCase):
             html = html_path.read_text(encoding="utf-8")
             self.assertIn("data-catalog-controls", html)
             self.assertIn("data-catalog-list", html)
+            self.assertIn('data-catalog-enhance hidden', html)
+            self.assertIn("catalog-noscript", html)
+            self.assertIn("Filtering and sorting need JavaScript", html)
             self.assertIn("/js/catalog.js", html)
             self.assertIn('rel="canonical" href="https://plumerastudios.com/en/learn-french/catalog/"', html)
             self.assertIn('href="/en/learn-french/votw/"', html)

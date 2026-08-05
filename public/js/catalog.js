@@ -4,6 +4,7 @@
   const empty = document.querySelector("[data-catalog-empty]");
   const chipsEl = document.querySelector("[data-catalog-chips]");
   const countEl = document.querySelector("[data-catalog-count]");
+  const enhanceEl = form?.querySelector("[data-catalog-enhance]");
   if (!form || !list) return;
 
   const qInput = form.querySelector("[data-catalog-q]");
@@ -15,6 +16,9 @@
   const dateClearBtn = form.querySelector("[data-catalog-date-clear]");
   const filtersDetails = form.querySelector("[data-catalog-filters]");
   const filtersBadge = form.querySelector("[data-catalog-filters-badge]");
+
+  const INPUT_DEBOUNCE_MS = 150;
+  let inputTimer = null;
 
   const LEVEL_RANK = { A1: 0, A2: 1, B1: 2, B2: 3, C1: 4, C2: 5 };
   const TYPE_RANK = {
@@ -65,6 +69,13 @@
     return span?.textContent?.trim() || value;
   }
 
+  function normalizeDateRange(dateFrom, dateTo) {
+    if (dateFrom && dateTo && dateFrom > dateTo) {
+      return { dateFrom: dateTo, dateTo: dateFrom, swapped: true };
+    }
+    return { dateFrom, dateTo, swapped: false };
+  }
+
   function readState() {
     const params = new URLSearchParams(window.location.search);
     let q = params.get("q") || "";
@@ -82,7 +93,15 @@
     }
     if (!VALID_SORTS.has(sort)) sort = "date-desc";
 
-    return { q, level, type, sort, dateFrom, dateTo };
+    const dates = normalizeDateRange(dateFrom, dateTo);
+    return {
+      q,
+      level,
+      type,
+      sort,
+      dateFrom: dates.dateFrom,
+      dateTo: dates.dateTo,
+    };
   }
 
   function writeControls(state) {
@@ -95,13 +114,18 @@
   }
 
   function stateFromControls() {
+    const dates = normalizeDateRange(
+      dateFromInput ? dateFromInput.value : "",
+      dateToInput ? dateToInput.value : "",
+    );
     return {
       q: qInput ? qInput.value.trim() : "",
       level: levelSelect ? levelSelect.value : "",
       type: selectedType(),
       sort: sortSelect ? sortSelect.value : "date-desc",
-      dateFrom: dateFromInput ? dateFromInput.value : "",
-      dateTo: dateToInput ? dateToInput.value : "",
+      dateFrom: dates.dateFrom,
+      dateTo: dates.dateTo,
+      dateSwapped: dates.swapped,
     };
   }
 
@@ -123,6 +147,9 @@
   }
 
   function matchesDate(entryDate, from, to) {
+    const dates = normalizeDateRange(from, to);
+    from = dates.dateFrom;
+    to = dates.dateTo;
     if (!from && !to) return true;
     if (!entryDate) return false;
     // One field only → that exact day (range needs both ends).
@@ -151,7 +178,8 @@
 
   function normalizeQuery(q) {
     if (!q) return "";
-    return q.toLocaleLowerCase();
+    // Match builder search_blob() (Python casefold / ASCII-friendly lower).
+    return q.toLowerCase();
   }
 
   function compare(a, b, sort) {
@@ -294,8 +322,28 @@
 
   function onChange() {
     const state = stateFromControls();
+    // Keep inputs ordered when the user enters an inverted range.
+    if (state.dateSwapped) {
+      writeControls(state);
+    }
     syncUrl(state);
     apply(state);
+  }
+
+  function onChangeImmediate() {
+    if (inputTimer !== null) {
+      clearTimeout(inputTimer);
+      inputTimer = null;
+    }
+    onChange();
+  }
+
+  function onChangeDebounced() {
+    if (inputTimer !== null) clearTimeout(inputTimer);
+    inputTimer = setTimeout(() => {
+      inputTimer = null;
+      onChange();
+    }, INPUT_DEBOUNCE_MS);
   }
 
   function clearFilter(key) {
@@ -306,8 +354,21 @@
       if (dateFromInput) dateFromInput.value = "";
       if (dateToInput) dateToInput.value = "";
     }
-    onChange();
+    onChangeImmediate();
   }
+
+  function isDebouncedControl(target) {
+    return Boolean(
+      target &&
+        (target.matches("[data-catalog-q]") ||
+          target.matches("[data-catalog-date-from]") ||
+          target.matches("[data-catalog-date-to]")),
+    );
+  }
+
+  // Progressive enhancement: reveal filters only when JS can drive them.
+  if (enhanceEl) enhanceEl.hidden = false;
+  form.setAttribute("data-catalog-ready", "");
 
   const initial = readState();
   writeControls(initial);
@@ -316,16 +377,19 @@
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
-    onChange();
+    onChangeImmediate();
   });
-  form.addEventListener("change", onChange);
-  form.addEventListener("input", onChange);
+  form.addEventListener("change", onChangeImmediate);
+  form.addEventListener("input", (event) => {
+    if (isDebouncedControl(event.target)) onChangeDebounced();
+    else onChangeImmediate();
+  });
 
   if (dateClearBtn) {
     dateClearBtn.addEventListener("click", () => {
       if (dateFromInput) dateFromInput.value = "";
       if (dateToInput) dateToInput.value = "";
-      onChange();
+      onChangeImmediate();
       dateFromInput?.focus();
     });
   }

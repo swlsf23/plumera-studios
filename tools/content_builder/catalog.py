@@ -529,7 +529,10 @@ def catalog_controls_html(locale: str, entries: list[CatalogEntry]) -> str:
       data-chip-date="{escape(chrome["catalog_chip_date"])}"
       data-count-all="{escape(chrome["catalog_results_count"])}"
       data-count-filtered="{escape(chrome["catalog_results_count_filtered"])}">
-  <div class="catalog-refine">
+  <noscript>
+    <p class="catalog-noscript">{escape(chrome["catalog_noscript"])}</p>
+  </noscript>
+  <div class="catalog-refine" data-catalog-enhance hidden>
     <p class="catalog-intro">{escape(chrome["catalog_intro"])}</p>
     <details class="catalog-controls__filters" data-catalog-filters>
       <summary class="catalog-controls__filters-summary">
