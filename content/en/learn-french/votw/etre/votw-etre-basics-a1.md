@@ -42,6 +42,8 @@ When *être* is the main verb in the passé composé, it uses *avoir* as its hel
 <!-- pattern -->
 *avoir* + *été*
 
+Here is how that looks in a full sentence:
+
 | French | English |
 |--------|---------|
 | J'ai été malade hier. | I was sick yesterday. |
@@ -115,6 +117,8 @@ The identification pattern tends to introduce or identify someone, not just stat
 <!-- pattern -->
 *c'est un / une* + job
 
+These identification lines follow that shape:
+
 | French | English |
 |--------|---------|
 | C'est un médecin. | He's a doctor. / That's a doctor. |
@@ -144,7 +148,9 @@ Here are a few high-frequency lines that use *être* outside the uses described 
 - devenir: to become
 - sembler: to seem
 
-> *Avoir* is the one to watch. English *be* often maps to *avoir* in French, especially with age and feelings like hunger or cold. See [Avoir - basics](/en/learn-french/votw/avoir/votw-avoir-basics-a1/):
+> *Avoir* is the one to watch. English *be* often maps to *avoir* in French, especially with age and feelings like hunger or cold. See [Avoir - basics](/en/learn-french/votw/avoir/votw-avoir-basics-a1/).
+
+A few everyday lines:
 
 | French | English |
 |--------|---------|

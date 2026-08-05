@@ -514,14 +514,15 @@
 /* Grammar shape line: <!-- pattern --> above a one-line formula. */
 .content-page .article-body > p.grammar-pattern {
   display: block;
-  width: auto;
-  max-width: 720px;
+  width: fit-content;
+  max-width: 100%;
   margin: 6px 0 20px;
-  padding: 2px 0 2px 14px;
+  padding: 8px 14px 8px 12px;
   border: 0;
-  border-left: 3px solid var(--blue-deep);
-  border-radius: 0;
-  background: none;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  background:
+    linear-gradient(90deg, rgba(184, 146, 103, 0.28), rgba(184, 146, 103, 0.14) 55%, rgba(184, 146, 103, 0.05));
   box-shadow: none;
   text-align: left;
   font-size: 1.2rem;

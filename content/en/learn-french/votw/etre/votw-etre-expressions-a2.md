@@ -56,6 +56,8 @@ Use *être en train de* with an infinitive to emphasize that something is happen
 <!-- pattern -->
 *être en train de* + infinitive
 
+Here it is in everyday lines:
+
 | French | English |
 |--------|---------|
 | Je suis en train de lire. | I am reading (right now). |
@@ -83,6 +85,8 @@ Many common physical states use *avoir* with a noun: *faim*, *soif*, *froid*, *c
 
 <!-- pattern -->
 *avoir* + noun
+
+Watch for slips like these:
 
 | Incorrect | Correct |
 |-----------|---------|

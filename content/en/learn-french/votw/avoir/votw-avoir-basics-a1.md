@@ -26,6 +26,8 @@ You have years, hunger, thirst, cold, and fear. French packages those ideas with
 <!-- pattern -->
 *avoir* + noun
 
+Here are some of the most common ones:
+
 | French | English |
 |--------|---------|
 | J'ai 20 ans. | I am 20. |

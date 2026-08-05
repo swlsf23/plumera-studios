@@ -37,6 +37,8 @@ Use *avoir envie de* to want something or to feel like doing something.
 <!-- pattern -->
 *avoir envie de* + noun / infinitive
 
+You will hear it with a noun or with an infinitive:
+
 | French | English |
 |--------|---------|
 | J'ai envie d'un café. | I feel like a coffee. / I want a coffee. |
@@ -48,6 +50,8 @@ Use *avoir besoin de* to need something or to need to do something.
 
 <!-- pattern -->
 *avoir besoin de* + noun / infinitive
+
+The same shape works for a thing you need or an action you need to do:
 
 | French | English |
 |--------|---------|
@@ -86,6 +90,8 @@ These states are nouns after *avoir*, not adjectives after *être*.
 
 <!-- pattern -->
 *avoir* + noun
+
+These are the usual mistakes:
 
 | Incorrect | Correct |
 |-----------|---------|
