@@ -2,11 +2,13 @@
   const form = document.querySelector("[data-catalog-controls]");
   const list = document.querySelector("[data-catalog-list]");
   const empty = document.querySelector("[data-catalog-empty]");
+  const chipsEl = document.querySelector("[data-catalog-chips]");
+  const countEl = document.querySelector("[data-catalog-count]");
   if (!form || !list) return;
 
   const qInput = form.querySelector("[data-catalog-q]");
   const levelSelect = form.querySelector("[data-catalog-level]");
-  const typeSelect = form.querySelector("[data-catalog-type]");
+  const typeInputs = [...form.querySelectorAll("[data-catalog-type]")];
   const sortSelect = form.querySelector("[data-catalog-sort]");
   const dateFromInput = form.querySelector("[data-catalog-date-from]");
   const dateToInput = form.querySelector("[data-catalog-date-to]");
@@ -30,8 +32,34 @@
     "type-desc",
   ]);
 
+  const chipSearchTpl = form.dataset.chipSearch || "Search: {q}";
+  const chipDateLabel = form.dataset.chipDate || "Date";
+  const countAllTpl = form.dataset.countAll || "{n} lessons";
+  const countFilteredTpl = form.dataset.countFiltered || "{n} matching lessons";
+
   function tokens(value) {
     return (value || "").trim().split(/\s+/).filter(Boolean);
+  }
+
+  function typeValues() {
+    return typeInputs.map((input) => input.value);
+  }
+
+  function selectedType() {
+    const checked = typeInputs.find((input) => input.checked);
+    return checked ? checked.value : "";
+  }
+
+  function setType(value) {
+    const match = typeInputs.find((input) => input.value === value) || typeInputs[0];
+    if (match) match.checked = true;
+  }
+
+  function typeLabel(value) {
+    if (!value) return "";
+    const input = typeInputs.find((el) => el.value === value);
+    const span = input?.closest("label")?.querySelector("span");
+    return span?.textContent?.trim() || value;
   }
 
   function readState() {
@@ -46,7 +74,7 @@
     if (level && levelSelect && ![...levelSelect.options].some((o) => o.value === level)) {
       level = "";
     }
-    if (type && typeSelect && ![...typeSelect.options].some((o) => o.value === type)) {
+    if (type && !typeValues().includes(type)) {
       type = "";
     }
     if (!VALID_SORTS.has(sort)) sort = "date-desc";
@@ -57,7 +85,7 @@
   function writeControls(state) {
     if (qInput) qInput.value = state.q;
     if (levelSelect) levelSelect.value = state.level;
-    if (typeSelect) typeSelect.value = state.type;
+    setType(state.type);
     if (sortSelect) sortSelect.value = state.sort;
     if (dateFromInput) dateFromInput.value = state.dateFrom;
     if (dateToInput) dateToInput.value = state.dateTo;
@@ -67,7 +95,7 @@
     return {
       q: qInput ? qInput.value.trim() : "",
       level: levelSelect ? levelSelect.value : "",
-      type: typeSelect ? typeSelect.value : "",
+      type: selectedType(),
       sort: sortSelect ? sortSelect.value : "date-desc",
       dateFrom: dateFromInput ? dateFromInput.value : "",
       dateTo: dateToInput ? dateToInput.value : "",
@@ -120,8 +148,6 @@
 
   function normalizeQuery(q) {
     if (!q) return "";
-    // caseFold is not on String; use toLocaleLowerCase for client match.
-    // Server-emitted data-search is already casefold()'d in Python.
     return q.toLocaleLowerCase();
   }
 
@@ -146,6 +172,65 @@
     return ta.localeCompare(tb);
   }
 
+  function hasActiveFilters(state) {
+    return Boolean(state.q || state.level || state.type || state.dateFrom || state.dateTo);
+  }
+
+  function formatCount(template, n) {
+    return template.replace(/\{n\}/g, String(n));
+  }
+
+  function dateChipText(state) {
+    if (state.dateFrom && state.dateTo && state.dateFrom === state.dateTo) {
+      return `${chipDateLabel}: ${state.dateFrom}`;
+    }
+    if (state.dateFrom && state.dateTo) {
+      return `${chipDateLabel}: ${state.dateFrom} – ${state.dateTo}`;
+    }
+    if (state.dateFrom) return `${chipDateLabel}: ${state.dateFrom}`;
+    if (state.dateTo) return `${chipDateLabel}: ${state.dateTo}`;
+    return "";
+  }
+
+  function renderChips(state) {
+    if (!chipsEl) return;
+    const chips = [];
+    if (state.q) {
+      chips.push({ key: "q", label: chipSearchTpl.replace(/\{q\}/g, state.q) });
+    }
+    if (state.level) {
+      chips.push({ key: "level", label: state.level });
+    }
+    if (state.type) {
+      chips.push({ key: "type", label: typeLabel(state.type) });
+    }
+    const dateLabel = dateChipText(state);
+    if (dateLabel) {
+      chips.push({ key: "date", label: dateLabel });
+    }
+
+    chipsEl.hidden = chips.length === 0;
+    chipsEl.replaceChildren(
+      ...chips.map((chip) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "catalog-chip";
+        btn.dataset.clear = chip.key;
+        btn.setAttribute("aria-label", `Clear ${chip.label}`);
+        btn.innerHTML = `<span class="catalog-chip__label"></span><span class="catalog-chip__x" aria-hidden="true">×</span>`;
+        btn.querySelector(".catalog-chip__label").textContent = chip.label;
+        return btn;
+      })
+    );
+  }
+
+  function renderCount(state, visible) {
+    if (!countEl) return;
+    const filtered = hasActiveFilters(state);
+    const tpl = filtered ? countFilteredTpl : countAllTpl;
+    countEl.textContent = formatCount(tpl, visible);
+  }
+
   function apply(state) {
     const qNorm = normalizeQuery(state.q);
     const items = [...list.querySelectorAll(".content-list__item")];
@@ -166,6 +251,8 @@
     shown.sort((a, b) => compare(a, b, state.sort));
     for (const item of shown) list.appendChild(item);
     refreshDateLabels();
+    renderChips(state);
+    renderCount(state, visible);
 
     if (empty) empty.hidden = visible !== 0;
   }
@@ -174,6 +261,17 @@
     const state = stateFromControls();
     syncUrl(state);
     apply(state);
+  }
+
+  function clearFilter(key) {
+    if (key === "q" && qInput) qInput.value = "";
+    if (key === "level" && levelSelect) levelSelect.value = "";
+    if (key === "type") setType("");
+    if (key === "date") {
+      if (dateFromInput) dateFromInput.value = "";
+      if (dateToInput) dateToInput.value = "";
+    }
+    onChange();
   }
 
   const initial = readState();
@@ -193,6 +291,14 @@
       if (dateToInput) dateToInput.value = "";
       onChange();
       dateFromInput?.focus();
+    });
+  }
+
+  if (chipsEl) {
+    chipsEl.addEventListener("click", (event) => {
+      const btn = event.target.closest("[data-clear]");
+      if (!btn || !chipsEl.contains(btn)) return;
+      clearFilter(btn.dataset.clear);
     });
   }
 })();
