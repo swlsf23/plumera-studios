@@ -1095,6 +1095,36 @@
   width: 100%;
 }
 
+.content-page .catalog-controls__date-actions {
+  display: flex;
+  align-items: center;
+  padding-bottom: 2px;
+}
+
+.content-page .catalog-controls__clear-dates {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--blue-deep);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+}
+
+.content-page .catalog-controls__clear-dates:hover,
+.content-page .catalog-controls__clear-dates:focus-visible {
+  color: var(--ink);
+}
+
+.content-page .catalog-controls__clear-dates:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
 .content-page .catalog-controls__hint {
   margin: 0;
   flex: 1 1 100%;

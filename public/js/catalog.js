@@ -10,6 +10,7 @@
   const sortSelect = form.querySelector("[data-catalog-sort]");
   const dateFromInput = form.querySelector("[data-catalog-date-from]");
   const dateToInput = form.querySelector("[data-catalog-date-to]");
+  const dateClearBtn = form.querySelector("[data-catalog-date-clear]");
 
   const LEVEL_RANK = { A1: 0, A2: 1, B1: 2, B2: 3, C1: 4, C2: 5 };
   const TYPE_RANK = {
@@ -185,4 +186,13 @@
   });
   form.addEventListener("change", onChange);
   form.addEventListener("input", onChange);
+
+  if (dateClearBtn) {
+    dateClearBtn.addEventListener("click", () => {
+      if (dateFromInput) dateFromInput.value = "";
+      if (dateToInput) dateToInput.value = "";
+      onChange();
+      dateFromInput?.focus();
+    });
+  }
 })();

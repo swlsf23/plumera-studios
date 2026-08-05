@@ -478,6 +478,11 @@ def catalog_controls_html(locale: str, entries: list[CatalogEntry]) -> str:
       <span class="catalog-controls__sublabel">{escape(chrome["catalog_date_to"])}</span>
       <input type="date" name="dateTo" data-catalog-date-to>
     </label>
+    <div class="catalog-controls__date-actions">
+      <button type="button" class="catalog-controls__clear-dates" data-catalog-date-clear>
+        {escape(chrome["catalog_date_clear"])}
+      </button>
+    </div>
     <p class="catalog-controls__hint">{escape(chrome["catalog_date_hint"])}</p>
   </fieldset>
 </form>

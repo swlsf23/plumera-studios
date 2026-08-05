@@ -80,6 +80,7 @@ class CatalogIndexTests(unittest.TestCase):
         entries = build_catalog_entries(CONTENT, "en", "learn-french")
         html = catalog_controls_html("en", entries)
         self.assertIn("data-catalog-q", html)
+        self.assertIn("data-catalog-date-clear", html)
         self.assertIn('value="A1"', html)
         self.assertIn('value="verb"', html)
         self.assertIn('value="grammar"', html)
