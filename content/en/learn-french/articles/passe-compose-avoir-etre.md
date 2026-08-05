@@ -46,7 +46,7 @@ For the verbs themselves, see [Avoir - basics](/en/learn-french/votw/avoir/votw-
 
 ## Start with *avoir*
 
-Build the past with a present form of *avoir* plus a past participle.
+Build the past with a present form of *avoir* plus a past participle:
 
 <!-- pattern -->
 *avoir* + past participle

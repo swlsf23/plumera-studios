@@ -10,6 +10,8 @@ date: 2026-07-11
 related:
   - href: /en/learn-french/votw/etre/votw-etre-basics-a1/
   - href: /en/learn-french/votw/avoir/votw-avoir-basics-a1/
+  - title: "Passé composé with avoir and être"
+    href: /en/learn-french/articles/passe-compose-avoir-etre/
   - href: /en/learn-french/votw/
 ---
 
@@ -56,7 +58,7 @@ Use *être en train de* with an infinitive to emphasize that something is happen
 <!-- pattern -->
 *être en train de* + infinitive
 
-Here it is in everyday lines:
+Here are some common examples:
 
 | French | English |
 |--------|---------|

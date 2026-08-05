@@ -10,6 +10,8 @@ date: 2026-07-18
 related:
   - href: /en/learn-french/votw/avoir/votw-avoir-basics-a1/
   - href: /en/learn-french/votw/etre/votw-etre-basics-a1/
+  - title: "Passé composé with avoir and être"
+    href: /en/learn-french/articles/passe-compose-avoir-etre/
   - href: /en/learn-french/votw/
 ---
 

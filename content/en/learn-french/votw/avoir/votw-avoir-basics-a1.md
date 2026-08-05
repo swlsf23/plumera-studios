@@ -41,6 +41,13 @@ You will also meet *avoir* early as the usual helper in the past tense:
 <!-- pattern -->
 *avoir* + past participle
 
+Here are some common examples:
+
+| French | English |
+|--------|---------|
+| J'ai mangé. | I ate. / I have eaten. |
+| Elle a parlé. | She spoke. / She has spoken. |
+
 ## Forms and grammar
 
 *Avoir* is irregular, and the present forms are worth learning early because they support a lot of basic French:
@@ -132,7 +139,7 @@ Learn each line as a whole phrase (*avoir faim*, *avoir soif*, and the rest).
 ## Related verbs
 
 - [être](/en/learn-french/votw/etre/votw-etre-basics-a1/): to be (identity, place, description)
-- prendre: to take / to have food or drink in many café lines
+- [prendre](/en/learn-french/votw/votw-prendre-a1/): to take / to have food or drink in many café lines
 - vouloir: to want
 - devoir: to have to / must
 
