@@ -178,8 +178,12 @@
 
   function normalizeQuery(q) {
     if (!q) return "";
-    // Match builder search_blob() (Python casefold / ASCII-friendly lower).
-    return q.toLowerCase();
+    // Must match CatalogEntry.search_blob() / Python str.casefold().
+    const fold = globalThis.PlumeraCaseFold;
+    if (typeof fold !== "function") {
+      throw new Error("PlumeraCaseFold is required for catalog search");
+    }
+    return fold(q);
   }
 
   function compare(a, b, sort) {
@@ -320,12 +324,28 @@
     if (empty) empty.hidden = visible !== 0;
   }
 
+  let lastAppliedSig = null;
+
+  function stateSignature(state) {
+    return [
+      state.q,
+      state.level,
+      state.type,
+      state.sort,
+      state.dateFrom,
+      state.dateTo,
+    ].join("\0");
+  }
+
   function onChange() {
     const state = stateFromControls();
     // Keep inputs ordered when the user enters an inverted range.
     if (state.dateSwapped) {
       writeControls(state);
     }
+    const sig = stateSignature(state);
+    if (sig === lastAppliedSig) return;
+    lastAppliedSig = sig;
     syncUrl(state);
     apply(state);
   }
@@ -357,13 +377,12 @@
     onChangeImmediate();
   }
 
-  function isDebouncedControl(target) {
-    return Boolean(
-      target &&
-        (target.matches("[data-catalog-q]") ||
-          target.matches("[data-catalog-date-from]") ||
-          target.matches("[data-catalog-date-to]")),
-    );
+  function bindDebouncedField(el) {
+    if (!el) return;
+    // Typing / stepwise date edits: debounce.
+    el.addEventListener("input", onChangeDebounced);
+    // Picker commit / blur: flush once (signature guard skips true dupes).
+    el.addEventListener("change", onChangeImmediate);
   }
 
   // Progressive enhancement: reveal filters only when JS can drive them.
@@ -374,16 +393,23 @@
   writeControls(initial);
   syncFiltersPanel(initial, { openIfActive: true });
   apply(initial);
+  lastAppliedSig = stateSignature(initial);
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     onChangeImmediate();
   });
-  form.addEventListener("change", onChangeImmediate);
-  form.addEventListener("input", (event) => {
-    if (isDebouncedControl(event.target)) onChangeDebounced();
-    else onChangeImmediate();
-  });
+
+  // Selects / radios: change only (no parallel input handler).
+  if (levelSelect) levelSelect.addEventListener("change", onChangeImmediate);
+  if (sortSelect) sortSelect.addEventListener("change", onChangeImmediate);
+  for (const input of typeInputs) {
+    input.addEventListener("change", onChangeImmediate);
+  }
+
+  bindDebouncedField(qInput);
+  bindDebouncedField(dateFromInput);
+  bindDebouncedField(dateToInput);
 
   if (dateClearBtn) {
     dateClearBtn.addEventListener("click", () => {

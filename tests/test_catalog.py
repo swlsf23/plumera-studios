@@ -123,7 +123,22 @@ class CatalogIndexTests(unittest.TestCase):
         etre = next(e for e in entries if "etre-basics" in e.id)
         blob = etre.search_blob()
         self.assertIn("être", blob)
+        self.assertEqual(blob, blob.casefold())
         self.assertNotIn("topic", etre.to_json())
+
+    def test_search_blob_uses_unicode_casefold(self) -> None:
+        from tools.content_builder.catalog import CatalogEntry
+
+        entry = CatalogEntry(
+            id="x",
+            title="Straße",
+            href="/en/x/",
+            date="2026-01-01",
+            level=["A1"],
+            type=["grammar"],
+            summary="ẞ test",
+        )
+        self.assertEqual(entry.search_blob(), "strasse ss test")
 
     def test_unknown_type_rejected(self) -> None:
         with self.assertRaises(ValueError):
@@ -152,6 +167,7 @@ class CatalogBuildTests(unittest.TestCase):
             self.assertIn('data-catalog-enhance hidden', html)
             self.assertIn("catalog-noscript", html)
             self.assertIn("Filtering and sorting need JavaScript", html)
+            self.assertIn("/js/unicode-casefold.js", html)
             self.assertIn("/js/catalog.js", html)
             self.assertIn('rel="canonical" href="https://plumerastudios.com/en/learn-french/catalog/"', html)
             self.assertIn('href="/en/learn-french/votw/"', html)

@@ -72,7 +72,10 @@ class CatalogEntry:
         return out
 
     def search_blob(self) -> str:
-        """Lowercased title + summary for client text filter (not body)."""
+        """Unicode-casefolded title + summary for client text filter (not body).
+
+        Must stay aligned with public/js/unicode-casefold.js (Python casefold).
+        """
         return f"{self.title} {self.summary}".casefold()
 
 

@@ -335,6 +335,7 @@ Qualitative bar still applies: authoring stays frontmatter + Markdown; result UR
 - Query string sync (`q`, level, type, sort, date).
 - Reuse content-list presentation; controls above the list.
 - Full list in HTML for SEO / no-JS; JS filters and sorts in place. Without JS, filter controls stay hidden and a noscript note explains that filtering needs JavaScript.
+- Text filter uses Unicode case folding on both sides (Python `str.casefold()` in the index blob; matching JS helper for the query).
 - Sitemap entry for the catalog URL.
 - Backfill `type` / `level` / `date` on every listable page; authoring docs updated. No `topic` field.
 
