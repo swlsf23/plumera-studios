@@ -102,6 +102,12 @@ def _content_url_for(md_path: Path) -> str | None:
             return f"/{locale}/{target}/votw/"
         return f"/{locale}/{target}/votw/{stem}/"
 
+    # …/votw/{lemma}/{job}.md
+    if len(parts) == 5 and parts[2] == "votw" and parts[4].endswith(".md"):
+        lemma = parts[3]
+        stem = parts[4][: -len(".md")]
+        return f"/{locale}/{target}/votw/{lemma}/{stem}/"
+
     # …/articles/{slug}.md
     if len(parts) == 4 and parts[2] == ARTICLES_DIR and parts[3].endswith(".md"):
         stem = parts[3][: -len(".md")]

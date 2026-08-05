@@ -62,6 +62,39 @@ def _md_to_html(text: str) -> str:
     )
 
 
+def _rewrite_local_images(html: str, md_path: Path, locale: str) -> str:
+    """Turn repo-relative img src into site URLs so MD preview and dist both work.
+
+    Authors can use paths relative to the Markdown file (e.g. ``../../img/x.png``)
+    for Cursor/VS Code preview. The build rewrites those to ``/{locale}/img/...``.
+    """
+    img_root: Path | None = None
+    for parent in md_path.parents:
+        candidate = parent / "img"
+        if parent.name == locale and candidate.is_dir():
+            img_root = candidate.resolve()
+            break
+        if parent.name == "content":
+            break
+    if img_root is None:
+        return html
+
+    def repl(match: re.Match[str]) -> str:
+        src = match.group(1)
+        if not src or src.startswith(("http://", "https://", "data:", "/")):
+            return match.group(0)
+        resolved = (md_path.parent / src).resolve()
+        try:
+            rel = resolved.relative_to(img_root)
+        except ValueError:
+            return match.group(0)
+        if ".." in rel.parts:
+            return match.group(0)
+        return f'src="/{locale}/img/{rel.as_posix()}"'
+
+    return re.sub(r'src="([^"]+)"', repl, html)
+
+
 def _strip_tag(html: str, tag: str) -> tuple[str, str]:
     pattern = re.compile(rf"<{tag}[^>]*>(.*?)</{tag}>", re.I | re.S)
     match = pattern.search(html)
@@ -118,6 +151,29 @@ def _classify_votw_tables(html: str) -> str:
 
     return re.sub(
         r"(?:<!--\s*table:\s*(\w+)\s*-->\s*)?(<table\b[^>]*>.*?</table>)",
+        repl,
+        html,
+        flags=re.I | re.S,
+    )
+
+
+def _tag_grammar_patterns(html: str) -> str:
+    """Optional Markdown hint above a pattern line: <!-- pattern -->."""
+
+    def repl(match: re.Match[str]) -> str:
+        paragraph = match.group(1)
+        if re.search(r'\bclass="', paragraph[:48], flags=re.I):
+            return paragraph
+        return re.sub(
+            r"<p\b",
+            '<p class="grammar-pattern"',
+            paragraph,
+            count=1,
+            flags=re.I,
+        )
+
+    return re.sub(
+        r"<!--\s*pattern\s*-->\s*(<p\b[^>]*>.*?</p>)",
         repl,
         html,
         flags=re.I | re.S,
@@ -201,6 +257,13 @@ def _parse_related(meta: dict, path: Path) -> list[dict[str, str]]:
     return items
 
 
+def _show_hero_art(meta: dict) -> bool:
+    """Title hero on by default; set frontmatter ``hero: false`` to omit it."""
+    if "hero" not in meta or meta["hero"] is None:
+        return True
+    return bool(meta["hero"])
+
+
 def parse_core_page(path: Path, locale: str) -> Page:
     raw = path.read_text(encoding="utf-8")
     post = frontmatter.loads(raw)
@@ -214,6 +277,7 @@ def parse_core_page(path: Path, locale: str) -> Page:
         body = "\n".join(lines[1:]).lstrip()
 
     html = _md_to_html(body)
+    html = _rewrite_local_images(html, path, locale)
     heading, html = _strip_tag(html, "h1")
     html, toc = _inject_heading_ids(html)
 
@@ -232,7 +296,7 @@ def parse_core_page(path: Path, locale: str) -> Page:
         toc=toc,
         related=_parse_related(meta, path),
         active=stem,
-        show_hero_art=True,
+        show_hero_art=_show_hero_art(meta),
     )
 
 
@@ -263,11 +327,13 @@ def parse_votw_page(path: Path, locale: str, target: str) -> Page:
     date_label = _format_date(meta.get("date"), locale)
 
     html = _md_to_html(post.content.strip())
+    html = _rewrite_local_images(html, path, locale)
     heading, html = _strip_tag(html, "h1")
     if not heading:
         heading = title
     html, toc = _inject_heading_ids(html)
     html = _classify_votw_tables(html)
+    html = _tag_grammar_patterns(html)
 
     # Eyebrow: frontmatter override, else series name (+ date on articles).
     series_name = str(meta.get("category") or votw_series_label(locale, target))
@@ -286,7 +352,14 @@ def parse_votw_page(path: Path, locale: str, target: str) -> Page:
 
     heading_html = heading.replace(" — ", "<br>") if " — " in heading else heading
     series = f"/{locale}/{target}/votw/"
-    canonical_path = series if stem == VOTW_INDEX_STEM else f"{series}{slug}/"
+    if stem == VOTW_INDEX_STEM:
+        canonical_path = series
+    elif path.parent.name != "votw":
+        # content/.../votw/{lemma}/{job}.md → /.../votw/{lemma}/{job}/
+        lemma = path.parent.name
+        canonical_path = f"{series}{lemma}/{slug}/"
+    else:
+        canonical_path = f"{series}{slug}/"
 
     return Page(
         locale=locale,
@@ -300,7 +373,7 @@ def parse_votw_page(path: Path, locale: str, target: str) -> Page:
         toc=toc,
         related=_parse_related(meta, path),
         active="votw",
-        show_hero_art=True,
+        show_hero_art=_show_hero_art(meta),
         level=str(meta.get("level") or "").strip(),
     )
 
@@ -333,11 +406,13 @@ def parse_article_page(path: Path, locale: str, target: str) -> Page:
     date_label = _format_date(meta.get("date"), locale)
 
     html = _md_to_html(post.content.strip())
+    html = _rewrite_local_images(html, path, locale)
     heading, html = _strip_tag(html, "h1")
     if not heading:
         heading = title
     html, toc = _inject_heading_ids(html)
     html = _classify_votw_tables(html)
+    html = _tag_grammar_patterns(html)
 
     eyebrow_override = str(meta.get("eyebrow") or "").strip()
     if eyebrow_override:
@@ -367,7 +442,7 @@ def parse_article_page(path: Path, locale: str, target: str) -> Page:
         toc=toc,
         related=_parse_related(meta, path),
         active="articles",
-        show_hero_art=True,
+        show_hero_art=_show_hero_art(meta),
         level=str(meta.get("level") or "").strip(),
     )
 
@@ -416,7 +491,7 @@ def is_draft(path: Path) -> bool:
 
 
 def discover_votw_pages(content_root: Path) -> list[tuple[Path, str, str]]:
-    """Find content/{locale}/{target}/votw/*.md, series index.md included."""
+    """Find votw/*.md and votw/{lemma}/*.md under each locale/target."""
     pages: list[tuple[Path, str, str]] = []
     for locale_dir in _locale_dirs(content_root):
         for target_dir in _target_dirs(locale_dir):
@@ -424,6 +499,8 @@ def discover_votw_pages(content_root: Path) -> list[tuple[Path, str, str]]:
             if not votw.is_dir():
                 continue
             for path in sorted(votw.glob("*.md")):
+                pages.append((path, locale_dir.name, target_dir.name))
+            for path in sorted(votw.glob("*/*.md")):
                 pages.append((path, locale_dir.name, target_dir.name))
     return pages
 
@@ -467,6 +544,7 @@ def parse_whats_new_page(path: Path, locale: str, target: str) -> Page:
     title = str(meta.get("title") or chrome_for(locale)["whats_new"])
     description = str(meta.get("description") or "")
     html = _md_to_html(post.content.strip())
+    html = _rewrite_local_images(html, path, locale)
     heading, html = _strip_tag(html, "h1")
     if not heading:
         heading = title
@@ -486,7 +564,7 @@ def parse_whats_new_page(path: Path, locale: str, target: str) -> Page:
         toc=toc,
         related=_parse_related(meta, path),
         active=WHATS_NEW_STEM,
-        show_hero_art=True,
+        show_hero_art=_show_hero_art(meta),
     )
 
 
@@ -521,6 +599,19 @@ def _list_title_from_post(post, fallback: str) -> str:
     return _plain_list_title(list_title)
 
 
+def _votw_lesson_paths(votw: Path) -> list[Path]:
+    """Flat votw/*.md lessons plus nested votw/{lemma}/*.md (index excluded)."""
+    paths = [p for p in votw.glob("*.md") if p.stem != VOTW_INDEX_STEM]
+    paths.extend(votw.glob("*/*.md"))
+    return sorted(paths)
+
+
+def _votw_href(locale: str, target: str, path: Path, slug: str) -> str:
+    if path.parent.name == "votw":
+        return f"/{locale}/{target}/votw/{slug}/"
+    return f"/{locale}/{target}/votw/{path.parent.name}/{slug}/"
+
+
 def votw_links(
     content_root: Path, locale: str, target: str, *, include_drafts: bool = False
 ) -> list[dict[str, str]]:
@@ -529,9 +620,7 @@ def votw_links(
     votw = content_root / locale / target / "votw"
     if not votw.is_dir():
         return []
-    for path in votw.glob("*.md"):
-        if path.stem == VOTW_INDEX_STEM:
-            continue
+    for path in _votw_lesson_paths(votw):
         post = frontmatter.load(path)
         meta = post.metadata
         if meta.get("draft") and not include_drafts:
@@ -551,7 +640,7 @@ def votw_links(
                     "date": date_label,
                     "description": description,
                     "level": level,
-                    "href": f"/{locale}/{target}/votw/{slug}/",
+                    "href": _votw_href(locale, target, path, slug),
                 },
             )
         )
@@ -569,9 +658,7 @@ def recent_target_links(
 
     votw = content_root / locale / target / "votw"
     if votw.is_dir():
-        for path in votw.glob("*.md"):
-            if path.stem == VOTW_INDEX_STEM:
-                continue
+        for path in _votw_lesson_paths(votw):
             post = frontmatter.load(path)
             meta = post.metadata
             if meta.get("draft") and not include_drafts:
@@ -586,7 +673,7 @@ def recent_target_links(
                         "description": str(meta.get("description") or "").strip(),
                         "level": str(meta.get("level") or "").strip(),
                         "kind": series_name,
-                        "href": f"/{locale}/{target}/votw/{slug}/",
+                        "href": _votw_href(locale, target, path, slug),
                     },
                 )
             )

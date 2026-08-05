@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 import tempfile
 import unittest
 from pathlib import Path
@@ -108,6 +109,42 @@ class ArtBandMarkerTests(unittest.TestCase):
 
         html = "<p>plain</p>"
         self.assertEqual(_expand_art_bands(html), html)
+
+
+class TitleHeroPlacementTests(unittest.TestCase):
+    def test_default_after_first_paragraph(self) -> None:
+        from tools.content_builder.build import _place_title_hero
+
+        html = "<p>Lead.</p>\n<p>Second.</p>"
+        out = _place_title_hero(html)
+        self.assertRegex(out, r"<p>Lead\.</p>\s*<div class=\"hero-art-slot\"")
+        self.assertIn("<p>Second.</p>", out)
+        self.assertNotIn("hero-art--inline", out)
+
+    def test_manual_marker_wins(self) -> None:
+        from tools.content_builder.build import _place_title_hero
+
+        html = "<p>Lead.</p>\n<!-- art: hero -->\n<p>Second.</p>"
+        out = _place_title_hero(html)
+        self.assertRegex(
+            out,
+            re.compile(
+                r"<p>Lead\.</p>\s*<div class=\"hero-art-slot\".*<p>Second\.</p>",
+                re.S,
+            ),
+        )
+        self.assertNotIn("<!-- art: hero -->", out)
+        # Only one title hero (not also after first p).
+        self.assertEqual(out.count('class="hero-art-slot"'), 1)
+        self.assertEqual(out.count("hero-art--inline"), 0)
+
+    def test_prepends_when_no_paragraph(self) -> None:
+        from tools.content_builder.build import _place_title_hero
+
+        html = "<h2>Forms</h2>"
+        out = _place_title_hero(html)
+        self.assertTrue(out.startswith('<div class="hero-art-slot"'))
+        self.assertIn("<h2>Forms</h2>", out)
 
 
 if __name__ == "__main__":
