@@ -114,6 +114,9 @@ Index always normalizes to arrays for `level` and `type`:
 | `conjugation` | Conjugation / paradigm series |
 | `vocabulary` | Word sets, false friends, lexicon explainers |
 | `pronunciation` | Sound, liaison, stress, standalone pronunciation pages |
+| `guide` | Locale-wide reference (CEFR, exams, and similar `core/` pages) |
+
+Locale `core/` pages opt into every target catalog for that locale with `catalog: true` plus the usual `level` / `type` / `date` fields.
 
 Do **not** invent synonyms (`expressions`, `idioms`, `tense`) — use multi-type (`verb` + `grammar`) and/or the catalog text filter instead. Series identity stays in `kind`, not `type`.
 
@@ -140,7 +143,7 @@ Phase 1 is not a prototype with missing controls. What ships must fully work.
   - Empty-state copy when nothing matches.
 - **Sort:** date, level, or type, each with a defined direction. Default: **date newest first** (`date-desc`).
   - Level order for sort: A1 → C2 (and reverse).
-  - Type order for sort: allow-list order (`verb`, `grammar`, `conjugation`, `vocabulary`, `pronunciation`).
+  - Type order for sort: allow-list order (`verb`, `grammar`, `conjugation`, `vocabulary`, `pronunciation`, `guide`).
 - **Query sync:** `?q=&level=&type=&sort=&date=&dateFrom=&dateTo=` so views are shareable.
 - Filters apply first (AND across dimensions); sort applies to whatever remains. Sort never changes membership.
 

@@ -61,10 +61,12 @@ class CatalogDateMatchDocTests(unittest.TestCase):
 class CatalogIndexTests(unittest.TestCase):
     def test_en_learn_french_entries(self) -> None:
         entries = build_catalog_entries(CONTENT, "en", "learn-french")
-        self.assertGreaterEqual(len(entries), 8)
+        self.assertGreaterEqual(len(entries), 10)
         hrefs = {e.href for e in entries}
         self.assertIn("/en/learn-french/votw/etre/votw-etre-basics-a1/", hrefs)
         self.assertIn("/en/learn-french/articles/passe-compose-avoir-etre/", hrefs)
+        self.assertIn("/en/cefr/", hrefs)
+        self.assertIn("/en/language-certification-exams/", hrefs)
         for entry in entries:
             self.assertTrue(entry.level)
             self.assertTrue(entry.type)
@@ -74,7 +76,10 @@ class CatalogIndexTests(unittest.TestCase):
 
     def test_drafts_excluded_by_default(self) -> None:
         entries = build_catalog_entries(CONTENT, "es", "aprender-frances")
-        self.assertEqual(entries, [])
+        # Draft VOTW lessons stay out; locale core guides may still appear.
+        hrefs = {e.href for e in entries}
+        self.assertEqual(hrefs, {"/es/cefr/"})
+        self.assertTrue(all("/votw/" not in e.href for e in entries))
 
     def test_controls_only_present_facets(self) -> None:
         entries = build_catalog_entries(CONTENT, "en", "learn-french")
@@ -84,6 +89,7 @@ class CatalogIndexTests(unittest.TestCase):
         self.assertIn('value="A1"', html)
         self.assertIn('value="verb"', html)
         self.assertIn('value="grammar"', html)
+        self.assertIn('value="guide"', html)
         # No empty pronunciation/conjugation facets until pages exist.
         self.assertNotIn('value="pronunciation"', html)
         self.assertNotIn('value="conjugation"', html)

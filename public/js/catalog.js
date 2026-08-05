@@ -23,6 +23,7 @@
     conjugation: 2,
     vocabulary: 3,
     pronunciation: 4,
+    guide: 5,
   };
 
   const VALID_SORTS = new Set([

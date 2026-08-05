@@ -14,6 +14,7 @@ import frontmatter
 from tools.content_builder.chrome import chrome_for, format_date, votw_series_label
 from tools.content_builder.parse import (
     ARTICLES_DIR,
+    CORE_DIR,
     Page,
     WHATS_NEW_STEM,
     _frontmatter_sort_date,
@@ -33,6 +34,7 @@ CATALOG_TYPES: tuple[str, ...] = (
     "conjugation",
     "vocabulary",
     "pronunciation",
+    "guide",
 )
 LEVEL_RANK = {code: i for i, code in enumerate(CEFR_LEVELS)}
 TYPE_RANK = {code: i for i, code in enumerate(CATALOG_TYPES)}
@@ -203,11 +205,44 @@ def build_catalog_entries(
                 continue
             items.append((_frontmatter_sort_date(frontmatter.load(path).metadata.get("date")), entry))
 
+    # Locale-wide core pages (CEFR, exams, …) opt in with catalog: true.
+    core = content_root / locale / CORE_DIR
+    if core.is_dir():
+        for path in sorted(core.glob("*.md")):
+            if path.stem == "index":
+                continue
+            post = frontmatter.load(path)
+            if not _catalog_opt_in(post.metadata):
+                continue
+            draft = is_draft(path)
+            if draft and not include_drafts:
+                continue
+            try:
+                entry = _entry_from_core(path, locale, post)
+            except ValueError as exc:
+                if draft:
+                    print(f"warning: skip draft catalog entry: {exc}", file=sys.stderr)
+                    continue
+                errors.append(str(exc))
+                continue
+            items.append(
+                (_frontmatter_sort_date(post.metadata.get("date")), entry)
+            )
+
     if errors:
         raise ValueError("catalog metadata errors:\n- " + "\n- ".join(errors))
 
     items.sort(key=lambda pair: (pair[0], pair[1].title), reverse=True)
     return [entry for _sort_date, entry in items]
+
+
+def _catalog_opt_in(meta: dict) -> bool:
+    raw = meta.get("catalog")
+    if raw is True:
+        return True
+    if isinstance(raw, str) and raw.strip().lower() in {"true", "yes", "1"}:
+        return True
+    return False
 
 
 def _entry_from_votw(
@@ -275,6 +310,34 @@ def _entry_from_article(
     )
 
 
+def _entry_from_core(path: Path, locale: str, post: object) -> CatalogEntry:
+    meta = post.metadata
+    source = f"{locale}/{CORE_DIR}/{path.name}"
+    slug = str(meta.get("slug") or path.stem)
+    levels = validate_levels(normalize_str_list(meta.get("level")), source=source)
+    types = validate_types(normalize_str_list(meta.get("type")), source=source)
+    date_s = iso_date_string(meta.get("date"))
+    if not levels:
+        raise ValueError(f"{source}: missing level")
+    if not types:
+        raise ValueError(f"{source}: missing type")
+    if not date_s:
+        raise ValueError(f"{source}: missing date")
+
+    href = f"/{locale}/{slug}/"
+    kind = str(meta.get("eyebrow") or "").strip()
+    return CatalogEntry(
+        id=href.strip("/"),
+        title=_list_title_from_post(post, path.stem),
+        href=href,
+        date=date_s,
+        level=levels,
+        type=types,
+        summary=str(meta.get("description") or "").strip(),
+        kind=kind,
+    )
+
+
 def catalog_index_payload(
     locale: str, target: str, entries: list[CatalogEntry]
 ) -> dict[str, object]:
@@ -325,6 +388,9 @@ def make_catalog_page(
 def _title_with_levels(title: str, levels: list[str]) -> str:
     title = title.strip()
     if not title or not levels:
+        return title
+    # Multi-level reference pages (e.g. CEFR guide) keep a bare title.
+    if len(levels) != 1:
         return title
     # Match site standard: append primary level when not already present.
     primary = levels[0]
@@ -426,6 +492,7 @@ def catalog_controls_html(locale: str, entries: list[CatalogEntry]) -> str:
         "conjugation": chrome["catalog_type_conjugation"],
         "vocabulary": chrome["catalog_type_vocabulary"],
         "pronunciation": chrome["catalog_type_pronunciation"],
+        "guide": chrome["catalog_type_guide"],
     }
 
     type_pills = [
