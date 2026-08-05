@@ -1063,7 +1063,9 @@
 }
 
 .content-page .catalog-controls__field--date {
-  flex: 1 1 160px;
+  flex: 0 0 auto;
+  min-width: 0;
+  width: 9.75rem;
 }
 
 .content-page .catalog-controls__field--q {
@@ -1143,6 +1145,12 @@
   border-radius: 8px;
   background: var(--paper);
   color: var(--ink);
+}
+
+.content-page .catalog-controls input[type="date"] {
+  width: 100%;
+  max-width: 9.75rem;
+  box-sizing: border-box;
 }
 
 .content-page .catalog-controls select:focus-visible,
