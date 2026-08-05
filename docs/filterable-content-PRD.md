@@ -73,22 +73,25 @@ A field may support **filter**, **sort**, both, or neither in the UI. Separately
 |-----------|---------|---------|-------|--------------------|------------------------|--------|
 | **Locale** | `locale` | — | — | Scope (URL) | yes | Separate locale sites; no hreflang blending |
 | **Target** | `target` | — | — | Scope (URL) | yes | Language being taught |
-| **Level** | `level` | yes | yes | **Filter** required; **sort by level** optional | yes | CEFR: `A1` … `C2` (exact code; no ranges in v1) |
-| **Content type** | `type` | yes | yes | **Filter** required; **sort by type** optional | yes | Controlled: start `verb` \| `grammar` |
-| **Topic** | `topic` | later | later | Deferred (optional field) | no | e.g. verb lemma |
-| **Date / freshness** | `date` | later (range) | yes | **Sort by date** required (newest / oldest); date-range **filter** deferred | yes | ISO `YYYY-MM-DD` in index |
+| **Level** | `level` | yes | yes | **Filter** and **sort** | yes | CEFR: `A1` … `C2` (exact code; no ranges in v1) |
+| **Content type** | `type` | yes | yes | **Filter** and **sort** | yes | Controlled: start `verb` \| `grammar` |
+| **Topic** | `topic` | later | later | Field may exist; no learner filter/sort in phase 1 | no | e.g. verb lemma |
+| **Date / freshness** | `date` | later (range) | yes | **Sort** in phase 1; date-range **filter** deferred | yes | ISO `YYYY-MM-DD` in index |
 | **Publish state** | `draft` | system | — | System only | n/a | Production index omits drafts; not a learner filter |
 | **Series / kind** | path / chrome | no | no | Display only | no | “VOTW” vs “Article” label ≠ `type` taxonomy |
 | **Audience** | — | — | — | Out of scope | — | Use **level**, not a separate audience field |
 | **Relevance** | search score | — | phase 3 | N/A until search | — | Sort key for search hits only |
 
-**Phase 1 UI minimum**
+**Phase 1 UI (complete — no partial ship)**
 
-- **Filters:** level, type (including “all” = no restriction on that dimension).
-- **Sort:** date (newest / oldest) required; level and type as additional sort keys are in scope for phase 1 if cheap to ship, otherwise phase 1.1.
-- Optional query sync: `?level=&type=&sort=`.
+Phase 1 is not a prototype with missing controls. What ships must fully work.
 
-Filters apply first; sort applies to whatever remains.
+- **Filters:** level and type, each with an explicit “all” (no restriction) state. Combining filters is AND (e.g. A1 **and** verb). Empty-state copy when nothing matches.
+- **Sort:** learner can sort the current (filtered) set by **date**, **level**, or **type**, each with a defined direction (e.g. date newest/oldest; level A1→C2 / C2→A1; type alphabetical or vocabulary order). Default sort documented (recommend: date newest first).
+- **Query sync:** `?level=&type=&sort=` reflects the UI so views are shareable/bookmarkable.
+- Filters apply first; sort applies to whatever remains. Sort never changes membership.
+
+Deferred on purpose (not “shortcuts”): date-range **filter**, topic filter/sort, search relevance — those need later phases or separate scope, not a half-done phase 1 control.
 
 ## Data contract (v1)
 
@@ -222,7 +225,7 @@ Qualitative bar still applies: authoring stays frontmatter + Markdown; result UR
 | **Index coverage** | 100% of non-draft listable pages for the shipped target(s) appear in the catalog index with required fields |
 | **Metadata completeness** | 100% of those entries have non-empty `level`, `type`, `date`, `title`, `href` |
 | **Filter correctness** | Each level/type filter shows **only** matching rows; “all” shows the unfiltered index |
-| **Sort correctness** | Changing sort reorders the current (filtered) set without changing which rows are included |
+| **Sort correctness** | Date, level, and type sort keys each reorder the current (filtered) set without changing membership; default sort is documented and tested |
 | **Draft exclusion** | 0 drafts in production index / production catalog HTML |
 | **Result integrity** | 100% of catalog `href`s resolve to emitted static HTML in `dist/` (internal link check) |
 | **Page weight (sanity)** | Full inlined list acceptable at ≤ ~50 entries; revisit phase 2 trigger if HTML list payload becomes a measured LCP problem |
@@ -255,8 +258,8 @@ Qualitative bar still applies: authoring stays frontmatter + Markdown; result UR
 
 - One generated catalog page per target that has listable content (start with `en/learn-french`).
 - Builder always emits the **catalog index JSON** and builds the page list **from that index** (one code path).
-- Page UI: **filter** to only matching level and/or type; **sort** the remaining rows (date required; level/type sort optional in phase 1).
-- Optional shareable query string: `?level=A1&type=verb&sort=date-desc`.
+- Page UI: **filter** by level and/or type (AND); **sort** the remaining rows by date, level, or type (all three ship in phase 1).
+- Query string sync: `?level=A1&type=verb&sort=date-desc` (and equivalent sort keys for level/type).
 - Reuse existing content-list presentation where it fits; filters sit above the list.
 - ~20 rows inlined in HTML is acceptable.
 
