@@ -152,7 +152,7 @@ slug:           # votw-{verbo}-{nivel}, p. ej. votw-take-a2
 target: aprender-ingles      # Idioma que se enseña
 locale: es      # Idioma de la explicación (audiencia)
 level:          # MCER: A1 | A2 | B1 | B2 | C1 | C2, o un rango como A1, A2
-type: verb      # verb | grammar | conjugation | vocabulary | pronunciation (list ok)
+type: verb      # verb | grammar | conjugation | vocabulary | pronunciation | guide (list ok)
 author:
 date:           # AAAA-MM-DD
 draft: true

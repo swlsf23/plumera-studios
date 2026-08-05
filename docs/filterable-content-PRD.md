@@ -324,7 +324,7 @@ Qualitative bar still applies: authoring stays frontmatter + Markdown; result UR
 |--------|----------|
 | URL | `/{locale}/{target}/catalog/` |
 | Index | `dist/{locale}/{target}/catalog/index.json` |
-| First HTML catalog | `en/learn-french` (emit JSON for any target with listable pages that pass validation) |
+| First HTML catalog | `en/learn-french` only (`CATALOG_TARGETS`); other locales/targets are not emitted in phase 1 |
 | Page copy | Fully generated chrome strings + short fixed intro |
 | Default sort | `date-desc` |
 | Landing/nav links | Not in phase 1 unless explicitly added |

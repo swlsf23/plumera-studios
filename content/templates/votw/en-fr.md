@@ -154,7 +154,7 @@ slug:           # votw-{verbe}-{niveau}, p. ex. votw-take-a2
 target: apprendre-anglais      # Langue enseignée
 locale: fr      # Langue de l'explication (audience)
 level:          # CECR : A1 | A2 | B1 | B2 | C1 | C2, ou une plage comme A1, A2
-type: verb      # verb | grammar | conjugation | vocabulary | pronunciation (list ok)
+type: verb      # verb | grammar | conjugation | vocabulary | pronunciation | guide (list ok)
 author:
 date:           # AAAA-MM-JJ
 draft: true

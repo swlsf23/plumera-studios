@@ -156,7 +156,7 @@ slug:           # votw-{verbe}-{niveau}, p. ex. votw-tomar-a1
 target: apprendre-espagnol      # Langue enseignée
 locale: fr      # Langue de l'explication (audience)
 level:          # CECR : A1 | A2 | B1 | B2 | C1 | C2, ou une plage comme A1, A2
-type: verb      # verb | grammar | conjugation | vocabulary | pronunciation (list ok)
+type: verb      # verb | grammar | conjugation | vocabulary | pronunciation | guide (list ok)
 author:
 date:           # AAAA-MM-JJ
 draft: true
