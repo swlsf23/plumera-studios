@@ -121,6 +121,9 @@ class CatalogBuildTests(unittest.TestCase):
             self.assertIn("data-catalog-list", html)
             self.assertIn("/js/catalog.js", html)
             self.assertIn('rel="canonical" href="https://plumerastudios.com/en/learn-french/catalog/"', html)
+            self.assertIn('href="/en/learn-french/votw/"', html)
+            self.assertIn('href="/en/learn-french/whats-new/"', html)
+            self.assertIn("You might also like", html)
             # Sitemap should mention the catalog URL.
             sitemap = (dist / "en" / "sitemap.xml").read_text(encoding="utf-8")
             self.assertIn("/en/learn-french/catalog/", sitemap)

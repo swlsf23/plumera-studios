@@ -639,7 +639,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
         payload = catalog_index_payload(locale, target, entries)
         catalog_dir = dist / locale / target / CATALOG_STEM
         write_catalog_index(catalog_dir / "index.json", payload)
-        page = make_catalog_page(locale, target)
+        page = make_catalog_page(locale, target, content_root=CONTENT)
         page.after_body_html = catalog_after_body_html(locale, entries)
         _write(
             catalog_dir / "index.html",

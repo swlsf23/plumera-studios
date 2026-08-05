@@ -15,6 +15,7 @@ from tools.content_builder.chrome import chrome_for, format_date, votw_series_la
 from tools.content_builder.parse import (
     ARTICLES_DIR,
     Page,
+    WHATS_NEW_STEM,
     _frontmatter_sort_date,
     _list_title_from_post,
     _votw_href,
@@ -294,10 +295,19 @@ def write_catalog_index(path: Path, payload: dict[str, object]) -> None:
     )
 
 
-def make_catalog_page(locale: str, target: str) -> Page:
+def make_catalog_page(
+    locale: str, target: str, *, content_root: Path | None = None
+) -> Page:
     chrome = chrome_for(locale)
     title = chrome["catalog"]
     intro = chrome["catalog_intro"]
+    related: list[dict[str, str]] = [
+        {"href": f"/{locale}/{target}/votw/"},
+    ]
+    if content_root is None or (
+        content_root / locale / target / f"{WHATS_NEW_STEM}.md"
+    ).is_file():
+        related.append({"href": f"/{locale}/{target}/{WHATS_NEW_STEM}/"})
     return Page(
         locale=locale,
         title=title,
@@ -306,6 +316,7 @@ def make_catalog_page(locale: str, target: str) -> Page:
         eyebrow=chrome["catalog_eyebrow"],
         heading_html=f"<h1>{escape(title)}</h1>",
         body_html=f"<p>{escape(intro)}</p>",
+        related=related,
         active=CATALOG_STEM,
         show_hero_art=False,
     )
