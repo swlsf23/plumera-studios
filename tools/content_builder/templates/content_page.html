@@ -26,7 +26,10 @@
     }
     body { font-family: "Plumera Sans", "Plumera Sans Fallback", sans-serif; }
   </style>
-  <link rel="stylesheet" href="/css/site-content.css?v=css-arch-51">
+  <link rel="stylesheet" href="/css/site-content.css?v=css-arch-87">
+  {% if page.active == 'conjugation-verb' %}
+  <link rel="stylesheet" href="/css/conjugaison.css?v=conjugaison-7">
+  {% endif %}
   <script defer src="https://cloud.umami.is/script.js" data-website-id="a6e7309a-1696-4e8c-95f3-bd6d0361fb4a" data-domains="plumerastudios.com"></script>
 </head>
 <body>
@@ -39,6 +42,7 @@
         {% if page.locale == 'en' %}
         <a{% if page.active == 'whats-new' %} class="active"{% endif %} href="/en/learn-french/whats-new/">{{ chrome.whats_new }}</a>
         <a{% if page.active == 'catalog' %} class="active"{% endif %} href="/en/learn-french/catalog/">{{ chrome.catalog }}</a>
+        <a{% if page.active == 'conjugation' or page.active == 'conjugation-verb' %} class="active"{% endif %} href="{{ conjugation_href or '/en/learn-french/conjugation/' }}">{{ chrome.conjugation }}</a>
         {% if votw_href %}<a{% if page.active == 'votw' %} class="active"{% endif %} href="{{ votw_href }}">Verb of the Week</a>{% endif %}
         {% else %}
         <a href="/{{ page.locale }}/">{{ chrome.home }}</a>
@@ -74,6 +78,7 @@
         {% if page.locale == 'en' %}
         <a{% if page.active == 'whats-new' %} class="active"{% endif %} href="/en/learn-french/whats-new/">{{ chrome.whats_new }}</a>
         <a{% if page.active == 'catalog' %} class="active"{% endif %} href="/en/learn-french/catalog/">{{ chrome.catalog }}</a>
+        <a{% if page.active == 'conjugation' or page.active == 'conjugation-verb' %} class="active"{% endif %} href="{{ conjugation_href or '/en/learn-french/conjugation/' }}">{{ chrome.conjugation }}</a>
         {% if votw_href %}<a{% if page.active == 'votw' %} class="active"{% endif %} href="{{ votw_href }}">Verb of the Week</a>{% endif %}
         {% else %}
         <a href="/{{ page.locale }}/">{{ chrome.home }}</a>
@@ -89,6 +94,33 @@
 
     <main class="page-grid page-grid--lesson">
       <div class="content-column">
+        {% if page.active == 'conjugation-verb' %}
+        <div class="conjugation-header">
+          <header class="article-header">
+            {% if page.eyebrow or page.level %}
+            <div class="article-header__meta-row">
+              {% if page.eyebrow %}<p class="eyebrow">{{ page.eyebrow }}</p>{% else %}<span></span>{% endif %}
+              {% if page.level %}
+              <span class="article-level">
+                <span class="article-level__prefix">{{ chrome.level_prefix }}</span>
+                <a class="article-level__badge" href="/{{ page.locale }}/cefr/">{{ page.level }}</a>
+              </span>
+              {% endif %}
+            </div>
+            {% endif %}
+            <h1 class="lemma-title">{{ page.heading_html | safe }}</h1>
+            {% if page.meta_line %}<p class="meta-line">{{ page.meta_line }}</p>{% endif %}
+          </header>
+          {% if page.after_body_html %}
+          {{ page.after_body_html | safe }}
+          {% endif %}
+        </div>
+        {% if page.body_html %}
+        <article class="article-body conjugation-tables">
+          {{ page.body_html | safe }}
+        </article>
+        {% endif %}
+        {% else %}
         <header class="article-header">
           {% if page.eyebrow or page.level %}
           <div class="article-header__meta-row">
@@ -142,6 +174,7 @@
             </nav>
           </div>
         </aside>
+        {% endif %}
       </div>
     </main>
 
@@ -174,6 +207,9 @@
   {% if page.active == 'catalog' %}
   <script src="/js/unicode-casefold.js?v=casefold-1"></script>
   <script src="/js/catalog.js?v=catalog-12"></script>
+  {% endif %}
+  {% if page.active == 'conjugation-verb' %}
+  <script src="/js/conjugaison.js?v=conjugaison-9"></script>
   {% endif %}
 </body>
 </html>

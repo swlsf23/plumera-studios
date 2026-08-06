@@ -1504,3 +1504,51 @@
 .content-page .catalog-list {
   margin-top: 8px;
 }
+
+/* Conjugation verb pages — same page-grid / content-column as other lessons.
+   Verb selector rail is deferred. Sticky header keeps title/moods/voice put
+   while tables scroll.
+*/
+
+.content-page--conjugation-verb.page {
+  overflow: visible; /* sticky title/moods/voice; .page defaults to overflow:hidden */
+  /* Flat surface — no decorative radial wash behind conjugation chrome/tables. */
+  background: var(--paper);
+}
+
+.content-page--conjugation-verb .conjugation-header {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  margin: 0 0 1rem;
+  padding: 0 0 0.75rem;
+  background: var(--paper);
+  border-bottom: 0;
+  box-shadow: none;
+}
+
+.content-page--conjugation-verb .conjugation-header .article-header {
+  margin-bottom: 0.65rem;
+  max-width: none;
+}
+
+.content-page--conjugation-verb .lemma-title {
+  margin: 0;
+}
+
+.content-page--conjugation-verb .conjugation-header .conjugation-toolbar {
+  margin: 0.75rem 0 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--line, rgba(24, 49, 55, 0.14));
+}
+
+.content-page--conjugation-verb .conjugation-tables {
+  padding: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.content-page--conjugation-verb .mood-heading {
+  /* Clear the sticky title/moods/voice band so #mood-* lands on the heading. */
+  scroll-margin-top: var(--conjugation-sticky-offset, 11rem);
+}

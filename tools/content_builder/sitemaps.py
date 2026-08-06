@@ -144,6 +144,27 @@ def _source_lastmods() -> dict[str, str]:
                 continue
             lastmods[url] = _lastmod_for_source(path)
 
+        # Conjugation verb fragments → bare .html URLs (+ index lastmod = newest verb).
+        for path in CONTENT.rglob("conjugation/verbs/*.html"):
+            try:
+                rel = path.relative_to(CONTENT)
+            except ValueError:
+                continue
+            parts = rel.parts
+            # {locale}/{target}/conjugation/verbs/{slug}.html
+            if len(parts) != 5 or parts[2] != "conjugation" or parts[3] != "verbs":
+                continue
+            if parts[0] in CONTENT_NON_LOCALES:
+                continue
+            locale, target, slug = parts[0], parts[1], path.stem
+            verb_url = f"/{locale}/{target}/conjugation/verbs/{slug}.html"
+            lm = _lastmod_for_source(path)
+            lastmods[verb_url] = lm
+            index_url = f"/{locale}/{target}/conjugation/"
+            prev = lastmods.get(index_url)
+            if prev is None or lm > prev:
+                lastmods[index_url] = lm
+
     return lastmods
 
 
@@ -186,7 +207,7 @@ def _sitemap_index(entries: list[tuple[str, str]]) -> str:
 
 
 def _urls_for_locale(locale: str, locale_dir: Path) -> list[str]:
-    """Index documents use trailing-slash URLs; skip *.html redirect stubs."""
+    """Index documents use trailing-slash URLs; conjugation verbs use bare .html."""
     urls: list[str] = []
     for path in sorted(locale_dir.rglob("*.html")):
         rel = path.relative_to(locale_dir).as_posix()
@@ -195,6 +216,10 @@ def _urls_for_locale(locale: str, locale_dir: Path) -> list[str]:
             continue
         if rel.endswith("/index.html"):
             urls.append(f"/{locale}/{rel[: -len('index.html')]}")
+            continue
+        # Conjugation verb pages: …/conjugation/verbs/{slug}.html
+        if "/conjugation/verbs/" in f"/{rel}" and rel.endswith(".html"):
+            urls.append(f"/{locale}/{rel}")
             continue
         # Ignore legacy redirect stubs like contact.html → contact/
     return urls

@@ -1,0 +1,191 @@
+/* Conjugation paradigm tables (verb pages). */
+
+.content-page--conjugation-verb .conjugation {
+  --person-line-height: 1.55rem;
+  margin-block: 0.5rem 1.5rem;
+}
+
+.content-page--conjugation-verb .conjugation-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 12%, transparent);
+}
+
+.content-page--conjugation-verb .mood-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.85rem;
+}
+
+.content-page--conjugation-verb .mood-nav-link {
+  font-size: 0.95rem;
+  text-decoration: none;
+  color: inherit;
+  opacity: 0.75;
+}
+
+.content-page--conjugation-verb .mood-nav-link--active,
+.content-page--conjugation-verb .mood-nav-link:hover,
+.content-page--conjugation-verb .mood-nav-link:focus-visible {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.content-page--conjugation-verb .voice-tabs {
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.content-page--conjugation-verb .voice-tab {
+  appearance: none;
+  border: 0;
+  margin: 0;
+  padding: 0.35rem 0.55rem;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.content-page--conjugation-verb .voice-tab--active {
+  background: transparent;
+  font-weight: 650;
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.content-page--conjugation-verb .voice-tab[hidden],
+.content-page--conjugation-verb .voice-tabs[hidden] {
+  display: none;
+}
+
+.content-page--conjugation-verb .mood-section {
+  margin-block: 1.5rem;
+}
+
+.content-page--conjugation-verb .mood-heading {
+  font-size: 1.25rem;
+  margin: 0 0 0.85rem;
+}
+
+.content-page--conjugation-verb .mood-body {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr));
+  gap: 1rem 1.25rem;
+}
+
+.content-page--conjugation-verb .tense-block {
+  min-width: 0;
+}
+
+/* Do not inherit lesson “card” table chrome from .article-body table. */
+.content-page--conjugation-verb .conjugation-tables table,
+.content-page--conjugation-verb .conjugation-tables .tense-table {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border-radius: 0;
+  overflow: visible;
+  background: transparent;
+  background-image: none;
+  box-shadow: none;
+  font-size: 0.95rem;
+  line-height: inherit;
+}
+
+.content-page--conjugation-verb .conjugation-tables th,
+.content-page--conjugation-verb .conjugation-tables td {
+  padding: 0.15rem 0.35rem 0.15rem 0;
+  background: transparent;
+  border: 0;
+  border-bottom: 0;
+  color: inherit;
+  font-weight: inherit;
+}
+
+.content-page--conjugation-verb .conjugation-tables th {
+  width: 3.25rem;
+  font-weight: 500;
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+.content-page--conjugation-verb .conjugation-tables tr:last-child td {
+  border-bottom: 0;
+}
+
+.content-page--conjugation-verb .tense-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0 0 0.4rem;
+}
+
+.content-page--conjugation-verb .tense-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.content-page--conjugation-verb .tense-table th,
+.content-page--conjugation-verb .tense-table td {
+  padding: 0.15rem 0.35rem 0.15rem 0;
+  vertical-align: top;
+  text-align: left;
+  border: 0;
+}
+
+.content-page--conjugation-verb .tense-table th {
+  width: 3.25rem;
+  font-weight: 500;
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+.content-page--conjugation-verb .form-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-height: var(--person-row-height, auto);
+}
+
+.content-page--conjugation-verb .form-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.content-page--conjugation-verb .form-term {
+  font-weight: 500;
+}
+
+.content-page--conjugation-verb .form-term--empty {
+  opacity: 0.35;
+}
+
+.content-page--conjugation-verb .form-term--empty:empty::before {
+  content: "–";
+}
+
+.content-page--conjugation-verb .form-tag {
+  font-size: 0.8rem;
+  opacity: 0.55;
+}
+
+.content-page--conjugation-verb .conjugation-voice-panel[hidden] {
+  display: none;
+}

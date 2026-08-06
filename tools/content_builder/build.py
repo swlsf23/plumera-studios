@@ -22,6 +22,16 @@ from tools.content_builder.catalog import (
     write_catalog_index,
 )
 from tools.content_builder.chrome import chrome_for, language_menu
+from tools.content_builder.conjugation import (
+    CONJUGATION_STEM,
+    VERBS_DIR,
+    VERBS_JSON,
+    default_conjugation_verb,
+    load_conjugation_verbs,
+    make_conjugation_verb_page,
+    verbs_json_payload,
+    write_verbs_json,
+)
 from tools.content_builder.parse import (
     ARTICLES_DIR,
     SITE_ORIGIN,
@@ -191,6 +201,7 @@ def _render_page(
     votw_nav: dict[str, str],
     pages_by_href: dict[str, dict[str, str]] | None = None,
     *,
+    conjugation_nav: dict[str, str] | None = None,
     source: str = "",
     draft_hrefs: set[str] | None = None,
     warn_draft_targets: bool = False,
@@ -217,21 +228,26 @@ def _render_page(
         related=related,
         social_links=SOCIAL_LINKS,
         votw_href=votw_nav.get(locale),
+        conjugation_href=(conjugation_nav or {}).get(locale),
     )
 
 
 def _write_redirect(path: Path, target: str) -> None:
-    """Tiny static redirect stub (works on any static host, including local)."""
+    """Tiny static redirect stub (works on any static host, including local).
+
+    JS replace preserves query/hash so conjugation filter state survives the hub hop.
+    Meta refresh is noscript-only so it cannot race JS and drop the query string.
+    """
     _write(
         path,
         (
             "<!doctype html>\n"
             f'<html lang="en"><head><meta charset="utf-8">'
-            f'<meta http-equiv="refresh" content="0; url={target}">'
             f'<link rel="canonical" href="{SITE_ORIGIN}{target}">'
             f"<title>Redirecting…</title>"
-            f"<script>location.replace({target!r})</script>"
-            f'</head><body><p><a href="{target}">Continue</a></p></body></html>\n'
+            f"<script>location.replace({target!r}+location.search+location.hash)</script>"
+            f'<noscript><meta http-equiv="refresh" content="0; url={target}">'
+            f'</noscript></head><body><p><a href="{target}">Continue</a></p></body></html>\n'
         ),
     )
 
@@ -444,6 +460,29 @@ def _votw_nav_hrefs(series: list[tuple[str, str]]) -> dict[str, str]:
     return hrefs
 
 
+def _conjugation_nav_hrefs(verbs: list) -> dict[str, str]:
+    """Header Conjugation link → landing verb (avoids /conjugation/ redirect flash)."""
+    by_locale: dict[str, dict[str, list]] = {}
+    for verb in verbs:
+        parts = verb.href.strip("/").split("/")
+        if len(parts) < 2:
+            continue
+        locale, target = parts[0], parts[1]
+        by_locale.setdefault(locale, {}).setdefault(target, []).append(verb)
+
+    hrefs: dict[str, str] = {}
+    for locale, by_target in sorted(by_locale.items()):
+        targets = sorted(by_target)
+        if len(targets) > 1:
+            print(
+                f"warning: {locale} has conjugation for {', '.join(targets)}; the "
+                f"header can only point at one and uses {targets[0]!r}.",
+                file=sys.stderr,
+            )
+        hrefs[locale] = default_conjugation_verb(by_target[targets[0]]).href
+    return hrefs
+
+
 def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
     env = _env()
     template = env.get_template("content_page.html")
@@ -508,6 +547,12 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
             if path.stem == VOTW_INDEX_STEM
         ]
     )
+    try:
+        conjugation_verbs = load_conjugation_verbs(CONTENT)
+    except ValueError as exc:
+        print(str(exc), file=sys.stderr)
+        return 1
+    conjugation_nav = _conjugation_nav_hrefs(conjugation_verbs)
     pages_by_href: dict[str, dict[str, str]] = {}
     for page in (
         *[p for p, _path in core_pages],
@@ -529,6 +574,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
             page,
             votw_nav,
             pages_by_href,
+            conjugation_nav=conjugation_nav,
             source=str(path.relative_to(CONTENT)),
             draft_hrefs=draft_hrefs,
             warn_draft_targets=warn_draft_targets,
@@ -573,6 +619,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
                 page,
                 votw_nav,
                 pages_by_href,
+                conjugation_nav=conjugation_nav,
                 source=source,
                 draft_hrefs=draft_hrefs,
                 warn_draft_targets=warn_draft_targets,
@@ -591,6 +638,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
                 page,
                 votw_nav,
                 pages_by_href,
+                conjugation_nav=conjugation_nav,
                 source=str(path.relative_to(CONTENT)),
                 draft_hrefs=draft_hrefs,
                 warn_draft_targets=warn_draft_targets,
@@ -622,6 +670,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
                 page,
                 votw_nav,
                 pages_by_href,
+                conjugation_nav=conjugation_nav,
                 source=source,
                 draft_hrefs=draft_hrefs,
                 warn_draft_targets=warn_draft_targets,
@@ -652,6 +701,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
                 page,
                 votw_nav,
                 pages_by_href,
+                conjugation_nav=conjugation_nav,
                 source=f"{locale}/{target}/{CATALOG_STEM}/",
                 draft_hrefs=draft_hrefs,
                 warn_draft_targets=warn_draft_targets,
@@ -660,9 +710,51 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
         catalog_count += 1
         emitted += 1
 
+    conjugation_count = 0
+
+    # Group verbs by locale/target from href: /{locale}/{target}/conjugation/verbs/...
+    by_target: dict[tuple[str, str], list] = {}
+    for verb in conjugation_verbs:
+        parts = verb.href.strip("/").split("/")
+        # locale, target, conjugation, verbs, slug.html
+        locale, target = parts[0], parts[1]
+        by_target.setdefault((locale, target), []).append(verb)
+
+    for (locale, target), verbs in sorted(by_target.items()):
+        conj_dir = dist / locale / target / CONJUGATION_STEM
+        write_verbs_json(
+            conj_dir / VERBS_JSON,
+            verbs_json_payload(locale, target, verbs),
+        )
+
+        for verb in verbs:
+            page = make_conjugation_verb_page(verb, locale, target, verbs)
+            out = conj_dir / VERBS_DIR / f"{verb.slug}.html"
+            _write(
+                out,
+                _render_page(
+                    template,
+                    page,
+                    votw_nav,
+                    pages_by_href,
+                    conjugation_nav=conjugation_nav,
+                    source=str(verb.source.relative_to(CONTENT)),
+                    draft_hrefs=draft_hrefs,
+                    warn_draft_targets=warn_draft_targets,
+                ),
+            )
+            emitted += 1
+
+        # /conjugation/ lands on a verb page (tables), not a verb list.
+        land = default_conjugation_verb(verbs)
+        _write_redirect(conj_dir / "index.html", land.href)
+        conjugation_count += 1
+        emitted += 1
+
     sitemaps = write_sitemaps(dist)
     print(f"Emitted {emitted} content pages into {dist}")
     print(f"Wrote {catalog_count} catalog indexes")
+    print(f"Wrote {conjugation_count} conjugation indexes ({len(conjugation_verbs)} verbs)")
     print(f"Wrote {len(sitemaps)} sitemap files")
     return 0
 
