@@ -295,13 +295,14 @@ def make_conjugation_verb_page(
     del target, verbs
     chrome = chrome_for(locale)
     toolbar, body = split_conjugation_toolbar(verb.fragment_html)
+    lemma_display = verb.lemma[:1].upper() + verb.lemma[1:] if verb.lemma else ""
     return Page(
         locale=locale,
         title=verb.title,
         description=verb.description,
         canonical_path=verb.href,
         eyebrow=chrome["conjugation_eyebrow"],
-        heading_html=escape(verb.lemma),
+        heading_html=escape(lemma_display),
         body_html=body,
         after_body_html=toolbar,
         active="conjugation-verb",

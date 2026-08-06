@@ -1529,7 +1529,7 @@
 
 .content-page--conjugation-verb .conjugation-header .article-header {
   margin-bottom: 0.65rem;
-  max-width: none;
+  /* Same as other lesson content pages (prendre, etc.): column width, not prose 760. */
 }
 
 .content-page--conjugation-verb .lemma-title {

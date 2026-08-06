@@ -78,6 +78,8 @@ class ConjugationBuildTests(unittest.TestCase):
             self.assertIn("conjugation-header", vhtml)
             self.assertIn("conjugation-toolbar", vhtml)
             self.assertIn("conjugation-tables", vhtml)
+            # Hero lemma: initial capital, not all-lowercase / all-caps.
+            self.assertIn(f"<h1 class=\"lemma-title\">{sample.lemma[:1].upper()}{sample.lemma[1:]}</h1>", vhtml)
             # Selector rail deferred.
             self.assertNotIn("conjugation-sidebar", vhtml)
             self.assertNotIn("conjugation-shell", vhtml)
