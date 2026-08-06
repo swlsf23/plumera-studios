@@ -1534,12 +1534,12 @@
 
 .content-page--conjugation-verb .conjugation-header .article-header {
   margin-bottom: 0.65rem;
-  /* Same as other lesson content pages (prendre, etc.): column width, not prose 760. */
 }
 
+/* Meta row is identical to other lessons (eyebrow | Level). Browse lives on the title row. */
 .content-page--conjugation-verb .conjugation-header__title-row {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: 0.75rem 1rem;
   flex-wrap: wrap;
@@ -1549,12 +1549,15 @@
   margin: 0;
   flex: 1 1 auto;
   min-width: 0;
+  /* Hero signal — clearly above chrome and paradigm labels. */
+  color: var(--ink, #183137);
+  font-weight: 720;
+  letter-spacing: -0.035em;
 }
 
 .content-page--conjugation-verb .conjugation-browse {
   appearance: none;
   flex: 0 0 auto;
-  align-self: center;
   display: inline-flex;
   align-items: center;
   justify-content: center;
