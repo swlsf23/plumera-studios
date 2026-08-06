@@ -374,7 +374,7 @@ def parse_votw_page(path: Path, locale: str, target: str) -> Page:
         related=_parse_related(meta, path),
         active="votw",
         show_hero_art=_show_hero_art(meta),
-        level=str(meta.get("level") or "").strip(),
+        level=_primary_level(meta),
     )
 
 
@@ -443,8 +443,25 @@ def parse_article_page(path: Path, locale: str, target: str) -> Page:
         related=_parse_related(meta, path),
         active="articles",
         show_hero_art=_show_hero_art(meta),
-        level=str(meta.get("level") or "").strip(),
+        level=_primary_level(meta),
     )
+
+
+def _primary_level(meta: dict) -> str:
+    """First CEFR level from frontmatter (scalar, list, or comma-separated)."""
+    raw = meta.get("level")
+    if raw is None or raw == "":
+        return ""
+    if isinstance(raw, list):
+        for item in raw:
+            text = str(item).strip()
+            if text:
+                return text.split(",")[0].strip()
+        return ""
+    text = str(raw).strip()
+    if "," in text:
+        return text.split(",")[0].strip()
+    return text
 
 
 def _locale_dirs(content_root: Path) -> list[Path]:
@@ -631,7 +648,7 @@ def votw_links(
         list_title = _list_title_from_post(post, path.stem)
         date_label = _format_date(meta.get("date"), locale)
         description = str(meta.get("description") or "").strip()
-        level = str(meta.get("level") or "").strip()
+        level = _primary_level(meta)
         items.append(
             (
                 _frontmatter_sort_date(meta.get("date")),
@@ -671,7 +688,7 @@ def recent_target_links(
                         "title": _list_title_from_post(post, path.stem),
                         "date": _format_date(meta.get("date"), locale),
                         "description": str(meta.get("description") or "").strip(),
-                        "level": str(meta.get("level") or "").strip(),
+                        "level": _primary_level(meta),
                         "kind": series_name,
                         "href": _votw_href(locale, target, path, slug),
                     },
@@ -695,7 +712,7 @@ def recent_target_links(
                         "title": _list_title_from_post(post, path.stem),
                         "date": _format_date(meta.get("date"), locale),
                         "description": str(meta.get("description") or "").strip(),
-                        "level": str(meta.get("level") or "").strip(),
+                        "level": _primary_level(meta),
                         "kind": chrome["article"],
                         "href": f"/{locale}/{target}/{ARTICLES_DIR}/{slug}/",
                     },

@@ -55,6 +55,16 @@ Author that shape in Markdown + YAML. Do not add a right-rail “On this page”
 
 Prefer YAML frontmatter on content pages (`title`, `description`, `eyebrow`, `related`, and for VOTW also `date`, `slug`, `target`, `locale`, `level`, …).
 
+**Catalog fields** (listable VOTW lessons, `articles/`, and opted-in `core/` pages): required `level`, `type`, and `date` on every listable page. See `docs/filterable-content-PRD.md`.
+
+- `level`: one CEFR code or a list (`A1` or `[A1, A2]`). Allowed: `A1` … `C2`. Reference guides that apply to all levels may list every code.
+- `type`: one value or a list from `verb` | `grammar` | `conjugation` | `vocabulary` | `pronunciation` | `guide`. VOTW may omit `type` (defaults to `verb`); articles and catalog core pages must set it.
+- Core pages opt into target catalogs with `catalog: true` (they appear in every catalog for that locale).
+- Multi-value means the page matches **any** of those values in catalog filters; sort uses the **first** value as primary.
+- The catalog also has a text filter over **title + summary** (`description`); that is not extra frontmatter.
+
+The generated catalog lives at `/{locale}/{target}/catalog/` with `catalog/index.json` beside it.
+
 Keep `slug` equal to the filename stem (e.g. `votw-prendre-a1.md` → `slug: votw-prendre-a1`). The builder prefers `slug` for the URL and warns if it does not match the filename.
 
 Optional `related` is a list of end-band cards for “You might also like”. Each item needs `href`. Optional `meta` is a short secondary line.

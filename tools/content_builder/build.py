@@ -11,6 +11,16 @@ from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
+from tools.content_builder.casefold_js import write_casefold_js
+from tools.content_builder.catalog import (
+    CATALOG_STEM,
+    build_catalog_entries,
+    catalog_after_body_html,
+    catalog_index_payload,
+    discover_catalog_targets,
+    make_catalog_page,
+    write_catalog_index,
+)
 from tools.content_builder.chrome import chrome_for, language_menu
 from tools.content_builder.parse import (
     ARTICLES_DIR,
@@ -440,6 +450,9 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
     _copy_public(dist)
     _copy_content_images(dist)
     _write_css_bundles(dist)
+    # Same Python casefold as CatalogEntry.search_blob() — emit per build so the
+    # client helper always matches this interpreter’s Unicode tables.
+    write_casefold_js(dist / "js" / "unicode-casefold.js")
 
     core_pages = [(parse_core_page(p, loc), p) for p, loc in discover_core_pages(CONTENT)]
 
@@ -616,8 +629,40 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
         )
         emitted += 1
 
+    catalog_count = 0
+    for locale, target in discover_catalog_targets(CONTENT):
+        try:
+            entries = build_catalog_entries(
+                CONTENT, locale, target, include_drafts=include_drafts
+            )
+        except ValueError as exc:
+            print(str(exc), file=sys.stderr)
+            return 1
+        if not entries:
+            continue
+        payload = catalog_index_payload(locale, target, entries)
+        catalog_dir = dist / locale / target / CATALOG_STEM
+        write_catalog_index(catalog_dir / "index.json", payload)
+        page = make_catalog_page(locale, target, content_root=CONTENT)
+        page.after_body_html = catalog_after_body_html(locale, entries)
+        _write(
+            catalog_dir / "index.html",
+            _render_page(
+                template,
+                page,
+                votw_nav,
+                pages_by_href,
+                source=f"{locale}/{target}/{CATALOG_STEM}/",
+                draft_hrefs=draft_hrefs,
+                warn_draft_targets=warn_draft_targets,
+            ),
+        )
+        catalog_count += 1
+        emitted += 1
+
     sitemaps = write_sitemaps(dist)
     print(f"Emitted {emitted} content pages into {dist}")
+    print(f"Wrote {catalog_count} catalog indexes")
     print(f"Wrote {len(sitemaps)} sitemap files")
     return 0
 

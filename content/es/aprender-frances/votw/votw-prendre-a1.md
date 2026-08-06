@@ -5,6 +5,7 @@ slug: votw-prendre-a1
 target: aprender-frances
 locale: es
 level: A1
+type: verb
 author:
 date:
 draft: true

@@ -157,6 +157,7 @@ slug:           # votw-{verb}-{level}, e.g. votw-tomar-a1
 target: learn-spanish      # Language taught
 locale: en      # Language of the explanation (audience)
 level:          # CEFR: A1 | A2 | B1 | B2 | C1 | C2, or a range like A1, A2
+type: verb      # verb | grammar | conjugation | vocabulary | pronunciation | guide (list ok)
 author:
 date:           # YYYY-MM-DD
 draft: true

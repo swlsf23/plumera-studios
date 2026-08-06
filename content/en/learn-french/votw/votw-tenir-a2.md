@@ -5,6 +5,7 @@ slug: votw-tenir-a2
 target: learn-french
 locale: en
 level: A2
+type: verb
 author:
 date: 2026-07-22
 draft: false

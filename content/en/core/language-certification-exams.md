@@ -3,6 +3,10 @@ title: "Language Proficiency Certification Exams | Plumera"
 description: Discover the official language certification exams used for university admissions, immigration, employment, and professional qualifications around the world.
 eyebrow: Guide
 draft: false
+catalog: true
+type: guide
+level: [A1, A2, B1, B2, C1, C2]
+date: 2026-07-31
 related:
   - title: CEFR levels
     href: /en/cefr/

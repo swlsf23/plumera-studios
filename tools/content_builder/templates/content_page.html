@@ -26,7 +26,7 @@
     }
     body { font-family: "Plumera Sans", "Plumera Sans Fallback", sans-serif; }
   </style>
-  <link rel="stylesheet" href="/css/site-content.css?v=css-arch-22">
+  <link rel="stylesheet" href="/css/site-content.css?v=css-arch-51">
   <script defer src="https://cloud.umami.is/script.js" data-website-id="a6e7309a-1696-4e8c-95f3-bd6d0361fb4a" data-domains="plumerastudios.com"></script>
 </head>
 <body>
@@ -37,14 +37,15 @@
 
       <nav class="content-header__nav" aria-label="Primary navigation">
         {% if page.locale == 'en' %}
-        {% if votw_href %}<a{% if page.active == 'votw' %} class="active"{% endif %} href="{{ votw_href }}">Verb of the Week</a>{% endif %}
         <a{% if page.active == 'whats-new' %} class="active"{% endif %} href="/en/learn-french/whats-new/">{{ chrome.whats_new }}</a>
+        <a{% if page.active == 'catalog' %} class="active"{% endif %} href="/en/learn-french/catalog/">{{ chrome.catalog }}</a>
+        {% if votw_href %}<a{% if page.active == 'votw' %} class="active"{% endif %} href="{{ votw_href }}">Verb of the Week</a>{% endif %}
         {% else %}
         <a href="/{{ page.locale }}/">{{ chrome.home }}</a>
         {% if votw_href %}<a{% if page.active == 'votw' %} class="active"{% endif %} href="{{ votw_href }}">{{ chrome.votw }}</a>{% endif %}
         <a{% if page.active == 'contact' %} class="active"{% endif %} href="/{{ page.locale }}/contact/">{{ chrome.contact }}</a>
-        {% endif %}
         <a{% if page.active == 'privacy' %} class="active"{% endif %} href="/{{ page.locale }}/privacy/">{{ chrome.privacy }}</a>
+        {% endif %}
         <details class="content-header__lang">
           <summary aria-label="{{ chrome.choose_language }}" title="{{ chrome.choose_language }}">
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -71,14 +72,15 @@
 
       <nav class="content-header__mobile" aria-label="Mobile navigation" data-mobile-nav>
         {% if page.locale == 'en' %}
-        {% if votw_href %}<a{% if page.active == 'votw' %} class="active"{% endif %} href="{{ votw_href }}">Verb of the Week</a>{% endif %}
         <a{% if page.active == 'whats-new' %} class="active"{% endif %} href="/en/learn-french/whats-new/">{{ chrome.whats_new }}</a>
+        <a{% if page.active == 'catalog' %} class="active"{% endif %} href="/en/learn-french/catalog/">{{ chrome.catalog }}</a>
+        {% if votw_href %}<a{% if page.active == 'votw' %} class="active"{% endif %} href="{{ votw_href }}">Verb of the Week</a>{% endif %}
         {% else %}
         <a href="/{{ page.locale }}/">{{ chrome.home }}</a>
         {% if votw_href %}<a{% if page.active == 'votw' %} class="active"{% endif %} href="{{ votw_href }}">{{ chrome.votw }}</a>{% endif %}
         <a{% if page.active == 'contact' %} class="active"{% endif %} href="/{{ page.locale }}/contact/">{{ chrome.contact }}</a>
-        {% endif %}
         <a{% if page.active == 'privacy' %} class="active"{% endif %} href="/{{ page.locale }}/privacy/">{{ chrome.privacy }}</a>
+        {% endif %}
         {% for lang in languages %}
         <a href="{{ lang.href }}" lang="{{ lang.code }}"{% if lang.current %} aria-current="true"{% endif %}>{{ lang.label }}</a>
         {% endfor %}
@@ -169,5 +171,9 @@
     </footer>
   </div>
   <script src="/js/content-header.js"></script>
+  {% if page.active == 'catalog' %}
+  <script src="/js/unicode-casefold.js?v=casefold-1"></script>
+  <script src="/js/catalog.js?v=catalog-12"></script>
+  {% endif %}
 </body>
 </html>

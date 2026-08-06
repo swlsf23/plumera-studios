@@ -2,6 +2,10 @@
 title: "How we use CEFR levels | Plumera"
 description: CEFR is the Common European Framework of Reference for Languages. Plumera uses these levels so you can pick material that matches where you are.
 eyebrow: Levels
+catalog: true
+type: guide
+level: [A1, A2, B1, B2, C1, C2]
+date: 2026-07-25
 related:
   - href: /en/learn-french/votw/
   - href: /en/learn-french/votw/votw-prendre-a1/
