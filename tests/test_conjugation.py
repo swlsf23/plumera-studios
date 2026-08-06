@@ -1,4 +1,4 @@
-"""Conjugation verb emit (+ optional JSON index for a future selector)."""
+"""Conjugation verb emit (redirect hub, verbs.json, in-column overlay drawer)."""
 
 from __future__ import annotations
 
@@ -78,13 +78,23 @@ class ConjugationBuildTests(unittest.TestCase):
             self.assertIn("conjugation-header", vhtml)
             self.assertIn("conjugation-toolbar", vhtml)
             self.assertIn("conjugation-tables", vhtml)
+            self.assertIn("conjugation-stage", vhtml)
             # Hero lemma: initial capital, not all-lowercase / all-caps.
             self.assertIn(f"<h1 class=\"lemma-title\">{sample.lemma[:1].upper()}{sample.lemma[1:]}</h1>", vhtml)
-            # Selector rail deferred.
+            # In-column overlay drawer (not a side rail / shell that widens the page).
             self.assertNotIn("conjugation-sidebar", vhtml)
             self.assertNotIn("conjugation-shell", vhtml)
-            self.assertNotIn("data-conjugation-results", vhtml)
+            self.assertIn("data-conjugation-drawer", vhtml)
+            self.assertIn("data-conjugation-results", vhtml)
+            self.assertIn("data-conjugation-drawer-open", vhtml)
+            self.assertRegex(
+                vhtml,
+                r'data-conjugation-index-url="/en/learn-french/conjugation/verbs\.json\?v=[0-9a-f]{10}"',
+            )
+            self.assertIn("conjugation-drawer.js", vhtml)
             self.assertNotIn("conjugation-index.js", vhtml)
+            self.assertIn("unicode-casefold.js", vhtml)
+            self.assertIn("content-column", vhtml)
             toolbar_idx = vhtml.index('class="conjugation-toolbar"')
             body_idx = vhtml.index("conjugation-tables")
             self.assertLess(toolbar_idx, body_idx)

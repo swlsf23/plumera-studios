@@ -21,7 +21,7 @@
   const moodLinks = [...document.querySelectorAll(".mood-nav-link[href^='#']")];
   const moodSections = [...root.querySelectorAll(".mood-section")];
 
-  function passiveHasContent(panel) {
+  function voiceHasContent(panel) {
     if (!panel) return false;
     if (panel.hasAttribute("hidden") && !panel.querySelector(".mood-section")) {
       return false;
@@ -29,20 +29,27 @@
     return Boolean(panel.querySelector(".mood-section"));
   }
 
-  const hasPassive = passiveHasContent(passivePanel);
+  const hasActive = voiceHasContent(activePanel);
+  const hasPassive = voiceHasContent(passivePanel);
 
-  if (!hasPassive) {
-    const passiveTab = tabs.find((tab) => tab.dataset.voice === "passive");
-    if (passiveTab) passiveTab.hidden = true;
-    const tablist = document.querySelector(".voice-tabs");
-    if (tablist && tabs.every((tab) => tab.hidden || tab.dataset.voice === "active")) {
-      const visible = tabs.filter((tab) => !tab.hidden);
-      if (visible.length <= 1) tablist.hidden = true;
-    }
-    if (passivePanel) {
-      passivePanel.hidden = true;
-      passivePanel.setAttribute("hidden", "");
-    }
+  for (const tab of tabs) {
+    const voice = tab.dataset.voice;
+    const available =
+      (voice === "active" && hasActive) || (voice === "passive" && hasPassive);
+    tab.hidden = false;
+    tab.disabled = !available;
+    tab.setAttribute("aria-disabled", available ? "false" : "true");
+  }
+  const tablist = document.querySelector(".voice-tabs");
+  if (tablist) tablist.hidden = false;
+
+  if (!hasPassive && passivePanel) {
+    passivePanel.hidden = true;
+    passivePanel.setAttribute("hidden", "");
+  }
+  if (!hasActive && activePanel) {
+    activePanel.hidden = true;
+    activePanel.setAttribute("hidden", "");
   }
 
   function readStoredVoice() {
@@ -123,6 +130,7 @@
 
   function setVoice(voice, { updateHash = true } = {}) {
     if (voice === "passive" && !hasPassive) voice = "active";
+    if (voice === "active" && !hasActive && hasPassive) voice = "passive";
     for (const panel of [activePanel, passivePanel]) {
       if (!panel) continue;
       const on = panel.dataset.voice === voice;
@@ -135,7 +143,6 @@
       }
     }
     for (const tab of tabs) {
-      if (tab.hidden) continue;
       const on = tab.dataset.voice === voice;
       tab.classList.toggle("voice-tab--active", on);
       tab.setAttribute("aria-selected", on ? "true" : "false");
@@ -154,6 +161,7 @@
 
   for (const tab of tabs) {
     tab.addEventListener("click", () => {
+      if (tab.disabled) return;
       setVoice(tab.dataset.voice || "active");
     });
   }

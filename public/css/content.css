@@ -1506,8 +1506,8 @@
 }
 
 /* Conjugation verb pages — same page-grid / content-column as other lessons.
-   Verb selector rail is deferred. Sticky header keeps title/moods/voice put
-   while tables scroll.
+   Verb browser is an in-column overlay over the tables (does not widen the page).
+   Sticky header keeps title/moods/voice put while tables scroll.
 */
 
 .content-page--conjugation-verb.page {
@@ -1537,8 +1537,57 @@
   /* Same as other lesson content pages (prendre, etc.): column width, not prose 760. */
 }
 
+.content-page--conjugation-verb .conjugation-header__title-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  flex-wrap: wrap;
+}
+
 .content-page--conjugation-verb .lemma-title {
   margin: 0;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.content-page--conjugation-verb .conjugation-browse {
+  appearance: none;
+  flex: 0 0 auto;
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  min-height: 42px;
+  padding: 0 18px;
+  border: 1px solid var(--blue-deep);
+  border-radius: 10px;
+  background: var(--blue-deep);
+  color: var(--paper);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.content-page--conjugation-verb .conjugation-browse:hover {
+  background: color-mix(in srgb, var(--blue-deep) 78%, #000);
+  border-color: color-mix(in srgb, var(--blue-deep) 78%, #000);
+}
+
+.content-page--conjugation-verb .conjugation-browse:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.content-page--conjugation-verb .conjugation-browse[aria-expanded="true"] {
+  background: var(--paper);
+  border-color: var(--blue-deep);
+  color: var(--blue-deep);
 }
 
 .content-page--conjugation-verb .conjugation-header .conjugation-toolbar {
@@ -1547,10 +1596,253 @@
   border-bottom: 1px solid var(--line, rgba(24, 49, 55, 0.14));
 }
 
+.content-page--conjugation-verb .conjugation-stage {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .content-page--conjugation-verb .conjugation-tables {
   padding: 0;
   width: 100%;
   box-sizing: border-box;
+}
+
+.content-page--conjugation-verb .conjugation-drawer[hidden] {
+  display: none !important;
+}
+
+.content-page--conjugation-verb .conjugation-drawer {
+  --conjugation-lemma-row: 2rem;
+  --conjugation-lemma-visible: 10;
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  /* Height follows chrome + filters + fixed 10-row list (no grow/shrink). */
+  height: auto;
+  max-height: calc(100vh - var(--conjugation-sticky-offset, 11rem) - 1rem);
+  box-sizing: border-box;
+}
+
+.content-page--conjugation-verb .conjugation-drawer__backdrop {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--ink, #183137) 28%, transparent);
+  cursor: pointer;
+}
+
+.content-page--conjugation-verb .conjugation-drawer__panel {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+  height: auto;
+  max-height: inherit;
+  margin: 0;
+  padding: 0;
+  border: 1px solid color-mix(in srgb, var(--line, rgba(24, 49, 55, 0.14)) 80%, transparent);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--paper, #f3eee6) 96%, #fff 4%);
+  box-shadow: 0 10px 28px color-mix(in srgb, var(--ink, #183137) 14%, transparent);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.content-page--conjugation-verb .conjugation-drawer__chrome {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex: 0 0 auto;
+  padding: 0.75rem 0.85rem 0.55rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--line, rgba(24, 49, 55, 0.14)) 70%, transparent);
+}
+
+.content-page--conjugation-verb .conjugation-drawer__heading {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.content-page--conjugation-verb .conjugation-drawer__title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.3;
+}
+
+.content-page--conjugation-verb .conjugation-drawer__count {
+  color: var(--muted, #718084);
+  font-size: 0.82rem;
+  font-weight: 550;
+}
+
+.content-page--conjugation-verb .conjugation-drawer__close {
+  appearance: none;
+  flex: 0 0 auto;
+  width: 2rem;
+  height: 2rem;
+  margin: 0;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink, #183137);
+  font: inherit;
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.content-page--conjugation-verb .conjugation-drawer__close:hover,
+.content-page--conjugation-verb .conjugation-drawer__close:focus-visible {
+  background: color-mix(in srgb, var(--paper, #f3eee6) 80%, var(--sand, #b99d62) 20%);
+  outline: none;
+}
+
+.content-page--conjugation-verb .conjugation-drawer__close:focus-visible {
+  outline: 2px solid var(--ink, #183137);
+  outline-offset: 2px;
+}
+
+.content-page--conjugation-verb .conjugation-drawer__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  flex: 0 0 auto;
+  padding: 0.75rem 0.85rem 0.9rem;
+}
+
+.content-page--conjugation-verb .conjugation-drawer__body[hidden] {
+  display: none !important;
+}
+
+.content-page--conjugation-verb .conjugation-drawer__search {
+  display: block;
+  margin: 0;
+}
+
+.content-page--conjugation-verb .conjugation-drawer__search input,
+.content-page--conjugation-verb .conjugation-drawer__field select {
+  width: 100%;
+  margin: 0;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid color-mix(in srgb, var(--line, rgba(24, 49, 55, 0.14)) 80%, transparent);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink, #183137);
+  font: inherit;
+  font-size: 0.92rem;
+  box-sizing: border-box;
+}
+
+.content-page--conjugation-verb .conjugation-drawer__filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+  gap: 0.5rem 0.65rem;
+}
+
+.content-page--conjugation-verb .conjugation-drawer__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0;
+  min-width: 0;
+}
+
+.content-page--conjugation-verb .conjugation-drawer__field-label {
+  color: var(--muted, #718084);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.content-page--conjugation-verb .lemma-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  /* Fixed viewport: always 10 verb rows; extra results scroll inside. */
+  flex: 0 0 auto;
+  height: calc(
+    var(--conjugation-lemma-visible) * var(--conjugation-lemma-row)
+  );
+  overflow: auto;
+  overscroll-behavior: contain;
+  border: 1px solid color-mix(in srgb, var(--line, rgba(24, 49, 55, 0.14)) 65%, transparent);
+  border-radius: 8px;
+  background: color-mix(in srgb, #fff 88%, var(--paper, #f3eee6) 12%);
+}
+
+.content-page--conjugation-verb .lemma-list[hidden] {
+  display: none !important;
+}
+
+.content-page--conjugation-verb .lemma-list > li {
+  margin: 0;
+  padding: 0;
+  height: var(--conjugation-lemma-row);
+}
+
+.content-page--conjugation-verb .lemma-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0 0.65rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 0.95rem;
+  line-height: 1.2;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.content-page--conjugation-verb .lemma-item:hover,
+.content-page--conjugation-verb .lemma-item:focus-visible {
+  background: color-mix(in srgb, var(--sand, #b99d62) 16%, transparent);
+  outline: none;
+}
+
+.content-page--conjugation-verb .lemma-item--active,
+.content-page--conjugation-verb .lemma-item--selected {
+  background: color-mix(in srgb, var(--sand, #b99d62) 22%, transparent);
+  font-weight: 600;
+}
+
+.content-page--conjugation-verb .conjugation-drawer__empty {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0 0.65rem;
+  height: calc(
+    var(--conjugation-lemma-visible) * var(--conjugation-lemma-row)
+  );
+  border: 1px solid color-mix(in srgb, var(--line, rgba(24, 49, 55, 0.14)) 65%, transparent);
+  border-radius: 8px;
+  background: color-mix(in srgb, #fff 88%, var(--paper, #f3eee6) 12%);
+  color: var(--muted, #718084);
+  font-size: 0.92rem;
+  box-sizing: border-box;
+}
+
+.content-page--conjugation-verb .conjugation-drawer__empty[hidden] {
+  display: none !important;
 }
 
 .content-page--conjugation-verb .mood-heading {

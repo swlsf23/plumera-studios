@@ -6,6 +6,7 @@ do not embed thousands of verb links.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 from dataclasses import dataclass
@@ -189,16 +190,28 @@ def _class_label(value: str) -> str:
     return value.replace("_", " ")
 
 
-def conjugation_filter_html(
+def verbs_index_cache_bust(verbs: list[ConjugationVerb]) -> str:
+    """Short fingerprint so browsers refetch verbs.json after the set changes."""
+    raw = "\n".join(
+        f"{v.slug}\t{v.cefr}\t{v.conjugation_class}\t{v.construction}"
+        for v in verbs
+    )
+    return hashlib.sha1(raw.encode("utf-8")).hexdigest()[:10]
+
+
+def conjugation_drawer_html(
     locale: str,
     target: str,
     verbs: list[ConjugationVerb],
     *,
     current_slug: str = "",
 ) -> str:
-    """Left sidebar verb browser (corpus-generation viewer layout)."""
+    """In-column overlay verb browser (covers tables; does not widen the page)."""
     chrome = chrome_for(locale)
-    index_url = f"/{locale}/{target}/{CONJUGATION_STEM}/{VERBS_JSON}"
+    index_url = (
+        f"/{locale}/{target}/{CONJUGATION_STEM}/{VERBS_JSON}"
+        f"?v={verbs_index_cache_bust(verbs)}"
+    )
     levels_present = sorted(
         {verb.cefr for verb in verbs},
         key=lambda c: LEVEL_RANK.get(c, 99),
@@ -226,62 +239,65 @@ def conjugation_filter_html(
     construction_field = ""
     if len(constructions_present) > 1:
         construction_field = f"""
-          <label class="conjugation-sidebar__field">
-            <span class="conjugation-sidebar__field-label">{escape(chrome["conjugation_filter_construction"])}</span>
-            <select name="construction" data-conjugation-construction>
+          <label class="conjugation-drawer__field">
+            <span class="conjugation-drawer__field-label">{escape(chrome["conjugation_filter_construction"])}</span>
+            <select data-conjugation-construction>
               {_options(constructions_present)}
             </select>
           </label>"""
 
     return f"""\
-<form class="conjugation-sidebar" data-conjugation-controls
-      data-conjugation-index-url="{escape(index_url)}"{current_attr}
-      data-empty="{escape(chrome["conjugation_empty"])}"
-      data-collapse-label="{escape(chrome["conjugation_sidebar_collapse"])}"
-      data-expand-label="{escape(chrome["conjugation_sidebar_expand"])}">
-  <noscript>
-    <p class="catalog-noscript">{escape(chrome["conjugation_noscript"])}</p>
-  </noscript>
-  <nav class="conjugation-sidebar__nav" data-conjugation-enhance hidden aria-label="{escape(chrome["conjugation_list_label"])}">
-    <section class="conjugation-nav-section">
-      <div class="conjugation-nav-section__header">
-        <span class="conjugation-nav-section__title">{escape(chrome["conjugation_list_label"])}</span>
-        <span class="conjugation-nav-section__count" data-conjugation-count></span>
-        <button type="button" class="conjugation-sidebar__toggle"
-                data-conjugation-sidebar-toggle
-                aria-expanded="true"
-                aria-controls="conjugation-verb-list"
-                aria-label="{escape(chrome["conjugation_sidebar_collapse"])}"
-                title="{escape(chrome["conjugation_sidebar_collapse"])}">‹</button>
+<div class="conjugation-drawer" data-conjugation-drawer hidden>
+  <button type="button" class="conjugation-drawer__backdrop"
+          data-conjugation-drawer-close
+          tabindex="-1"
+          aria-label="{escape(chrome["conjugation_drawer_close"])}"></button>
+  <form class="conjugation-drawer__panel" id="conjugation-drawer-panel" data-conjugation-controls
+        data-conjugation-index-url="{escape(index_url)}"{current_attr}
+        data-empty="{escape(chrome["conjugation_empty"])}"
+        method="dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="conjugation-drawer-title">
+    <noscript>
+      <p class="catalog-noscript">{escape(chrome["conjugation_noscript"])}</p>
+    </noscript>
+    <div class="conjugation-drawer__chrome">
+      <div class="conjugation-drawer__heading">
+        <h2 id="conjugation-drawer-title" class="conjugation-drawer__title">{escape(chrome["conjugation_list_label"])}</h2>
+        <span class="conjugation-drawer__count" data-conjugation-count></span>
       </div>
-      <div class="conjugation-nav-section__body" data-conjugation-sidebar-body>
-        <label class="conjugation-sidebar__search">
-          <span class="visually-hidden">{escape(chrome["conjugation_filter_q"])}</span>
-          <input type="search" name="q" data-conjugation-q autocomplete="off"
-                 placeholder="{escape(chrome["conjugation_filter_q_placeholder"])}"
-                 aria-controls="conjugation-verb-list">
+      <button type="button" class="conjugation-drawer__close"
+              data-conjugation-drawer-close
+              aria-label="{escape(chrome["conjugation_drawer_close"])}">×</button>
+    </div>
+    <div class="conjugation-drawer__body" data-conjugation-enhance hidden>
+      <label class="conjugation-drawer__search">
+        <span class="visually-hidden">{escape(chrome["conjugation_filter_q"])}</span>
+        <input type="search" data-conjugation-q autocomplete="off"
+               placeholder="{escape(chrome["conjugation_filter_q_placeholder"])}"
+               aria-controls="conjugation-verb-list">
+      </label>
+      <div class="conjugation-drawer__filters">
+        <label class="conjugation-drawer__field">
+          <span class="conjugation-drawer__field-label">{escape(chrome["conjugation_filter_level"])}</span>
+          <select data-conjugation-level>
+            {_options(levels_present)}
+          </select>
         </label>
-        <div class="conjugation-sidebar__filters">
-          <label class="conjugation-sidebar__field">
-            <span class="conjugation-sidebar__field-label">{escape(chrome["conjugation_filter_level"])}</span>
-            <select name="level" data-conjugation-level>
-              {_options(levels_present)}
-            </select>
-          </label>
-          <label class="conjugation-sidebar__field">
-            <span class="conjugation-sidebar__field-label">{escape(chrome["conjugation_filter_class"])}</span>
-            <select name="class" data-conjugation-class>
-              {_options(classes_present, label_fn=_class_label)}
-            </select>
-          </label>{construction_field}
-        </div>
-        <ul id="conjugation-verb-list" class="lemma-list"
-            data-conjugation-results hidden></ul>
-        <p class="conjugation-sidebar__empty" data-conjugation-empty hidden></p>
+        <label class="conjugation-drawer__field">
+          <span class="conjugation-drawer__field-label">{escape(chrome["conjugation_filter_class"])}</span>
+          <select data-conjugation-class>
+            {_options(classes_present, label_fn=_class_label)}
+          </select>
+        </label>{construction_field}
       </div>
-    </section>
-  </nav>
-</form>
+      <ul id="conjugation-verb-list" class="lemma-list"
+          data-conjugation-results hidden></ul>
+      <p class="conjugation-drawer__empty" data-conjugation-empty hidden></p>
+    </div>
+  </form>
+</div>
 """
 
 
@@ -291,11 +307,15 @@ def make_conjugation_verb_page(
     target: str,
     verbs: list[ConjugationVerb] | None = None,
 ) -> Page:
-    """Chrome-wrapped verb page. Selector rail deferred (`verbs` unused for now)."""
-    del target, verbs
+    """Chrome-wrapped verb page with in-column verb overlay drawer."""
     chrome = chrome_for(locale)
     toolbar, body = split_conjugation_toolbar(verb.fragment_html)
     lemma_display = verb.lemma[:1].upper() + verb.lemma[1:] if verb.lemma else ""
+    drawer = ""
+    if verbs:
+        drawer = conjugation_drawer_html(
+            locale, target, verbs, current_slug=verb.slug
+        )
     return Page(
         locale=locale,
         title=verb.title,
@@ -305,6 +325,7 @@ def make_conjugation_verb_page(
         heading_html=escape(lemma_display),
         body_html=body,
         after_body_html=toolbar,
+        rail_html=drawer,
         active="conjugation-verb",
         show_hero_art=False,
         level=verb.cefr,
