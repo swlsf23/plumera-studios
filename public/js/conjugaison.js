@@ -1,5 +1,5 @@
 /**
- * Conjugation paradigm UI: mood anchors + active/passive voice tabs.
+ * Conjugation paradigm UI: mood filter + active/passive voice tabs.
  * Tables are already in the static HTML; this only toggles visibility.
  * Voice + last mood persist across verb pages via sessionStorage.
  */
@@ -9,6 +9,7 @@
 
   const VOICE_KEY = "plumera:conjugation:voice";
   const MOOD_KEY = "plumera:conjugation:mood";
+  const DEFAULT_MOOD = "mood-indicatif";
 
   const activePanel = root.querySelector(
     '.conjugation-voice-panel[data-voice="active"]',
@@ -18,6 +19,7 @@
   );
   const tabs = [...document.querySelectorAll(".voice-tab[data-voice]")];
   const moodLinks = [...document.querySelectorAll(".mood-nav-link[href^='#']")];
+  const moodSections = [...root.querySelectorAll(".mood-section")];
 
   function passiveHasContent(panel) {
     if (!panel) return false;
@@ -76,13 +78,46 @@
     }
   }
 
+  function moodBase(id) {
+    return (id || "").replace(/-passive$/, "") || DEFAULT_MOOD;
+  }
+
+  function currentVoice() {
+    const open = root.querySelector(
+      '.conjugation-voice-panel:not([hidden])[data-voice]',
+    );
+    return open?.dataset.voice === "passive" ? "passive" : "active";
+  }
+
   function markMoodActive(id) {
-    const base = (id || "").replace(/-passive$/, "");
+    const base = moodBase(id);
     for (const link of moodLinks) {
       const href = (link.getAttribute("href") || "").replace(/^#/, "");
-      const linkBase = href.replace(/-passive$/, "");
-      const on = Boolean(base) && linkBase === base;
+      const on = moodBase(href) === base;
       link.classList.toggle("mood-nav-link--active", on);
+      if (on) link.setAttribute("aria-current", "true");
+      else link.removeAttribute("aria-current");
+    }
+  }
+
+  function setMood(id, { updateHash = true } = {}) {
+    const base = moodBase(id);
+    for (const section of moodSections) {
+      const heading = section.querySelector(".mood-heading[id]");
+      const sectionBase = moodBase(heading?.id || "");
+      const on = sectionBase === base;
+      section.hidden = !on;
+      if (on) section.removeAttribute("hidden");
+      else section.setAttribute("hidden", "");
+    }
+    markMoodActive(base);
+    writeStoredMood(base);
+    if (updateHash) {
+      const suffix = currentVoice() === "passive" && hasPassive ? "-passive" : "";
+      const hash = `#${base}${suffix}`;
+      if (window.location.hash !== hash) {
+        history.replaceState(null, "", hash);
+      }
     }
   }
 
@@ -108,11 +143,13 @@
     const suffix = voice === "passive" ? "-passive" : "";
     for (const link of moodLinks) {
       const href = link.getAttribute("href") || "";
-      const id = href.replace(/^#/, "").replace(/-passive$/, "");
+      const id = moodBase(href.replace(/^#/, ""));
       if (!id) continue;
       link.setAttribute("href", `#${id}${suffix}`);
     }
     writeStoredVoice(voice);
+    // Keep the selected mood visible in the newly shown panel.
+    setMood(readStoredMood() || DEFAULT_MOOD);
   }
 
   for (const tab of tabs) {
@@ -122,31 +159,19 @@
   }
 
   for (const link of moodLinks) {
-    link.addEventListener("click", () => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
       const href = link.getAttribute("href") || "";
-      const id = href.replace(/^#/, "");
-      writeStoredMood(id.replace(/-passive$/, ""));
-      markMoodActive(id);
+      setMood(href.replace(/^#/, ""));
     });
   }
 
+  const hashMood = moodBase(window.location.hash.replace(/^#/, ""));
+  const initialMood =
+    (hashMood.startsWith("mood-") && hashMood) ||
+    readStoredMood() ||
+    DEFAULT_MOOD;
+
   setVoice(readStoredVoice());
-
-  // Restore mood highlight only — do not scroll. Header → /conjugation/ must
-  // land at the top of the page; scrolling to the last mood felt like a jump
-  // to the middle.
-  const storedMood = readStoredMood();
-  markMoodActive(storedMood || "mood-indicatif");
-
-  function syncMoodScrollMargin() {
-    const header = document.querySelector(".conjugation-header");
-    if (!header) return;
-    const px = Math.ceil(header.getBoundingClientRect().height) + 12;
-    document.documentElement.style.setProperty(
-      "--conjugation-sticky-offset",
-      `${px}px`,
-    );
-  }
-  syncMoodScrollMargin();
-  window.addEventListener("resize", syncMoodScrollMargin);
+  setMood(initialMood);
 })();
