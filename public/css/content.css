@@ -1512,8 +1512,8 @@
 
 .content-page--conjugation-verb.page {
   overflow: visible; /* sticky title/moods/voice; .page defaults to overflow:hidden */
-  /* Flat surface — no decorative radial wash behind conjugation chrome/tables. */
-  background: var(--paper);
+  /* Lock wash to the viewport so sticky chrome can share the same paint. */
+  background-attachment: fixed;
 }
 
 .content-page--conjugation-verb .conjugation-header {
@@ -1522,7 +1522,12 @@
   z-index: 4;
   margin: 0 0 1rem;
   padding: 0 0 0.75rem;
-  background: var(--paper);
+  /* Same wash as .content-page; fixed so it lines up with the page (no cream slab). */
+  background:
+    radial-gradient(circle at 82% 12%, var(--blue-wash), transparent 32%),
+    radial-gradient(circle at 20% 18%, rgba(255, 255, 255, 0.6), transparent 34%),
+    linear-gradient(180deg, #f6f1ea 0%, #f3eee6 100%);
+  background-attachment: fixed;
   border-bottom: 0;
   box-shadow: none;
 }

@@ -121,7 +121,7 @@
     }
   }
 
-  function setVoice(voice) {
+  function setVoice(voice, { updateHash = true } = {}) {
     if (voice === "passive" && !hasPassive) voice = "active";
     for (const panel of [activePanel, passivePanel]) {
       if (!panel) continue;
@@ -149,7 +149,7 @@
     }
     writeStoredVoice(voice);
     // Keep the selected mood visible in the newly shown panel.
-    setMood(readStoredMood() || DEFAULT_MOOD);
+    setMood(readStoredMood() || DEFAULT_MOOD, { updateHash });
   }
 
   for (const tab of tabs) {
@@ -166,12 +166,53 @@
     });
   }
 
+  // Header "Conjugation" must land at the document top — never on a mood
+  // fragment / restored scroll (which pinned the sticky eyebrow in view).
+  try {
+    history.scrollRestoration = "manual";
+  } catch {
+    /* ignore */
+  }
+
   const hashMood = moodBase(window.location.hash.replace(/^#/, ""));
   const initialMood =
     (hashMood.startsWith("mood-") && hashMood) ||
     readStoredMood() ||
     DEFAULT_MOOD;
 
-  setVoice(readStoredVoice());
-  setMood(initialMood);
+  if (window.location.hash) {
+    history.replaceState(
+      null,
+      "",
+      window.location.pathname + window.location.search,
+    );
+  }
+
+  setVoice(readStoredVoice(), { updateHash: false });
+  setMood(initialMood, { updateHash: false });
+  window.scrollTo(0, 0);
+
+  window.addEventListener("pageshow", () => {
+    if (!window.location.hash) window.scrollTo(0, 0);
+  });
+
+  // Same-URL header click (already on the landing verb) — force top.
+  for (const anchor of document.querySelectorAll(
+    ".content-header a[href], .content-header__mobile a[href]",
+  )) {
+    anchor.addEventListener("click", (event) => {
+      let url;
+      try {
+        url = new URL(anchor.href, window.location.href);
+      } catch {
+        return;
+      }
+      if (url.pathname !== window.location.pathname || url.hash) return;
+      event.preventDefault();
+      if (window.location.hash) {
+        history.replaceState(null, "", url.pathname + url.search);
+      }
+      window.scrollTo(0, 0);
+    });
+  }
 })();
