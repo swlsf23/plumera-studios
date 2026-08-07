@@ -519,9 +519,58 @@ Treat these as AI tells. They are banned in shippable site copy:
 
 CI fails the build if `;` or `—` appear in locale Markdown or landing prose.
 
-## Pedagogical review
+## Content review
 
-Review every lesson for teaching effectiveness as well as editorial quality and linguistic accuracy.
+Review every lesson on three separate dimensions: stylistic, linguistic, and pedagogical. A lesson is ready only when it succeeds on all three.
+
+### Stylistic review
+
+Evaluate the learner-facing writing independently of the language being taught.
+
+Ask:
+
+- Is the English clear and natural?
+- Is the language accessible to readers who may not be native English speakers?
+- Does the copy speak to the learner when appropriate without forcing second person into every sentence?
+- Is the writing active without becoming command-heavy or sounding like technical documentation?
+- Are sentences concise without sacrificing useful explanation?
+- Are unnecessary qualifiers, idiomatic English, and clever phrasing removed?
+- Does each paragraph add something new rather than restating the previous point?
+- Are headings clear, useful, and consistent with equivalent topics?
+- Are recurring structures and terminology consistent across the learning path?
+- Are tables introduced consistently?
+- Does the page avoid positional language such as *above* and *below*?
+- Does the introduction give the learner a reason to continue?
+- Does the page maintain momentum when read from beginning to end?
+- Does the ending provide a useful takeaway or next step rather than simply summarize the article?
+
+A stylistically strong lesson should feel clear and approachable without sounding simplified, mechanical, or over-written.
+
+### Linguistic review
+
+Evaluate the target-language content independently of the quality of the English explanation.
+
+Ask:
+
+- Is every target-language example grammatically correct?
+- Does each example sound natural to a native speaker?
+- Does the translation accurately represent the meaning of the example?
+- Is the translation natural in the reference language rather than unnecessarily literal?
+- Does the explanation accurately describe how the target language works?
+- Are grammatical terms and linguistic claims accurate?
+- Are register, tone, and formality appropriate and identified when necessary?
+- Are expressions presented with the prepositions, articles, pronouns, or other elements required to use them correctly?
+- Are alternative translations included only when they clarify a genuine range of meaning?
+- Are contrasts between similar words or constructions accurate?
+- Are examples representative of contemporary usage?
+- Are genuine errors distinguished from sentences that are grammatical but mean something different?
+- Does the lesson avoid presenting a useful rule of thumb as an absolute rule when exceptions matter at this level?
+
+A linguistically correct sentence is not automatically a useful example. Linguistic review establishes accuracy and naturalness. Pedagogical review determines whether the example belongs in the lesson.
+
+### Pedagogical review
+
+Evaluate whether the page actually helps a learner understand, remember, recognize, and use the material.
 
 Ask:
 
@@ -529,16 +578,31 @@ Ask:
 - Is the material appropriate for the stated CEFR level?
 - Does new material build on knowledge the learner is likely to have already?
 - Are concepts introduced in an order that makes them easier to understand?
+- Does the page move from more concrete or familiar uses toward less transparent ones when appropriate?
 - Does each explanation give the learner enough information to understand the pattern without unnecessary detail?
-- Do examples reveal how the language works rather than merely illustrate the vocabulary?
-- Do multiple examples add something different, such as another person, tense, context, or form?
+- Do examples reveal how the language works rather than merely illustrate vocabulary?
+- When several examples are given, does each add something useful, such as another person, tense, context, form, or contrast?
 - Are important contrasts made explicit when learners are likely to confuse them?
-- Does the lesson help the learner recognize a reusable pattern rather than memorize isolated sentences?
-- Are exceptions introduced only when they are useful at this level?
+- Does the lesson help the learner recognize reusable patterns rather than memorize isolated sentences?
+- Does it distinguish expressions that should be learned as units from patterns the learner can apply productively?
+- Are exceptions and edge cases introduced only when they help at this level?
 - Does the page distinguish what the learner should understand now from what can wait until a later level?
-- By the end of the page, is it clear what the learner should be able to recognize or use?
+- Does the amount of explanation reflect the difficulty of the concept?
+- Does the lesson connect appropriately to material that came before it?
+- Does it provide a meaningful next step without making earlier topics unnecessary prerequisites?
+- By the end of the page, is it clear what the learner should be able to recognize, understand, or use?
 
-A lesson can be linguistically correct and editorially polished without being an effective lesson. Treat pedagogical quality as a separate review dimension.
+A lesson can be linguistically correct and stylistically polished without being an effective lesson. Treat pedagogical quality as a separate review dimension.
+
+### Review order
+
+When doing a full lesson review, use this order:
+
+1. **Linguistic review:** Is what we teach correct and natural?
+2. **Pedagogical review:** Are we teaching the right material in the right way at the right level?
+3. **Stylistic review:** Is the final explanation clear, concise, consistent, and engaging?
+
+Do not use stylistic polishing to hide a linguistic or pedagogical problem. Fix the underlying content first.
 
 ## Editing principles
 
