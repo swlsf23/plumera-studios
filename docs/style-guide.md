@@ -519,6 +519,27 @@ Treat these as AI tells. They are banned in shippable site copy:
 
 CI fails the build if `;` or `—` appear in locale Markdown or landing prose.
 
+## Pedagogical review
+
+Review every lesson for teaching effectiveness as well as editorial quality and linguistic accuracy.
+
+Ask:
+
+- Does the lesson have a clear learning goal?
+- Is the material appropriate for the stated CEFR level?
+- Does new material build on knowledge the learner is likely to have already?
+- Are concepts introduced in an order that makes them easier to understand?
+- Does each explanation give the learner enough information to understand the pattern without unnecessary detail?
+- Do examples reveal how the language works rather than merely illustrate the vocabulary?
+- Do multiple examples add something different, such as another person, tense, context, or form?
+- Are important contrasts made explicit when learners are likely to confuse them?
+- Does the lesson help the learner recognize a reusable pattern rather than memorize isolated sentences?
+- Are exceptions introduced only when they are useful at this level?
+- Does the page distinguish what the learner should understand now from what can wait until a later level?
+- By the end of the page, is it clear what the learner should be able to recognize or use?
+
+A lesson can be linguistically correct and editorially polished without being an effective lesson. Treat pedagogical quality as a separate review dimension.
+
 ## Editing principles
 
 ### Consistency is deliberate, not mechanical
