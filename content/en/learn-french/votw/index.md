@@ -9,9 +9,12 @@ date:
 draft: false
 eyebrow: Series
 related:
+  - title: What's new
+    href: /en/learn-french/whats-new/
+  - title: All lessons
+    href: /en/learn-french/catalog/
   - title: CEFR levels
     href: /en/cefr/
-  - href: /en/learn-french/votw/votw-prendre-a1/
 ---
 
 # French Verb of the Week
