@@ -293,6 +293,16 @@ Do not pad an idioms page to reach an arbitrary number of expressions. Curate fo
 
 ## Introductions
 
+### Make the learning goal clear
+
+Every lesson should have a defined learning goal, and the opening should make that goal clear to the learner.
+
+The goal does not need to be stated as a formal learning objective. Prefer natural language that establishes what the learner is building on and what they will learn next.
+
+Avoid formulaic language such as "By the end of this lesson, you will be able to..." unless the context calls for it.
+
+At A1 and A2, pay particular attention to making the learning progression and expected prior knowledge clear. At higher levels, lessons may be more modular as learners refine, extend, and distinguish knowledge they already have.
+
 ### Give the learner a reason to continue
 
 The opening should quickly establish why the topic matters.
