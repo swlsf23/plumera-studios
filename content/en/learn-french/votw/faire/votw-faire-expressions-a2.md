@@ -1,6 +1,6 @@
 ---
 title: "Faire - expressions and common errors (A2 French) | Plumera Studios"
-description: Learn the core meanings, grammar, and the major usage patterns of the French verb faire.
+description: Learn useful expressions and common errors for the French verb faire.
 slug: votw-faire-expressions-a2
 target: learn-french
 locale: en
@@ -16,44 +16,41 @@ related:
 
 # Faire - expressions
 
-Once the everyday uses of *faire* are in place, the next job is the fixed phrases and the common slips. For the basic forms and senses, start with [Faire - basics](/en/learn-french/votw/faire/votw-faire-basics-a2/).
+After you learn the everyday uses of *faire*, you’re ready to explore its fixed expressions and common errors. For a refresher on the basic forms and uses, start with [Faire - basics](/en/learn-french/votw/faire/votw-faire-basics-a2/).
 
-## Expressions and idioms
+## Common expressions
 
-In fixed expressions, learn the whole phrase. The meaning is hard to guess from *faire* alone.
+You’ll also use *faire* in many common expressions where English uses a different verb:
 
-### faire la connaissance de
+| French                | English             |
+| --------------------- | ------------------- |
+| *faire attention à*   | to pay attention to |
+| *faire la cuisine*    | to do the cooking   |
+| *faire une promenade* | to go for a walk    |
 
-Meeting someone for the first time.
+Pay particular attention to *faire attention à*. English uses *pay attention*, while French uses *faire attention*.
+
+## Usage patterns:
+
+You can't always understand a fixed expression by translating *faire* alone. Learn the whole phrase instead.
+
+### *faire la connaissance de*
+
+Use *faire la connaissance de* when you meet someone for the first time:
 
 | French | English |
-|--------|---------|
+| ---------------------------------------------------- | --------------------------------------- |
 | J'ai fait la connaissance de nos voisins. | I met our neighbors for the first time. |
 | Elle a fait la connaissance de son nouveau collègue. | She met her new colleague. |
 
-### Ça fait longtemps
+### *Ça fait... que*
 
-Used when talking about time that has passed.
+Use *ça fait... que* to say how long something has been happening:
 
 | French | English |
-|--------|---------|
+| ----------------------------------------- | ------------------------------------------- |
 | Ça fait longtemps qu'on ne s'est pas vus. | We haven't seen each other for a long time. |
 | Ça fait deux heures que j'attends. | I've been waiting for two hours. |
-
-Causative uses such as *faire* + infinitive and denser idioms are covered in the [B1 companion article](/en/learn-french/votw/faire/votw-faire-advanced-b1/).
-
-## Other common constructions
-
-Three combinations you will hear constantly:
-
-| French | English |
-|--------|---------|
-| faire attention à | to pay attention to |
-| faire la cuisine | to do the cooking |
-| faire une promenade | to go for a walk |
-
-*Faire attention à* is the one that trips English speakers. We *pay* attention. French uses *faire*.
-
 
 <!-- art: band -->
 

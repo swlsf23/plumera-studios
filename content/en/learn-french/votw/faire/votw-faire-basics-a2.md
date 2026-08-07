@@ -96,6 +96,6 @@ You’ll also use *faire* for many sports, errands, and everyday activities wher
 
 ## Before you go
 
-Don't try to translate *faire* with a single English verb. Learn the patterns instead: doing and making, weather with *il fait*, and everyday activities with *faire*.
-
 As you recognize more of these patterns, you'll rely less on translating *faire* word by word. This becomes important with more advanced uses, where a direct English translation won't always help.
+
+Next, learn the fixed phrases and common errors in [Faire - expressions and common errors](/en/learn-french/votw/faire/votw-faire-expressions-a2/).
