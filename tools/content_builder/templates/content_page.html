@@ -40,6 +40,7 @@
 
       <nav class="content-header__nav" aria-label="Primary navigation">
         {% if page.locale == 'en' %}
+        <a{% if page.active == 'plumera-about' %} class="active"{% endif %} href="/en/plumera-about/">{{ chrome.about }}</a>
         <a{% if page.active == 'whats-new' %} class="active"{% endif %} href="/en/learn-french/whats-new/">{{ chrome.whats_new }}</a>
         <a{% if page.active == 'catalog' %} class="active"{% endif %} href="/en/learn-french/catalog/">{{ chrome.catalog }}</a>
         <a{% if page.active == 'conjugation' or page.active == 'conjugation-verb' %} class="active"{% endif %} href="{{ conjugation_href or '/en/learn-french/conjugation/' }}">{{ chrome.conjugation }}</a>
@@ -76,6 +77,7 @@
 
       <nav class="content-header__mobile" aria-label="Mobile navigation" data-mobile-nav>
         {% if page.locale == 'en' %}
+        <a{% if page.active == 'plumera-about' %} class="active"{% endif %} href="/en/plumera-about/">{{ chrome.about }}</a>
         <a{% if page.active == 'whats-new' %} class="active"{% endif %} href="/en/learn-french/whats-new/">{{ chrome.whats_new }}</a>
         <a{% if page.active == 'catalog' %} class="active"{% endif %} href="/en/learn-french/catalog/">{{ chrome.catalog }}</a>
         <a{% if page.active == 'conjugation' or page.active == 'conjugation-verb' %} class="active"{% endif %} href="{{ conjugation_href or '/en/learn-french/conjugation/' }}">{{ chrome.conjugation }}</a>
