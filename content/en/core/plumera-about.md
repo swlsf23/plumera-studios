@@ -2,7 +2,7 @@
 title: "About Plumera Studios | Plumera"
 description: Learn about Plumera Studios, an independent studio creating language-learning resources, interactive tools, and word games.
 eyebrow: Studio
-draft: true
+draft: false
 related:
   - title: Updates
     href: /en/contact/
@@ -19,7 +19,7 @@ Plumera Studios is a small, independent studio focused on language learning and 
 
 ## Who we are
 
-What we make should be clear, useful, and enjoyable to use: lessons, reference, interactive content, and games. That means cutting unnecessary complexity, making information easy to navigate, and keeping the interface quiet so the language stays front and center.
+What we make should be clear, useful, and enjoyable to use: lessons, reference material, interactive content, and games. That means cutting unnecessary complexity, making information easy to navigate, and keeping the interface quiet so the language stays front and center.
 
 We’re small by design, which gives us the freedom to take our time, experiment with ideas, and pay attention to the details.
 
@@ -37,7 +37,7 @@ Alongside language learning, we’re also interested in words simply because the
 
 We organize content by [CEFR level](/en/cefr/) so you can work at a pace that matches where you are. Each page targets a level. We do not try to cover every meaning, construction, and expression in one place.
 
-Start with material for your current level, then come back to related topics as you improve. Newer pages build on what you already know and bring in more advanced uses when you are ready for them.
+Start with material for your current level, then come back to related topics as you improve. Higher-level pages build on what you already know and bring in more advanced uses when you are ready for them.
 
 ## What to expect
 
@@ -45,7 +45,7 @@ Plumera is still growing, and you’ll see new things appear regularly.
 
 Expect new lessons and learning resources, improvements to the tools already here, and experiments with different ways of exploring language. Some will be practical, some more playful, and some may simply begin with an idea we think is worth trying.
 
-We’re not trying to build everything at once. We’d rather make a smaller number of things thoughtfully, learn from how people use them, and keep making them better.
+We’re not trying to build everything at once. New projects will arrive gradually, alongside continued improvements to the things already here.
 
 ## Stay in touch
 
