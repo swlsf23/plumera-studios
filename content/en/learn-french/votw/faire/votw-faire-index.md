@@ -1,3 +1,19 @@
+---
+title: "Learn faire | Plumera"
+description: A learning path for the French verb faire, from A2 core uses through B1 constructions and idioms.
+slug: votw-faire-index
+target: learn-french
+locale: en
+author:
+date: 2026-07-31
+draft: false
+related:
+  - href: /en/learn-french/votw/faire/votw-faire-basics-a2/
+  - href: /en/learn-french/votw/
+  - title: CEFR levels
+    href: /en/cefr/
+---
+
 # Learn *faire*
 
 *Faire* is one of the most useful verbs in French, but you don't need to learn all of its uses at once. Start with the core A2 uses, build your range with expressions and common errors, then move on to more advanced B1 constructions.
