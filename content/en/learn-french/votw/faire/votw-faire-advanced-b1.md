@@ -1,6 +1,6 @@
 ---
 title: "Faire - advanced (B1 French) | Plumera Studios"
-description: How French uses faire for having something done, se faire, and denser fixed expressions around B1.
+description: Learn how to use faire to have something done, describe things that happen to you, and use more advanced expressions at B1.
 slug: votw-faire-advanced-b1
 target: learn-french
 locale: en
@@ -9,14 +9,14 @@ author:
 date: 2026-07-31
 draft: true
 related:
-  - href: /en/learn-french/votw/faire/basics-a2/
-  - href: /en/learn-french/votw/faire/expressions-a2/
+  - href: /en/learn-french/votw/faire/votw-faire-basics-a2/
+  - href: /en/learn-french/votw/faire/votw-faire-expressions-a2/
   - href: /en/learn-french/votw/
 ---
 
 # Faire - advanced
 
-At [A2](/en/cefr/), *faire* covers doing, making, weather, and everyday activities. That core is covered in the [French Verb of the Week lesson on *faire*](/en/learn-french/votw/faire/basics-a2/).
+At [A2](/en/cefr/), *faire* covers doing, making, weather, and everyday activities. That core is covered in the [French Verb of the Week lesson on *faire*](/en/learn-french/votw/faire/votw-faire-basics-a2/).
 
 Around [B1](/en/cefr/), translating *faire* as "do" or "make" stops helping much. You meet constructions where someone causes an action, something happens to the subject, or a fixed phrase carries the whole meaning. Learn those as patterns.
 

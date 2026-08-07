@@ -1,22 +1,22 @@
 ---
-title: "Faire - expressions (A2 French) | Plumera Studios"
-description: Fixed phrases with faire, plus common mistakes learners make with this verb.
-slug: expressions-a2
+title: "Faire - expressions and common errors (A2 French) | Plumera Studios"
+description: Learn the core meanings, grammar, and the major usage patterns of the French verb faire.
+slug: votw-faire-expressions-a2
 target: learn-french
 locale: en
 level: A2
 author:
 date: 2026-07-31
-draft: true
+draft: false
 related:
-  - href: /en/learn-french/votw/faire/basics-a2/
+  - href: /en/learn-french/votw/faire/votw-faire-basics-a2/
   - href: /en/learn-french/votw/faire/votw-faire-advanced-b1/
   - href: /en/learn-french/votw/
 ---
 
 # Faire - expressions
 
-Once the everyday uses of *faire* are in place, the next job is the fixed phrases and the common slips. For the basic forms and senses, start with [Faire - basics](/en/learn-french/votw/faire/basics-a2/).
+Once the everyday uses of *faire* are in place, the next job is the fixed phrases and the common slips. For the basic forms and senses, start with [Faire - basics](/en/learn-french/votw/faire/votw-faire-basics-a2/).
 
 ## Expressions and idioms
 
@@ -42,10 +42,22 @@ Used when talking about time that has passed.
 
 Causative uses such as *faire* + infinitive and denser idioms are covered in the [B1 companion article](/en/learn-french/votw/faire/votw-faire-advanced-b1/).
 
+## Other common constructions
+
+Three combinations you will hear constantly:
+
+| French | English |
+|--------|---------|
+| faire attention à | to pay attention to |
+| faire la cuisine | to do the cooking |
+| faire une promenade | to go for a walk |
+
+*Faire attention à* is the one that trips English speakers. We *pay* attention. French uses *faire*.
+
 
 <!-- art: band -->
 
-## Common mistakes
+## Common errors
 
 One mistake picks the wrong weather verb. The other drops the preposition after *faire attention*.
 
@@ -69,4 +81,4 @@ The expression is fixed and needs the preposition.
 
 ## Before you go
 
-Treat the phrases above as whole units, and watch for the slips in the mistakes section. For the core *faire* uses, go back to [Faire - basics](/en/learn-french/votw/faire/basics-a2/). For denser constructions, see the [B1 companion on *faire*](/en/learn-french/votw/faire/votw-faire-advanced-b1/).
+Treat the phrases above as whole units, and watch for the slips in the mistakes section. For the core *faire* uses, go back to [Faire - basics](/en/learn-french/votw/faire/votw-faire-basics-a2/). For denser constructions, see the [B1 companion on *faire*](/en/learn-french/votw/faire/votw-faire-advanced-b1/).
