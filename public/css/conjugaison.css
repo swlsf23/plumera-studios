@@ -8,9 +8,9 @@
 .content-page--conjugation-verb .conjugation-toolbar {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.45rem 0.5rem;
-  align-items: flex-start;
-  justify-content: flex-start;
+  gap: 0.45rem 0.75rem;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 1.25rem;
   padding-bottom: 0.75rem;
   border-bottom: 1px solid color-mix(in srgb, currentColor 12%, transparent);
@@ -30,16 +30,12 @@
 }
 
 .content-page--conjugation-verb .mood-nav {
-  /* Moods own the first row. */
-  flex: 1 1 100%;
+  flex: 1 1 auto;
 }
 
 .content-page--conjugation-verb .voice-tabs {
-  /* Second row under moods, flush left with the mood row. */
   flex: 0 0 auto;
-  margin-left: 0;
-  padding-left: 0;
-  border-left: 0;
+  margin-left: auto;
 }
 
 .content-page--conjugation-verb .mood-nav-link,

@@ -1,4 +1,4 @@
-"""Conjugation verb emit (redirect hub, verbs.json, in-column overlay drawer)."""
+"""Conjugation verb emit (hub selector, verbs.json, verb pages)."""
 
 from __future__ import annotations
 
@@ -9,7 +9,6 @@ from pathlib import Path
 
 from tools.content_builder.build import build
 from tools.content_builder.conjugation import (
-    default_conjugation_verb,
     load_conjugation_verbs,
     parse_conjugation_fragment,
 )
@@ -17,6 +16,7 @@ from tools.content_builder.conjugation import (
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTENT = ROOT / "content"
+HUB = "/en/learn-french/conjugation/"
 
 
 class ConjugationFragmentTests(unittest.TestCase):
@@ -31,11 +31,10 @@ class ConjugationFragmentTests(unittest.TestCase):
 
 
 class ConjugationBuildTests(unittest.TestCase):
-    def test_emit_redirect_json_and_verb_html(self) -> None:
+    def test_emit_hub_json_and_verb_html(self) -> None:
         verbs = load_conjugation_verbs(CONTENT)
         if not verbs:
             self.skipTest("no conjugation verb fragments in content/")
-        land = default_conjugation_verb(verbs)
         sample = next(v for v in verbs if v.slug == "revenir")
 
         with tempfile.TemporaryDirectory() as tmp:
@@ -45,12 +44,28 @@ class ConjugationBuildTests(unittest.TestCase):
             index = dist / "en" / "learn-french" / "conjugation" / "index.html"
             self.assertTrue(index.is_file())
             index_html = index.read_text(encoding="utf-8")
-            self.assertIn(f"url={land.href}", index_html)
-            self.assertIn("location.replace", index_html)
-            self.assertIn("location.search", index_html)
-            # Hub is a redirect, not a verb list page.
-            self.assertNotIn("data-conjugation-results", index_html)
-            self.assertNotIn('class="conjugation"', index_html)
+            self.assertNotIn("location.replace", index_html)
+            self.assertNotIn("data-conjugation-drawer", index_html)
+            self.assertIn("data-conjugation-controls", index_html)
+            self.assertIn("data-conjugation-results", index_html)
+            self.assertIn("data-conjugation-q", index_html)
+            self.assertIn("data-conjugation-az", index_html)
+            self.assertIn("data-conjugation-az-letter", index_html)
+            self.assertRegex(
+                index_html,
+                r'data-conjugation-index-url="/en/learn-french/conjugation/verbs\.json\?v=[0-9a-f]{10}"',
+            )
+            # Lists are filled from verbs.json — not a baked-in verb inventory.
+            self.assertNotIn(sample.href, index_html)
+            self.assertNotIn('class="content-list__item"', index_html)
+            self.assertIn("conjugation-index.js", index_html)
+            self.assertNotIn("conjugation-drawer.js", index_html)
+            self.assertIn("unicode-casefold.js", index_html)
+            self.assertIn("content-page--conjugation", index_html)
+            self.assertIn(
+                f'rel="canonical" href="https://plumerastudios.com{HUB}"',
+                index_html,
+            )
 
             verbs_json_path = (
                 dist / "en" / "learn-french" / "conjugation" / "verbs.json"
@@ -58,6 +73,9 @@ class ConjugationBuildTests(unittest.TestCase):
             self.assertTrue(verbs_json_path.is_file())
             payload = json.loads(verbs_json_path.read_text(encoding="utf-8"))
             self.assertEqual(len(payload["verbs"]), len(verbs))
+            self.assertTrue(
+                any(v["href"] == sample.href for v in payload["verbs"])
+            )
 
             verb_out = (
                 dist
@@ -79,33 +97,32 @@ class ConjugationBuildTests(unittest.TestCase):
             self.assertIn("conjugation-toolbar", vhtml)
             self.assertIn("conjugation-tables", vhtml)
             self.assertIn("conjugation-stage", vhtml)
-            # Hero lemma: initial capital, not all-lowercase / all-caps.
-            self.assertIn(f"<h1 class=\"lemma-title\">{sample.lemma[:1].upper()}{sample.lemma[1:]}</h1>", vhtml)
-            # In-column overlay drawer (not a side rail / shell that widens the page).
+            self.assertIn(
+                f"<h1>{sample.lemma[:1].upper()}{sample.lemma[1:]}</h1>",
+                vhtml,
+            )
             self.assertNotIn("conjugation-sidebar", vhtml)
             self.assertNotIn("conjugation-shell", vhtml)
-            self.assertIn("data-conjugation-drawer", vhtml)
-            self.assertIn("data-conjugation-results", vhtml)
-            self.assertIn("data-conjugation-drawer-open", vhtml)
-            self.assertRegex(
-                vhtml,
-                r'data-conjugation-index-url="/en/learn-french/conjugation/verbs\.json\?v=[0-9a-f]{10}"',
-            )
-            self.assertIn("conjugation-drawer.js", vhtml)
+            self.assertNotIn("data-conjugation-drawer", vhtml)
+            self.assertNotIn("conjugation-drawer.js", vhtml)
             self.assertNotIn("conjugation-index.js", vhtml)
-            self.assertIn("unicode-casefold.js", vhtml)
+            self.assertNotIn("conjugation-browse", vhtml)
+            self.assertNotIn("← Verb list", vhtml)
             self.assertIn("content-column", vhtml)
             toolbar_idx = vhtml.index('class="conjugation-toolbar"')
             body_idx = vhtml.index("conjugation-tables")
             self.assertLess(toolbar_idx, body_idx)
             self.assertIn("conjugaison.js", vhtml)
-            # Header skips the hub redirect (avoids flash).
-            land = default_conjugation_verb(verbs)
-            self.assertIn(f'href="{land.href}"', vhtml)
-            self.assertNotIn('href="/en/learn-french/conjugation/"', vhtml)
+
+            landing = (dist / "en" / "index.html").read_text(encoding="utf-8")
+            self.assertIn(f'href="{HUB}"', landing)
+            self.assertNotIn(
+                'href="/en/learn-french/conjugation/verbs/abandonner.html"',
+                landing,
+            )
 
             sitemap = (dist / "en" / "sitemap.xml").read_text(encoding="utf-8")
-            self.assertIn("/en/learn-french/conjugation/", sitemap)
+            self.assertIn(HUB, sitemap)
             self.assertIn(sample.href, sitemap)
 
 

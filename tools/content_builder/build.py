@@ -26,8 +26,8 @@ from tools.content_builder.conjugation import (
     CONJUGATION_STEM,
     VERBS_DIR,
     VERBS_JSON,
-    default_conjugation_verb,
     load_conjugation_verbs,
+    make_conjugation_index_page,
     make_conjugation_verb_page,
     verbs_json_payload,
     write_verbs_json,
@@ -461,7 +461,7 @@ def _votw_nav_hrefs(series: list[tuple[str, str]]) -> dict[str, str]:
 
 
 def _conjugation_nav_hrefs(verbs: list) -> dict[str, str]:
-    """Header Conjugation link → landing verb (avoids /conjugation/ redirect flash)."""
+    """Header Conjugation link → /conjugation/ hub for each locale."""
     by_locale: dict[str, dict[str, list]] = {}
     for verb in verbs:
         parts = verb.href.strip("/").split("/")
@@ -479,7 +479,7 @@ def _conjugation_nav_hrefs(verbs: list) -> dict[str, str]:
                 f"header can only point at one and uses {targets[0]!r}.",
                 file=sys.stderr,
             )
-        hrefs[locale] = default_conjugation_verb(by_target[targets[0]]).href
+        hrefs[locale] = f"/{locale}/{targets[0]}/{CONJUGATION_STEM}/"
     return hrefs
 
 
@@ -728,7 +728,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
         )
 
         for verb in verbs:
-            page = make_conjugation_verb_page(verb, locale, target, verbs)
+            page = make_conjugation_verb_page(verb, locale, target)
             out = conj_dir / VERBS_DIR / f"{verb.slug}.html"
             _write(
                 out,
@@ -745,9 +745,21 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
             )
             emitted += 1
 
-        # /conjugation/ lands on a verb page (tables), not a verb list.
-        land = default_conjugation_verb(verbs)
-        _write_redirect(conj_dir / "index.html", land.href)
+        # /conjugation/ is the filterable verb selector (not a redirect).
+        index_page = make_conjugation_index_page(locale, target, verbs)
+        _write(
+            conj_dir / "index.html",
+            _render_page(
+                template,
+                index_page,
+                votw_nav,
+                pages_by_href,
+                conjugation_nav=conjugation_nav,
+                source=f"{locale}/{target}/{CONJUGATION_STEM}/",
+                draft_hrefs=draft_hrefs,
+                warn_draft_targets=warn_draft_targets,
+            ),
+        )
         conjugation_count += 1
         emitted += 1
 

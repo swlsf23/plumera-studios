@@ -26,9 +26,9 @@
     }
     body { font-family: "Plumera Sans", "Plumera Sans Fallback", sans-serif; }
   </style>
-  <link rel="stylesheet" href="/css/site-content.css?v=css-arch-101">
+  <link rel="stylesheet" href="/css/site-content.css?v=css-arch-119">
   {% if page.active == 'conjugation-verb' %}
-  <link rel="stylesheet" href="/css/conjugaison.css?v=conjugaison-21">
+  <link rel="stylesheet" href="/css/conjugaison.css?v=conjugaison-22">
   {% endif %}
   <script defer src="https://cloud.umami.is/script.js" data-website-id="a6e7309a-1696-4e8c-95f3-bd6d0361fb4a" data-domains="plumerastudios.com"></script>
 </head>
@@ -108,15 +108,7 @@
               {% endif %}
             </div>
             {% endif %}
-            <div class="conjugation-header__title-row">
-              <h1 class="lemma-title">{{ page.heading_html | safe }}</h1>
-              {% if page.rail_html %}
-              <button type="button" class="conjugation-browse"
-                      data-conjugation-drawer-open
-                      aria-expanded="false"
-                      aria-controls="conjugation-drawer-panel">{{ chrome.conjugation_browse }}</button>
-              {% endif %}
-            </div>
+            <h1>{{ page.heading_html | safe }}</h1>
             {% if page.meta_line %}<p class="meta-line">{{ page.meta_line }}</p>{% endif %}
           </header>
           {% if page.after_body_html %}
@@ -124,9 +116,6 @@
           {% endif %}
         </div>
         <div class="conjugation-stage">
-          {% if page.rail_html %}
-          {{ page.rail_html | safe }}
-          {% endif %}
           {% if page.body_html %}
           <article class="article-body conjugation-tables">
             {{ page.body_html | safe }}
@@ -221,9 +210,11 @@
   <script src="/js/unicode-casefold.js?v=casefold-1"></script>
   <script src="/js/catalog.js?v=catalog-12"></script>
   {% endif %}
-  {% if page.active == 'conjugation-verb' %}
+  {% if page.active == 'conjugation' %}
   <script src="/js/unicode-casefold.js?v=casefold-1"></script>
-  <script src="/js/conjugation-drawer.js?v=drawer-1"></script>
+  <script src="/js/conjugation-index.js?v=conj-index-8"></script>
+  {% endif %}
+  {% if page.active == 'conjugation-verb' %}
   <script src="/js/conjugaison.js?v=conjugaison-12"></script>
   {% endif %}
 </body>
