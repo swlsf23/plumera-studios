@@ -239,6 +239,18 @@ The internal slug or content architecture may still use `basics`.
 
 ### A2 expressions topics
 
+Use a standard reader-facing H1 that describes the purpose of the page rather than an internal content label such as "Faire - expressions":
+
+> # Expressions and common errors with *[verb]*
+
+Examples:
+
+> # Expressions and common errors with *faire*
+>
+> # Expressions and common errors with *prendre*
+>
+> # Expressions and common errors with *tenir*
+
 Use a consistent H2 structure across verbs:
 
 > ## Common expressions
