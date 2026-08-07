@@ -4,11 +4,10 @@ description: Learn about Plumera Studios, an independent studio creating languag
 eyebrow: Studio
 draft: false
 related:
-  - title: Updates
-    href: /en/contact/
+  - title: What's new
+    href: /en/learn-french/whats-new/
   - title: CEFR levels
     href: /en/cefr/
-  - href: /en/learn-french/votw/
   - title: Privacy
     href: /en/privacy/
 ---
@@ -27,7 +26,7 @@ We’re small by design, which gives us the freedom to take our time, experiment
 
 We create learning resources and interactive tools for people who are curious about language.
 
-Right now, our focus is French. We’re developing lessons, reference material, and other resources designed to help learners understand how the language works and build confidence using it. That includes [Verb of the Week](/en/learn-french/votw/), articles on grammar and idioms, [French Verb Conjugation](/en/learn-french/conjugation/), and guides such as [CEFR levels](/en/cefr/) and [language certification exams](/en/language-certification-exams/).
+Right now, our focus is French. We’re developing lessons, reference material, and other resources designed to help learners understand how the language works and build confidence using it. That includes [Verb of the Week](/en/learn-french/votw/), articles on grammar and idioms, and guides such as [CEFR levels](/en/cefr/) and [language certification exams](/en/language-certification-exams/).
 
 Spanish is next, with more languages and language-focused projects to follow as Plumera grows.
 
@@ -48,7 +47,5 @@ Expect new lessons and learning resources, improvements to the tools already her
 We’re not trying to build everything at once. New projects will arrive gradually, alongside continued improvements to the things already here.
 
 ## Stay in touch
-
-For product updates and studio news, see [Useful updates. No inbox noise.](/en/contact/).
 
 Questions or feedback: [hello@plumerastudios.com](mailto:hello@plumerastudios.com).
