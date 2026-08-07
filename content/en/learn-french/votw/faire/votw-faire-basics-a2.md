@@ -1,5 +1,5 @@
 ---
-title: "Faire - basics (A2 French) | Plumera Studios"
+title: "How to use faire (A2 French) | Plumera Studios"
 description: Learn the core meanings, grammar, and major usage patterns of the French verb faire.
 slug: votw-faire-basics-a2
 target: learn-french
@@ -17,7 +17,7 @@ related:
     href: /en/cefr/
 ---
 
-# Faire - basics
+# How to use faire
 
 *Faire* can mean "to do" or "to make" in English. But you’ll use it for much more than that.
 

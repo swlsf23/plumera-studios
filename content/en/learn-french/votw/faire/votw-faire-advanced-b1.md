@@ -1,6 +1,7 @@
 ---
-title: "Faire - advanced (B1 French) | Plumera Studios"
-description: Learn how to use faire to have something done, describe things that happen to you, and use more advanced expressions at B1.
+
+title: "Advanced uses of faire (B1 French) | Plumera Studios"
+description: Learn how to use faire to have something done, describe actions that affect you, and use more advanced expressions at B1.
 slug: votw-faire-advanced-b1
 target: learn-french
 locale: en
@@ -9,82 +10,83 @@ author:
 date: 2026-07-31
 draft: true
 related:
-  - href: /en/learn-french/votw/faire/votw-faire-basics-a2/
-  - href: /en/learn-french/votw/faire/votw-faire-expressions-a2/
-  - href: /en/learn-french/votw/
+
+- href: /en/learn-french/votw/faire/votw-faire-basics-a2/
+- href: /en/learn-french/votw/faire/votw-faire-expressions-a2/
+- href: /en/learn-french/votw/faire/votw-faire-idioms-b1-b2/
+- href: /en/learn-french/votw/
+
 ---
 
-# Faire - advanced
+# Advanced uses of *faire*
 
-At [A2](/en/cefr/), *faire* covers doing, making, weather, and everyday activities. That core is covered in the [French Verb of the Week lesson on *faire*](/en/learn-french/votw/faire/votw-faire-basics-a2/).
+At B1, you'll build on the core A2 uses of *faire* with new constructions and expressions.
 
-Around [B1](/en/cefr/), translating *faire* as "do" or "make" stops helping much. You meet constructions where someone causes an action, something happens to the subject, or a fixed phrase carries the whole meaning. Learn those as patterns.
+Here, you'll learn how to use *faire* + infinitive and *se faire* + infinitive, along with several common expressions that expand what you can say with *faire*.
+
+The earlier uses are covered in [How to use ](/en/learn-french/votw/faire/votw-faire-basics-a2/)[*faire*](/en/learn-french/votw/faire/votw-faire-basics-a2/) and [Expressions and common errors with ](/en/learn-french/votw/faire/votw-faire-expressions-a2/)[*faire*](/en/learn-french/votw/faire/votw-faire-expressions-a2/).
 
 ## Having something done: *faire* + infinitive
 
-French often uses *faire* with another infinitive to show that someone arranges an action instead of doing it personally.
+Use a conjugated form of *faire* followed by an infinitive when someone arranges for another person to perform an action.
 
 | French | English |
-|--------|---------|
+|---|---|
 | Je fais réparer ma voiture. | I'm having my car repaired. |
 | Elle fait couper ses cheveux. | She's having her hair cut. |
 | Nous avons fait installer une nouvelle cuisine. | We had a new kitchen installed. |
 
-The subject is responsible for the action, but somebody else performs it.
+The person performing the action is often left unspecified in this pattern.
 
-## Something happens to you: *se faire*
+## Something happens to you: *se faire* + infinitive
 
-The pronominal form often describes something that happens to the subject, wanted or not.
+Use a conjugated form of *se faire* followed by an infinitive to describe something that happens to the subject, whether it is wanted or not.
 
 | French | English |
-|--------|---------|
+|---|---|
 | Je me suis fait gronder. | I got told off. |
 | Il s'est fait voler son vélo. | He had his bike stolen. |
 | Elle s'est fait couper les cheveux. | She got her hair cut. |
 
-English usually changes the verb completely (*get*, *have*). French keeps *se faire*.
+English often uses *get* or *have* for this pattern, while French uses *se faire* + infinitive.
 
-Notice the overlap with the previous section: *elle fait couper ses cheveux* (she arranges the cut) and *elle s'est fait couper les cheveux* (she got her hair cut) can describe related situations from slightly different angles.
-
-## Trust, pretense, and facing something
-
-Some of the most common B1 expressions are worth learning as complete units.
+The construction overlaps with *faire* + infinitive, but the point of view changes:
 
 | French | English |
-|--------|---------|
+|---|---|
+| Elle fait couper ses cheveux. | She's having her hair cut. |
+| Elle s'est fait couper les cheveux. | She got her hair cut. |
+
+In the first sentence, she arranges the action. In the second, the sentence presents the haircut as something that happens to her.
+
+## Common B1 expressions
+
+At B1, you'll also encounter expressions where *faire* is part of a larger pattern. Learn each expression as a complete unit:
+
+| French | English |
+|---|---|
 | Je fais confiance à mon équipe. | I trust my team. |
 | Il fait semblant de dormir. | He's pretending to sleep. |
 | Elle doit faire face à un problème difficile. | She has to face a difficult problem. |
 
-Each expression has its own meaning. Trying to translate *faire* word for word rarely helps.
+Each expression has its own meaning. Translating *faire* word by word won't tell you what the whole expression means.
 
 ## Conversational phrases
 
-A few everyday phrases use *faire* in ways that are hard to predict from "do" or "make."
+You'll also hear *faire* in common conversational phrases that express reactions, feelings, and responses:
 
 | French | English |
-|--------|---------|
-| Ça ne fait rien. | It doesn't matter. |
-| Fais attention à toi. | Take care. |
+|---|---|
+| Ça ne fait rien. | It doesn't matter. / Never mind. |
 | Ça fait du bien. | It feels good. / It does you good. |
+| Ça me fait plaisir. | I'm pleased. / That makes me happy. |
+| Ça fait mal. | It hurts. |
+| Fais attention à toi. | Take care. |
 
-*Fais attention à* already appears at [A2](/en/cefr/) with an object (*au chien*). *Fais attention à toi* is the personal, take-care version you will hear constantly in conversation.
+These phrases give you useful ways to respond naturally in everyday conversations.
 
-## A pattern worth noticing
+## Before you go
 
-Past the everyday [A2](/en/cefr/) meanings, *faire* often becomes a frame for larger constructions:
+At B1, *faire* becomes part of constructions and expressions that go beyond its core meanings of "do" and "make." Recognizing these larger patterns will help you understand and use *faire* in a wider range of situations.
 
-| French | English |
-|--------|---------|
-| *faire* + infinitive | have something done |
-| *se faire* + infinitive | have something happen to you |
-| *faire confiance à* | trust |
-| *faire semblant de* | pretend to |
-| *faire face à* | face / cope with |
-| *ça ne fait rien* | it doesn't matter |
-
-Learning these as complete patterns is more useful than memorizing another translation of *faire*.
-
-## Summary
-
-Past the everyday [A2](/en/cefr/) meanings, *faire* becomes a verb of constructions rather than individual translations. Recognizing the whole expression will help you understand spoken and written French more naturally at [B1](/en/cefr/).
+Next, see what happens when the meaning becomes figurative in [Idiomatic expressions with ](/en/learn-french/votw/faire/votw-faire-idioms-b1-b2/)[*faire*](/en/learn-french/votw/faire/votw-faire-idioms-b1-b2/).

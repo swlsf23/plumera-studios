@@ -88,8 +88,30 @@ You use *n'en faire qu'à sa tête* for someone who does what they want instead 
 
 Don't try to translate *à sa tête* word by word. The complete expression describes someone who insists on following their own ideas.
 
+## *Faire exprès (de)*
+
+You use *faire exprès* when someone does something intentionally or on purpose. When you say what the person intended to do, use *faire exprès de* followed by an infinitive.
+
+| French                                           | English                                      |
+| ------------------------------------------------ | -------------------------------------------- |
+| Tu as fait exprès ?                              | Did you do it on purpose?                    |
+| Il a fait exprès de ne pas répondre à la question. | He deliberately didn't answer the question. |
+
+*Faire exprès* is common in everyday conversation, especially when asking whether someone's action was intentional.
+
+## *Faire la tête*
+
+You use *faire la tête* when someone is sulking, upset, or noticeably in a bad mood.
+
+| French                                         | English                                      |
+| ---------------------------------------------- | -------------------------------------------- |
+| Pourquoi tu fais la tête ?                     | Why are you sulking? / What's wrong?         |
+| Elle fait la tête parce qu'elle n'a pas été invitée. | She's sulking because she wasn't invited. |
+
+The closest English translation depends on the situation. Someone who *fait la tête* shows through their behavior that they are unhappy or annoyed.
+
 ## Before you go
 
-Idioms are different from the everyday uses of *faire*: knowing the verb itself may not tell you what the whole expression means.
+Idioms are different from the everyday uses of *faire*. Knowing the verb itself may not tell you what the whole expression means.
 
 Learn the expression as a unit, pay attention to the situation where you hear it, and use the context to connect the words with the figurative meaning.
