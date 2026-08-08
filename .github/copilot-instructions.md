@@ -6,7 +6,7 @@ emits full HTML into `dist/`. Source copy lives under `content/`.
 ## Pull request reviews
 
 For every pull request code review, load and follow
-`.github/skills/code-review/SKILL.md` (severityities, repo constraints, finding
+`.github/skills/code-review/SKILL.md` (priorities, repo constraints, finding
 format, and verdict). Prefer that skill over generic review style.
 
 ## Always-on site rules

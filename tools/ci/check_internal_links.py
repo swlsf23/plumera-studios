@@ -59,6 +59,19 @@ def _page_url_for_html(html_path: Path, dist: Path) -> str:
     return "/" + rel
 
 
+def _safe_site_path(path: str) -> str | None:
+    """Return path if it is a root-relative site path with no traversal segments."""
+    if not path.startswith("/"):
+        path = "/" + path
+    rel = path.strip("/")
+    if not rel:
+        return "/"
+    segments = rel.split("/")
+    if any(seg in ("", ".", "..") for seg in segments):
+        return None
+    return path if path.endswith("/") else "/" + rel
+
+
 def _local_path_from_ref(ref: str, *, page_url: str) -> str | None:
     """Return a site path to check, or None when the ref is out of scope."""
     ref = ref.strip()
@@ -90,13 +103,13 @@ def _local_path_from_ref(ref: str, *, page_url: str) -> str | None:
             return None
         path = unquote(joined_parsed.path or "/")
 
-    if not path.startswith("/"):
-        path = "/" + path
-    return path
+    return _safe_site_path(path)
 
 
 def _exists_in_dist(url_path: str, dist: Path | None = None) -> bool:
     dist = dist if dist is not None else DIST
+    if _safe_site_path(url_path) is None:
+        return False
     rel = url_path.lstrip("/")
     if rel == "" or rel.endswith("/"):
         candidate = dist / rel / "index.html" if rel else dist / "index.html"
