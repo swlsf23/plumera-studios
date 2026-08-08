@@ -47,11 +47,21 @@ def _soup(html: str) -> BeautifulSoup:
     return BeautifulSoup(html or "", "html.parser")
 
 
+def _serialize_node(node: object) -> str:
+    """Serialize one soup child; Comments must keep ``<!-- -->`` delimiters."""
+    if isinstance(node, Comment):
+        return f"<!--{node}-->"
+    return str(node)
+
+
 def _fragment(soup: BeautifulSoup) -> str:
     """Serialize a fragment soup without wrapping html/body."""
-    if soup.body is not None and soup.html is not None:
+    # Prefer body.decode_contents() when the parser wrapped a fragment; it keeps
+    # comment delimiters. Top-level children need explicit Comment handling
+    # because str(Comment) is only the inner text.
+    if soup.body is not None:
         return soup.body.decode_contents()
-    return "".join(str(child) for child in soup.contents)
+    return "".join(_serialize_node(child) for child in soup.contents)
 
 
 def _previous_comment(tag: Tag) -> Comment | None:
