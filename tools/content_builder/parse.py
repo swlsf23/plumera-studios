@@ -24,6 +24,13 @@ from tools.content_builder.levels import (
     level_label_for_page,
     normalize_level_list,
 )
+from tools.content_builder.urls import (
+    article_url,
+    core_url,
+    votw_lesson_url,
+    votw_series_url,
+    whats_new_url,
+)
 
 SITE_ORIGIN = "https://plumerastudios.com"
 CORE_SKIP = {"index.md"}  # landings are copied HTML; MD is reference-only
@@ -303,7 +310,7 @@ def parse_core_page(path: Path, locale: str) -> Page:
         locale=locale,
         title=title,
         description=description,
-        canonical_path=f"/{locale}/{slug}/",
+        canonical_path=core_url(locale, slug),
         eyebrow=eyebrow,
         heading_html=heading.replace(" — ", "<br>") if " — " in heading else heading,
         body_html=html,
@@ -351,15 +358,15 @@ def parse_votw_page(path: Path, locale: str, target: str) -> Page:
     meta_line = " · ".join(meta_parts)
 
     heading_html = heading.replace(" — ", "<br>") if " — " in heading else heading
-    series = f"/{locale}/{target}/votw/"
     if stem == VOTW_INDEX_STEM:
-        canonical_path = series
+        canonical_path = votw_series_url(locale, target)
     elif path.parent.name != "votw":
         # content/.../votw/{lemma}/{job}.md → /.../votw/{lemma}/{job}/
-        lemma = path.parent.name
-        canonical_path = f"{series}{lemma}/{slug}/"
+        canonical_path = votw_lesson_url(
+            locale, target, slug, lemma=path.parent.name
+        )
     else:
-        canonical_path = f"{series}{slug}/"
+        canonical_path = votw_lesson_url(locale, target, slug)
 
     return Page(
         locale=locale,
@@ -415,7 +422,7 @@ def parse_article_page(path: Path, locale: str, target: str) -> Page:
     meta_line = " · ".join(meta_parts)
 
     heading_html = heading.replace(" — ", "<br>") if " — " in heading else heading
-    canonical_path = f"/{locale}/{target}/{ARTICLES_DIR}/{slug}/"
+    canonical_path = article_url(locale, target, slug)
 
     return Page(
         locale=locale,
@@ -556,7 +563,7 @@ def parse_whats_new_page(path: Path, locale: str, target: str) -> Page:
         locale=locale,
         title=title,
         description=description,
-        canonical_path=f"/{locale}/{target}/{WHATS_NEW_STEM}/",
+        canonical_path=whats_new_url(locale, target),
         eyebrow=eyebrow,
         heading_html=heading_html,
         body_html=html,
@@ -676,9 +683,8 @@ def _votw_series_list_paths(
 
 
 def _votw_href(locale: str, target: str, path: Path, slug: str) -> str:
-    if path.parent.name == "votw":
-        return f"/{locale}/{target}/votw/{slug}/"
-    return f"/{locale}/{target}/votw/{path.parent.name}/{slug}/"
+    lemma = None if path.parent.name == "votw" else path.parent.name
+    return votw_lesson_url(locale, target, slug, lemma=lemma)
 
 
 def votw_links(
@@ -773,7 +779,7 @@ def recent_target_links(
                         "description": str(meta.get("description") or "").strip(),
                         "level": _level_label(meta),
                         "kind": chrome["article"],
-                        "href": f"/{locale}/{target}/{ARTICLES_DIR}/{slug}/",
+                        "href": article_url(locale, target, slug),
                     },
                 )
             )

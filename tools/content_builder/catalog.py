@@ -35,6 +35,13 @@ from tools.content_builder.parse import (
     _votw_lesson_paths,
     is_draft,
 )
+from tools.content_builder.urls import (
+    article_url,
+    catalog_url,
+    core_url,
+    votw_series_url,
+    whats_new_url,
+)
 
 CATALOG_STEM = "catalog"
 SCHEMA_VERSION = 1
@@ -294,7 +301,7 @@ def _entry_from_article(
     if not date_s:
         raise ValueError(f"{source}: missing date")
 
-    href = f"/{locale}/{target}/{ARTICLES_DIR}/{slug}/"
+    href = article_url(locale, target, slug)
     return CatalogEntry(
         id=href.strip("/"),
         title=_list_title_from_post(post, path.stem),
@@ -321,7 +328,7 @@ def _entry_from_core(path: Path, locale: str, post: object) -> CatalogEntry:
     if not date_s:
         raise ValueError(f"{source}: missing date")
 
-    href = f"/{locale}/{slug}/"
+    href = core_url(locale, slug)
     kind = str(meta.get("eyebrow") or "").strip()
     return CatalogEntry(
         id=href.strip("/"),
@@ -364,18 +371,18 @@ def make_catalog_page(
     if content_root is not None:
         votw_index = content_root / locale / target / "votw" / "index.md"
         if votw_index.is_file() and not is_draft(votw_index):
-            related.append({"href": f"/{locale}/{target}/votw/"})
+            related.append({"href": votw_series_url(locale, target)})
         whats_new = content_root / locale / target / f"{WHATS_NEW_STEM}.md"
         if whats_new.is_file() and not is_draft(whats_new):
-            related.append({"href": f"/{locale}/{target}/{WHATS_NEW_STEM}/"})
+            related.append({"href": whats_new_url(locale, target)})
     else:
-        related.append({"href": f"/{locale}/{target}/votw/"})
-        related.append({"href": f"/{locale}/{target}/{WHATS_NEW_STEM}/"})
+        related.append({"href": votw_series_url(locale, target)})
+        related.append({"href": whats_new_url(locale, target)})
     return Page(
         locale=locale,
         title=title,
         description=chrome["catalog_description"],
-        canonical_path=f"/{locale}/{target}/{CATALOG_STEM}/",
+        canonical_path=catalog_url(locale, target),
         eyebrow=chrome["catalog_eyebrow"],
         heading_html=escape(title),
         # Intro sits on the filters toolbar row (see catalog_controls_html).

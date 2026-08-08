@@ -23,10 +23,8 @@ from tools.content_builder.catalog import (
 )
 from tools.content_builder.chrome import chrome_for, language_menu
 from tools.content_builder.parse import (
-    ARTICLES_DIR,
     SITE_ORIGIN,
     VOTW_INDEX_STEM,
-    WHATS_NEW_STEM,
     discover_article_pages,
     discover_core_pages,
     discover_votw_pages,
@@ -41,6 +39,7 @@ from tools.content_builder.parse import (
 )
 from tools.content_builder.sidebar import SOCIAL_LINKS
 from tools.content_builder.sitemaps import write_sitemaps
+from tools.content_builder.urls import dist_path_for_url, votw_series_url
 
 ROOT = Path(__file__).resolve().parents[2]
 CONTENT = ROOT / "content"
@@ -440,7 +439,7 @@ def _votw_nav_hrefs(series: list[tuple[str, str]]) -> dict[str, str]:
                 f"hub page or per-target nav items",
                 file=sys.stderr,
             )
-        hrefs[locale] = f"/{locale}/{targets[0]}/votw/"
+        hrefs[locale] = votw_series_url(locale, targets[0])
     return hrefs
 
 
@@ -547,7 +546,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
         )
         # /en/contact/ → en/contact/index.html (plain static hosting)
         stem = path.stem
-        out = dist / page.locale / stem / "index.html"
+        out = dist_path_for_url(dist, page.canonical_path)
         _write(out, html)
         # Keep /en/contact.html working via a static redirect stub
         _write_redirect(dist / page.locale / f"{stem}.html", page.canonical_path)
@@ -556,9 +555,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
     for page, path, target in votw_pages:
         locale = page.locale
         source = str(path.relative_to(CONTENT))
-        series = dist / locale / target / "votw"
         if path.stem == VOTW_INDEX_STEM:
-            # /en/learn-french/votw/ → en/learn-french/votw/index.html
             # List replaces <!-- votw: list --> (outside .article-body).
             lesson_list = _votw_list_html(locale, target, include_drafts)
             split = _split_at_list_marker(page.body_html, "votw", source=source)
@@ -572,12 +569,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
             else:
                 page.body_html, page.tail_body_html = split
                 page.after_body_html = lesson_list
-            out = series / "index.html"
-        else:
-            # Flat: …/votw/slug/ → votw/slug/index.html
-            # Nested: …/votw/lemma/job/ → votw/lemma/job/index.html
-            under_votw = page.canonical_path.rstrip("/").split("/votw/", 1)[-1]
-            out = series.joinpath(*under_votw.split("/")) / "index.html"
+        out = dist_path_for_url(dist, page.canonical_path)
         _write(
             out,
             _render_page(
@@ -593,9 +585,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
         emitted += 1
 
     for page, path, target in article_pages:
-        # /en/learn-french/articles/slug/ → en/learn-french/articles/slug/index.html
-        slug = page.canonical_path.rstrip("/").split("/")[-1]
-        out = dist / page.locale / target / ARTICLES_DIR / slug / "index.html"
+        out = dist_path_for_url(dist, page.canonical_path)
         _write(
             out,
             _render_page(
@@ -611,7 +601,6 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
         emitted += 1
 
     for page, path, target in whats_new_pages:
-        # /en/learn-french/whats-new/ → en/learn-french/whats-new/index.html
         # List replaces <!-- whats-new: list --> (outside .article-body).
         source = str(path.relative_to(CONTENT))
         lesson_list = _whats_new_list_html(page.locale, target, include_drafts)
@@ -626,7 +615,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
         else:
             page.body_html, page.tail_body_html = split
             page.after_body_html = lesson_list
-        out = dist / page.locale / target / WHATS_NEW_STEM / "index.html"
+        out = dist_path_for_url(dist, page.canonical_path)
         _write(
             out,
             _render_page(
@@ -646,12 +635,12 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
         if not entries:
             continue
         payload = catalog_index_payload(locale, target, entries)
-        catalog_dir = dist / locale / target / CATALOG_STEM
-        write_catalog_index(catalog_dir / "index.json", payload)
         page = make_catalog_page(locale, target, content_root=CONTENT)
+        catalog_html = dist_path_for_url(dist, page.canonical_path)
+        write_catalog_index(catalog_html.parent / "index.json", payload)
         page.after_body_html = catalog_after_body_html(locale, entries)
         _write(
-            catalog_dir / "index.html",
+            catalog_html,
             _render_page(
                 template,
                 page,
