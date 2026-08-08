@@ -22,6 +22,13 @@ from tools.content_builder.parse import (
     VOTW_INDEX_STEM,
     WHATS_NEW_STEM,
 )
+from tools.content_builder.urls import (
+    article_url,
+    core_url,
+    votw_lesson_url,
+    votw_series_url,
+    whats_new_url,
+)
 
 ROOT = Path(__file__).resolve().parents[2]
 CONTENT = ROOT / "content"
@@ -82,7 +89,7 @@ def _content_url_for(md_path: Path) -> str | None:
         if not parts[2].endswith(".md"):
             return None
         stem = parts[2][: -len(".md")]
-        return f"/{locale}/{stem}/"
+        return core_url(locale, stem)
 
     # content/{locale}/{target}/…
     if len(parts) < 3:
@@ -93,25 +100,25 @@ def _content_url_for(md_path: Path) -> str | None:
 
     # …/whats-new.md
     if len(parts) == 3 and parts[2] == f"{WHATS_NEW_STEM}.md":
-        return f"/{locale}/{target}/{WHATS_NEW_STEM}/"
+        return whats_new_url(locale, target)
 
     # …/votw/index.md or …/votw/{slug}.md
     if len(parts) == 4 and parts[2] == "votw" and parts[3].endswith(".md"):
         stem = parts[3][: -len(".md")]
         if stem == VOTW_INDEX_STEM:
-            return f"/{locale}/{target}/votw/"
-        return f"/{locale}/{target}/votw/{stem}/"
+            return votw_series_url(locale, target)
+        return votw_lesson_url(locale, target, stem)
 
     # …/votw/{lemma}/{job}.md
     if len(parts) == 5 and parts[2] == "votw" and parts[4].endswith(".md"):
         lemma = parts[3]
         stem = parts[4][: -len(".md")]
-        return f"/{locale}/{target}/votw/{lemma}/{stem}/"
+        return votw_lesson_url(locale, target, stem, lemma=lemma)
 
     # …/articles/{slug}.md
     if len(parts) == 4 and parts[2] == ARTICLES_DIR and parts[3].endswith(".md"):
         stem = parts[3][: -len(".md")]
-        return f"/{locale}/{target}/{ARTICLES_DIR}/{stem}/"
+        return article_url(locale, target, stem)
 
     return None
 
