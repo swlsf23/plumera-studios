@@ -1,5 +1,4 @@
 ---
-
 title: "Advanced uses of faire (B1 French) | Plumera Studios"
 description: Learn how to use faire to have something done, describe actions that affect you, and use more advanced expressions at B1.
 slug: votw-faire-advanced-b1

@@ -1,5 +1,6 @@
 ---
-title: "Learn avoir | Plumera"
+
+title: "Learn avoir | Plumera Studios"
 description: A learning path for the French verb avoir, from A1 core uses through A2 expressions and common mistakes.
 slug: votw-avoir-index
 target: learn-french
@@ -9,6 +10,7 @@ date: 2026-07-15
 draft: false
 related:
   - href: /en/learn-french/votw/avoir/votw-avoir-basics-a1/
+  - href: /en/learn-french/votw/avoir/votw-avoir-expressions-a2/
   - href: /en/learn-french/votw/
   - title: CEFR levels
     href: /en/cefr/
@@ -16,19 +18,17 @@ related:
 
 # Learn *avoir*
 
-*Avoir* is one of the most important French verbs, and one you'll use constantly. The closest English meaning is "to have," but French also uses *avoir* in many places where English uses *be*. You don't need to learn all of its uses at once. Start with the core A1 uses, then build your range with common expressions and the mistakes that send English *be* to *être* instead of *avoir*.
+*Avoir* is one of the most important French verbs, and one you'll use constantly. The closest English meaning is "to have," but French also uses *avoir* in many places where English uses *be*. You don't need to learn all of its uses at once. Start with the core A1 uses, then build your range with common expressions and the mistakes that can send English *be* to the wrong French verb.
 
 ## A1: Core uses
 
 Start with [Avoir - basics](/en/learn-french/votw/avoir/votw-avoir-basics-a1/) to learn the forms and everyday uses of *avoir*.
 
 - [Forms and grammar](/en/learn-french/votw/avoir/votw-avoir-basics-a1/#forms-and-grammar)
-- [How to use *avoir*](/en/learn-french/votw/avoir/votw-avoir-basics-a1/#how-to-use-avoir)
 - [Having or owning something](/en/learn-french/votw/avoir/votw-avoir-basics-a1/#having-or-owning-something)
 - [There is / there are: *il y a*](/en/learn-french/votw/avoir/votw-avoir-basics-a1/#there-is-there-are-il-y-a)
 - [Saying how old someone is](/en/learn-french/votw/avoir/votw-avoir-basics-a1/#saying-how-old-someone-is)
 - [Expressing common states](/en/learn-french/votw/avoir/votw-avoir-basics-a1/#expressing-common-states)
-- [Related verbs](/en/learn-french/votw/avoir/votw-avoir-basics-a1/#related-verbs)
 
 ## A2: Expressions and common mistakes
 
@@ -38,8 +38,8 @@ Next, continue with [Avoir - expressions](/en/learn-french/votw/avoir/votw-avoir
 - [*avoir envie de*](/en/learn-french/votw/avoir/votw-avoir-expressions-a2/#avoir-envie-de)
 - [*avoir besoin de*](/en/learn-french/votw/avoir/votw-avoir-expressions-a2/#avoir-besoin-de)
 - [*avoir de la chance*](/en/learn-french/votw/avoir/votw-avoir-expressions-a2/#avoir-de-la-chance)
-- [Using *être* for age](/en/learn-french/votw/avoir/votw-avoir-expressions-a2/#using-etre-for-age)
-- [Using *être* for hunger, thirst, and similar states](/en/learn-french/votw/avoir/votw-avoir-expressions-a2/#using-etre-for-hunger-thirst-and-similar-states)
+- [Age: *avoir*, not *être*](/en/learn-french/votw/avoir/votw-avoir-expressions-a2/#using-etre-for-age)
+- [Hunger, thirst, and similar states: *avoir*, not *être*](/en/learn-french/votw/avoir/votw-avoir-expressions-a2/#using-etre-for-hunger-thirst-and-similar-states)
 
 ## Summary of *avoir*
 
