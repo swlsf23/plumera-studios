@@ -1,5 +1,4 @@
 ---
-
 title: "Learn avoir | Plumera Studios"
 description: A learning path for the French verb avoir, from A1 core uses through A2 expressions and common mistakes.
 slug: votw-avoir-index
