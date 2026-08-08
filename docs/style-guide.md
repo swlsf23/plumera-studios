@@ -1,41 +1,523 @@
-# Plumera content style guide
+# Plumera Studios content style guide
 
-Learner-facing copy on the site (Markdown under `content/`, landing HTML prose). This file is the source of truth for shared editorial rules. Pair-specific drafting notes still live in the VOTW templates.
+This guide defines the editorial voice, structure, and writing conventions for Plumera language-learning content.
+
+The goal is to make Plumera clear, useful, engaging, and easy to navigate for learners at different levels.
+
+Learner-facing copy on the site lives in Markdown under `content/` and in landing HTML prose. Pair-specific drafting notes still live in the VOTW templates.
 
 Related:
 
-- Per-pair voice and pedagogy: `content/templates/votw/` (see that [README](../content/templates/votw/README.md))
-- CI banned characters: `tools/ci/check_prohibited_chars.py` (also noted in [deploy.md](deploy.md))
-
-## Audience (especially `locale: en`)
-
-English on `/en/` is the **explanation language**, not a promise that readers are native English speakers. Many learners use English as a shared medium while learning French (or another target).
-
-Balance a personal teaching voice with English that travels:
-
-- Put personality in **rhythm and concreteness**, not in obscure idiom. A short list of real situations (suitcase, door, shop) beats a clever native-only turn of phrase.
-- Prefer **transparent metaphors** over culture-bound ones. "Worth learning in depth," "notice the split," "that mix can feel confusing" travel well. Phrases like "reach for," "slippery," or heavy figurative English ask more of the reader.
-- **One slightly literary verb per beat is fine** if the rest of the sentence is plain. Stacking writerly turns starts to feel like native-only prose (or AI).
-- When in doubt, **say the meaning twice**: image or vivid verb first, then a plain clause ("Some uses are literal. Others are fixed phrases…").
-
-Creative = concrete scenes, short sentences, clear teaching moves. Avoid = English idioms you would need to gloss for an advanced ESL reader.
-
-Locale-pair templates may still say "for English speakers." Read that as **readers using English for the lesson**, not as native-speaker-only prose.
+- Per-pair voice and pedagogy: [`content/templates/votw/`](../content/templates/votw/) (see that [README](../content/templates/votw/README.md))
+- CI banned characters: [`tools/ci/check_prohibited_chars.py`](../tools/ci/check_prohibited_chars.py) (also noted in [deploy.md](deploy.md))
 
 ## Voice
 
-- Friendly. Confident. Curious. Teacher.
-- Conversational but precise. Never patronizing.
-- Prefer explanation over definition.
-- Assume the reader is curious, not studying for an exam.
-- Prefer "Notice that…" over "Remember that…"
-- Prefer "French uses…" over "French is…"
-- Do not exaggerate rules.
-- Avoid "simply," "just," "always," or "never" unless literally true.
-- Prefer active voice and short paragraphs.
-- Avoid unnecessary grammar jargon. If you need a term, explain it in plain English.
-- Explain why something works, not just what it means.
-- Do not write Forms and grammar (or similar) like an API reference. Name the pattern, say why it matters for the learner, then show it.
+### Write to the learner
+
+Use second person when explaining what the learner can do, recognize, or expect.
+
+Prefer:
+
+> You’ll use *faire* in many common weather expressions.
+
+Over:
+
+> French uses *faire* in many common weather expressions.
+
+Prefer:
+
+> You can use *faire* for actions you carry out and things you create.
+
+Over:
+
+> *Faire* covers actions that are carried out and things that are created.
+
+Do not force second person into every sentence. Statements about French, English, grammar, or a particular expression can use whatever construction is clearest.
+
+### Prefer active voice
+
+Use active verbs and direct constructions.
+
+Prefer:
+
+> Learn the patterns instead.
+
+Over:
+
+> The patterns should be learned instead.
+
+Prefer:
+
+> Use *faire* in these expressions.
+
+Over:
+
+> *Faire* is used in these expressions.
+
+Active voice should not become command-heavy technical writing. Use imperatives when they give the learner a useful action, not simply to make every sentence active.
+
+### Use plain English
+
+Write for an international audience. A reader of an English-language page may not be a native English speaker.
+
+Avoid unnecessary idiomatic English, clever phrasing, and expressions that require cultural knowledge when simpler language works.
+
+Prefer:
+
+> common errors
+
+Over:
+
+> common slips
+
+Prefer:
+
+> After you learn...
+
+Over:
+
+> Once you've got the hang of...
+
+Prefer *after* to *once* when describing a learning sequence. *After* is more explicit for readers who use English as an additional language. Rejecting an idiomatic phrase like "once you've got the hang of" is not enough on its own: use *after* as the default sequencing word even in plain constructions ("After you learn the basic uses…" not "Once you learn the basic uses…").
+
+Clarity takes priority over personality.
+
+### Keep languages grammatically separate
+
+Avoid inserting conjugated French verbs into otherwise English sentences.
+
+Avoid:
+
+> You *fabriques* a table, but you *fais* a cake.
+
+Prefer:
+
+> You use *fabriquer* for something you manufacture or build. You use *faire* for broader everyday actions.
+
+English-language pages can discuss French words and expressions freely, but the surrounding sentence should remain natural English.
+
+### Make the reference language explicit when necessary
+
+Do not assume every reader's native language is English.
+
+When a translation relationship matters, identify English explicitly.
+
+Prefer:
+
+> *Faire* can mean "to do" or "to make" in English.
+
+This also makes content easier to adapt if Plumera pages are later localized into other languages.
+
+### Avoid unnecessary qualifiers
+
+Remove words such as *often*, *especially*, *generally*, *usually*, or *really* when they merely soften the sentence.
+
+Keep qualifiers when they make a statement more accurate.
+
+Prefer:
+
+> A direct English translation won't always help.
+
+Over:
+
+> A direct English translation often won't help.
+
+The goal is precision, not absolute statements.
+
+## Teaching style
+
+### Teach patterns, not just translations
+
+Do not treat French words as if they always have one English equivalent.
+
+Show learners the patterns that determine meaning and usage.
+
+For example:
+
+> Don't try to translate *faire* with a single English verb.
+
+Help learners move gradually from word-by-word translation toward recognizing French constructions directly.
+
+### Explain why something matters
+
+Do more than state a rule when a short explanation will help the learner understand or remember it.
+
+For example:
+
+> Unlike most French verbs, *faire* has a *vous* form ending in **-tes**.
+
+But do not explain a point twice. If an example already makes the meaning obvious, additional explanation may not earn its space.
+
+### Target the middle between lesson and reference
+
+Every page should work both for someone reading it from beginning to end and for someone arriving from search at a specific section.
+
+Each section should therefore make sense independently, but the page should still have momentum when read sequentially.
+
+Avoid both extremes:
+
+- encyclopedic explanations that interrupt the lesson
+- explanations so brief that search visitors cannot understand the section independently
+
+### Let complexity determine explanation length
+
+Do not make every section the same length for visual consistency.
+
+A transparent expression may need one sentence and examples. A difficult idiom may need an explanation of its figurative image.
+
+Use as much explanation as the learner needs, then stop.
+
+### Examples should teach
+
+Examples should demonstrate the point immediately around them.
+
+Avoid adding examples merely to increase quantity.
+
+When an English translation has multiple natural possibilities, show useful alternatives when they help clarify the French meaning.
+
+## CEFR and scope
+
+### Respect the target level
+
+Each page targets a CEFR level. Do not try to cover every meaning, construction, expression, and exception on one page.
+
+Teach what belongs at the stated level and move more advanced material to the appropriate companion topic.
+
+Higher-level pages can assume knowledge established in lower-level pages.
+
+### Avoid unnecessary prerequisites
+
+Pages belong to a learning path, but they should still work as search landing pages.
+
+A learner arriving directly on an Expressions page should not be told that they must leave and read Basics first.
+
+Instead, provide a useful backward link:
+
+> For a refresher on the basic forms and uses, start with [Faire - basics](...).
+
+### Build explicit learning paths
+
+Related pages are not merely collections of internal links. Verb clusters form learning paths.
+
+For example:
+
+> Basics → Expressions and common errors → Advanced
+
+Use the end of a topic to point learners toward the next logical step.
+
+Related-content components such as "You might like" serve discovery. In-body next-step links serve learning progression.
+
+If the site layout changes, reconsider this division rather than duplicating navigation unnecessarily.
+
+## Verb-cluster architecture
+
+A verb cluster may eventually contain:
+
+- core usage
+- expressions and common errors
+- advanced usage
+- idioms
+- conjugation
+- practice
+
+Not every verb needs every topic immediately.
+
+### Core usage topics
+
+Use a reader-facing title rather than exposing the internal "Basics" classification.
+
+Preferred pattern:
+
+> How to use *[verb]*
+
+HTML title:
+
+> How to use [verb] (A2 French) | Plumera Studios
+
+The internal slug or content architecture may still use `basics`.
+
+### A2 expressions topics
+
+Use a standard reader-facing H1 that describes the purpose of the page rather than an internal content label such as "Faire - expressions":
+
+> # Expressions and common errors with *[verb]*
+
+Examples:
+
+> # Expressions and common errors with *faire*
+>
+> # Expressions and common errors with *prendre*
+>
+> # Expressions and common errors with *tenir*
+
+Use a consistent H2 structure across verbs:
+
+> ## Common expressions
+>
+> ## Usage patterns
+>
+> ## Common errors
+
+**Common expressions** covers useful fixed combinations and lexical expressions.
+
+**Usage patterns** covers larger productive constructions that learners can recognize and reuse.
+
+**Common errors** covers mistakes directly associated with the target verb and the material taught on the page.
+
+Do not create an "Idioms" section merely because some expressions are not translated word for word.
+
+### Idioms
+
+Use *idiom* in the stricter sense: a figurative expression whose overall meaning cannot reliably be determined from the individual words.
+
+For example:
+
+> *faire tout un fromage de quelque chose*
+
+is appropriate for idiom content.
+
+By contrast:
+
+> *faire attention à*
+
+is better treated as a common expression.
+
+Idioms can have their own topic when a verb has enough useful material to justify one.
+
+Possible pattern:
+
+> [Verb] - idioms (B1-B2 French)
+
+Do not pad an idioms page to reach an arbitrary number of expressions. Curate for frequency, usefulness, and learner level.
+
+## Introductions
+
+### Make the learning goal clear
+
+Every lesson should have a defined learning goal, and the opening should make that goal clear to the learner.
+
+The goal does not need to be stated as a formal learning objective. Prefer natural language that establishes what the learner is building on and what they will learn next.
+
+Avoid formulaic language such as "By the end of this lesson, you will be able to..." unless the context calls for it.
+
+At A1 and A2, pay particular attention to making the learning progression and expected prior knowledge clear. At higher levels, lessons may be more modular as learners refine, extend, and distinguish knowledge they already have.
+
+### Give the learner a reason to continue
+
+The opening should quickly establish why the topic matters.
+
+Avoid opening with dictionary-style definitions when a learner-centered explanation is possible.
+
+For example:
+
+> *Faire* can mean "to do" or "to make" in English. But you’ll use it for much more than that.
+
+The introduction should establish the central problem or idea that the rest of the page will solve.
+
+### Keep introductions focused
+
+Do not preview every section mechanically.
+
+Avoid positional language such as:
+
+> The three uses below...
+
+Prefer language that describes the content itself:
+
+> You’ll use *faire* in several everyday situations, from doing or making something to talking about the weather and activities.
+
+## Headings
+
+### Use headings for meaning, not keyword repetition
+
+H2 headings should identify the purpose of the section.
+
+Prefer:
+
+> ## Common expressions
+>
+> ## Usage patterns
+>
+> ## Common errors
+
+Over:
+
+> ## Common expressions with faire
+>
+> ## Usage patterns with faire
+>
+> ## Common errors with faire
+
+The page title, H1, URL, body copy, and examples already establish the target verb. Do not repeat it mechanically in every heading for SEO.
+
+### Avoid consecutive headings when context helps
+
+An H2 followed immediately by an H3 is not inherently wrong on the web, but a short introductory sentence is useful when it explains what the section contains or how the subsections relate.
+
+Do not add filler solely to prevent two headings from appearing together.
+
+### Avoid positional navigation
+
+Do not use *above* and *below* when referring to content. Those words depend on page layout.
+
+Prefer semantic references to sections, examples, or topics.
+
+*Next* is appropriate when it identifies the next step in a learning path. It describes pedagogical sequence, not physical position on the page.
+
+## Tables
+
+### Use tables for comparisons and examples
+
+Tables work well for:
+
+- conjugation forms
+- French/English example pairs
+- incorrect/correct comparisons
+- related-verb comparisons
+
+### Introduce tables consistently
+
+Use a colon when the preceding sentence directly introduces the contents of the table.
+
+For example:
+
+> You can use *faire* for actions you carry out and things you create:
+
+If the preceding sentence stands independently and the table merely provides additional illustration, use a period.
+
+Parallel sections performing the same function should use the same construction.
+
+### Related verbs
+
+The Related verbs section should teach semantic boundaries, not function as a thesaurus.
+
+A useful table structure is:
+
+| Verb | English | When to use it |
+| ---- | ------- | -------------- |
+
+Choose a small number of neighboring verbs that learners are genuinely likely to confuse with the target verb.
+
+Explain enough for the learner to understand why they might choose one verb instead of another.
+
+Until a related verb has its own Plumera topic, the Related verbs section can carry slightly more explanation. Later, that explanation can become a concise summary plus an internal link.
+
+### Table layout
+
+- Do **not** put two tables back to back. Separate them with a short teaching sentence, a note, or a subsection heading.
+- A gloss or list table followed immediately by an example table still counts as two in a row. Bridge them.
+- Incorrect / Correct tables are for genuine errors (including false friends). Two correct sentences that mean different things are a contrast, not a mistake.
+
+## French typography and terminology
+
+Italicize French words and expressions when discussing them as linguistic items in English prose.
+
+For example:
+
+> *faire*
+>
+> *faire attention à*
+>
+> *vous faites*
+
+Use italics consistently in headings when the heading itself is a French expression:
+
+> ### *faire la connaissance de*
+
+Bold may be used to draw attention to a specific morphological feature:
+
+> **-tes**
+
+Do not over-format ordinary French example sentences inside tables when the table already identifies them as French.
+
+## Metadata
+
+### Titles
+
+Titles should describe learner intent rather than expose internal taxonomy when possible.
+
+Prefer:
+
+> How to use faire (A2 French) | Plumera Studios
+
+Over:
+
+> Faire - basics (A2 French) | Plumera Studios
+
+Keep title patterns consistent across equivalent topics.
+
+Frontmatter `title` is the full document `<title>` (include the brand suffix). Prefer `| Plumera Studios`.
+
+`{Level}` in titles must match frontmatter `level` (including multi-level bands when the builder supports them). H1 stays short. Series signal stays in the eyebrow. Do not put "Conjugation" in a VOTW title unless the page is actually a conjugation page.
+
+### Descriptions
+
+Use active verbs and tell the learner what they will gain.
+
+Prefer:
+
+> Learn the core meanings, grammar, and major usage patterns of the French verb faire.
+
+Prefer:
+
+> Learn useful expressions and common errors for the French verb faire.
+
+Avoid passive descriptions or generic summaries.
+
+## Before you go
+
+The "Before you go" section should give the learner a useful takeaway, next step, or both.
+
+Do not simply summarize the entire article.
+
+A good takeaway reinforces the learning strategy:
+
+> As you recognize more of these patterns, you'll rely less on translating *faire* word by word.
+
+When the page belongs to an explicit learning path, add a short next-step sentence. *Next* is fine here because it names the pedagogical sequence, not a place on the page:
+
+> Next, learn the fixed phrases and common errors in [Faire - expressions and common errors](...).
+
+Do not duplicate a list of related links already presented immediately by the interface.
+
+Future Practice and Conjugation topics can become natural action-oriented next steps from this section.
+
+## SEO
+
+Write for the learner first, while making the page's subject and search intent unmistakable.
+
+Use the target verb naturally in:
+
+- the HTML title
+- H1
+- introduction
+- examples and explanations
+- metadata description
+- URL or content architecture where appropriate
+
+Do not repeat the keyword mechanically in every H2.
+
+Prefer titles and headings that correspond to genuine learner intent, such as:
+
+> How to use faire
+
+rather than internal editorial classifications such as:
+
+> Faire - basics
+
+Internal linking should reinforce semantic relationships between verb topics, related verbs, CEFR material, expressions, advanced constructions, idioms, conjugation, and practice.
+
+## `###` section openers
+
+Every `###` (senses, expressions, common mistakes, and similar) opens with a full sentence before the table or further teaching. Do not use bare "To…" gloss fragments ("To agree.").
+
+- Good: "Use *être d'accord* to say that you agree with someone."
+- Good: "Use *prendre* when you take a bus, a drink, or medicine."
+- Weak: "To agree."
+- Weak: jumping straight to a table
+
+Extra explanation can follow that opener. The first sentence should still make sense if the reader only skims headings and lead-ins. Apply this in new drafts and when revising published lessons.
 
 ## Anti-slop (enforced)
 
@@ -47,26 +529,141 @@ Treat these as AI tells. They are banned in shippable site copy:
 
 CI fails the build if `;` or `—` appear in locale Markdown or landing prose.
 
-## Series consistency vs variety
+## Content review
 
-For Verb of the Week and similar series:
+Review every lesson on three separate dimensions: stylistic, linguistic, and pedagogical. A lesson is ready only when it succeeds on all three.
 
-- **Same skeleton across lessons is fine** (section order, table shapes, a short bridge into the next section). Bridge lines may be nearly parallel from verb to verb.
-- **Vary the openers.** A concrete catalog or colon-list beat is strong once or twice. Do not reuse the same intro shape on every VOTW.
-- Keep Forms and grammar parallel in *design* (irregular lead-in → table → one teaching note → past tense) without copying dry reference wording.
+### Stylistic review
 
-## Examples and pedagogy
+Evaluate the learner-facing writing independently of the language being taught.
+
+Ask:
+
+- Is the English clear and natural?
+- Is the language accessible to readers who may not be native English speakers?
+- Does the copy speak to the learner when appropriate without forcing second person into every sentence?
+- Is the writing active without becoming command-heavy or sounding like technical documentation?
+- Are sentences concise without sacrificing useful explanation?
+- Are unnecessary qualifiers, idiomatic English, and clever phrasing removed?
+- Does each paragraph add something new rather than restating the previous point?
+- Are headings clear, useful, and consistent with equivalent topics?
+- Are recurring structures and terminology consistent across the learning path?
+- Are tables introduced consistently?
+- Does the page avoid positional language such as *above* and *below*?
+- Does the introduction give the learner a reason to continue?
+- Does the page maintain momentum when read from beginning to end?
+- Does the ending provide a useful takeaway or next step rather than simply summarize the article?
+
+A stylistically strong lesson should feel clear and approachable without sounding simplified, mechanical, or over-written.
+
+### Linguistic review
+
+Evaluate the target-language content independently of the quality of the English explanation.
+
+Ask:
+
+- Is every target-language example grammatically correct?
+- Does each example sound natural to a native speaker?
+- Does the translation accurately represent the meaning of the example?
+- Is the translation natural in the reference language rather than unnecessarily literal?
+- Does the explanation accurately describe how the target language works?
+- Are grammatical terms and linguistic claims accurate?
+- Are register, tone, and formality appropriate and identified when necessary?
+- Are expressions presented with the prepositions, articles, pronouns, or other elements required to use them correctly?
+- Are alternative translations included only when they clarify a genuine range of meaning?
+- Are contrasts between similar words or constructions accurate?
+- Are examples representative of contemporary usage?
+- Are genuine errors distinguished from sentences that are grammatical but mean something different?
+- Does the lesson avoid presenting a useful rule of thumb as an absolute rule when exceptions matter at this level?
+
+A linguistically correct sentence is not automatically a useful example. Linguistic review establishes accuracy and naturalness. Pedagogical review determines whether the example belongs in the lesson.
+
+### Pedagogical review
+
+Evaluate whether the page actually helps a learner understand, remember, recognize, and use the material.
+
+Ask:
+
+- Does the lesson have a clear learning goal?
+- Is the material appropriate for the stated CEFR level?
+- Does new material build on knowledge the learner is likely to have already?
+- Are concepts introduced in an order that makes them easier to understand?
+- Does the page move from more concrete or familiar uses toward less transparent ones when appropriate?
+- Does each explanation give the learner enough information to understand the pattern without unnecessary detail?
+- Do examples reveal how the language works rather than merely illustrate vocabulary?
+- When several examples are given, does each add something useful, such as another person, tense, context, form, or contrast?
+- Are important contrasts made explicit when learners are likely to confuse them?
+- Does the lesson help the learner recognize reusable patterns rather than memorize isolated sentences?
+- Does it distinguish expressions that should be learned as units from patterns the learner can apply productively?
+- Are exceptions and edge cases introduced only when they help at this level?
+- Does the page distinguish what the learner should understand now from what can wait until a later level?
+- Does the amount of explanation reflect the difficulty of the concept?
+- Does the lesson connect appropriately to material that came before it?
+- Does it provide a meaningful next step without making earlier topics unnecessary prerequisites?
+- By the end of the page, is it clear what the learner should be able to recognize, understand, or use?
+
+A lesson can be linguistically correct and stylistically polished without being an effective lesson. Treat pedagogical quality as a separate review dimension.
+
+### Review order
+
+When doing a full lesson review, use this order:
+
+1. **Linguistic review:** Is what we teach correct and natural?
+2. **Pedagogical review:** Are we teaching the right material in the right way at the right level?
+3. **Stylistic review:** Is the final explanation clear, concise, consistent, and engaging?
+
+Do not use stylistic polishing to hide a linguistic or pedagogical problem. Fix the underlying content first.
+
+## Editing principles
+
+### Consistency is deliberate, not mechanical
+
+Keep recurring structures, terminology, punctuation conventions, and learning paths consistent across equivalent pages.
+
+Do not force sentences to have identical shapes merely because the pages share a template.
+
+### Don't over-explain
+
+After writing an explanation, ask:
+
+> Does the next sentence teach the learner anything new?
+
+If not, cut it.
+
+### Don't under-explain for brevity
+
+Concise content still needs to resolve the learner's likely question.
+
+The goal is not the fewest words. The goal is the fewest words needed for a clear and useful explanation.
+
+### Prefer precision over cleverness
+
+If a sentence sounds memorable but takes extra effort to interpret, rewrite it.
+
+An A2 learner should not need to decode the English before learning the French.
+
+### Stop when the page is done
+
+Do not keep polishing clear, accurate prose merely because another wording is possible.
+
+Distinguish between:
+
+- factual or grammatical errors
+- style inconsistencies
+- meaningful improvements
+- optional editorial preferences
+
+During final sanity checks, report only the category the editor requested.
+
+### What not to edit casually
+
+Do not "improve" published or in-progress lesson wording unless the task asks for it. Voice is intentional; drive-by rewrites create drift.
+
+### Examples and language bridges
 
 - Prefer examples someone might actually hear or say. Avoid textbook-only lines where possible.
 - Build from concrete meanings to abstract or idiomatic ones.
-- Highlight patterns rather than isolated facts.
-- Compare with English only when it aids understanding.
 - Never use a third language as a bridge between locale and target.
-- Incorrect / Correct tables are for genuine errors (including false friends). Two correct sentences that mean different things are a contrast, not a mistake.
-
-## What not to edit casually
-
-Do not "improve" published or in-progress lesson wording unless the task asks for it. Voice is intentional; drive-by rewrites create drift.
 
 ## Voice ledger
 

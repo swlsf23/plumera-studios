@@ -4,6 +4,14 @@ Markdown sources for the Plumera site. **This tree is the copy source of truth**
 
 There is no React/SPA path for these pages in production or local site preview.
 
+## Trusted HTML
+
+Markdown bodies (and any raw HTML inside them) are treated as **trusted author content**. The builder converts Markdown to HTML and inserts it into the page template with Jinja `|safe` — there is **no HTML sanitizer** in the emit path.
+
+That is fine while only trusted maintainers write under `content/`. Do **not** accept untrusted contributor Markdown (or untrusted CMS/API copy) into this tree without adding a sanitizer first. Widening the trust boundary without that step is an XSS risk.
+
+Out of scope for now (track separately if product wants them): a full HTML sanitizer, CSP, Umami SRI, or a lint that rejects raw `<script>` in Markdown bodies.
+
 ## Layout
 
 ```text
@@ -82,7 +90,7 @@ Draft pages are indexed for those H1 labels even when not emitted. A production 
 
 Optional `eyebrow` is the short label above the H1 (e.g. `Levels`, `News`, `Series`).
 
-Set `draft: true` to keep a page out of `dist/` and sitemaps until it is ready.
+Set `draft: true` to keep a page out of `dist/` and sitemaps until it is ready. `draft` must be a real YAML boolean (`draft: true` / `draft: false`), not a quoted string — `draft: "false"` is truthy in YAML-as-parsed-by-Python and the builder hard-fails on non-bool values.
 
 ### Automated content lists
 

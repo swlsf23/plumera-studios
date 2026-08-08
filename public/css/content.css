@@ -94,6 +94,10 @@
   line-height: 1;
 }
 
+.content-page .article-level__badge + .article-level__badge {
+  margin-inline-start: -0.12em;
+}
+
 .content-page .article-level__prefix {
   color: var(--muted);
   font-size: 15px;

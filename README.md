@@ -65,12 +65,14 @@ Source: [`tools/content_builder/`](tools/content_builder/).
 
 | Module | Role |
 |---|---|
-| `build.py` | Orchestrates copy of `public/`, page emit, sitemaps |
-| `parse.py` | Markdown/frontmatter → page model |
+| `build.py` | Orchestrates staging emit + atomic `dist/` publish |
+| `assets.py` / `render.py` / `markers.py` | Copy/publish assets, page render, body markers & lists |
+| `parse.py` | Facade: Markdown/frontmatter → page model |
+| `pages.py` / `discover.py` / `lists.py` / `html_transform.py` | Page parse, discovery, list builders, HTML post-process |
 | `chrome.py` | Localized nav/footer strings |
 | `templates/content_page.html` | Full HTML document template |
 | `sitemaps.py` | Root + per-locale sitemaps from `dist/` |
 
 To extend (new page types, chrome strings, templates), change that package and re-run `python -m tools.content_builder`.
 
-See [content/README.md](content/README.md) for content conventions.
+See [content/README.md](content/README.md) for content conventions, including the **Trusted HTML** policy (Markdown → HTML is unsanitized `|safe` output for trusted authors only).

@@ -203,6 +203,27 @@ class CatalogStaticSeoContractTests(unittest.TestCase):
 
 
 class CatalogBuildTests(unittest.TestCase):
+    def test_catalog_metadata_failure_leaves_dist_untouched(self) -> None:
+        """Bad catalog metadata must fail before staging/publishing dist."""
+        from unittest import mock
+
+        with tempfile.TemporaryDirectory() as tmp:
+            dist = Path(tmp) / "dist"
+            dist.mkdir()
+            sentinel = dist / "keep-me.txt"
+            sentinel.write_text("previous-build", encoding="utf-8")
+            with mock.patch(
+                "tools.content_builder.build.build_catalog_entries",
+                side_effect=ValueError("catalog metadata errors:\n- x: missing level"),
+            ):
+                self.assertEqual(build(dist), 1)
+            self.assertTrue(sentinel.is_file())
+            self.assertEqual(
+                sentinel.read_text(encoding="utf-8"),
+                "previous-build",
+            )
+            self.assertFalse((dist / "en").exists())
+
     def test_build_emits_catalog_json_and_html(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             dist = Path(tmp) / "dist"

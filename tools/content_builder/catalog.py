@@ -12,6 +12,18 @@ from pathlib import Path
 import frontmatter
 
 from tools.content_builder.chrome import chrome_for, format_date, votw_series_label
+from tools.content_builder.frontmatter_validate import (
+    resolve_slug,
+    validate_iso_date,
+    validate_target,
+)
+from tools.content_builder.levels import (
+    CEFR_LEVELS,
+    LEVEL_RANK,
+    level_label_for_page,
+    normalize_level_list,
+    primary_level,
+)
 from tools.content_builder.parse import (
     ARTICLES_DIR,
     CORE_DIR,
@@ -23,6 +35,13 @@ from tools.content_builder.parse import (
     _votw_lesson_paths,
     is_draft,
 )
+from tools.content_builder.urls import (
+    article_url,
+    catalog_url,
+    core_url,
+    votw_series_url,
+    whats_new_url,
+)
 
 CATALOG_STEM = "catalog"
 SCHEMA_VERSION = 1
@@ -32,7 +51,6 @@ SCHEMA_VERSION = 1
 # are not emitted.
 CATALOG_TARGETS: frozenset[tuple[str, str]] = frozenset({("en", "learn-french")})
 
-CEFR_LEVELS: tuple[str, ...] = ("A1", "A2", "B1", "B2", "C1", "C2")
 CATALOG_TYPES: tuple[str, ...] = (
     "verb",
     "grammar",
@@ -41,7 +59,6 @@ CATALOG_TYPES: tuple[str, ...] = (
     "pronunciation",
     "guide",
 )
-LEVEL_RANK = {code: i for i, code in enumerate(CEFR_LEVELS)}
 TYPE_RANK = {code: i for i, code in enumerate(CATALOG_TYPES)}
 
 
@@ -81,44 +98,15 @@ class CatalogEntry:
 
 def normalize_str_list(value: object) -> list[str]:
     """Normalize frontmatter scalar / list / comma-string to a clean list."""
-    if value is None:
-        return []
-    if isinstance(value, bool):
-        return []
-    if isinstance(value, (int, float)):
-        text = str(value).strip()
-        return [text] if text else []
-    if isinstance(value, list):
-        items: list[str] = []
-        for item in value:
-            text = str(item).strip()
-            if text:
-                items.extend(_split_comma_parts(text))
-        return items
-    text = str(value).strip()
-    if not text:
-        return []
-    return _split_comma_parts(text)
+    # Shared with CEFR level parsing (comma / YAML list forms).
+    return normalize_level_list(value)
 
 
-def _split_comma_parts(text: str) -> list[str]:
-    if "," in text:
-        return [part.strip() for part in text.split(",") if part.strip()]
-    return [text]
-
-
-def iso_date_string(value: object) -> str:
-    """Return YYYY-MM-DD or empty if missing/unparseable."""
+def iso_date_string(value: object, *, source: str = "") -> str:
+    """Return YYYY-MM-DD, empty if missing, or raise on invalid calendar dates."""
     if value is None or value == "":
         return ""
-    if isinstance(value, datetime):
-        return value.date().isoformat()
-    if isinstance(value, date):
-        return value.isoformat()
-    text = str(value).strip()
-    if len(text) >= 10 and text[4] == "-" and text[7] == "-":
-        return text[:10]
-    return ""
+    return validate_iso_date(value, source=source).isoformat()
 
 
 def validate_levels(levels: list[str], *, source: str) -> list[str]:
@@ -184,7 +172,15 @@ def build_catalog_entries(
                     continue
                 errors.append(str(exc))
                 continue
-            items.append((_frontmatter_sort_date(frontmatter.load(path).metadata.get("date")), entry))
+            source = f"{locale}/{target}/votw/{path.name}"
+            items.append(
+                (
+                    _frontmatter_sort_date(
+                        frontmatter.load(path).metadata.get("date"), source=source
+                    ),
+                    entry,
+                )
+            )
 
     articles = content_root / locale / target / ARTICLES_DIR
     if articles.is_dir():
@@ -200,7 +196,15 @@ def build_catalog_entries(
                     continue
                 errors.append(str(exc))
                 continue
-            items.append((_frontmatter_sort_date(frontmatter.load(path).metadata.get("date")), entry))
+            source = f"{locale}/{target}/{ARTICLES_DIR}/{path.name}"
+            items.append(
+                (
+                    _frontmatter_sort_date(
+                        frontmatter.load(path).metadata.get("date"), source=source
+                    ),
+                    entry,
+                )
+            )
 
     # Locale-wide core pages (CEFR, exams, …) opt in with catalog: true.
     core = content_root / locale / CORE_DIR
@@ -222,8 +226,9 @@ def build_catalog_entries(
                     continue
                 errors.append(str(exc))
                 continue
+            source = f"{locale}/{CORE_DIR}/{path.name}"
             items.append(
-                (_frontmatter_sort_date(post.metadata.get("date")), entry)
+                (_frontmatter_sort_date(post.metadata.get("date"), source=source), entry)
             )
 
     if errors:
@@ -252,10 +257,11 @@ def _entry_from_votw(
     if "/votw/" in rel:
         source = rel.split("/content/", 1)[-1] if "/content/" in rel else rel
 
-    slug = str(meta.get("slug") or path.stem)
-    levels = validate_levels(normalize_str_list(meta.get("level")), source=source)
+    validate_target(meta.get("target"), folder=target, source=source)
+    slug = resolve_slug(meta, stem=path.stem, source=source)
+    levels = validate_levels(normalize_level_list(meta.get("level")), source=source)
     types = validate_types(_default_types_for_path(path, meta), source=source)
-    date_s = iso_date_string(meta.get("date"))
+    date_s = iso_date_string(meta.get("date"), source=source)
     if not levels:
         raise ValueError(f"{source}: missing level")
     if not types:
@@ -283,10 +289,11 @@ def _entry_from_article(
     post = frontmatter.load(path)
     meta = post.metadata
     source = f"{locale}/{target}/{ARTICLES_DIR}/{path.name}"
-    slug = str(meta.get("slug") or path.stem)
-    levels = validate_levels(normalize_str_list(meta.get("level")), source=source)
+    validate_target(meta.get("target"), folder=target, source=source)
+    slug = resolve_slug(meta, stem=path.stem, source=source)
+    levels = validate_levels(normalize_level_list(meta.get("level")), source=source)
     types = validate_types(_default_types_for_path(path, meta), source=source)
-    date_s = iso_date_string(meta.get("date"))
+    date_s = iso_date_string(meta.get("date"), source=source)
     if not levels:
         raise ValueError(f"{source}: missing level")
     if not types:
@@ -294,7 +301,7 @@ def _entry_from_article(
     if not date_s:
         raise ValueError(f"{source}: missing date")
 
-    href = f"/{locale}/{target}/{ARTICLES_DIR}/{slug}/"
+    href = article_url(locale, target, slug)
     return CatalogEntry(
         id=href.strip("/"),
         title=_list_title_from_post(post, path.stem),
@@ -310,10 +317,10 @@ def _entry_from_article(
 def _entry_from_core(path: Path, locale: str, post: object) -> CatalogEntry:
     meta = post.metadata
     source = f"{locale}/{CORE_DIR}/{path.name}"
-    slug = str(meta.get("slug") or path.stem)
-    levels = validate_levels(normalize_str_list(meta.get("level")), source=source)
+    slug = resolve_slug(meta, stem=path.stem, source=source)
+    levels = validate_levels(normalize_level_list(meta.get("level")), source=source)
     types = validate_types(normalize_str_list(meta.get("type")), source=source)
-    date_s = iso_date_string(meta.get("date"))
+    date_s = iso_date_string(meta.get("date"), source=source)
     if not levels:
         raise ValueError(f"{source}: missing level")
     if not types:
@@ -321,7 +328,7 @@ def _entry_from_core(path: Path, locale: str, post: object) -> CatalogEntry:
     if not date_s:
         raise ValueError(f"{source}: missing date")
 
-    href = f"/{locale}/{slug}/"
+    href = core_url(locale, slug)
     kind = str(meta.get("eyebrow") or "").strip()
     return CatalogEntry(
         id=href.strip("/"),
@@ -364,18 +371,18 @@ def make_catalog_page(
     if content_root is not None:
         votw_index = content_root / locale / target / "votw" / "index.md"
         if votw_index.is_file() and not is_draft(votw_index):
-            related.append({"href": f"/{locale}/{target}/votw/"})
+            related.append({"href": votw_series_url(locale, target)})
         whats_new = content_root / locale / target / f"{WHATS_NEW_STEM}.md"
         if whats_new.is_file() and not is_draft(whats_new):
-            related.append({"href": f"/{locale}/{target}/{WHATS_NEW_STEM}/"})
+            related.append({"href": whats_new_url(locale, target)})
     else:
-        related.append({"href": f"/{locale}/{target}/votw/"})
-        related.append({"href": f"/{locale}/{target}/{WHATS_NEW_STEM}/"})
+        related.append({"href": votw_series_url(locale, target)})
+        related.append({"href": whats_new_url(locale, target)})
     return Page(
         locale=locale,
         title=title,
         description=chrome["catalog_description"],
-        canonical_path=f"/{locale}/{target}/{CATALOG_STEM}/",
+        canonical_path=catalog_url(locale, target),
         eyebrow=chrome["catalog_eyebrow"],
         heading_html=escape(title),
         # Intro sits on the filters toolbar row (see catalog_controls_html).
@@ -387,17 +394,14 @@ def make_catalog_page(
 
 
 def _title_with_levels(title: str, levels: list[str]) -> str:
+    """Append CEFR codes (Title · B1 B2). All-level guides stay bare."""
     title = title.strip()
-    if not title or not levels:
+    label = level_label_for_page(levels)
+    if not title or not label:
         return title
-    # Multi-level reference pages (e.g. CEFR guide) keep a bare title.
-    if len(levels) != 1:
+    if title.endswith(label):
         return title
-    # Match site standard: append primary level when not already present.
-    primary = levels[0]
-    if title.endswith(primary):
-        return title
-    return f"{title} · {primary}"
+    return f"{title} · {label}"
 
 
 def catalog_list_html(
@@ -447,7 +451,7 @@ def catalog_list_html(
             f'      data-date="{escape(entry.date)}"\n'
             f'      data-levels="{escape(levels_attr)}"\n'
             f'      data-types="{escape(types_attr)}"\n'
-            f'      data-primary-level="{escape(entry.level[0])}"\n'
+            f'      data-primary-level="{escape(primary_level(entry.level))}"\n'
             f'      data-primary-type="{escape(entry.type[0])}"\n'
             f'      data-search="{escape(entry.search_blob())}">\n'
             f'    <div class="content-list__row">\n'
