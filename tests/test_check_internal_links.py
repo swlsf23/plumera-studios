@@ -88,6 +88,20 @@ class LocalPathFromRefTests(unittest.TestCase):
             _local_path_from_ref("http://example.com/x", page_url="/en/")
         )
 
+    def test_protocol_relative_external_ignored(self) -> None:
+        self.assertIsNone(
+            _local_path_from_ref("//example.com/x", page_url="/en/")
+        )
+
+    def test_protocol_relative_same_origin_checked(self) -> None:
+        self.assertEqual(
+            _local_path_from_ref(
+                "//plumerastudios.com/en/cefr/",
+                page_url="/en/",
+            ),
+            "/en/cefr/",
+        )
+
     def test_same_origin_absolute_checked(self) -> None:
         self.assertEqual(
             _local_path_from_ref(

@@ -67,20 +67,26 @@ def _local_path_from_ref(ref: str, *, page_url: str) -> str | None:
         return None
 
     parsed = urlparse(ref)
+    site_netloc = urlparse(SITE_ORIGIN).netloc
     if parsed.scheme in ("http", "https"):
-        if parsed.netloc and parsed.netloc != urlparse(SITE_ORIGIN).netloc:
+        if parsed.netloc and parsed.netloc != site_netloc:
             return None
         path = unquote(parsed.path or "/")
     elif parsed.scheme:
         # Other schemes (ftp, …) are not site paths.
         return None
+    elif parsed.netloc:
+        # Protocol-relative //host/... — not a root-relative site path.
+        if parsed.netloc != site_netloc:
+            return None
+        path = unquote(parsed.path or "/")
     elif ref.startswith("/"):
         path = unquote(parsed.path)
     else:
         # Relative href: resolve against the containing page (origin + page URL).
         joined = urljoin(f"{SITE_ORIGIN}{page_url}", ref)
         joined_parsed = urlparse(joined)
-        if joined_parsed.netloc != urlparse(SITE_ORIGIN).netloc:
+        if joined_parsed.netloc != site_netloc:
             return None
         path = unquote(joined_parsed.path or "/")
 
