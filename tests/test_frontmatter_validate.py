@@ -88,9 +88,18 @@ class ValidateDateTests(unittest.TestCase):
         self.assertEqual(iso_date_string(None), "")
         self.assertEqual(iso_date_string(""), "")
 
+    def test_wrong_type_is_not_missing(self) -> None:
+        with self.assertRaises(ValueError) as ctx:
+            validate_iso_date(0, source="page.md")
+        msg = str(ctx.exception)
+        self.assertIn("page.md", msg)
+        self.assertIn("must be a YAML date or ISO string", msg)
+        self.assertNotIn("missing date", msg)
+
     def test_sort_date_rejects_fake_iso(self) -> None:
-        with self.assertRaises(ValueError):
-            _frontmatter_sort_date("2026-13-40")
+        with self.assertRaises(ValueError) as ctx:
+            _frontmatter_sort_date("2026-13-40", source="en/learn-french/votw/x.md")
+        self.assertIn("en/learn-french/votw/x.md", str(ctx.exception))
 
 
 class ValidateTargetTests(unittest.TestCase):

@@ -19,7 +19,7 @@ from tools.content_builder.frontmatter_validate import (
 from tools.content_builder.pages import _format_date, _level_label
 from tools.content_builder.urls import article_url, votw_lesson_url
 
-def _frontmatter_sort_date(value: object) -> date:
+def _frontmatter_sort_date(value: object, *, source: str = "") -> date:
     """ISO date for sorting; unknown/missing sorts to the epoch (oldest).
 
     ISO-shaped values must be real calendar dates (hard-fail fakes like
@@ -35,7 +35,7 @@ def _frontmatter_sort_date(value: object) -> date:
         text = value.strip()
         # ISO-shaped → real calendar date required; free text → oldest.
         if len(text) >= 10 and text[4] == "-" and text[7] == "-":
-            return validate_iso_date(text)
+            return validate_iso_date(text, source=source)
         try:
             return date.fromisoformat(text)
         except ValueError:

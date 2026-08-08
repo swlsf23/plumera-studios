@@ -90,7 +90,7 @@ Draft pages are indexed for those H1 labels even when not emitted. A production 
 
 Optional `eyebrow` is the short label above the H1 (e.g. `Levels`, `News`, `Series`).
 
-Set `draft: true` to keep a page out of `dist/` and sitemaps until it is ready.
+Set `draft: true` to keep a page out of `dist/` and sitemaps until it is ready. `draft` must be a real YAML boolean (`draft: true` / `draft: false`), not a quoted string — `draft: "false"` is truthy in YAML-as-parsed-by-Python and the builder hard-fails on non-bool values.
 
 ### Automated content lists
 
