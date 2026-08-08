@@ -1,10 +1,10 @@
 ---
 name: code-review
 description: >
-  Strict code review for the Python content site builder. Use when reviewing
-  PRs or diffs for correctness, build integrity, security, tests, or regressions
-  in tools/content_builder, templates, sitemaps, URL helpers, or generated site
-  output.
+  Strict code review for every pull request and Copilot code review in this
+  repository. Use for all PR reviews and when reviewing diffs for correctness,
+  build integrity, security, tests, or regressions in tools/content_builder,
+  templates, sitemaps, URL helpers, or generated site output.
 ---
 
 # Code Review

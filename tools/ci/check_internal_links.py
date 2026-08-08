@@ -1,7 +1,8 @@
 """Fail if dist/ HTML points at missing internal paths.
 
-Resolves same-origin and root-relative hrefs against the built tree.
-Directory URLs require an index.html (trailing-slash static hosting).
+Resolves same-origin, root-relative, and page-relative hrefs against the built
+tree. Directory URLs require an index.html (trailing-slash static hosting).
+Fragment-only links and non-site schemes (mailto, external http(s), …) are ignored.
 """
 
 from __future__ import annotations
@@ -10,7 +11,7 @@ import re
 import sys
 from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import unquote, urlparse
+from urllib.parse import unquote, urljoin, urlparse
 
 ROOT = Path(__file__).resolve().parents[2]
 DIST = ROOT / "dist"
@@ -47,40 +48,80 @@ def _collect_refs(html: str) -> list[str]:
     return _HREF_RE.findall(html)
 
 
-def _local_path_from_ref(ref: str) -> str | None:
+def _page_url_for_html(html_path: Path, dist: Path) -> str:
+    """Canonical-ish URL for a dist HTML file (base for relative resolution)."""
+    rel = html_path.relative_to(dist).as_posix()
+    if rel == "index.html":
+        return "/"
+    if rel.endswith("/index.html"):
+        return "/" + rel[: -len("index.html")]
+    # Bare .html redirect stubs keep the filename so urljoin replaces that segment.
+    return "/" + rel
+
+
+def _safe_site_path(path: str) -> str | None:
+    """Return path if it is a root-relative site path with no traversal segments."""
+    if not path.startswith("/"):
+        path = "/" + path
+    rel = path.strip("/")
+    if not rel:
+        return "/"
+    segments = rel.split("/")
+    if any(seg in ("", ".", "..") for seg in segments):
+        return None
+    return path if path.endswith("/") else "/" + rel
+
+
+def _local_path_from_ref(ref: str, *, page_url: str) -> str | None:
+    """Return a site path to check, or None when the ref is out of scope."""
     ref = ref.strip()
+    # Fragment-only (#section) and non-site schemes: OK / ignore.
     if not ref or ref.startswith(("#", "mailto:", "tel:", "data:", "javascript:")):
         return None
 
     parsed = urlparse(ref)
+    site_netloc = urlparse(SITE_ORIGIN).netloc
     if parsed.scheme in ("http", "https"):
-        if parsed.netloc and parsed.netloc != urlparse(SITE_ORIGIN).netloc:
+        if parsed.netloc and parsed.netloc != site_netloc:
+            return None
+        path = unquote(parsed.path or "/")
+    elif parsed.scheme:
+        # Other schemes (ftp, …) are not site paths.
+        return None
+    elif parsed.netloc:
+        # Protocol-relative //host/... — not a root-relative site path.
+        if parsed.netloc != site_netloc:
             return None
         path = unquote(parsed.path or "/")
     elif ref.startswith("/"):
-        path = unquote(urlparse(ref).path)
+        path = unquote(parsed.path)
     else:
-        # Relative links are rare in this site; skip for now.
-        return None
+        # Relative href: resolve against the containing page (origin + page URL).
+        joined = urljoin(f"{SITE_ORIGIN}{page_url}", ref)
+        joined_parsed = urlparse(joined)
+        if joined_parsed.netloc != site_netloc:
+            return None
+        path = unquote(joined_parsed.path or "/")
 
-    if not path.startswith("/"):
-        path = "/" + path
-    return path
+    return _safe_site_path(path)
 
 
-def _exists_in_dist(url_path: str) -> bool:
+def _exists_in_dist(url_path: str, dist: Path | None = None) -> bool:
+    dist = dist if dist is not None else DIST
+    if _safe_site_path(url_path) is None:
+        return False
     rel = url_path.lstrip("/")
     if rel == "" or rel.endswith("/"):
-        candidate = DIST / rel / "index.html" if rel else DIST / "index.html"
+        candidate = dist / rel / "index.html" if rel else dist / "index.html"
         return candidate.is_file()
 
-    direct = DIST / rel
+    direct = dist / rel
     if direct.is_file():
         return True
     if direct.is_dir() and (direct / "index.html").is_file():
         return True
     # Bare .html redirect stubs and assets
-    if not rel.endswith(".html") and (DIST / f"{rel}.html").is_file():
+    if not rel.endswith(".html") and (dist / f"{rel}.html").is_file():
         return True
     return False
 
@@ -96,8 +137,9 @@ def main() -> int:
     for html_path in sorted(DIST.rglob("*.html")):
         # Skip tiny redirect stubs? Still check their links if any.
         text = html_path.read_text(encoding="utf-8")
+        page_url = _page_url_for_html(html_path, DIST)
         for ref in _collect_refs(text):
-            path = _local_path_from_ref(ref)
+            path = _local_path_from_ref(ref, page_url=page_url)
             if path is None:
                 continue
             checked += 1
