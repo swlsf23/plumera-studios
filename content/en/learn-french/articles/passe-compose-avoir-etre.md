@@ -43,7 +43,7 @@ A smaller group takes *être*:
 
 An important skill to develop at [A1](/en/cefr/) is hearing which helper belongs with each verb. Start with *avoir* as the default. Then learn the *être* set well enough that *j'ai arrivé* and *j'ai allé* start to sound wrong.
 
-For the verbs themselves, see [Avoir - basics](/en/learn-french/votw/avoir/votw-avoir-basics-a1/) and [Être - basics](/en/learn-french/votw/etre/votw-etre-basics-a1/).
+For the verbs themselves, see [How to use *avoir*](/en/learn-french/votw/avoir/votw-avoir-basics-a1/) and [How to use *être*](/en/learn-french/votw/etre/votw-etre-basics-a1/).
 
 ## Start with *avoir*
 

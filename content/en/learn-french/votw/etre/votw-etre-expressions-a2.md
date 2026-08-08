@@ -1,5 +1,5 @@
 ---
-title: "Être - expressions (A2 French) | Plumera Studios"
+title: "Expressions and common errors with être (A2 French) | Plumera Studios"
 description: "Fixed phrases with être, plus the common English-to-French slips that send \"to be\" to the wrong verb."
 slug: votw-etre-expressions-a2
 target: learn-french
@@ -16,11 +16,11 @@ related:
   - href: /en/learn-french/votw/
 ---
 
-# Être - expressions
+# Expressions and common errors with *être*
 
-After you've learned the basic uses of *être*, the next step is learning common expressions and recognizing when English *be* translates to another French verb. For the core uses, see [Être - basics](/en/learn-french/votw/etre/votw-etre-basics-a1/).
+After you've learned the basic uses of *être*, the next step is learning common expressions and recognizing when English *be* translates to another French verb. For the core uses, see [How to use *être*](/en/learn-french/votw/etre/votw-etre-basics-a1/).
 
-## Expressions and idioms
+## Common expressions
 
 These are fixed phrases. Learn each one as a whole unit rather than word by word.
 
@@ -70,7 +70,7 @@ That shape is stronger than the plain present *je lis*, which can mean "I read" 
 
 <!-- art: band -->
 
-## Common mistakes
+## Common errors
 
 The mistakes below share the same type of error by translating English *be* straight into *être* when French uses another verb or another shape.
 
@@ -115,7 +115,7 @@ The following examples demonstrate a common error when *c'est* should introduce 
 
 ### Using *il est* for "there is"
 
-To express existence and presence, French usually starts with *il y a*, not *il est*. For more on *il y a*, see [Avoir - basics](/en/learn-french/votw/avoir/votw-avoir-basics-a1/).
+To express existence and presence, French usually starts with *il y a*, not *il est*. For more on *il y a*, see [How to use *avoir*](/en/learn-french/votw/avoir/votw-avoir-basics-a1/).
 
 | Incorrect | Correct |
 |-----------|---------|
@@ -124,4 +124,4 @@ To express existence and presence, French usually starts with *il y a*, not *il 
 
 ## Before you go
 
-Treat the phrases above as whole units, and keep the differences between *être* and *avoir* in mind in situations where English expresses *be*. For the core uses of *être*, take a look at [Être - basics](/en/learn-french/votw/etre/votw-etre-basics-a1/). To understand *avoir*, see [Avoir - basics](/en/learn-french/votw/avoir/votw-avoir-basics-a1/).
+Treat the phrases above as whole units, and keep the differences between *être* and *avoir* in mind in situations where English expresses *be*. For the core uses of *être*, take a look at [How to use *être*](/en/learn-french/votw/etre/votw-etre-basics-a1/). To understand *avoir*, see [How to use *avoir*](/en/learn-french/votw/avoir/votw-avoir-basics-a1/).
