@@ -172,7 +172,15 @@ def build_catalog_entries(
                     continue
                 errors.append(str(exc))
                 continue
-            items.append((_frontmatter_sort_date(frontmatter.load(path).metadata.get("date")), entry))
+            source = f"{locale}/{target}/votw/{path.name}"
+            items.append(
+                (
+                    _frontmatter_sort_date(
+                        frontmatter.load(path).metadata.get("date"), source=source
+                    ),
+                    entry,
+                )
+            )
 
     articles = content_root / locale / target / ARTICLES_DIR
     if articles.is_dir():
@@ -188,7 +196,15 @@ def build_catalog_entries(
                     continue
                 errors.append(str(exc))
                 continue
-            items.append((_frontmatter_sort_date(frontmatter.load(path).metadata.get("date")), entry))
+            source = f"{locale}/{target}/{ARTICLES_DIR}/{path.name}"
+            items.append(
+                (
+                    _frontmatter_sort_date(
+                        frontmatter.load(path).metadata.get("date"), source=source
+                    ),
+                    entry,
+                )
+            )
 
     # Locale-wide core pages (CEFR, exams, …) opt in with catalog: true.
     core = content_root / locale / CORE_DIR
@@ -210,8 +226,9 @@ def build_catalog_entries(
                     continue
                 errors.append(str(exc))
                 continue
+            source = f"{locale}/{CORE_DIR}/{path.name}"
             items.append(
-                (_frontmatter_sort_date(post.metadata.get("date")), entry)
+                (_frontmatter_sort_date(post.metadata.get("date"), source=source), entry)
             )
 
     if errors:

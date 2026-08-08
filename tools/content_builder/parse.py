@@ -574,7 +574,7 @@ def parse_whats_new_page(path: Path, locale: str, target: str) -> Page:
     )
 
 
-def _frontmatter_sort_date(value: object) -> date:
+def _frontmatter_sort_date(value: object, *, source: str = "") -> date:
     """ISO date for sorting; unknown/missing sorts to the epoch (oldest).
 
     ISO-shaped values must be real calendar dates (hard-fail fakes like
@@ -590,7 +590,7 @@ def _frontmatter_sort_date(value: object) -> date:
         text = value.strip()
         # ISO-shaped → real calendar date required; free text → oldest.
         if len(text) >= 10 and text[4] == "-" and text[7] == "-":
-            return validate_iso_date(text)
+            return validate_iso_date(text, source=source)
         try:
             return date.fromisoformat(text)
         except ValueError:
@@ -710,7 +710,7 @@ def votw_links(
         level = _level_label(meta)
         items.append(
             (
-                _frontmatter_sort_date(meta.get("date")),
+                _frontmatter_sort_date(meta.get("date"), source=source),
                 {
                     "title": list_title,
                     "date": date_label,
@@ -747,7 +747,7 @@ def recent_target_links(
             slug = resolve_slug(meta, stem=path.stem, source=source)
             items.append(
                 (
-                    _frontmatter_sort_date(meta.get("date")),
+                    _frontmatter_sort_date(meta.get("date"), source=source),
                     {
                         "title": _list_title_from_post(post, path.stem),
                         "date": _format_date(meta.get("date"), locale),
@@ -770,7 +770,7 @@ def recent_target_links(
             slug = resolve_slug(meta, stem=path.stem, source=source)
             items.append(
                 (
-                    _frontmatter_sort_date(meta.get("date")),
+                    _frontmatter_sort_date(meta.get("date"), source=source),
                     {
                         # Same as VOTW / related: list label is the body H1
                         # (emphasis stripped), not the document <title>.
