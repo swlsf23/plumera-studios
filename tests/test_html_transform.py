@@ -63,6 +63,16 @@ class HtmlTransformTests(unittest.TestCase):
         self.assertIn('id="one-1"', html)
         self.assertEqual([item.id for item in toc], ["one", "one-1"])
 
+    def test_heading_ids_respect_preexisting(self) -> None:
+        html, toc = _inject_heading_ids(
+            '<h2 id="one">First</h2><h2>One</h2><h3 id="two">Two</h3><h3>Two</h3>'
+        )
+        self.assertIn('id="one"', html)
+        self.assertIn('id="one-1"', html)
+        self.assertIn('id="two"', html)
+        self.assertIn('id="two-1"', html)
+        self.assertEqual([item.id for item in toc], ["one", "one-1"])
+
     def test_rewrite_local_images_preserves_markup(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

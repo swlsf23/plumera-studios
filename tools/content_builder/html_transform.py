@@ -55,13 +55,14 @@ def _serialize_node(node: object) -> str:
 
 
 def _fragment(soup: BeautifulSoup) -> str:
-    """Serialize a fragment soup without wrapping html/body."""
-    # Prefer body.decode_contents() when the parser wrapped a fragment; it keeps
-    # comment delimiters. Top-level children need explicit Comment handling
-    # because str(Comment) is only the inner text.
-    if soup.body is not None:
-        return soup.body.decode_contents()
-    return "".join(_serialize_node(child) for child in soup.contents)
+    """Serialize a fragment soup without wrapping html/body.
+
+    Always walk direct children with explicit Comment handling. ``str(Comment)``
+    is only the inner text, and relying on ``body.decode_contents()`` is
+    parser-dependent for fragment roots.
+    """
+    root = soup.body if soup.body is not None else soup
+    return "".join(_serialize_node(child) for child in root.contents)
 
 
 def _previous_comment(tag: Tag) -> Comment | None:
@@ -182,7 +183,7 @@ def _tag_grammar_patterns(html: str) -> str:
 
 def _inject_heading_ids(html: str) -> tuple[str, list[TocItem]]:
     toc: list[TocItem] = []
-    used: dict[str, int] = {}
+    used_ids: set[str] = set()
     soup = _soup(html)
     for heading in soup.find_all(["h2", "h3"]):
         if not isinstance(heading, Tag):
@@ -190,13 +191,16 @@ def _inject_heading_ids(html: str) -> tuple[str, list[TocItem]]:
         label = heading.get_text(strip=True)
         hid = heading.get("id")
         if isinstance(hid, str) and hid:
-            pass
+            used_ids.add(hid)
         else:
             base = slugify(label) or "section"
-            count = used.get(base, 0)
-            used[base] = count + 1
-            hid = base if count == 0 else f"{base}-{count}"
+            hid = base
+            n = 1
+            while hid in used_ids:
+                hid = f"{base}-{n}"
+                n += 1
             heading["id"] = hid
+            used_ids.add(hid)
         if heading.name == "h2" and isinstance(hid, str):
             toc.append(TocItem(id=hid, label=label))
     return _fragment(soup), toc
