@@ -12,6 +12,11 @@ from pathlib import Path
 import frontmatter
 
 from tools.content_builder.chrome import chrome_for, format_date, votw_series_label
+from tools.content_builder.frontmatter_validate import (
+    resolve_slug,
+    validate_iso_date,
+    validate_target,
+)
 from tools.content_builder.levels import (
     CEFR_LEVELS,
     LEVEL_RANK,
@@ -90,18 +95,11 @@ def normalize_str_list(value: object) -> list[str]:
     return normalize_level_list(value)
 
 
-def iso_date_string(value: object) -> str:
-    """Return YYYY-MM-DD or empty if missing/unparseable."""
+def iso_date_string(value: object, *, source: str = "") -> str:
+    """Return YYYY-MM-DD, empty if missing, or raise on invalid calendar dates."""
     if value is None or value == "":
         return ""
-    if isinstance(value, datetime):
-        return value.date().isoformat()
-    if isinstance(value, date):
-        return value.isoformat()
-    text = str(value).strip()
-    if len(text) >= 10 and text[4] == "-" and text[7] == "-":
-        return text[:10]
-    return ""
+    return validate_iso_date(value, source=source).isoformat()
 
 
 def validate_levels(levels: list[str], *, source: str) -> list[str]:
@@ -235,10 +233,11 @@ def _entry_from_votw(
     if "/votw/" in rel:
         source = rel.split("/content/", 1)[-1] if "/content/" in rel else rel
 
-    slug = str(meta.get("slug") or path.stem)
+    validate_target(meta.get("target"), folder=target, source=source)
+    slug = resolve_slug(meta, stem=path.stem, source=source)
     levels = validate_levels(normalize_level_list(meta.get("level")), source=source)
     types = validate_types(_default_types_for_path(path, meta), source=source)
-    date_s = iso_date_string(meta.get("date"))
+    date_s = iso_date_string(meta.get("date"), source=source)
     if not levels:
         raise ValueError(f"{source}: missing level")
     if not types:
@@ -266,10 +265,11 @@ def _entry_from_article(
     post = frontmatter.load(path)
     meta = post.metadata
     source = f"{locale}/{target}/{ARTICLES_DIR}/{path.name}"
-    slug = str(meta.get("slug") or path.stem)
+    validate_target(meta.get("target"), folder=target, source=source)
+    slug = resolve_slug(meta, stem=path.stem, source=source)
     levels = validate_levels(normalize_level_list(meta.get("level")), source=source)
     types = validate_types(_default_types_for_path(path, meta), source=source)
-    date_s = iso_date_string(meta.get("date"))
+    date_s = iso_date_string(meta.get("date"), source=source)
     if not levels:
         raise ValueError(f"{source}: missing level")
     if not types:
@@ -293,10 +293,10 @@ def _entry_from_article(
 def _entry_from_core(path: Path, locale: str, post: object) -> CatalogEntry:
     meta = post.metadata
     source = f"{locale}/{CORE_DIR}/{path.name}"
-    slug = str(meta.get("slug") or path.stem)
+    slug = resolve_slug(meta, stem=path.stem, source=source)
     levels = validate_levels(normalize_level_list(meta.get("level")), source=source)
     types = validate_types(normalize_str_list(meta.get("type")), source=source)
-    date_s = iso_date_string(meta.get("date"))
+    date_s = iso_date_string(meta.get("date"), source=source)
     if not levels:
         raise ValueError(f"{source}: missing level")
     if not types:

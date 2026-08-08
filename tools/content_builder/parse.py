@@ -13,6 +13,12 @@ import markdown
 from markdown.extensions.toc import slugify as md_slugify
 
 from tools.content_builder.chrome import chrome_for, format_date, votw_series_label
+from tools.content_builder.frontmatter_validate import (
+    parse_draft,
+    resolve_slug,
+    validate_iso_date,
+    validate_target,
+)
 from tools.content_builder.levels import (
     level_codes_for_page,
     level_label_for_page,
@@ -276,6 +282,7 @@ def parse_core_page(path: Path, locale: str) -> Page:
     body = post.content.strip()
     lines = body.splitlines()
     meta = post.metadata
+    source = f"{locale}/{CORE_DIR}/{path.name}"
 
     eyebrow = str(meta.get("eyebrow") or "").strip()
     if not eyebrow and lines and not lines[0].startswith("#") and lines[0].strip():
@@ -288,6 +295,7 @@ def parse_core_page(path: Path, locale: str) -> Page:
     html, toc = _inject_heading_ids(html)
 
     stem = path.stem
+    slug = resolve_slug(meta, stem=stem, source=source)
     title = str(meta.get("title") or eyebrow or heading or stem)
     description = str(meta.get("description") or "")
 
@@ -295,13 +303,13 @@ def parse_core_page(path: Path, locale: str) -> Page:
         locale=locale,
         title=title,
         description=description,
-        canonical_path=f"/{locale}/{stem}/",
+        canonical_path=f"/{locale}/{slug}/",
         eyebrow=eyebrow,
         heading_html=heading.replace(" — ", "<br>") if " — " in heading else heading,
         body_html=html,
         toc=toc,
         related=_parse_related(meta, path),
-        active=stem,
+        active=slug,
         show_hero_art=_show_hero_art(meta),
     )
 
@@ -310,23 +318,9 @@ def parse_votw_page(path: Path, locale: str, target: str) -> Page:
     post = frontmatter.load(path)
     meta = post.metadata
     stem = path.stem
-    meta_target = meta.get("target")
-    if meta_target and str(meta_target) != target:
-        print(
-            f"warning: frontmatter target {str(meta_target)!r} disagrees with folder "
-            f"{target!r} ({path}); the folder decides the URL",
-            file=sys.stderr,
-        )
-    if "slug" in meta and meta["slug"] is not None:
-        slug = str(meta["slug"])
-        if slug != stem:
-            print(
-                f"warning: VOTW slug {slug!r} != filename stem {stem!r} ({path}); "
-                f"emitting URL from slug, consider renaming the file to match",
-                file=sys.stderr,
-            )
-    else:
-        slug = stem
+    source = f"{locale}/{target}/votw/{path.name}"
+    validate_target(meta.get("target"), folder=target, source=source)
+    slug = resolve_slug(meta, stem=stem, source=source)
     title = str(meta.get("title") or stem)
     description = str(meta.get("description") or "")
     author = str(meta.get("author") or "")
@@ -390,23 +384,9 @@ def parse_article_page(path: Path, locale: str, target: str) -> Page:
     post = frontmatter.load(path)
     meta = post.metadata
     stem = path.stem
-    meta_target = meta.get("target")
-    if meta_target and str(meta_target) != target:
-        print(
-            f"warning: frontmatter target {str(meta_target)!r} disagrees with folder "
-            f"{target!r} ({path}); the folder decides the URL",
-            file=sys.stderr,
-        )
-    if "slug" in meta and meta["slug"] is not None:
-        slug = str(meta["slug"])
-        if slug != stem:
-            print(
-                f"warning: article slug {slug!r} != filename stem {stem!r} ({path}); "
-                f"emitting URL from slug, consider renaming the file to match",
-                file=sys.stderr,
-            )
-    else:
-        slug = stem
+    source = f"{locale}/{target}/{ARTICLES_DIR}/{path.name}"
+    validate_target(meta.get("target"), folder=target, source=source)
+    slug = resolve_slug(meta, stem=stem, source=source)
     title = str(meta.get("title") or stem)
     description = str(meta.get("description") or "")
     author = str(meta.get("author") or "")
@@ -510,7 +490,7 @@ def discover_core_pages(content_root: Path) -> list[tuple[Path, str]]:
 def is_draft(path: Path) -> bool:
     """True when frontmatter sets draft: true (pages must not be emitted)."""
     post = frontmatter.load(path)
-    return bool(post.metadata.get("draft"))
+    return parse_draft(post.metadata.get("draft"), source=str(path))
 
 
 def discover_votw_pages(content_root: Path) -> list[tuple[Path, str, str]]:
@@ -556,13 +536,9 @@ def parse_whats_new_page(path: Path, locale: str, target: str) -> Page:
     """Target-scoped recent-content page at /{locale}/{target}/whats-new/."""
     post = frontmatter.load(path)
     meta = post.metadata
-    meta_target = meta.get("target")
-    if meta_target and str(meta_target) != target:
-        print(
-            f"warning: frontmatter target {str(meta_target)!r} disagrees with folder "
-            f"{target!r} ({path}); the folder decides the URL",
-            file=sys.stderr,
-        )
+    source = f"{locale}/{target}/{WHATS_NEW_STEM}.md"
+    validate_target(meta.get("target"), folder=target, source=source)
+    resolve_slug(meta, stem=path.stem, source=source)
 
     title = str(meta.get("title") or chrome_for(locale)["whats_new"])
     description = str(meta.get("description") or "")
@@ -592,14 +568,24 @@ def parse_whats_new_page(path: Path, locale: str, target: str) -> Page:
 
 
 def _frontmatter_sort_date(value: object) -> date:
-    """ISO date for sorting; unknown/missing sorts to the epoch (oldest)."""
+    """ISO date for sorting; unknown/missing sorts to the epoch (oldest).
+
+    ISO-shaped values must be real calendar dates (hard-fail fakes like
+    2026-13-40). Free-text labels that are not ISO-shaped sort as oldest.
+    """
+    if value is None or value == "":
+        return date.min
     if isinstance(value, datetime):
         return value.date()
     if isinstance(value, date):
         return value
     if isinstance(value, str) and value.strip():
+        text = value.strip()
+        # ISO-shaped → real calendar date required; free text → oldest.
+        if len(text) >= 10 and text[4] == "-" and text[7] == "-":
+            return validate_iso_date(text)
         try:
-            return date.fromisoformat(value.strip())
+            return date.fromisoformat(text)
         except ValueError:
             return date.min
     return date.min
@@ -706,9 +692,10 @@ def votw_links(
     for path in _votw_series_list_paths(votw, include_drafts=include_drafts):
         post = frontmatter.load(path)
         meta = post.metadata
-        if meta.get("draft") and not include_drafts:
+        source = f"{locale}/{target}/votw/{path.name}"
+        if parse_draft(meta.get("draft"), source=source) and not include_drafts:
             continue
-        slug = str(meta.get("slug") or path.stem)
+        slug = resolve_slug(meta, stem=path.stem, source=source)
         # Series list uses the body H1 (the verb / path title). Frontmatter
         # title is the full document <title> and is often longer.
         list_title = _list_title_from_post(post, path.stem)
@@ -748,9 +735,10 @@ def recent_target_links(
         for path in _votw_lesson_paths(votw):
             post = frontmatter.load(path)
             meta = post.metadata
-            if meta.get("draft") and not include_drafts:
+            source = f"{locale}/{target}/votw/{path.name}"
+            if parse_draft(meta.get("draft"), source=source) and not include_drafts:
                 continue
-            slug = str(meta.get("slug") or path.stem)
+            slug = resolve_slug(meta, stem=path.stem, source=source)
             items.append(
                 (
                     _frontmatter_sort_date(meta.get("date")),
@@ -770,9 +758,10 @@ def recent_target_links(
         for path in articles.glob("*.md"):
             post = frontmatter.load(path)
             meta = post.metadata
-            if meta.get("draft") and not include_drafts:
+            source = f"{locale}/{target}/{ARTICLES_DIR}/{path.name}"
+            if parse_draft(meta.get("draft"), source=source) and not include_drafts:
                 continue
-            slug = str(meta.get("slug") or path.stem)
+            slug = resolve_slug(meta, stem=path.stem, source=source)
             items.append(
                 (
                     _frontmatter_sort_date(meta.get("date")),
