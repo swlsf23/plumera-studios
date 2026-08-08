@@ -77,13 +77,15 @@ def _publish_dist(staging: Path, dist: Path) -> None:
 
     ``os.replace`` cannot overwrite a non-empty directory, so the previous
     ``dist`` is moved aside first, then restored if the new tree cannot land.
+    Backup names reuse the unique staging directory name so concurrent or
+    leftover backups never collide; an unexpected existing backup is an error.
     """
     dist = Path(dist)
     staging = Path(staging)
     dist.parent.mkdir(parents=True, exist_ok=True)
-    backup = dist.parent / f".{dist.name}.bak-{os.getpid()}"
+    backup = dist.parent / f".{dist.name}.bak-{staging.name}"
     if backup.exists():
-        shutil.rmtree(backup)
+        raise RuntimeError(f"publish backup already exists: {backup}")
     moved_aside = False
     try:
         if dist.exists():
