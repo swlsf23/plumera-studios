@@ -1,11 +1,17 @@
-"""Build dist/: copy public assets, emit content HTML, write sitemaps."""
+"""Build dist/: copy public assets, emit content HTML, write sitemaps.
+
+Writes into a staging directory, then atomically replaces ``dist/`` only on
+success so a failed build never leaves a half-written site.
+"""
 
 from __future__ import annotations
 
 import argparse
+import os
 import re
 import shutil
 import sys
+import tempfile
 from html import escape
 from pathlib import Path
 
@@ -55,14 +61,43 @@ def _env() -> Environment:
     )
 
 
-def _copy_public(dist: Path) -> None:
-    if dist.exists():
-        shutil.rmtree(dist)
+def _copy_public(dest: Path) -> None:
+    """Copy public/ into dest (dest is replaced if it already exists)."""
+    if dest.exists():
+        shutil.rmtree(dest)
     shutil.copytree(
         PUBLIC,
-        dist,
+        dest,
         ignore=shutil.ignore_patterns("sitemap.xml"),
     )
+
+
+def _publish_dist(staging: Path, dist: Path) -> None:
+    """Replace ``dist`` with ``staging`` via same-directory renames.
+
+    ``os.replace`` cannot overwrite a non-empty directory, so the previous
+    ``dist`` is moved aside first, then restored if the new tree cannot land.
+    Backup names reuse the unique staging directory name so concurrent or
+    leftover backups never collide; an unexpected existing backup is an error.
+    """
+    dist = Path(dist)
+    staging = Path(staging)
+    dist.parent.mkdir(parents=True, exist_ok=True)
+    backup = dist.parent / f".{dist.name}.bak-{staging.name}"
+    if backup.exists():
+        raise RuntimeError(f"publish backup already exists: {backup}")
+    moved_aside = False
+    try:
+        if dist.exists():
+            os.replace(dist, backup)
+            moved_aside = True
+        os.replace(staging, dist)
+    except Exception:
+        if moved_aside and backup.exists() and not dist.exists():
+            os.replace(backup, dist)
+        raise
+    if backup.exists():
+        shutil.rmtree(backup)
 
 
 def _copy_content_images(dist: Path) -> None:
@@ -444,8 +479,9 @@ def _votw_nav_hrefs(series: list[tuple[str, str]]) -> dict[str, str]:
 
 
 def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
-    # Validate catalog metadata before wiping/writing dist so a failed build
+    # Validate catalog metadata before any staging write so a failed build
     # cannot leave a half site (e.g. nav → catalog 404).
+    final_dist = Path(dist)
     catalog_by_target: dict[tuple[str, str], list] = {}
     for locale, target in discover_catalog_targets(CONTENT):
         try:
@@ -456,139 +492,97 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
             print(str(exc), file=sys.stderr)
             return 1
 
-    env = _env()
-    template = env.get_template("content_page.html")
-    _copy_public(dist)
-    _copy_content_images(dist)
-    _write_css_bundles(dist)
-    # Same Python casefold as CatalogEntry.search_blob() — emit per build so the
-    # client helper always matches this interpreter’s Unicode tables.
-    write_casefold_js(dist / "js" / "unicode-casefold.js")
-
-    core_pages = [(parse_core_page(p, loc), p) for p, loc in discover_core_pages(CONTENT)]
-
-    # Always parse for related-link labels; only emit non-drafts unless --drafts.
-    draft_hrefs: set[str] = set()
-    votw_pages = []
-    votw_for_index = []
-    for path, locale, target in discover_votw_pages(CONTENT):
-        page = parse_votw_page(path, locale, target)
-        votw_for_index.append(page)
-        if is_draft(path):
-            draft_hrefs.add(page.canonical_path)
-            if not include_drafts:
-                print(f"skip draft: {path.relative_to(CONTENT)}", file=sys.stderr)
-                continue
-            print(f"emit draft: {path.relative_to(CONTENT)}", file=sys.stderr)
-        votw_pages.append((page, path, target))
-
-    article_pages = []
-    article_for_index = []
-    for path, locale, target in discover_article_pages(CONTENT):
-        page = parse_article_page(path, locale, target)
-        article_for_index.append(page)
-        if is_draft(path):
-            draft_hrefs.add(page.canonical_path)
-            if not include_drafts:
-                print(f"skip draft: {path.relative_to(CONTENT)}", file=sys.stderr)
-                continue
-            print(f"emit draft: {path.relative_to(CONTENT)}", file=sys.stderr)
-        article_pages.append((page, path, target))
-
-    whats_new_pages = []
-    whats_new_for_index = []
-    for path, locale, target in discover_whats_new_pages(CONTENT):
-        page = parse_whats_new_page(path, locale, target)
-        whats_new_for_index.append(page)
-        if is_draft(path):
-            draft_hrefs.add(page.canonical_path)
-            if not include_drafts:
-                print(f"skip draft: {path.relative_to(CONTENT)}", file=sys.stderr)
-                continue
-            print(f"emit draft: {path.relative_to(CONTENT)}", file=sys.stderr)
-        whats_new_pages.append((page, path, target))
-
-    for page, path in core_pages:
-        if is_draft(path):
-            draft_hrefs.add(page.canonical_path)
-
-    votw_nav = _votw_nav_hrefs(
-        [
-            (page.locale, target)
-            for page, path, target in votw_pages
-            if path.stem == VOTW_INDEX_STEM
-        ]
+    final_dist.parent.mkdir(parents=True, exist_ok=True)
+    staging = Path(
+        tempfile.mkdtemp(
+            prefix=f".{final_dist.name}-staging-",
+            dir=final_dist.parent,
+        )
     )
-    pages_by_href: dict[str, dict[str, str]] = {}
-    for page in (
-        *[p for p, _path in core_pages],
-        *votw_for_index,
-        *article_for_index,
-        *whats_new_for_index,
-    ):
-        pages_by_href[page.canonical_path] = {
-            "heading": _plain_heading(page.heading_html),
-            "title": page.title,
-            "level": page.level,
-        }
-    warn_draft_targets = not include_drafts
-    emitted = 0
+    published = False
+    try:
+        env = _env()
+        template = env.get_template("content_page.html")
+        _copy_public(staging)
+        _copy_content_images(staging)
+        _write_css_bundles(staging)
+        # Same Python casefold as CatalogEntry.search_blob() — emit per build so the
+        # client helper always matches this interpreter’s Unicode tables.
+        write_casefold_js(staging / "js" / "unicode-casefold.js")
 
-    for page, path in core_pages:
-        html = _render_page(
-            template,
-            page,
-            votw_nav,
-            pages_by_href,
-            source=str(path.relative_to(CONTENT)),
-            draft_hrefs=draft_hrefs,
-            warn_draft_targets=warn_draft_targets,
+        core_pages = [
+            (parse_core_page(p, loc), p) for p, loc in discover_core_pages(CONTENT)
+        ]
+
+        # Always parse for related-link labels; only emit non-drafts unless --drafts.
+        draft_hrefs: set[str] = set()
+        votw_pages = []
+        votw_for_index = []
+        for path, locale, target in discover_votw_pages(CONTENT):
+            page = parse_votw_page(path, locale, target)
+            votw_for_index.append(page)
+            if is_draft(path):
+                draft_hrefs.add(page.canonical_path)
+                if not include_drafts:
+                    print(f"skip draft: {path.relative_to(CONTENT)}", file=sys.stderr)
+                    continue
+                print(f"emit draft: {path.relative_to(CONTENT)}", file=sys.stderr)
+            votw_pages.append((page, path, target))
+
+        article_pages = []
+        article_for_index = []
+        for path, locale, target in discover_article_pages(CONTENT):
+            page = parse_article_page(path, locale, target)
+            article_for_index.append(page)
+            if is_draft(path):
+                draft_hrefs.add(page.canonical_path)
+                if not include_drafts:
+                    print(f"skip draft: {path.relative_to(CONTENT)}", file=sys.stderr)
+                    continue
+                print(f"emit draft: {path.relative_to(CONTENT)}", file=sys.stderr)
+            article_pages.append((page, path, target))
+
+        whats_new_pages = []
+        whats_new_for_index = []
+        for path, locale, target in discover_whats_new_pages(CONTENT):
+            page = parse_whats_new_page(path, locale, target)
+            whats_new_for_index.append(page)
+            if is_draft(path):
+                draft_hrefs.add(page.canonical_path)
+                if not include_drafts:
+                    print(f"skip draft: {path.relative_to(CONTENT)}", file=sys.stderr)
+                    continue
+                print(f"emit draft: {path.relative_to(CONTENT)}", file=sys.stderr)
+            whats_new_pages.append((page, path, target))
+
+        for page, path in core_pages:
+            if is_draft(path):
+                draft_hrefs.add(page.canonical_path)
+
+        votw_nav = _votw_nav_hrefs(
+            [
+                (page.locale, target)
+                for page, path, target in votw_pages
+                if path.stem == VOTW_INDEX_STEM
+            ]
         )
-        # /en/contact/ → en/contact/index.html (plain static hosting)
-        stem = path.stem
-        out = dist_path_for_url(dist, page.canonical_path)
-        _write(out, html)
-        # Keep /en/contact.html working via a static redirect stub
-        _write_redirect(dist / page.locale / f"{stem}.html", page.canonical_path)
-        emitted += 1
+        pages_by_href: dict[str, dict[str, str]] = {}
+        for page in (
+            *[p for p, _path in core_pages],
+            *votw_for_index,
+            *article_for_index,
+            *whats_new_for_index,
+        ):
+            pages_by_href[page.canonical_path] = {
+                "heading": _plain_heading(page.heading_html),
+                "title": page.title,
+                "level": page.level,
+            }
+        warn_draft_targets = not include_drafts
+        emitted = 0
 
-    for page, path, target in votw_pages:
-        locale = page.locale
-        source = str(path.relative_to(CONTENT))
-        if path.stem == VOTW_INDEX_STEM:
-            # List replaces <!-- votw: list --> (outside .article-body).
-            lesson_list = _votw_list_html(locale, target, include_drafts)
-            split = _split_at_list_marker(page.body_html, "votw", source=source)
-            if split is None:
-                print(
-                    f"warning: missing <!-- votw: list --> in {source}; "
-                    f"appending the lesson list after the body",
-                    file=sys.stderr,
-                )
-                page.after_body_html = lesson_list
-            else:
-                page.body_html, page.tail_body_html = split
-                page.after_body_html = lesson_list
-        out = dist_path_for_url(dist, page.canonical_path)
-        _write(
-            out,
-            _render_page(
-                template,
-                page,
-                votw_nav,
-                pages_by_href,
-                source=source,
-                draft_hrefs=draft_hrefs,
-                warn_draft_targets=warn_draft_targets,
-            ),
-        )
-        emitted += 1
-
-    for page, path, target in article_pages:
-        out = dist_path_for_url(dist, page.canonical_path)
-        _write(
-            out,
-            _render_page(
+        for page, path in core_pages:
+            html = _render_page(
                 template,
                 page,
                 votw_nav,
@@ -596,69 +590,132 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
                 source=str(path.relative_to(CONTENT)),
                 draft_hrefs=draft_hrefs,
                 warn_draft_targets=warn_draft_targets,
-            ),
-        )
-        emitted += 1
-
-    for page, path, target in whats_new_pages:
-        # List replaces <!-- whats-new: list --> (outside .article-body).
-        source = str(path.relative_to(CONTENT))
-        lesson_list = _whats_new_list_html(page.locale, target, include_drafts)
-        split = _split_at_list_marker(page.body_html, "whats-new", source=source)
-        if split is None:
-            print(
-                f"warning: missing <!-- whats-new: list --> in {source}; "
-                f"appending the lesson list after the body",
-                file=sys.stderr,
             )
-            page.after_body_html = lesson_list
-        else:
-            page.body_html, page.tail_body_html = split
-            page.after_body_html = lesson_list
-        out = dist_path_for_url(dist, page.canonical_path)
-        _write(
-            out,
-            _render_page(
-                template,
-                page,
-                votw_nav,
-                pages_by_href,
-                source=source,
-                draft_hrefs=draft_hrefs,
-                warn_draft_targets=warn_draft_targets,
-            ),
-        )
-        emitted += 1
+            # /en/contact/ → en/contact/index.html (plain static hosting)
+            stem = path.stem
+            out = dist_path_for_url(staging, page.canonical_path)
+            _write(out, html)
+            # Keep /en/contact.html working via a static redirect stub
+            _write_redirect(
+                staging / page.locale / f"{stem}.html", page.canonical_path
+            )
+            emitted += 1
 
-    catalog_count = 0
-    for (locale, target), entries in catalog_by_target.items():
-        if not entries:
-            continue
-        payload = catalog_index_payload(locale, target, entries)
-        page = make_catalog_page(locale, target, content_root=CONTENT)
-        catalog_html = dist_path_for_url(dist, page.canonical_path)
-        write_catalog_index(catalog_html.parent / "index.json", payload)
-        page.after_body_html = catalog_after_body_html(locale, entries)
-        _write(
-            catalog_html,
-            _render_page(
-                template,
-                page,
-                votw_nav,
-                pages_by_href,
-                source=f"{locale}/{target}/{CATALOG_STEM}/",
-                draft_hrefs=draft_hrefs,
-                warn_draft_targets=warn_draft_targets,
-            ),
-        )
-        catalog_count += 1
-        emitted += 1
+        for page, path, target in votw_pages:
+            locale = page.locale
+            source = str(path.relative_to(CONTENT))
+            if path.stem == VOTW_INDEX_STEM:
+                # List replaces <!-- votw: list --> (outside .article-body).
+                lesson_list = _votw_list_html(locale, target, include_drafts)
+                split = _split_at_list_marker(page.body_html, "votw", source=source)
+                if split is None:
+                    print(
+                        f"warning: missing <!-- votw: list --> in {source}; "
+                        f"appending the lesson list after the body",
+                        file=sys.stderr,
+                    )
+                    page.after_body_html = lesson_list
+                else:
+                    page.body_html, page.tail_body_html = split
+                    page.after_body_html = lesson_list
+            out = dist_path_for_url(staging, page.canonical_path)
+            _write(
+                out,
+                _render_page(
+                    template,
+                    page,
+                    votw_nav,
+                    pages_by_href,
+                    source=source,
+                    draft_hrefs=draft_hrefs,
+                    warn_draft_targets=warn_draft_targets,
+                ),
+            )
+            emitted += 1
 
-    sitemaps = write_sitemaps(dist)
-    print(f"Emitted {emitted} content pages into {dist}")
-    print(f"Wrote {catalog_count} catalog indexes")
-    print(f"Wrote {len(sitemaps)} sitemap files")
-    return 0
+        for page, path, target in article_pages:
+            out = dist_path_for_url(staging, page.canonical_path)
+            _write(
+                out,
+                _render_page(
+                    template,
+                    page,
+                    votw_nav,
+                    pages_by_href,
+                    source=str(path.relative_to(CONTENT)),
+                    draft_hrefs=draft_hrefs,
+                    warn_draft_targets=warn_draft_targets,
+                ),
+            )
+            emitted += 1
+
+        for page, path, target in whats_new_pages:
+            # List replaces <!-- whats-new: list --> (outside .article-body).
+            source = str(path.relative_to(CONTENT))
+            lesson_list = _whats_new_list_html(page.locale, target, include_drafts)
+            split = _split_at_list_marker(page.body_html, "whats-new", source=source)
+            if split is None:
+                print(
+                    f"warning: missing <!-- whats-new: list --> in {source}; "
+                    f"appending the lesson list after the body",
+                    file=sys.stderr,
+                )
+                page.after_body_html = lesson_list
+            else:
+                page.body_html, page.tail_body_html = split
+                page.after_body_html = lesson_list
+            out = dist_path_for_url(staging, page.canonical_path)
+            _write(
+                out,
+                _render_page(
+                    template,
+                    page,
+                    votw_nav,
+                    pages_by_href,
+                    source=source,
+                    draft_hrefs=draft_hrefs,
+                    warn_draft_targets=warn_draft_targets,
+                ),
+            )
+            emitted += 1
+
+        catalog_count = 0
+        for (locale, target), entries in catalog_by_target.items():
+            if not entries:
+                continue
+            payload = catalog_index_payload(locale, target, entries)
+            page = make_catalog_page(locale, target, content_root=CONTENT)
+            catalog_html = dist_path_for_url(staging, page.canonical_path)
+            write_catalog_index(catalog_html.parent / "index.json", payload)
+            page.after_body_html = catalog_after_body_html(locale, entries)
+            _write(
+                catalog_html,
+                _render_page(
+                    template,
+                    page,
+                    votw_nav,
+                    pages_by_href,
+                    source=f"{locale}/{target}/{CATALOG_STEM}/",
+                    draft_hrefs=draft_hrefs,
+                    warn_draft_targets=warn_draft_targets,
+                ),
+            )
+            catalog_count += 1
+            emitted += 1
+
+        sitemaps = write_sitemaps(staging)
+        _publish_dist(staging, final_dist)
+        published = True
+        print(f"Emitted {emitted} content pages into {final_dist}")
+        print(f"Wrote {catalog_count} catalog indexes")
+        print(f"Wrote {len(sitemaps)} sitemap files")
+        return 0
+    except ValueError as exc:
+        print(str(exc), file=sys.stderr)
+        return 1
+    finally:
+        if not published and staging.exists():
+            shutil.rmtree(staging, ignore_errors=True)
 
 
 def main() -> int:
