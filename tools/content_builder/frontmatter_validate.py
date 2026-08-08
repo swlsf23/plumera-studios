@@ -64,13 +64,21 @@ def validate_target(meta_target: object, *, folder: str, source: str) -> None:
 def validate_iso_date(value: object, *, source: str = "") -> date:
     """Parse a real calendar date (``date.fromisoformat``); reject fakes."""
     prefix = f"{source}: " if source else ""
+    if value is None or value == "":
+        raise ValueError(f"{prefix}missing date")
     if isinstance(value, datetime):
         return value.date()
     if isinstance(value, date):
         return value
-    if isinstance(value, str) and value.strip():
+    if isinstance(value, str):
+        text = value.strip()
+        if not text:
+            raise ValueError(f"{prefix}missing date")
         try:
-            return date.fromisoformat(value.strip())
+            return date.fromisoformat(text)
         except ValueError as exc:
             raise ValueError(f"{prefix}invalid date {value!r}") from exc
-    raise ValueError(f"{prefix}missing date")
+    raise ValueError(
+        f"{prefix}date must be a YAML date or ISO string (YYYY-MM-DD), "
+        f"not {type(value).__name__} ({value!r})"
+    )
