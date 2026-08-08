@@ -616,49 +616,68 @@ def _list_title_from_post(post, fallback: str) -> str:
     return _plain_list_title(list_title)
 
 
+# Lesson filenames: votw-prendre-a1.md, votw-faire-basics-a2.md, …
+_VOTW_LESSON_STEM = re.compile(r"^votw-.+")
+
+
+def _is_votw_series_index_path(path: Path) -> bool:
+    """True for the series index at votw/index.md."""
+    return path.parent.name == "votw" and path.stem == VOTW_INDEX_STEM
+
+
+def _is_votw_lemma_hub_path(path: Path) -> bool:
+    """True only for the canonical hub votw/{lemma}/votw-{lemma}-index.md."""
+    parent = path.parent
+    if parent.name == "votw":
+        return False
+    return path.stem == f"votw-{parent.name}-index"
+
+
 def _is_votw_index_path(path: Path) -> bool:
-    """True for series index.md and lemma hubs like votw-faire-index.md."""
-    stem = path.stem
-    return stem == VOTW_INDEX_STEM or stem.endswith("-index")
+    """Series index or canonical lemma hub (not every filename ending in -index)."""
+    return _is_votw_series_index_path(path) or _is_votw_lemma_hub_path(path)
+
+
+def _is_votw_lesson_path(path: Path) -> bool:
+    """VOTW lesson page: votw-*.md that is not a series/lemma index."""
+    if _is_votw_index_path(path):
+        return False
+    return bool(_VOTW_LESSON_STEM.fullmatch(path.stem))
 
 
 def _votw_lesson_paths(votw: Path) -> list[Path]:
-    """Flat + nested lesson pages (series index and lemma hubs excluded).
+    """Flat + nested lesson pages (indexes and non-lesson markdown excluded).
 
     Used for what's-new and catalog: each lesson stays an individual entry.
     """
-    paths = [p for p in votw.glob("*.md") if not _is_votw_index_path(p)]
-    paths.extend(p for p in votw.glob("*/*.md") if not _is_votw_index_path(p))
-    return sorted(paths)
+    paths = [p for p in votw.glob("*.md") if _is_votw_lesson_path(p)]
+    paths.extend(p for p in votw.glob("*/*.md") if _is_votw_lesson_path(p))
+    return sorted(set(paths))
 
 
 def _votw_lemma_hub_path(lemma_dir: Path) -> Path | None:
-    """Lemma path hub under votw/{lemma}/, preferring votw-{lemma}-index.md."""
+    """Canonical hub votw-{lemma}-index.md, or None (no silent *-index fallback)."""
     preferred = lemma_dir / f"votw-{lemma_dir.name}-index.md"
-    if preferred.is_file():
-        return preferred
-    hubs = sorted(p for p in lemma_dir.glob("*.md") if _is_votw_index_path(p))
-    return hubs[0] if hubs else None
+    return preferred if preferred.is_file() else None
 
 
 def _votw_series_list_paths(votw: Path) -> list[Path]:
     """Paths for VOTW series index cards.
 
-    Flat one-offs (e.g. prendre, tenir) plus one hub per lemma folder when
-    present. If a lemma folder has no hub yet, fall back to nested lessons so
-    SITE can ship before CNT hubs land. Nested lessons still appear on
-    what's-new either way.
+    Hub pages are the rollout-safe series entry for a lemma folder: when
+    ``votw-{lemma}-index.md`` exists, it replaces nested lessons on this list
+    (nested lessons remain on what's-new / catalog). Flat one-offs (prendre,
+    tenir) stay listed. If a lemma folder has no hub yet, fall back to nested
+    ``votw-*.md`` lessons so SITE can ship before CNT hubs land.
     """
-    paths = [p for p in votw.glob("*.md") if not _is_votw_index_path(p)]
+    paths = [p for p in votw.glob("*.md") if _is_votw_lesson_path(p)]
     for lemma_dir in sorted(p for p in votw.iterdir() if p.is_dir()):
         hub = _votw_lemma_hub_path(lemma_dir)
         if hub is not None:
             paths.append(hub)
             continue
-        paths.extend(
-            p for p in lemma_dir.glob("*.md") if not _is_votw_index_path(p)
-        )
-    return sorted(paths)
+        paths.extend(p for p in lemma_dir.glob("*.md") if _is_votw_lesson_path(p))
+    return sorted(set(paths))
 
 
 def _votw_href(locale: str, target: str, path: Path, slug: str) -> str:
@@ -699,7 +718,11 @@ def votw_links(
                 },
             )
         )
-    items.sort(key=lambda pair: (pair[0], pair[1]["title"]), reverse=True)
+    # Newest date first; equal dates: title Z→A, then href for a stable order.
+    items.sort(
+        key=lambda pair: (pair[0], pair[1]["title"], pair[1]["href"]),
+        reverse=True,
+    )
     return [item for _sort_date, item in items]
 
 
@@ -757,5 +780,8 @@ def recent_target_links(
                 )
             )
 
-    items.sort(key=lambda pair: (pair[0], pair[1]["title"]), reverse=True)
+    items.sort(
+        key=lambda pair: (pair[0], pair[1]["title"], pair[1]["href"]),
+        reverse=True,
+    )
     return [item for _sort_date, item in items]

@@ -72,18 +72,36 @@ class VotwLinksOrderTests(unittest.TestCase):
             ],
         )
 
-    def test_votw_links_equal_dates_break_ties_by_title_desc(self) -> None:
+    def test_votw_links_equal_dates_break_ties_by_title_then_href(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             votw = root / "en" / "learn-french" / "votw"
             votw.mkdir(parents=True)
-            # Same date: sort key is (date, title) reversed → title Z→A.
+            # Same date: (date, title, href) reversed → title Z→A, then href.
             _write_votw(votw, stem="votw-prendre-a1", title="Prendre", date="2026-07-22")
             _write_votw(votw, stem="votw-tenir-a2", title="Tenir", date="2026-07-22")
 
             links = votw_links(root, "en", "learn-french")
 
         self.assertEqual([link["title"] for link in links], ["Tenir", "Prendre"])
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            votw = root / "en" / "learn-french" / "votw"
+            votw.mkdir(parents=True)
+            # Same date + title: href breaks the tie deterministically.
+            _write_votw(votw, stem="votw-alpha-a1", title="Same", date="2026-07-22")
+            _write_votw(votw, stem="votw-beta-a1", title="Same", date="2026-07-22")
+
+            links = votw_links(root, "en", "learn-french")
+
+        self.assertEqual(
+            [link["href"] for link in links],
+            [
+                "/en/learn-french/votw/votw-beta-a1/",
+                "/en/learn-french/votw/votw-alpha-a1/",
+            ],
+        )
 
     def test_votw_links_skips_drafts_unless_requested(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -178,6 +196,69 @@ class VotwLinksOrderTests(unittest.TestCase):
             ],
         )
 
+    def test_votw_links_ignores_non_lesson_and_non_canonical_index(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            votw = root / "en" / "learn-french" / "votw"
+            votw.mkdir(parents=True)
+            faire = votw / "faire"
+            _write_md(
+                faire / "votw-faire-basics-a2.md",
+                title="How to use faire",
+                slug="votw-faire-basics-a2",
+                date="2026-07-31",
+                level="A2",
+            )
+            # Auxiliary notes and a non-canonical *-index must not surface.
+            (faire / "notes.md").write_text("# Notes\n", encoding="utf-8")
+            _write_md(
+                faire / "draft-index.md",
+                title="Wrong index",
+                slug="draft-index",
+                date="2026-08-01",
+                level="",
+            )
+
+            links = votw_links(root, "en", "learn-french")
+
+        self.assertEqual(
+            [link["href"] for link in links],
+            ["/en/learn-french/votw/faire/votw-faire-basics-a2/"],
+        )
+
+    def test_votw_links_hub_date_controls_series_order(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            votw = root / "en" / "learn-french" / "votw"
+            votw.mkdir(parents=True)
+            _write_votw(votw, stem="votw-prendre-a1", title="Prendre", date="2026-07-20")
+            faire = votw / "faire"
+            _write_md(
+                faire / "votw-faire-index.md",
+                title="Learn faire",
+                slug="votw-faire-index",
+                date="2026-07-01",
+                level="",
+            )
+            _write_md(
+                faire / "votw-faire-basics-a2.md",
+                title="How to use faire",
+                slug="votw-faire-basics-a2",
+                date="2026-07-31",
+                level="A2",
+            )
+
+            links = votw_links(root, "en", "learn-french")
+
+        # Hub is older than its nested lesson; series still uses hub date only.
+        self.assertEqual(
+            [link["href"] for link in links],
+            [
+                "/en/learn-french/votw/votw-prendre-a1/",
+                "/en/learn-french/votw/faire/votw-faire-index/",
+            ],
+        )
+
     def test_recent_target_links_still_lists_nested_lessons(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -198,13 +279,27 @@ class VotwLinksOrderTests(unittest.TestCase):
                 date="2026-07-31",
                 level="A2",
             )
+            _write_md(
+                faire / "votw-faire-expressions-a2.md",
+                title="Expressions with faire",
+                slug="votw-faire-expressions-a2",
+                date="2026-07-30",
+                level="A2",
+            )
 
             links = recent_target_links(root, "en", "learn-french")
 
         hrefs = [link["href"] for link in links]
-        self.assertIn("/en/learn-french/votw/faire/votw-faire-basics-a2/", hrefs)
+        self.assertEqual(
+            hrefs,
+            [
+                "/en/learn-french/votw/faire/votw-faire-basics-a2/",
+                "/en/learn-french/votw/faire/votw-faire-expressions-a2/",
+            ],
+        )
         self.assertNotIn("/en/learn-french/votw/faire/votw-faire-index/", hrefs)
 
 
 if __name__ == "__main__":
     unittest.main()
+
