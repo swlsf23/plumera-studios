@@ -370,7 +370,7 @@ def make_catalog_page(
 
 
 def _title_with_levels(title: str, levels: list[str]) -> str:
-    """Append CEFR code or band (Title · B1–B2). All-level guides stay bare."""
+    """Append CEFR codes (Title · B1 B2). All-level guides stay bare."""
     title = title.strip()
     label = level_label_for_page(levels)
     if not title or not label:

@@ -1,12 +1,12 @@
-"""CEFR level parsing and display labels (single code or band)."""
+"""CEFR level parsing and display labels (one or more codes)."""
 
 from __future__ import annotations
 
 CEFR_LEVELS: tuple[str, ...] = ("A1", "A2", "B1", "B2", "C1", "C2")
 LEVEL_RANK = {code: i for i, code in enumerate(CEFR_LEVELS)}
 
-# en dash between band ends (A2–B1), matching copy/style elsewhere on the site.
-_BAND_SEP = "\u2013"
+# Between codes in a multi-level list/card suffix (Title · B1 B2).
+_LABEL_SEP = " "
 
 
 def normalize_level_list(value: object) -> list[str]:
@@ -52,27 +52,37 @@ def ordered_levels(levels: list[str]) -> list[str]:
     return known + unknown
 
 
-def format_level_band(levels: list[str]) -> str:
-    """Display label: A1, or B1–B2 for a multi-level band."""
+def format_level_labels(levels: list[str]) -> str:
+    """Join codes for list/card suffixes: A1, or B1 B2."""
     ordered = ordered_levels(levels)
     if not ordered:
         return ""
-    if len(ordered) == 1:
-        return ordered[0]
-    return f"{ordered[0]}{_BAND_SEP}{ordered[-1]}"
+    return _LABEL_SEP.join(ordered)
+
+
+# Back-compat alias for callers that still import the old name.
+format_level_band = format_level_labels
+
+
+def level_codes_for_page(levels: list[str]) -> list[str]:
+    """Badge codes; omit for all-level reference pages (CEFR guide)."""
+    ordered = ordered_levels(levels)
+    if not ordered:
+        return []
+    if len(ordered) >= len(CEFR_LEVELS) and set(ordered) >= set(CEFR_LEVELS):
+        return []
+    return ordered
 
 
 def level_label_for_page(levels: list[str]) -> str:
-    """Badge / card level label; omit for all-level reference pages (CEFR guide)."""
-    ordered = ordered_levels(levels)
-    if not ordered:
-        return ""
-    if len(ordered) >= len(CEFR_LEVELS) and set(ordered) >= set(CEFR_LEVELS):
-        return ""
-    return format_level_band(ordered)
+    """Joined list/card level label; empty when there are no page codes."""
+    return format_level_labels(level_codes_for_page(levels))
 
 
 def primary_level(levels: list[str]) -> str:
-    """Lowest CEFR code in the set (sort / data-primary-level)."""
-    ordered = ordered_levels(levels)
-    return ordered[0] if ordered else ""
+    """First author-declared CEFR code (catalog sort / data-primary-level)."""
+    for code in levels:
+        text = str(code).strip()
+        if text:
+            return text
+    return ""

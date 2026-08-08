@@ -14,9 +14,9 @@ from markdown.extensions.toc import slugify as md_slugify
 
 from tools.content_builder.chrome import chrome_for, format_date, votw_series_label
 from tools.content_builder.levels import (
+    level_codes_for_page,
     level_label_for_page,
     normalize_level_list,
-    primary_level,
 )
 
 SITE_ORIGIN = "https://plumerastudios.com"
@@ -53,6 +53,7 @@ class Page:
     active: str = ""
     show_hero_art: bool = False
     level: str = ""
+    levels: list[str] = field(default_factory=list)
 
 
 def slugify(value: str) -> str:
@@ -380,6 +381,7 @@ def parse_votw_page(path: Path, locale: str, target: str) -> Page:
         active="votw",
         show_hero_art=_show_hero_art(meta),
         level=_level_label(meta),
+        levels=_level_codes(meta),
     )
 
 
@@ -449,6 +451,7 @@ def parse_article_page(path: Path, locale: str, target: str) -> Page:
         active="articles",
         show_hero_art=_show_hero_art(meta),
         level=_level_label(meta),
+        levels=_level_codes(meta),
     )
 
 
@@ -457,13 +460,13 @@ def _levels_from_meta(meta: dict) -> list[str]:
     return normalize_level_list(meta.get("level"))
 
 
-def _primary_level(meta: dict) -> str:
-    """Lowest CEFR level from frontmatter (sort / legacy single-code callers)."""
-    return primary_level(_levels_from_meta(meta))
+def _level_codes(meta: dict) -> list[str]:
+    """On-page badge codes (empty for all-level reference pages)."""
+    return level_codes_for_page(_levels_from_meta(meta))
 
 
 def _level_label(meta: dict) -> str:
-    """On-page / card label: A1 or B1–B2 (empty for all-level reference pages)."""
+    """List/card suffix: A1 or B1 B2 (empty for all-level reference pages)."""
     return level_label_for_page(_levels_from_meta(meta))
 
 
