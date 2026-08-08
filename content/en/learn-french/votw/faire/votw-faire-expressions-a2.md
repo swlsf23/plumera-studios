@@ -7,7 +7,7 @@ target: learn-french
 locale: en
 level: A2
 author:
-date: 2026-07-31
+date: 2026-08-07
 draft: false
 related:
 

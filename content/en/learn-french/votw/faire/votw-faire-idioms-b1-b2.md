@@ -6,7 +6,7 @@ target: learn-french
 locale: en
 level: B1,B2
 author:
-date: 2026-07-31
+date: 2026-08-07
 draft: true
 related:
 - href: /en/learn-french/votw/faire/votw-faire-basics-a2/

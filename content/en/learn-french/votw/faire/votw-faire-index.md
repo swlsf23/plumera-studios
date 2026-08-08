@@ -5,7 +5,7 @@ slug: votw-faire-index
 target: learn-french
 locale: en
 author:
-date: 2026-07-31
+date: 2026-08-07
 draft: false
 related:
   - href: /en/learn-french/votw/faire/votw-faire-basics-a2/
