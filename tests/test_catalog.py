@@ -204,7 +204,7 @@ class CatalogStaticSeoContractTests(unittest.TestCase):
 
 class CatalogBuildTests(unittest.TestCase):
     def test_catalog_metadata_failure_leaves_dist_untouched(self) -> None:
-        """Bad catalog metadata must fail before wiping/writing dist."""
+        """Bad catalog metadata must fail before staging/publishing dist."""
         from unittest import mock
 
         with tempfile.TemporaryDirectory() as tmp:
