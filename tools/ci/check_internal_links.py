@@ -59,6 +59,19 @@ def _page_url_for_html(html_path: Path, dist: Path) -> str:
     return "/" + rel
 
 
+def _safe_site_path(path: str) -> str | None:
+    """Return path if it is a root-relative site path with no traversal segments."""
+    if not path.startswith("/"):
+        path = "/" + path
+    rel = path.strip("/")
+    if not rel:
+        return "/"
+    segments = rel.split("/")
+    if any(seg in ("", ".", "..") for seg in segments):
+        return None
+    return path if path.endswith("/") else "/" + rel
+
+
 def _local_path_from_ref(ref: str, *, page_url: str) -> str | None:
     """Return a site path to check, or None when the ref is out of scope."""
     ref = ref.strip()
@@ -67,30 +80,36 @@ def _local_path_from_ref(ref: str, *, page_url: str) -> str | None:
         return None
 
     parsed = urlparse(ref)
+    site_netloc = urlparse(SITE_ORIGIN).netloc
     if parsed.scheme in ("http", "https"):
-        if parsed.netloc and parsed.netloc != urlparse(SITE_ORIGIN).netloc:
+        if parsed.netloc and parsed.netloc != site_netloc:
             return None
         path = unquote(parsed.path or "/")
     elif parsed.scheme:
         # Other schemes (ftp, …) are not site paths.
         return None
+    elif parsed.netloc:
+        # Protocol-relative //host/... — not a root-relative site path.
+        if parsed.netloc != site_netloc:
+            return None
+        path = unquote(parsed.path or "/")
     elif ref.startswith("/"):
         path = unquote(parsed.path)
     else:
         # Relative href: resolve against the containing page (origin + page URL).
         joined = urljoin(f"{SITE_ORIGIN}{page_url}", ref)
         joined_parsed = urlparse(joined)
-        if joined_parsed.netloc != urlparse(SITE_ORIGIN).netloc:
+        if joined_parsed.netloc != site_netloc:
             return None
         path = unquote(joined_parsed.path or "/")
 
-    if not path.startswith("/"):
-        path = "/" + path
-    return path
+    return _safe_site_path(path)
 
 
 def _exists_in_dist(url_path: str, dist: Path | None = None) -> bool:
     dist = dist if dist is not None else DIST
+    if _safe_site_path(url_path) is None:
+        return False
     rel = url_path.lstrip("/")
     if rel == "" or rel.endswith("/"):
         candidate = dist / rel / "index.html" if rel else dist / "index.html"
