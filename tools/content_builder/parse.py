@@ -13,6 +13,11 @@ import markdown
 from markdown.extensions.toc import slugify as md_slugify
 
 from tools.content_builder.chrome import chrome_for, format_date, votw_series_label
+from tools.content_builder.levels import (
+    level_codes_for_page,
+    level_label_for_page,
+    normalize_level_list,
+)
 
 SITE_ORIGIN = "https://plumerastudios.com"
 CORE_SKIP = {"index.md"}  # landings are copied HTML; MD is reference-only
@@ -48,6 +53,7 @@ class Page:
     active: str = ""
     show_hero_art: bool = False
     level: str = ""
+    levels: list[str] = field(default_factory=list)
 
 
 def slugify(value: str) -> str:
@@ -374,7 +380,8 @@ def parse_votw_page(path: Path, locale: str, target: str) -> Page:
         related=_parse_related(meta, path),
         active="votw",
         show_hero_art=_show_hero_art(meta),
-        level=_primary_level(meta),
+        level=_level_label(meta),
+        levels=_level_codes(meta),
     )
 
 
@@ -443,25 +450,24 @@ def parse_article_page(path: Path, locale: str, target: str) -> Page:
         related=_parse_related(meta, path),
         active="articles",
         show_hero_art=_show_hero_art(meta),
-        level=_primary_level(meta),
+        level=_level_label(meta),
+        levels=_level_codes(meta),
     )
 
 
-def _primary_level(meta: dict) -> str:
-    """First CEFR level from frontmatter (scalar, list, or comma-separated)."""
-    raw = meta.get("level")
-    if raw is None or raw == "":
-        return ""
-    if isinstance(raw, list):
-        for item in raw:
-            text = str(item).strip()
-            if text:
-                return text.split(",")[0].strip()
-        return ""
-    text = str(raw).strip()
-    if "," in text:
-        return text.split(",")[0].strip()
-    return text
+def _levels_from_meta(meta: dict) -> list[str]:
+    """CEFR codes from frontmatter (scalar, list, or comma-separated)."""
+    return normalize_level_list(meta.get("level"))
+
+
+def _level_codes(meta: dict) -> list[str]:
+    """On-page badge codes (empty for all-level reference pages)."""
+    return level_codes_for_page(_levels_from_meta(meta))
+
+
+def _level_label(meta: dict) -> str:
+    """List/card suffix: A1 or B1 B2 (empty for all-level reference pages)."""
+    return level_label_for_page(_levels_from_meta(meta))
 
 
 def _locale_dirs(content_root: Path) -> list[Path]:
@@ -708,7 +714,7 @@ def votw_links(
         list_title = _list_title_from_post(post, path.stem)
         date_label = _format_date(meta.get("date"), locale)
         description = str(meta.get("description") or "").strip()
-        level = _primary_level(meta)
+        level = _level_label(meta)
         items.append(
             (
                 _frontmatter_sort_date(meta.get("date")),
@@ -752,7 +758,7 @@ def recent_target_links(
                         "title": _list_title_from_post(post, path.stem),
                         "date": _format_date(meta.get("date"), locale),
                         "description": str(meta.get("description") or "").strip(),
-                        "level": _primary_level(meta),
+                        "level": _level_label(meta),
                         "kind": series_name,
                         "href": _votw_href(locale, target, path, slug),
                     },
@@ -776,7 +782,7 @@ def recent_target_links(
                         "title": _list_title_from_post(post, path.stem),
                         "date": _format_date(meta.get("date"), locale),
                         "description": str(meta.get("description") or "").strip(),
-                        "level": _primary_level(meta),
+                        "level": _level_label(meta),
                         "kind": chrome["article"],
                         "href": f"/{locale}/{target}/{ARTICLES_DIR}/{slug}/",
                     },

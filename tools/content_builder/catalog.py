@@ -12,6 +12,13 @@ from pathlib import Path
 import frontmatter
 
 from tools.content_builder.chrome import chrome_for, format_date, votw_series_label
+from tools.content_builder.levels import (
+    CEFR_LEVELS,
+    LEVEL_RANK,
+    level_label_for_page,
+    normalize_level_list,
+    primary_level,
+)
 from tools.content_builder.parse import (
     ARTICLES_DIR,
     CORE_DIR,
@@ -32,7 +39,6 @@ SCHEMA_VERSION = 1
 # are not emitted.
 CATALOG_TARGETS: frozenset[tuple[str, str]] = frozenset({("en", "learn-french")})
 
-CEFR_LEVELS: tuple[str, ...] = ("A1", "A2", "B1", "B2", "C1", "C2")
 CATALOG_TYPES: tuple[str, ...] = (
     "verb",
     "grammar",
@@ -41,7 +47,6 @@ CATALOG_TYPES: tuple[str, ...] = (
     "pronunciation",
     "guide",
 )
-LEVEL_RANK = {code: i for i, code in enumerate(CEFR_LEVELS)}
 TYPE_RANK = {code: i for i, code in enumerate(CATALOG_TYPES)}
 
 
@@ -81,30 +86,8 @@ class CatalogEntry:
 
 def normalize_str_list(value: object) -> list[str]:
     """Normalize frontmatter scalar / list / comma-string to a clean list."""
-    if value is None:
-        return []
-    if isinstance(value, bool):
-        return []
-    if isinstance(value, (int, float)):
-        text = str(value).strip()
-        return [text] if text else []
-    if isinstance(value, list):
-        items: list[str] = []
-        for item in value:
-            text = str(item).strip()
-            if text:
-                items.extend(_split_comma_parts(text))
-        return items
-    text = str(value).strip()
-    if not text:
-        return []
-    return _split_comma_parts(text)
-
-
-def _split_comma_parts(text: str) -> list[str]:
-    if "," in text:
-        return [part.strip() for part in text.split(",") if part.strip()]
-    return [text]
+    # Shared with CEFR level parsing (comma / YAML list forms).
+    return normalize_level_list(value)
 
 
 def iso_date_string(value: object) -> str:
@@ -253,7 +236,7 @@ def _entry_from_votw(
         source = rel.split("/content/", 1)[-1] if "/content/" in rel else rel
 
     slug = str(meta.get("slug") or path.stem)
-    levels = validate_levels(normalize_str_list(meta.get("level")), source=source)
+    levels = validate_levels(normalize_level_list(meta.get("level")), source=source)
     types = validate_types(_default_types_for_path(path, meta), source=source)
     date_s = iso_date_string(meta.get("date"))
     if not levels:
@@ -284,7 +267,7 @@ def _entry_from_article(
     meta = post.metadata
     source = f"{locale}/{target}/{ARTICLES_DIR}/{path.name}"
     slug = str(meta.get("slug") or path.stem)
-    levels = validate_levels(normalize_str_list(meta.get("level")), source=source)
+    levels = validate_levels(normalize_level_list(meta.get("level")), source=source)
     types = validate_types(_default_types_for_path(path, meta), source=source)
     date_s = iso_date_string(meta.get("date"))
     if not levels:
@@ -311,7 +294,7 @@ def _entry_from_core(path: Path, locale: str, post: object) -> CatalogEntry:
     meta = post.metadata
     source = f"{locale}/{CORE_DIR}/{path.name}"
     slug = str(meta.get("slug") or path.stem)
-    levels = validate_levels(normalize_str_list(meta.get("level")), source=source)
+    levels = validate_levels(normalize_level_list(meta.get("level")), source=source)
     types = validate_types(normalize_str_list(meta.get("type")), source=source)
     date_s = iso_date_string(meta.get("date"))
     if not levels:
@@ -387,17 +370,14 @@ def make_catalog_page(
 
 
 def _title_with_levels(title: str, levels: list[str]) -> str:
+    """Append CEFR codes (Title · B1 B2). All-level guides stay bare."""
     title = title.strip()
-    if not title or not levels:
+    label = level_label_for_page(levels)
+    if not title or not label:
         return title
-    # Multi-level reference pages (e.g. CEFR guide) keep a bare title.
-    if len(levels) != 1:
+    if title.endswith(label):
         return title
-    # Match site standard: append primary level when not already present.
-    primary = levels[0]
-    if title.endswith(primary):
-        return title
-    return f"{title} · {primary}"
+    return f"{title} · {label}"
 
 
 def catalog_list_html(
@@ -447,7 +427,7 @@ def catalog_list_html(
             f'      data-date="{escape(entry.date)}"\n'
             f'      data-levels="{escape(levels_attr)}"\n'
             f'      data-types="{escape(types_attr)}"\n'
-            f'      data-primary-level="{escape(entry.level[0])}"\n'
+            f'      data-primary-level="{escape(primary_level(entry.level))}"\n'
             f'      data-primary-type="{escape(entry.type[0])}"\n'
             f'      data-search="{escape(entry.search_blob())}">\n'
             f'    <div class="content-list__row">\n'

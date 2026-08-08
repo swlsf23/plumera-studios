@@ -445,6 +445,18 @@ def _votw_nav_hrefs(series: list[tuple[str, str]]) -> dict[str, str]:
 
 
 def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
+    # Validate catalog metadata before wiping/writing dist so a failed build
+    # cannot leave a half site (e.g. nav → catalog 404).
+    catalog_by_target: dict[tuple[str, str], list] = {}
+    for locale, target in discover_catalog_targets(CONTENT):
+        try:
+            catalog_by_target[(locale, target)] = build_catalog_entries(
+                CONTENT, locale, target, include_drafts=include_drafts
+            )
+        except ValueError as exc:
+            print(str(exc), file=sys.stderr)
+            return 1
+
     env = _env()
     template = env.get_template("content_page.html")
     _copy_public(dist)
@@ -630,14 +642,7 @@ def build(dist: Path = DIST, *, include_drafts: bool = False) -> int:
         emitted += 1
 
     catalog_count = 0
-    for locale, target in discover_catalog_targets(CONTENT):
-        try:
-            entries = build_catalog_entries(
-                CONTENT, locale, target, include_drafts=include_drafts
-            )
-        except ValueError as exc:
-            print(str(exc), file=sys.stderr)
-            return 1
+    for (locale, target), entries in catalog_by_target.items():
         if not entries:
             continue
         payload = catalog_index_payload(locale, target, entries)

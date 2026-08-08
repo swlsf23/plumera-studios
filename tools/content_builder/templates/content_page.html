@@ -92,13 +92,15 @@
     <main class="page-grid page-grid--lesson">
       <div class="content-column">
         <header class="article-header">
-          {% if page.eyebrow or page.level %}
+          {% if page.eyebrow or page.levels %}
           <div class="article-header__meta-row">
             {% if page.eyebrow %}<p class="eyebrow">{{ page.eyebrow }}</p>{% else %}<span></span>{% endif %}
-            {% if page.level %}
+            {% if page.levels %}
             <span class="article-level">
               <span class="article-level__prefix">{{ chrome.level_prefix }}</span>
-              <a class="article-level__badge" href="/{{ page.locale }}/cefr/">{{ page.level }}</a>
+              {% for code in page.levels %}
+              <a class="article-level__badge" href="/{{ page.locale }}/cefr/">{{ code }}</a>
+              {% endfor %}
             </span>
             {% endif %}
           </div>
