@@ -91,6 +91,24 @@ class UrlAssemblyTests(unittest.TestCase):
             with self.subTest(url=url):
                 self.assertEqual(dist_path_for_url(dist, url), want)
 
+    def test_dist_path_for_url_rejects_unsafe(self) -> None:
+        dist = Path("/tmp/dist")
+        bad = [
+            "en/cefr/",
+            "/en/cefr",
+            "/en/../etc/",
+            "/en/./cefr/",
+            "/en//cefr/",
+            "/en/cefr/?x=1/",
+            "/en/cefr/#frag/",
+            "/en\\cefr/",
+            "",
+        ]
+        for url in bad:
+            with self.subTest(url=url):
+                with self.assertRaises(ValueError):
+                    dist_path_for_url(dist, url)
+
 
 if __name__ == "__main__":
     unittest.main()

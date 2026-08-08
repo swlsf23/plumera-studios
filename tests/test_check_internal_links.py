@@ -88,6 +88,20 @@ class LocalPathFromRefTests(unittest.TestCase):
             _local_path_from_ref("http://example.com/x", page_url="/en/")
         )
 
+    def test_protocol_relative_external_ignored(self) -> None:
+        self.assertIsNone(
+            _local_path_from_ref("//example.com/x", page_url="/en/")
+        )
+
+    def test_protocol_relative_same_origin_checked(self) -> None:
+        self.assertEqual(
+            _local_path_from_ref(
+                "//plumerastudios.com/en/cefr/",
+                page_url="/en/",
+            ),
+            "/en/cefr/",
+        )
+
     def test_same_origin_absolute_checked(self) -> None:
         self.assertEqual(
             _local_path_from_ref(
@@ -108,6 +122,22 @@ class ExistsInDistTests(unittest.TestCase):
             self.assertTrue(_exists_in_dist("/en/cefr/", dist=dist))
             self.assertTrue(_exists_in_dist("/en/cefr", dist=dist))
             self.assertFalse(_exists_in_dist("/en/missing/", dist=dist))
+
+    def test_path_traversal_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            dist = root / "dist"
+            dist.mkdir()
+            outside = root / "secret.txt"
+            outside.write_text("x", encoding="utf-8")
+            self.assertIsNone(
+                _local_path_from_ref("/%2e%2e/secret.txt", page_url="/en/")
+            )
+            self.assertIsNone(
+                _local_path_from_ref("/../secret.txt", page_url="/en/")
+            )
+            self.assertFalse(_exists_in_dist("/../secret.txt", dist=dist))
+            self.assertFalse(_exists_in_dist("/%2e%2e/secret.txt", dist=dist))
 
     def test_relative_resolution_finds_sibling_dir(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
