@@ -1,3 +1,12 @@
+---
+name: code-review
+description: >
+  Strict code review for the Python content site builder. Use when reviewing
+  PRs or diffs for correctness, build integrity, security, tests, or regressions
+  in tools/content_builder, templates, sitemaps, URL helpers, or generated site
+  output.
+---
+
 # Code Review
 
 ## Purpose
@@ -10,6 +19,19 @@ performance, security, testing, and compatibility.
 
 Prioritize real, actionable issues over stylistic preferences or speculative
 concerns.
+
+## Repo Constraints
+
+Flag PRs that violate site invariants:
+
+- Do not rewrite content delivery as a React SPA or client-route content pages
+- Do not set title, meta description, or canonical at runtime for content pages
+- Do not emit landing `index.html` from Markdown; landings stay hand-authored under `public/`
+- Do not add hreflang or canonicalize one locale to another
+- Do not change user-facing copy (Markdown under `content/`, landing HTML text,
+  chrome/nav/footer strings, template labels) unless the PR explicitly asks for it
+- Prefer Python tooling for content build; do not introduce an npm/Vite content toolchain
+- `dist/` is the deployable site; local preview must serve that same static tree
 
 ## Review Priorities
 
