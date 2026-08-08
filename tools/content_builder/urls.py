@@ -59,8 +59,28 @@ def catalog_url(locale: str, target: str) -> str:
 
 
 def dist_path_for_url(dist: Path, canonical_url: str) -> Path:
-    """Map a trailing-slash canonical URL to dist/.../index.html."""
+    """Map a trailing-slash canonical URL to dist/.../index.html.
+
+    ``canonical_url`` must be a site-relative path with leading and trailing
+    slashes (e.g. ``/en/cefr/``). Rejects query/fragment, backslashes, empty
+    segments, and ``.`` / ``..`` so emission cannot leave ``dist``.
+    """
+    if not isinstance(canonical_url, str):
+        raise ValueError(f"canonical_url must be a string, got {canonical_url!r}")
+    if not canonical_url.startswith("/") or not canonical_url.endswith("/"):
+        raise ValueError(
+            "canonical_url must be a leading/trailing-slash site path, "
+            f"got {canonical_url!r}"
+        )
+    if any(ch in canonical_url for ch in ("?", "#", "\\")):
+        raise ValueError(
+            "canonical_url must not include query, fragment, or backslash: "
+            f"{canonical_url!r}"
+        )
     rel = canonical_url.strip("/")
     if not rel:
         return dist / "index.html"
-    return dist.joinpath(*rel.split("/")) / "index.html"
+    segments = rel.split("/")
+    if any(seg in ("", ".", "..") for seg in segments):
+        raise ValueError(f"canonical_url has unsafe path segments: {canonical_url!r}")
+    return dist.joinpath(*segments) / "index.html"
