@@ -73,4 +73,4 @@ Source: [`tools/content_builder/`](tools/content_builder/).
 
 To extend (new page types, chrome strings, templates), change that package and re-run `python -m tools.content_builder`.
 
-See [content/README.md](content/README.md) for content conventions.
+See [content/README.md](content/README.md) for content conventions, including the **Trusted HTML** policy (Markdown → HTML is unsanitized `|safe` output for trusted authors only).
