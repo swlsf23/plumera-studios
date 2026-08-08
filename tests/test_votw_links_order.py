@@ -226,6 +226,42 @@ class VotwLinksOrderTests(unittest.TestCase):
             ["/en/learn-french/votw/faire/votw-faire-basics-a2/"],
         )
 
+    def test_votw_links_draft_hub_falls_back_to_nested_lessons(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            votw = root / "en" / "learn-french" / "votw"
+            votw.mkdir(parents=True)
+            faire = votw / "faire"
+            _write_md(
+                faire / "votw-faire-index.md",
+                title="Learn faire",
+                slug="votw-faire-index",
+                date="2026-07-31",
+                level="",
+                draft=True,
+            )
+            _write_md(
+                faire / "votw-faire-basics-a2.md",
+                title="How to use faire",
+                slug="votw-faire-basics-a2",
+                date="2026-07-31",
+                level="A2",
+            )
+
+            published = votw_links(root, "en", "learn-french")
+            with_drafts = votw_links(
+                root, "en", "learn-french", include_drafts=True
+            )
+
+        self.assertEqual(
+            [link["href"] for link in published],
+            ["/en/learn-french/votw/faire/votw-faire-basics-a2/"],
+        )
+        self.assertEqual(
+            [link["href"] for link in with_drafts],
+            ["/en/learn-french/votw/faire/votw-faire-index/"],
+        )
+
     def test_votw_links_hub_date_controls_series_order(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

@@ -661,19 +661,22 @@ def _votw_lemma_hub_path(lemma_dir: Path) -> Path | None:
     return preferred if preferred.is_file() else None
 
 
-def _votw_series_list_paths(votw: Path) -> list[Path]:
+def _votw_series_list_paths(
+    votw: Path, *, include_drafts: bool = False
+) -> list[Path]:
     """Paths for VOTW series index cards.
 
     Hub pages are the rollout-safe series entry for a lemma folder: when
-    ``votw-{lemma}-index.md`` exists, it replaces nested lessons on this list
-    (nested lessons remain on what's-new / catalog). Flat one-offs (prendre,
-    tenir) stay listed. If a lemma folder has no hub yet, fall back to nested
-    ``votw-*.md`` lessons so SITE can ship before CNT hubs land.
+    ``votw-{lemma}-index.md`` exists and is publishable, it replaces nested
+    lessons on this list (nested lessons remain on what's-new / catalog). Flat
+    one-offs (prendre, tenir) stay listed. If a lemma folder has no hub yet,
+    or only a draft hub while ``include_drafts`` is false, fall back to nested
+    ``votw-*.md`` lessons so hubs can roll out without hiding published content.
     """
     paths = [p for p in votw.glob("*.md") if _is_votw_lesson_path(p)]
     for lemma_dir in sorted(p for p in votw.iterdir() if p.is_dir()):
         hub = _votw_lemma_hub_path(lemma_dir)
-        if hub is not None:
+        if hub is not None and (include_drafts or not is_draft(hub)):
             paths.append(hub)
             continue
         paths.extend(p for p in lemma_dir.glob("*.md") if _is_votw_lesson_path(p))
@@ -694,7 +697,7 @@ def votw_links(
     votw = content_root / locale / target / "votw"
     if not votw.is_dir():
         return []
-    for path in _votw_series_list_paths(votw):
+    for path in _votw_series_list_paths(votw, include_drafts=include_drafts):
         post = frontmatter.load(path)
         meta = post.metadata
         if meta.get("draft") and not include_drafts:
