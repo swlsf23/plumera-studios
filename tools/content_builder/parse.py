@@ -43,6 +43,8 @@ class Page:
     after_body_html: str = ""
     # Prose after after_body_html (e.g. series index: intro, cards, then more copy).
     tail_body_html: str = ""
+    # Optional left rail (conjugation verb selector); empty on other pages.
+    rail_html: str = ""
     toc: list[TocItem] = field(default_factory=list)
     related: list[dict[str, str]] = field(default_factory=list)
     active: str = ""

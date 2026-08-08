@@ -9,6 +9,7 @@ Tracked as [MSEO-10](https://plumerastudios.atlassian.net/browse/MSEO-10).
 3. Merge to `main` (CI builds a production-shaped `dist/` with **no** `--drafts`).
 4. Tag a release, e.g. `v2026.07.30` or `v1.2.0`.
 5. The **Deploy** workflow builds again without drafts, syncs `dist/` to S3, and invalidates CloudFront.
+6. Record the publish in [release history](release/release-history.md).
 
 Production must never pass `--drafts`.
 
