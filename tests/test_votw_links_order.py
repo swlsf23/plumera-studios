@@ -1,4 +1,4 @@
-"""VOTW series index lists lessons newest publish date first."""
+"""VOTW series index lists hubs / flat one-offs newest publish date first."""
 
 from __future__ import annotations
 
@@ -6,24 +6,44 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from tools.content_builder.parse import votw_links
+from tools.content_builder.parse import recent_target_links, votw_links
 
 
-def _write_votw(votw: Path, *, stem: str, title: str, date: str, draft: bool = False) -> None:
+def _write_md(
+    path: Path,
+    *,
+    title: str,
+    slug: str,
+    date: str,
+    draft: bool = False,
+    level: str = "A1",
+) -> None:
     draft_line = "true" if draft else "false"
-    (votw / f"{stem}.md").write_text(
+    level_line = f"level: {level}\n" if level else ""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(
         "---\n"
-        f'title: "French Verb of the Week: {title} | Plumera"\n'
-        f"slug: {stem}\n"
+        f'title: "{title} | Plumera"\n'
+        f"slug: {slug}\n"
         "target: learn-french\n"
         "locale: en\n"
-        "level: A1\n"
+        f"{level_line}"
         f"date: {date}\n"
         f"draft: {draft_line}\n"
         "---\n\n"
         f"# {title}\n\n"
         "Body.\n",
         encoding="utf-8",
+    )
+
+
+def _write_votw(votw: Path, *, stem: str, title: str, date: str, draft: bool = False) -> None:
+    _write_md(
+        votw / f"{stem}.md",
+        title=title,
+        slug=stem,
+        date=date,
+        draft=draft,
     )
 
 
@@ -86,6 +106,104 @@ class VotwLinksOrderTests(unittest.TestCase):
 
         self.assertEqual([link["title"] for link in published], ["Prendre"])
         self.assertEqual([link["title"] for link in with_drafts], ["Tenir", "Prendre"])
+
+    def test_votw_links_lists_lemma_hub_not_nested_lessons(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            votw = root / "en" / "learn-french" / "votw"
+            votw.mkdir(parents=True)
+            _write_votw(votw, stem="votw-prendre-a1", title="Prendre", date="2026-07-20")
+            faire = votw / "faire"
+            _write_md(
+                faire / "votw-faire-index.md",
+                title="Learn faire",
+                slug="votw-faire-index",
+                date="2026-07-31",
+                level="",
+            )
+            _write_md(
+                faire / "votw-faire-basics-a2.md",
+                title="How to use faire",
+                slug="votw-faire-basics-a2",
+                date="2026-07-31",
+                level="A2",
+            )
+            _write_md(
+                faire / "votw-faire-expressions-a2.md",
+                title="Expressions with faire",
+                slug="votw-faire-expressions-a2",
+                date="2026-07-31",
+                level="A2",
+            )
+
+            links = votw_links(root, "en", "learn-french")
+
+        self.assertEqual(
+            [link["href"] for link in links],
+            [
+                "/en/learn-french/votw/faire/votw-faire-index/",
+                "/en/learn-french/votw/votw-prendre-a1/",
+            ],
+        )
+        self.assertEqual([link["title"] for link in links], ["Learn faire", "Prendre"])
+
+    def test_votw_links_falls_back_to_nested_lessons_without_hub(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            votw = root / "en" / "learn-french" / "votw"
+            votw.mkdir(parents=True)
+            etre = votw / "etre"
+            _write_md(
+                etre / "votw-etre-basics-a1.md",
+                title="How to use être",
+                slug="votw-etre-basics-a1",
+                date="2026-07-08",
+                level="A1",
+            )
+            _write_md(
+                etre / "votw-etre-expressions-a2.md",
+                title="Expressions and common errors with être",
+                slug="votw-etre-expressions-a2",
+                date="2026-07-11",
+                level="A2",
+            )
+
+            links = votw_links(root, "en", "learn-french")
+
+        self.assertEqual(
+            [link["href"] for link in links],
+            [
+                "/en/learn-french/votw/etre/votw-etre-expressions-a2/",
+                "/en/learn-french/votw/etre/votw-etre-basics-a1/",
+            ],
+        )
+
+    def test_recent_target_links_still_lists_nested_lessons(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            votw = root / "en" / "learn-french" / "votw"
+            votw.mkdir(parents=True)
+            faire = votw / "faire"
+            _write_md(
+                faire / "votw-faire-index.md",
+                title="Learn faire",
+                slug="votw-faire-index",
+                date="2026-07-31",
+                level="",
+            )
+            _write_md(
+                faire / "votw-faire-basics-a2.md",
+                title="How to use faire",
+                slug="votw-faire-basics-a2",
+                date="2026-07-31",
+                level="A2",
+            )
+
+            links = recent_target_links(root, "en", "learn-french")
+
+        hrefs = [link["href"] for link in links]
+        self.assertIn("/en/learn-french/votw/faire/votw-faire-basics-a2/", hrefs)
+        self.assertNotIn("/en/learn-french/votw/faire/votw-faire-index/", hrefs)
 
 
 if __name__ == "__main__":

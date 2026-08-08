@@ -616,10 +616,48 @@ def _list_title_from_post(post, fallback: str) -> str:
     return _plain_list_title(list_title)
 
 
+def _is_votw_index_path(path: Path) -> bool:
+    """True for series index.md and lemma hubs like votw-faire-index.md."""
+    stem = path.stem
+    return stem == VOTW_INDEX_STEM or stem.endswith("-index")
+
+
 def _votw_lesson_paths(votw: Path) -> list[Path]:
-    """Flat votw/*.md lessons plus nested votw/{lemma}/*.md (index excluded)."""
-    paths = [p for p in votw.glob("*.md") if p.stem != VOTW_INDEX_STEM]
-    paths.extend(votw.glob("*/*.md"))
+    """Flat + nested lesson pages (series index and lemma hubs excluded).
+
+    Used for what's-new and catalog: each lesson stays an individual entry.
+    """
+    paths = [p for p in votw.glob("*.md") if not _is_votw_index_path(p)]
+    paths.extend(p for p in votw.glob("*/*.md") if not _is_votw_index_path(p))
+    return sorted(paths)
+
+
+def _votw_lemma_hub_path(lemma_dir: Path) -> Path | None:
+    """Lemma path hub under votw/{lemma}/, preferring votw-{lemma}-index.md."""
+    preferred = lemma_dir / f"votw-{lemma_dir.name}-index.md"
+    if preferred.is_file():
+        return preferred
+    hubs = sorted(p for p in lemma_dir.glob("*.md") if _is_votw_index_path(p))
+    return hubs[0] if hubs else None
+
+
+def _votw_series_list_paths(votw: Path) -> list[Path]:
+    """Paths for VOTW series index cards.
+
+    Flat one-offs (e.g. prendre, tenir) plus one hub per lemma folder when
+    present. If a lemma folder has no hub yet, fall back to nested lessons so
+    SITE can ship before CNT hubs land. Nested lessons still appear on
+    what's-new either way.
+    """
+    paths = [p for p in votw.glob("*.md") if not _is_votw_index_path(p)]
+    for lemma_dir in sorted(p for p in votw.iterdir() if p.is_dir()):
+        hub = _votw_lemma_hub_path(lemma_dir)
+        if hub is not None:
+            paths.append(hub)
+            continue
+        paths.extend(
+            p for p in lemma_dir.glob("*.md") if not _is_votw_index_path(p)
+        )
     return sorted(paths)
 
 
@@ -632,19 +670,19 @@ def _votw_href(locale: str, target: str, path: Path, slug: str) -> str:
 def votw_links(
     content_root: Path, locale: str, target: str, *, include_drafts: bool = False
 ) -> list[dict[str, str]]:
-    """Article links for one series index, newest frontmatter date first."""
+    """Series index cards: lemma hubs + flat one-offs, newest date first."""
     items: list[tuple[date, dict[str, str]]] = []
     votw = content_root / locale / target / "votw"
     if not votw.is_dir():
         return []
-    for path in _votw_lesson_paths(votw):
+    for path in _votw_series_list_paths(votw):
         post = frontmatter.load(path)
         meta = post.metadata
         if meta.get("draft") and not include_drafts:
             continue
         slug = str(meta.get("slug") or path.stem)
-        # Series list uses the body H1 (the verb). Frontmatter title is the
-        # full document <title> and is often longer (series name + verb).
+        # Series list uses the body H1 (the verb / path title). Frontmatter
+        # title is the full document <title> and is often longer.
         list_title = _list_title_from_post(post, path.stem)
         date_label = _format_date(meta.get("date"), locale)
         description = str(meta.get("description") or "").strip()
