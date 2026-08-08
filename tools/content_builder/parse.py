@@ -1,791 +1,91 @@
-"""Parse Markdown sources into page models."""
+"""Parse Markdown sources into page models.
+
+Public import surface for the content builder. Implementation lives in
+``constants``, ``models``, ``html_transform``, ``pages``, ``discover``, and
+``lists``.
+"""
 
 from __future__ import annotations
 
-import re
-import sys
-from dataclasses import dataclass, field
-from datetime import date, datetime
-from pathlib import Path
-
-import frontmatter
-import markdown
-from markdown.extensions.toc import slugify as md_slugify
-
-from tools.content_builder.chrome import chrome_for, format_date, votw_series_label
-from tools.content_builder.frontmatter_validate import (
-    parse_draft,
-    resolve_slug,
-    validate_iso_date,
-    validate_target,
+from tools.content_builder.constants import (
+    ARTICLES_DIR,
+    CONTENT_NON_LOCALES,
+    CORE_DIR,
+    CORE_SKIP,
+    SITE_ORIGIN,
+    VOTW_INDEX_STEM,
+    WHATS_NEW_STEM,
 )
-from tools.content_builder.levels import (
-    level_codes_for_page,
-    level_label_for_page,
-    normalize_level_list,
+from tools.content_builder.discover import (
+    discover_article_pages,
+    discover_core_pages,
+    discover_votw_pages,
+    discover_whats_new_pages,
+    is_draft,
 )
-from tools.content_builder.urls import (
-    article_url,
-    core_url,
-    votw_lesson_url,
-    votw_series_url,
-    whats_new_url,
+from tools.content_builder.html_transform import (
+    _classify_votw_tables,
+    _inject_heading_ids,
+    _md_to_html,
+    _rewrite_local_images,
+    _strip_tag,
+    _tag_grammar_patterns,
+    slugify,
 )
-
-SITE_ORIGIN = "https://plumerastudios.com"
-CORE_SKIP = {"index.md"}  # landings are copied HTML; MD is reference-only
-VOTW_INDEX_STEM = "index"  # series index; emitted at /{locale}/{target}/votw/
-ARTICLES_DIR = "articles"  # standalone target-language pages (not a series)
-WHATS_NEW_STEM = "whats-new"  # target hub: /{locale}/{target}/whats-new/
-# Top-level content/ dirs that are not UI locales
-CONTENT_NON_LOCALES = frozenset({"templates"})
-CORE_DIR = "core"  # the one second-level dir with no target language
-
-
-@dataclass
-class TocItem:
-    id: str
-    label: str
-
-
-@dataclass
-class Page:
-    locale: str
-    title: str
-    description: str
-    canonical_path: str
-    eyebrow: str = ""
-    heading_html: str = ""
-    meta_line: str = ""
-    body_html: str = ""
-    after_body_html: str = ""
-    # Prose after after_body_html (e.g. series index: intro, cards, then more copy).
-    tail_body_html: str = ""
-    toc: list[TocItem] = field(default_factory=list)
-    related: list[dict[str, str]] = field(default_factory=list)
-    active: str = ""
-    show_hero_art: bool = False
-    level: str = ""
-    levels: list[str] = field(default_factory=list)
-
-
-def slugify(value: str) -> str:
-    return md_slugify(value, "-")
-
-
-def _md_to_html(text: str) -> str:
-    return markdown.markdown(
-        text,
-        extensions=["extra", "sane_lists", "toc"],
-        extension_configs={"toc": {"permalink": False, "slugify": md_slugify}},
-    )
-
-
-def _rewrite_local_images(html: str, md_path: Path, locale: str) -> str:
-    """Turn repo-relative img src into site URLs so MD preview and dist both work.
-
-    Authors can use paths relative to the Markdown file (e.g. ``../../img/x.png``)
-    for Cursor/VS Code preview. The build rewrites those to ``/{locale}/img/...``.
-    """
-    img_root: Path | None = None
-    for parent in md_path.parents:
-        candidate = parent / "img"
-        if parent.name == locale and candidate.is_dir():
-            img_root = candidate.resolve()
-            break
-        if parent.name == "content":
-            break
-    if img_root is None:
-        return html
-
-    def repl(match: re.Match[str]) -> str:
-        src = match.group(1)
-        if not src or src.startswith(("http://", "https://", "data:", "/")):
-            return match.group(0)
-        resolved = (md_path.parent / src).resolve()
-        try:
-            rel = resolved.relative_to(img_root)
-        except ValueError:
-            return match.group(0)
-        if ".." in rel.parts:
-            return match.group(0)
-        return f'src="/{locale}/img/{rel.as_posix()}"'
-
-    return re.sub(r'src="([^"]+)"', repl, html)
-
-
-def _strip_tag(html: str, tag: str) -> tuple[str, str]:
-    pattern = re.compile(rf"<{tag}[^>]*>(.*?)</{tag}>", re.I | re.S)
-    match = pattern.search(html)
-    if not match:
-        return "", html
-    inner = re.sub(r"<[^>]+>", "", match.group(1)).strip()
-    rest = (html[: match.start()] + html[match.end() :]).lstrip()
-    return inner, rest
-
-
-# Localized Incorrect/Correct table headers (UI locale of the article).
-_CORRECTION_HEADER_PAIRS = frozenset(
-    {
-        ("incorrect", "correct"),
-        ("incorrecto", "correcto"),
-    }
+from tools.content_builder.lists import (
+    _frontmatter_sort_date,
+    _list_title_from_post,
+    _plain_list_title,
+    _votw_href,
+    _votw_lesson_paths,
+    recent_target_links,
+    votw_links,
+)
+from tools.content_builder.models import Page, TocItem
+from tools.content_builder.pages import (
+    _level_codes,
+    _level_label,
+    _levels_from_meta,
+    parse_article_page,
+    parse_core_page,
+    parse_votw_page,
+    parse_whats_new_page,
 )
 
-# Optional Markdown hint immediately above a table: <!-- table: forms -->
-_TABLE_HINT_KINDS = {
-    "example": "pair-table--example",
-    "correction": "pair-table--correction",
-    "forms": "pair-table--forms",
-    "conjugation": "pair-table--forms",
-}
-
-
-def _classify_votw_tables(html: str) -> str:
-    """Tag pair tables for CSS (hint comment, else header heuristics)."""
-
-    def repl(match: re.Match[str]) -> str:
-        hint = (match.group(1) or "").strip().lower()
-        table = match.group(2)
-        if 'class="' in table[:48].lower():
-            return table
-        kind = _TABLE_HINT_KINDS.get(hint)
-        if kind is None:
-            ths = re.findall(r"<th[^>]*>(.*?)</th>", table, re.I | re.S)
-            labels = tuple(
-                re.sub(r"<[^>]+>", "", th).strip().lower() for th in ths[:2]
-            )
-            kind = (
-                "pair-table--correction"
-                if labels in _CORRECTION_HEADER_PAIRS
-                else "pair-table--example"
-            )
-        return re.sub(
-            r"<table\b",
-            f'<table class="pair-table {kind}"',
-            table,
-            count=1,
-            flags=re.I,
-        )
-
-    return re.sub(
-        r"(?:<!--\s*table:\s*(\w+)\s*-->\s*)?(<table\b[^>]*>.*?</table>)",
-        repl,
-        html,
-        flags=re.I | re.S,
-    )
-
-
-def _tag_grammar_patterns(html: str) -> str:
-    """Optional Markdown hint above a pattern line: <!-- pattern -->."""
-
-    def repl(match: re.Match[str]) -> str:
-        paragraph = match.group(1)
-        if re.search(r'\bclass="', paragraph[:48], flags=re.I):
-            return paragraph
-        return re.sub(
-            r"<p\b",
-            '<p class="grammar-pattern"',
-            paragraph,
-            count=1,
-            flags=re.I,
-        )
-
-    return re.sub(
-        r"<!--\s*pattern\s*-->\s*(<p\b[^>]*>.*?</p>)",
-        repl,
-        html,
-        flags=re.I | re.S,
-    )
-
-
-def _inject_heading_ids(html: str) -> tuple[str, list[TocItem]]:
-    toc: list[TocItem] = []
-    used: dict[str, int] = {}
-
-    def repl(match: re.Match[str]) -> str:
-        level = match.group(1)
-        attrs = match.group(2) or ""
-        inner = match.group(3)
-        label = re.sub(r"<[^>]+>", "", inner).strip()
-        existing = re.search(r'\bid=["\']([^"\']+)["\']', attrs)
-        if existing:
-            hid = existing.group(1)
-        else:
-            base = slugify(label) or "section"
-            count = used.get(base, 0)
-            used[base] = count + 1
-            hid = base if count == 0 else f"{base}-{count}"
-            attrs = f'{attrs} id="{hid}"'.strip()
-        if level == "2":
-            toc.append(TocItem(id=hid, label=label))
-        return f"<h{level} {attrs}>{inner}</h{level}>".replace(" >", ">")
-
-    html = re.sub(r"<h([2-3])([^>]*)>(.*?)</h\1>", repl, html, flags=re.I | re.S)
-    return html, toc
-
-
-def _format_date(value: object, locale: str) -> str:
-    """Normalize a frontmatter date, then render it in the locale's convention.
-
-    A non-ISO string is passed through as authored, so a page can override the
-    label with free text.
-    """
-    if isinstance(value, datetime):
-        return format_date(value.date(), locale)
-    if isinstance(value, date):
-        return format_date(value, locale)
-    if isinstance(value, str) and value.strip():
-        try:
-            return format_date(date.fromisoformat(value.strip()), locale)
-        except ValueError:
-            return value.strip()
-    return ""
-
-
-def _parse_related(meta: dict, path: Path) -> list[dict[str, str]]:
-    """Sidebar related cards from frontmatter `related:` (href required; title optional)."""
-    raw = meta.get("related")
-    if raw is None:
-        return []
-    if not isinstance(raw, list):
-        print(
-            f"warning: related must be a list ({path}); ignoring",
-            file=sys.stderr,
-        )
-        return []
-    items: list[dict[str, str]] = []
-    for i, entry in enumerate(raw):
-        if not isinstance(entry, dict):
-            print(
-                f"warning: related[{i}] must be a mapping with href "
-                f"({path}); skipping",
-                file=sys.stderr,
-            )
-            continue
-        title = str(entry.get("title") or "").strip()
-        href = str(entry.get("href") or "").strip()
-        label = str(entry.get("meta") or "").strip()
-        if not href:
-            print(
-                f"warning: related[{i}] needs non-empty href ({path}); skipping",
-                file=sys.stderr,
-            )
-            continue
-        items.append({"title": title, "href": href, "meta": label})
-    return items
-
-
-def _show_hero_art(meta: dict) -> bool:
-    """Title hero on by default; set frontmatter ``hero: false`` to omit it."""
-    if "hero" not in meta or meta["hero"] is None:
-        return True
-    return bool(meta["hero"])
-
-
-def parse_core_page(path: Path, locale: str) -> Page:
-    raw = path.read_text(encoding="utf-8")
-    post = frontmatter.loads(raw)
-    body = post.content.strip()
-    lines = body.splitlines()
-    meta = post.metadata
-    source = f"{locale}/{CORE_DIR}/{path.name}"
-
-    eyebrow = str(meta.get("eyebrow") or "").strip()
-    if not eyebrow and lines and not lines[0].startswith("#") and lines[0].strip():
-        eyebrow = lines[0].strip()
-        body = "\n".join(lines[1:]).lstrip()
-
-    html = _md_to_html(body)
-    html = _rewrite_local_images(html, path, locale)
-    heading, html = _strip_tag(html, "h1")
-    html, toc = _inject_heading_ids(html)
-
-    stem = path.stem
-    slug = resolve_slug(meta, stem=stem, source=source)
-    title = str(meta.get("title") or eyebrow or heading or stem)
-    description = str(meta.get("description") or "")
-
-    return Page(
-        locale=locale,
-        title=title,
-        description=description,
-        canonical_path=core_url(locale, slug),
-        eyebrow=eyebrow,
-        heading_html=heading.replace(" — ", "<br>") if " — " in heading else heading,
-        body_html=html,
-        toc=toc,
-        related=_parse_related(meta, path),
-        active=slug,
-        show_hero_art=_show_hero_art(meta),
-    )
-
-
-def parse_votw_page(path: Path, locale: str, target: str) -> Page:
-    post = frontmatter.load(path)
-    meta = post.metadata
-    stem = path.stem
-    source = f"{locale}/{target}/votw/{path.name}"
-    validate_target(meta.get("target"), folder=target, source=source)
-    slug = resolve_slug(meta, stem=stem, source=source)
-    title = str(meta.get("title") or stem)
-    description = str(meta.get("description") or "")
-    author = str(meta.get("author") or "")
-    date_label = _format_date(meta.get("date"), locale)
-
-    html = _md_to_html(post.content.strip())
-    html = _rewrite_local_images(html, path, locale)
-    heading, html = _strip_tag(html, "h1")
-    if not heading:
-        heading = title
-    html, toc = _inject_heading_ids(html)
-    html = _classify_votw_tables(html)
-    html = _tag_grammar_patterns(html)
-
-    # Eyebrow: frontmatter override, else series name (+ date on articles).
-    series_name = str(meta.get("category") or votw_series_label(locale, target))
-    eyebrow_override = str(meta.get("eyebrow") or "").strip()
-    if eyebrow_override:
-        eyebrow = eyebrow_override
-    elif date_label and stem != VOTW_INDEX_STEM:
-        eyebrow = f"{series_name} · {date_label}"
-    else:
-        eyebrow = series_name
-
-    meta_parts: list[str] = []
-    if author:
-        meta_parts.append(chrome_for(locale)["by_author"].format(author=author))
-    meta_line = " · ".join(meta_parts)
-
-    heading_html = heading.replace(" — ", "<br>") if " — " in heading else heading
-    if stem == VOTW_INDEX_STEM:
-        canonical_path = votw_series_url(locale, target)
-    elif path.parent.name != "votw":
-        # content/.../votw/{lemma}/{job}.md → /.../votw/{lemma}/{job}/
-        canonical_path = votw_lesson_url(
-            locale, target, slug, lemma=path.parent.name
-        )
-    else:
-        canonical_path = votw_lesson_url(locale, target, slug)
-
-    return Page(
-        locale=locale,
-        title=title,
-        description=description,
-        canonical_path=canonical_path,
-        eyebrow=eyebrow,
-        heading_html=heading_html,
-        meta_line=meta_line,
-        body_html=html,
-        toc=toc,
-        related=_parse_related(meta, path),
-        active="votw",
-        show_hero_art=_show_hero_art(meta),
-        level=_level_label(meta),
-        levels=_level_codes(meta),
-    )
-
-
-def parse_article_page(path: Path, locale: str, target: str) -> Page:
-    """Standalone page under content/{locale}/{target}/articles/."""
-    post = frontmatter.load(path)
-    meta = post.metadata
-    stem = path.stem
-    source = f"{locale}/{target}/{ARTICLES_DIR}/{path.name}"
-    validate_target(meta.get("target"), folder=target, source=source)
-    slug = resolve_slug(meta, stem=stem, source=source)
-    title = str(meta.get("title") or stem)
-    description = str(meta.get("description") or "")
-    author = str(meta.get("author") or "")
-    date_label = _format_date(meta.get("date"), locale)
-
-    html = _md_to_html(post.content.strip())
-    html = _rewrite_local_images(html, path, locale)
-    heading, html = _strip_tag(html, "h1")
-    if not heading:
-        heading = title
-    html, toc = _inject_heading_ids(html)
-    html = _classify_votw_tables(html)
-    html = _tag_grammar_patterns(html)
-
-    eyebrow_override = str(meta.get("eyebrow") or "").strip()
-    if eyebrow_override:
-        eyebrow = eyebrow_override
-    elif date_label:
-        eyebrow = f"{chrome_for(locale)['article']} · {date_label}"
-    else:
-        eyebrow = chrome_for(locale)["article"]
-
-    meta_parts: list[str] = []
-    if author:
-        meta_parts.append(chrome_for(locale)["by_author"].format(author=author))
-    meta_line = " · ".join(meta_parts)
-
-    heading_html = heading.replace(" — ", "<br>") if " — " in heading else heading
-    canonical_path = article_url(locale, target, slug)
-
-    return Page(
-        locale=locale,
-        title=title,
-        description=description,
-        canonical_path=canonical_path,
-        eyebrow=eyebrow,
-        heading_html=heading_html,
-        meta_line=meta_line,
-        body_html=html,
-        toc=toc,
-        related=_parse_related(meta, path),
-        active="articles",
-        show_hero_art=_show_hero_art(meta),
-        level=_level_label(meta),
-        levels=_level_codes(meta),
-    )
-
-
-def _levels_from_meta(meta: dict) -> list[str]:
-    """CEFR codes from frontmatter (scalar, list, or comma-separated)."""
-    return normalize_level_list(meta.get("level"))
-
-
-def _level_codes(meta: dict) -> list[str]:
-    """On-page badge codes (empty for all-level reference pages)."""
-    return level_codes_for_page(_levels_from_meta(meta))
-
-
-def _level_label(meta: dict) -> str:
-    """List/card suffix: A1 or B1 B2 (empty for all-level reference pages)."""
-    return level_label_for_page(_levels_from_meta(meta))
-
-
-def _locale_dirs(content_root: Path) -> list[Path]:
-    """UI locale folders under content/ (skips templates and other non-locales)."""
-    if not content_root.is_dir():
-        return []
-    return sorted(
-        path
-        for path in content_root.iterdir()
-        if path.is_dir()
-        and not path.name.startswith(".")
-        and path.name not in CONTENT_NON_LOCALES
-    )
-
-
-def _target_dirs(locale_dir: Path) -> list[Path]:
-    """Target-language folders under a locale: everything beside core/."""
-    return sorted(
-        path
-        for path in locale_dir.iterdir()
-        if path.is_dir() and not path.name.startswith(".") and path.name != CORE_DIR
-    )
-
-
-def discover_core_pages(content_root: Path) -> list[tuple[Path, str]]:
-    """Find content/{locale}/core/*.md (except index.md)."""
-    pages: list[tuple[Path, str]] = []
-    for locale_dir in _locale_dirs(content_root):
-        core = locale_dir / CORE_DIR
-        if not core.is_dir():
-            continue
-        locale = locale_dir.name
-        for path in sorted(core.glob("*.md")):
-            if path.name in CORE_SKIP:
-                continue
-            pages.append((path, locale))
-    return pages
-
-
-def is_draft(path: Path) -> bool:
-    """True when frontmatter sets draft: true (pages must not be emitted)."""
-    post = frontmatter.load(path)
-    return parse_draft(post.metadata.get("draft"), source=str(path))
-
-
-def discover_votw_pages(content_root: Path) -> list[tuple[Path, str, str]]:
-    """Find votw/*.md and votw/{lemma}/*.md under each locale/target."""
-    pages: list[tuple[Path, str, str]] = []
-    for locale_dir in _locale_dirs(content_root):
-        for target_dir in _target_dirs(locale_dir):
-            votw = target_dir / "votw"
-            if not votw.is_dir():
-                continue
-            for path in sorted(votw.glob("*.md")):
-                pages.append((path, locale_dir.name, target_dir.name))
-            for path in sorted(votw.glob("*/*.md")):
-                pages.append((path, locale_dir.name, target_dir.name))
-    return pages
-
-
-def discover_article_pages(content_root: Path) -> list[tuple[Path, str, str]]:
-    """Find content/{locale}/{target}/articles/*.md (no series index)."""
-    pages: list[tuple[Path, str, str]] = []
-    for locale_dir in _locale_dirs(content_root):
-        for target_dir in _target_dirs(locale_dir):
-            articles = target_dir / ARTICLES_DIR
-            if not articles.is_dir():
-                continue
-            for path in sorted(articles.glob("*.md")):
-                pages.append((path, locale_dir.name, target_dir.name))
-    return pages
-
-
-def discover_whats_new_pages(content_root: Path) -> list[tuple[Path, str, str]]:
-    """Find content/{locale}/{target}/whats-new.md."""
-    pages: list[tuple[Path, str, str]] = []
-    for locale_dir in _locale_dirs(content_root):
-        for target_dir in _target_dirs(locale_dir):
-            path = target_dir / f"{WHATS_NEW_STEM}.md"
-            if path.is_file():
-                pages.append((path, locale_dir.name, target_dir.name))
-    return pages
-
-
-def parse_whats_new_page(path: Path, locale: str, target: str) -> Page:
-    """Target-scoped recent-content page at /{locale}/{target}/whats-new/."""
-    post = frontmatter.load(path)
-    meta = post.metadata
-    source = f"{locale}/{target}/{WHATS_NEW_STEM}.md"
-    validate_target(meta.get("target"), folder=target, source=source)
-    resolve_slug(meta, stem=path.stem, source=source)
-
-    title = str(meta.get("title") or chrome_for(locale)["whats_new"])
-    description = str(meta.get("description") or "")
-    html = _md_to_html(post.content.strip())
-    html = _rewrite_local_images(html, path, locale)
-    heading, html = _strip_tag(html, "h1")
-    if not heading:
-        heading = title
-    html, toc = _inject_heading_ids(html)
-
-    eyebrow = str(meta.get("eyebrow") or "").strip() or chrome_for(locale)["whats_new"]
-    heading_html = heading.replace(" — ", "<br>") if " — " in heading else heading
-
-    return Page(
-        locale=locale,
-        title=title,
-        description=description,
-        canonical_path=whats_new_url(locale, target),
-        eyebrow=eyebrow,
-        heading_html=heading_html,
-        body_html=html,
-        toc=toc,
-        related=_parse_related(meta, path),
-        active=WHATS_NEW_STEM,
-        show_hero_art=_show_hero_art(meta),
-    )
-
-
-def _frontmatter_sort_date(value: object) -> date:
-    """ISO date for sorting; unknown/missing sorts to the epoch (oldest).
-
-    ISO-shaped values must be real calendar dates (hard-fail fakes like
-    2026-13-40). Free-text labels that are not ISO-shaped sort as oldest.
-    """
-    if value is None or value == "":
-        return date.min
-    if isinstance(value, datetime):
-        return value.date()
-    if isinstance(value, date):
-        return value
-    if isinstance(value, str) and value.strip():
-        text = value.strip()
-        # ISO-shaped → real calendar date required; free text → oldest.
-        if len(text) >= 10 and text[4] == "-" and text[7] == "-":
-            return validate_iso_date(text)
-        try:
-            return date.fromisoformat(text)
-        except ValueError:
-            return date.min
-    return date.min
-
-
-def _plain_list_title(text: str) -> str:
-    """Strip light Markdown emphasis from a list label (e.g. *prendre* → prendre)."""
-    text = re.sub(r"\*\*(.+?)\*\*", r"\1", text)
-    text = re.sub(r"\*(.+?)\*", r"\1", text)
-    text = re.sub(r"_(.+?)_", r"\1", text)
-    return text.strip()
-
-
-def _list_title_from_post(post, fallback: str) -> str:
-    """Prefer body H1 for list cards; else frontmatter title / fallback."""
-    list_title = str(post.metadata.get("title") or fallback)
-    for line in post.content.splitlines():
-        if line.startswith("# "):
-            return _plain_list_title(line[2:])
-    return _plain_list_title(list_title)
-
-
-# Lesson filenames: votw-prendre-a1.md, votw-faire-basics-a2.md, …
-_VOTW_LESSON_STEM = re.compile(r"^votw-.+")
-
-
-def _is_votw_series_index_path(path: Path) -> bool:
-    """True for the series index at votw/index.md."""
-    return path.parent.name == "votw" and path.stem == VOTW_INDEX_STEM
-
-
-def _is_votw_lemma_hub_path(path: Path) -> bool:
-    """True only for the canonical hub votw/{lemma}/votw-{lemma}-index.md."""
-    parent = path.parent
-    if parent.name == "votw":
-        return False
-    return path.stem == f"votw-{parent.name}-index"
-
-
-def _is_votw_index_path(path: Path) -> bool:
-    """Series index or canonical lemma hub (not every filename ending in -index)."""
-    return _is_votw_series_index_path(path) or _is_votw_lemma_hub_path(path)
-
-
-def _is_votw_lesson_path(path: Path) -> bool:
-    """VOTW lesson page: votw-*.md that is not a series/lemma index."""
-    if _is_votw_index_path(path):
-        return False
-    return bool(_VOTW_LESSON_STEM.fullmatch(path.stem))
-
-
-def _votw_lesson_paths(votw: Path) -> list[Path]:
-    """Flat + nested lesson pages (indexes and non-lesson markdown excluded).
-
-    Used for what's-new and catalog: each lesson stays an individual entry.
-    """
-    paths = [p for p in votw.glob("*.md") if _is_votw_lesson_path(p)]
-    paths.extend(p for p in votw.glob("*/*.md") if _is_votw_lesson_path(p))
-    return sorted(set(paths))
-
-
-def _votw_lemma_hub_path(lemma_dir: Path) -> Path | None:
-    """Canonical hub votw-{lemma}-index.md, or None (no silent *-index fallback)."""
-    preferred = lemma_dir / f"votw-{lemma_dir.name}-index.md"
-    return preferred if preferred.is_file() else None
-
-
-def _votw_series_list_paths(
-    votw: Path, *, include_drafts: bool = False
-) -> list[Path]:
-    """Paths for VOTW series index cards.
-
-    Hub pages are the rollout-safe series entry for a lemma folder: when
-    ``votw-{lemma}-index.md`` exists and is publishable, it replaces nested
-    lessons on this list (nested lessons remain on what's-new / catalog). Flat
-    one-offs (prendre, tenir) stay listed. If a lemma folder has no hub yet,
-    or only a draft hub while ``include_drafts`` is false, fall back to nested
-    ``votw-*.md`` lessons so hubs can roll out without hiding published content.
-    """
-    paths = [p for p in votw.glob("*.md") if _is_votw_lesson_path(p)]
-    for lemma_dir in sorted(p for p in votw.iterdir() if p.is_dir()):
-        hub = _votw_lemma_hub_path(lemma_dir)
-        if hub is not None and (include_drafts or not is_draft(hub)):
-            paths.append(hub)
-            continue
-        paths.extend(p for p in lemma_dir.glob("*.md") if _is_votw_lesson_path(p))
-    return sorted(set(paths))
-
-
-def _votw_href(locale: str, target: str, path: Path, slug: str) -> str:
-    lemma = None if path.parent.name == "votw" else path.parent.name
-    return votw_lesson_url(locale, target, slug, lemma=lemma)
-
-
-def votw_links(
-    content_root: Path, locale: str, target: str, *, include_drafts: bool = False
-) -> list[dict[str, str]]:
-    """Series index cards: lemma hubs + flat one-offs, newest date first."""
-    items: list[tuple[date, dict[str, str]]] = []
-    votw = content_root / locale / target / "votw"
-    if not votw.is_dir():
-        return []
-    for path in _votw_series_list_paths(votw, include_drafts=include_drafts):
-        post = frontmatter.load(path)
-        meta = post.metadata
-        source = f"{locale}/{target}/votw/{path.name}"
-        if parse_draft(meta.get("draft"), source=source) and not include_drafts:
-            continue
-        slug = resolve_slug(meta, stem=path.stem, source=source)
-        # Series list uses the body H1 (the verb / path title). Frontmatter
-        # title is the full document <title> and is often longer.
-        list_title = _list_title_from_post(post, path.stem)
-        date_label = _format_date(meta.get("date"), locale)
-        description = str(meta.get("description") or "").strip()
-        level = _level_label(meta)
-        items.append(
-            (
-                _frontmatter_sort_date(meta.get("date")),
-                {
-                    "title": list_title,
-                    "date": date_label,
-                    "description": description,
-                    "level": level,
-                    "href": _votw_href(locale, target, path, slug),
-                },
-            )
-        )
-    # Newest date first; equal dates: title Z→A, then href for a stable order.
-    items.sort(
-        key=lambda pair: (pair[0], pair[1]["title"], pair[1]["href"]),
-        reverse=True,
-    )
-    return [item for _sort_date, item in items]
-
-
-def recent_target_links(
-    content_root: Path, locale: str, target: str, *, include_drafts: bool = False
-) -> list[dict[str, str]]:
-    """VOTW lessons + articles for one locale/target, newest date first."""
-    chrome = chrome_for(locale)
-    series_name = votw_series_label(locale, target)
-    items: list[tuple[date, dict[str, str]]] = []
-
-    votw = content_root / locale / target / "votw"
-    if votw.is_dir():
-        for path in _votw_lesson_paths(votw):
-            post = frontmatter.load(path)
-            meta = post.metadata
-            source = f"{locale}/{target}/votw/{path.name}"
-            if parse_draft(meta.get("draft"), source=source) and not include_drafts:
-                continue
-            slug = resolve_slug(meta, stem=path.stem, source=source)
-            items.append(
-                (
-                    _frontmatter_sort_date(meta.get("date")),
-                    {
-                        "title": _list_title_from_post(post, path.stem),
-                        "date": _format_date(meta.get("date"), locale),
-                        "description": str(meta.get("description") or "").strip(),
-                        "level": _level_label(meta),
-                        "kind": series_name,
-                        "href": _votw_href(locale, target, path, slug),
-                    },
-                )
-            )
-
-    articles = content_root / locale / target / ARTICLES_DIR
-    if articles.is_dir():
-        for path in articles.glob("*.md"):
-            post = frontmatter.load(path)
-            meta = post.metadata
-            source = f"{locale}/{target}/{ARTICLES_DIR}/{path.name}"
-            if parse_draft(meta.get("draft"), source=source) and not include_drafts:
-                continue
-            slug = resolve_slug(meta, stem=path.stem, source=source)
-            items.append(
-                (
-                    _frontmatter_sort_date(meta.get("date")),
-                    {
-                        # Same as VOTW / related: list label is the body H1
-                        # (emphasis stripped), not the document <title>.
-                        "title": _list_title_from_post(post, path.stem),
-                        "date": _format_date(meta.get("date"), locale),
-                        "description": str(meta.get("description") or "").strip(),
-                        "level": _level_label(meta),
-                        "kind": chrome["article"],
-                        "href": article_url(locale, target, slug),
-                    },
-                )
-            )
-
-    items.sort(
-        key=lambda pair: (pair[0], pair[1]["title"], pair[1]["href"]),
-        reverse=True,
-    )
-    return [item for _sort_date, item in items]
+__all__ = [
+    "ARTICLES_DIR",
+    "CONTENT_NON_LOCALES",
+    "CORE_DIR",
+    "CORE_SKIP",
+    "SITE_ORIGIN",
+    "VOTW_INDEX_STEM",
+    "WHATS_NEW_STEM",
+    "Page",
+    "TocItem",
+    "discover_article_pages",
+    "discover_core_pages",
+    "discover_votw_pages",
+    "discover_whats_new_pages",
+    "is_draft",
+    "parse_article_page",
+    "parse_core_page",
+    "parse_votw_page",
+    "parse_whats_new_page",
+    "recent_target_links",
+    "slugify",
+    "votw_links",
+    "_classify_votw_tables",
+    "_frontmatter_sort_date",
+    "_inject_heading_ids",
+    "_level_codes",
+    "_level_label",
+    "_levels_from_meta",
+    "_list_title_from_post",
+    "_md_to_html",
+    "_plain_list_title",
+    "_rewrite_local_images",
+    "_strip_tag",
+    "_tag_grammar_patterns",
+    "_votw_href",
+    "_votw_lesson_paths",
+]
