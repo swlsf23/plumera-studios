@@ -1,5 +1,5 @@
 ---
-title: "Avoir - expressions (A2 French) | Plumera Studios"
+title: "Expressions and common errors with avoir (A2 French) | Plumera Studios"
 description: Fixed phrases with avoir, plus the common slips that use être where French wants avoir.
 slug: votw-avoir-expressions-a2
 target: learn-french
@@ -16,11 +16,11 @@ related:
   - href: /en/learn-french/votw/
 ---
 
-# Avoir - expressions
+# Expressions and common errors with *avoir*
 
-After you've learned the basic uses of *avoir*, the next step is learning common expressions and recognizing when English *be* still tempts you toward *être*. For the core uses, see [Avoir - basics](/en/learn-french/votw/avoir/votw-avoir-basics-a1/).
+After you've learned the basic uses of *avoir*, the next step is learning common expressions and recognizing when English *be* still tempts you toward *être*. For the core uses, see [How to use *avoir*](/en/learn-french/votw/avoir/votw-avoir-basics-a1/).
 
-## Expressions and idioms
+## Common expressions
 
 These are fixed phrases. Learn each one as a whole unit rather than word by word.
 
@@ -73,7 +73,7 @@ Use *avoir de la chance* to say that someone is lucky.
 
 <!-- art: band -->
 
-## Common mistakes
+## Common errors
 
 The mistakes below share the same type of error: using *être* (or another English-shaped line) where French wants *avoir*.
 

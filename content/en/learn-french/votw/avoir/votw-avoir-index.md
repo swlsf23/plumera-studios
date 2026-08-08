@@ -1,6 +1,6 @@
 ---
-title: "Learn avoir | Plumera Studios"
-description: A learning path for the French verb avoir, from A1 core uses through A2 expressions and common mistakes.
+title: "Learn avoir | Plumera"
+description: A learning path for the French verb avoir, from A1 core uses through A2 expressions and common errors.
 slug: votw-avoir-index
 target: learn-french
 locale: en
@@ -21,7 +21,7 @@ related:
 
 ## A1: Core uses
 
-Start with [Avoir - basics](/en/learn-french/votw/avoir/votw-avoir-basics-a1/) to learn the forms and everyday uses of *avoir*.
+Start with [How to use *avoir*](/en/learn-french/votw/avoir/votw-avoir-basics-a1/) to learn the forms and everyday uses of *avoir*.
 
 - [Forms and grammar](/en/learn-french/votw/avoir/votw-avoir-basics-a1/#forms-and-grammar)
 - [Having or owning something](/en/learn-french/votw/avoir/votw-avoir-basics-a1/#having-or-owning-something)
@@ -29,9 +29,9 @@ Start with [Avoir - basics](/en/learn-french/votw/avoir/votw-avoir-basics-a1/) t
 - [Saying how old someone is](/en/learn-french/votw/avoir/votw-avoir-basics-a1/#saying-how-old-someone-is)
 - [Expressing common states](/en/learn-french/votw/avoir/votw-avoir-basics-a1/#expressing-common-states)
 
-## A2: Expressions and common mistakes
+## A2: Expressions and common errors
 
-Next, continue with [Avoir - expressions](/en/learn-french/votw/avoir/votw-avoir-expressions-a2/) to learn fixed phrases with *avoir* and avoid common English-to-French slips.
+Next, continue with [Expressions and common errors with *avoir*](/en/learn-french/votw/avoir/votw-avoir-expressions-a2/) to expand the ways you can use *avoir* and avoid common mistakes.
 
 - [*avoir raison* / *avoir tort*](/en/learn-french/votw/avoir/votw-avoir-expressions-a2/#avoir-raison-avoir-tort)
 - [*avoir envie de*](/en/learn-french/votw/avoir/votw-avoir-expressions-a2/#avoir-envie-de)

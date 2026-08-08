@@ -1,5 +1,5 @@
 ---
-title: "Avoir - basics (A1 French) | Plumera Studios"
+title: "How to use avoir (A1 French) | Plumera Studios"
 description: How French uses avoir for possession, age, and common states, plus il y a and the past-tense helper role.
 slug: votw-avoir-basics-a1
 target: learn-french
@@ -16,7 +16,7 @@ related:
   - href: /en/learn-french/votw/
 ---
 
-# Avoir - basics
+# How to use avoir
 
 Like *être*, *avoir* is one of the most important French verbs. The closest English meaning is "to have," and that match is solid when expressing possession of something. 
 
@@ -144,7 +144,7 @@ Learn each line as a whole phrase (*avoir faim*, *avoir soif*, and the rest).
 - vouloir: to want
 - devoir: to have to / must
 
-> Many English *be* expressions use *avoir* in French. For identity, place, and description with *être*, see [Être - basics](/en/learn-french/votw/etre/votw-etre-basics-a1/).
+> Many English *be* expressions use *avoir* in French. For identity, place, and description with *être*, see [How to use *être*](/en/learn-french/votw/etre/votw-etre-basics-a1/).
 
 ## Before you go
 

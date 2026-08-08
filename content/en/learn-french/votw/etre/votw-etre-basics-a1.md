@@ -1,5 +1,5 @@
 ---
-title: "Être - basics (A1 French) | Plumera Studios"
+title: "How to use être (A1 French) | Plumera Studios"
 description: "How French uses être for identity, location, and description at A1, and when English to be maps to another verb."
 slug: votw-etre-basics-a1
 target: learn-french
@@ -16,7 +16,7 @@ related:
   - href: /en/learn-french/votw/
 ---
 
-# Être - basics
+# How to use être
 
 *Être* is usually the first French verb you learn, and one you'll use constantly. Like English *to be*, it expresses identity, location, and description.
 
@@ -149,7 +149,7 @@ Here are a few high-frequency lines that use *être* outside the uses described 
 - devenir: to become
 - sembler: to seem
 
-> *Avoir* is the one to watch. English *be* often maps to *avoir* in French, especially with age and feelings like hunger or cold. See [Avoir - basics](/en/learn-french/votw/avoir/votw-avoir-basics-a1/).
+> *Avoir* is the one to watch. English *be* often maps to *avoir* in French, especially with age and feelings like hunger or cold. See [How to use *avoir*](/en/learn-french/votw/avoir/votw-avoir-basics-a1/).
 
 ## Before you go
 

@@ -616,16 +616,10 @@ def _list_title_from_post(post, fallback: str) -> str:
     return _plain_list_title(list_title)
 
 
-def _is_votw_index_path(path: Path) -> bool:
-    """True for series index.md and lemma hubs like votw-faire-index.md."""
-    stem = path.stem
-    return stem == VOTW_INDEX_STEM or stem.endswith("-index")
-
-
 def _votw_lesson_paths(votw: Path) -> list[Path]:
-    """Flat votw/*.md lessons plus nested votw/{lemma}/*.md (indexes excluded)."""
-    paths = [p for p in votw.glob("*.md") if not _is_votw_index_path(p)]
-    paths.extend(p for p in votw.glob("*/*.md") if not _is_votw_index_path(p))
+    """Flat votw/*.md lessons plus nested votw/{lemma}/*.md (index excluded)."""
+    paths = [p for p in votw.glob("*.md") if p.stem != VOTW_INDEX_STEM]
+    paths.extend(votw.glob("*/*.md"))
     return sorted(paths)
 
 

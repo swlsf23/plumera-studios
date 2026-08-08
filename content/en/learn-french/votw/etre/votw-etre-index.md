@@ -1,6 +1,6 @@
 ---
-title: "Learn être | Plumera Studios"
-description: A learning path for the French verb être, from A1 core uses through A2 expressions and common mistakes.
+title: "Learn être | Plumera"
+description: A learning path for the French verb être, from A1 core uses through A2 expressions and common errors.
 slug: votw-etre-index
 target: learn-french
 locale: en
@@ -21,7 +21,7 @@ related:
 
 ## A1: Core uses
 
-Start with [Être - basics](/en/learn-french/votw/etre/votw-etre-basics-a1/) to learn the forms and everyday uses of *être*.
+Start with [How to use *être*](/en/learn-french/votw/etre/votw-etre-basics-a1/) to learn the forms and everyday uses of *être*.
 
 - [Forms and grammar](/en/learn-french/votw/etre/votw-etre-basics-a1/#forms-and-grammar)
 - [Saying your name or nationality](/en/learn-french/votw/etre/votw-etre-basics-a1/#saying-your-name-or-nationality)
@@ -30,9 +30,9 @@ Start with [Être - basics](/en/learn-french/votw/etre/votw-etre-basics-a1/) to 
 - [Talking about professions](/en/learn-french/votw/etre/votw-etre-basics-a1/#talking-about-professions)
 - [Useful expressions using *c'est*](/en/learn-french/votw/etre/votw-etre-basics-a1/#useful-expressions-using-cest)
 
-## A2: Expressions and common mistakes
+## A2: Expressions and common errors
 
-Next, continue with [Être - expressions](/en/learn-french/votw/etre/votw-etre-expressions-a2/) to learn fixed phrases with *être* and avoid common English-to-French slips.
+Next, continue with [Expressions and common errors with *être*](/en/learn-french/votw/etre/votw-etre-expressions-a2/) to expand the ways you can use *être* and avoid common mistakes.
 
 - [*être d'accord*](/en/learn-french/votw/etre/votw-etre-expressions-a2/#etre-daccord)
 - [*être en retard* / *être à l'heure*](/en/learn-french/votw/etre/votw-etre-expressions-a2/#etre-en-retard-etre-a-lheure)
