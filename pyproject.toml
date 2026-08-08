@@ -11,6 +11,7 @@ requires-python = ">=3.11"
 dependencies = [
   "Jinja2>=3.1",
   "Markdown>=3.5",
+  "beautifulsoup4>=4.12",
   "python-frontmatter>=1.1",
 ]
 
